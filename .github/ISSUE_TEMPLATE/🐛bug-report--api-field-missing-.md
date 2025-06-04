@@ -1,10 +1,10 @@
 ---
-name: "\U0001F41B Bug Report: API Field Missing"
-about: Report a problem where fields are missing in existing API endpoints but are
-  available via UI
+name: "\U0001F41BBug Report: API Field Missing "
+about: Report a problem where existing API Endpoints have missing fields but available
+  in Highlevel UI
 title: "[Bug Report: API Field Missing] "
 labels: bug-missing-api-field
-assignees: gauravkanted-ghl
+assignees: ''
 
 ---
 
