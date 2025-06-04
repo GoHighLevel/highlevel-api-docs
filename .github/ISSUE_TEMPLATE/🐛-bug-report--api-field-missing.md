@@ -1,9 +1,10 @@
 ---
-name: "\U0001F41B API Field Missing Bug Report"
-about: Report a problem with the documentation
-title: "[API Field Missing Bug] "
+name: "\U0001F41B Bug Report: API Field Missing"
+about: Report a problem where fields are missing in existing API endpoints but are
+  available via UI
+title: "[Bug Report: API Field Missing] "
 labels: bug-missing-api-field
-assignees: ''
+assignees: gauravkanted-ghl
 
 ---
 

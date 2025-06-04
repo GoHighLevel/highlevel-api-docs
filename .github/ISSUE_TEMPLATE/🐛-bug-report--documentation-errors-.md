@@ -1,7 +1,7 @@
 ---
-name: "\U0001F41B Documentation Errors Bug Report"
-about: Report a problem with the documentation
-title: "[Documentation Errors Bug] "
+name: "\U0001F41B Bug Report: Documentation Errors "
+about: Report a problem with the only documentation inconsistencies in Highlevel APIs
+title: "[Bug Report: Documentation Errors ] "
 labels: bug-documentation-errors
 assignees: ''
 

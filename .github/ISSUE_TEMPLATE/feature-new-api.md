@@ -2,7 +2,7 @@
 name: "\U0001F31F Feature Request: New APIs"
 about: Suggest a new feature or documentation improvement
 title: "[Feature New API] "
-labels: 'feature-new-api'
+labels: ''
 assignees: ''
 
 ---

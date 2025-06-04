@@ -1,8 +1,8 @@
 ---
 name: "\U0001F31F Feature Request: New Product"
-about: Suggest a new feature or documentation improvement
+about: Suggest a new feature or documentation improvement in Highlevel API system
 title: "[Feature New Product] "
-labels: 'feature-new-product'
+labels: ''
 assignees: ''
 
 ---
