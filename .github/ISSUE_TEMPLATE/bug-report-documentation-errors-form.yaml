@@ -1,6 +1,6 @@
-name: "🐛 Bug Report: Documentation Errors"
+name: "🐛 Bug Report: Documentation Errors Form"
 description: Report a problem with only the existing documentation inconsistencies in Highlevel APIs
-title: "[Bug Report: Documentation Errors] "
+title: "[Bug Report: Documentation Errors Form] "
 labels: ["bug-documentation-errors"]
 assignees: []
 body:
