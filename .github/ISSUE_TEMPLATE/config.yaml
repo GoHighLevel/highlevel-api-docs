@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Gohighlevel API Support Ticket
+    url: https://developers.gohighlevel.com/support
+    about: Please use this to raise a ticket for your API queries.
