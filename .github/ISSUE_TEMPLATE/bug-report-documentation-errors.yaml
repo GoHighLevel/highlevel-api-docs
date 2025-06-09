@@ -43,7 +43,8 @@ body:
     attributes:
       label: 💻 Screenshots or Code Samples
       description: Paste relevant markdown/code samples or screenshots.
-      placeholder: ```json
+      placeholder: |
+        ```json
         {
           "example": "code here"
         }
