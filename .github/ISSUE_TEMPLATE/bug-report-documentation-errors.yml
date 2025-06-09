@@ -1,0 +1,136 @@
+name: "🐛 Bug Report: Documentation Errors"
+description: Report a problem with only the existing documentation inconsistencies in Highlevel APIs
+title: "[Bug Report: Documentation Errors] "
+labels: ["bug-documentation-errors"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thank you for reporting documentation errors in our API!
+        
+        Please fill out the information below to help us address the issue quickly.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 🐛 Describe the Bug
+      description: A clear and concise description of what the bug is.
+      placeholder: The documentation for endpoint X says Y but it should be Z...
+    validations:
+      required: true
+
+  - type: input
+    id: api-endpoint
+    attributes:
+      label: 📍 API Endpoint
+      description: Which API endpoint does this relate to?
+      placeholder: e.g., /api/v2/users/{id}
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ Expected Behavior
+      description: What should have happened?
+      placeholder: The documentation should state that...
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-samples
+    attributes:
+      label: 💻 Screenshots or Code Samples
+      description: Paste relevant markdown/code samples or screenshots.
+      placeholder: ```json
+        {
+          "example": "code here"
+        }
+        ```
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: product-area
+    attributes:
+      label: Product Area
+      description: Which product area does this issue relate to?
+      options:
+        - wordpress
+        - saas
+        - lc-phone
+        - lc-whatsapp
+        - lc-phone-sms
+        - lc-phone-voice
+        - membership
+        - client-portal
+        - prospecting
+        - reputation
+        - gatekeeper
+        - yext
+        - communities
+        - snapshots
+        - blade-platform
+        - lc-email
+        - internal-tools
+        - reselling
+        - gokollab
+        - certificates
+        - assets-drm
+        - funnels
+        - launchpad
+        - forms
+        - surveys
+        - blogs
+        - emails
+        - onboarding
+        - payments
+        - payment-products
+        - payments-core
+        - platform-ui
+        - proposals
+        - social-planner
+        - templates
+        - cm-webshot
+        - cm-medias
+        - cm-es-logger
+        - cm-ts
+        - common.*
+        - ecomm-store
+        - contacts
+        - conversations
+        - marketplace
+        - conversations-ai
+        - bulk-actions
+        - custom-objects
+        - opportunities
+        - integrations
+        - cdp
+        - marketplace-modules
+        - data
+        - services
+        - infra
+        - am
+        - reporting
+        - calendars
+        - eliza
+        - workflows
+        - ad-publishing
+        - bi
+        - backend
+        - voice
+        - text
+        - highly
+        - support
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 🧠 Additional Context
+      description: Any other helpful information?
+      placeholder: This issue also affects other endpoints...
+    validations:
+      required: false 
