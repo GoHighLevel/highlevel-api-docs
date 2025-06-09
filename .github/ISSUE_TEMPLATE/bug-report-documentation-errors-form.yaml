@@ -2,7 +2,6 @@ name: "🐛 Bug Report: Documentation Errors"
 description: Report a problem with only the existing documentation inconsistencies in Highlevel APIs
 title: "[Bug Report: Documentation Errors] "
 labels: ["bug-documentation-errors"]
-assignees: []
 body:
   - type: markdown
     attributes:
@@ -58,72 +57,50 @@ body:
       label: Product Area
       description: Which product area does this issue relate to?
       options:
-        - wordpress
-        - saas
-        - lc-phone
-        - lc-whatsapp
-        - lc-phone-sms
-        - lc-phone-voice
-        - membership
-        - client-portal
-        - prospecting
-        - reputation
-        - gatekeeper
-        - yext
-        - communities
-        - snapshots
-        - blade-platform
-        - lc-email
-        - internal-tools
-        - reselling
-        - gokollab
-        - certificates
-        - assets-drm
-        - funnels
-        - launchpad
-        - forms
-        - surveys
+        - ad-publishing
         - blogs
-        - emails
-        - onboarding
-        - payments
-        - payment-products
-        - payments-core
-        - platform-ui
-        - proposals
-        - social-planner
-        - templates
-        - cm-webshot
-        - cm-medias
-        - cm-es-logger
-        - cm-ts
-        - common.*
-        - ecomm-store
+        - bulk-actions
+        - calendars
+        - certificates
+        - client-portal
+        - communities
         - contacts
         - conversations
-        - marketplace
         - conversations-ai
-        - bulk-actions
         - custom-objects
-        - opportunities
+        - emails
+        - forms
+        - funnels
+        - gokollab
         - integrations
-        - cdp
+        - launchpad
+        - lc-email
+        - lc-phone
+        - lc-phone-sms
+        - lc-phone-voice
+        - lc-whatsapp
+        - marketplace
         - marketplace-modules
-        - data
-        - services
-        - infra
-        - am
+        - membership
+        - onboarding
+        - opportunities
+        - payment-products
+        - payments
+        - proposals
+        - prospecting
         - reporting
-        - calendars
-        - eliza
-        - workflows
-        - ad-publishing
-        - bi
-        - backend
-        - voice
+        - reputation
+        - reselling
+        - saas
+        - snapshots
+        - social-planner
+        - surveys
+        - templates
         - text
-        - highly
-        - support
+        - voice
+        - wordpress
+        - workflows
+        - yext
     validations:
       required: true
 
