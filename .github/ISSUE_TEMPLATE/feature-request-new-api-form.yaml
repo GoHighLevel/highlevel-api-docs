@@ -1,52 +1,45 @@
-name: "🐛 Bug Report: Documentation Errors"
-description: Report a problem with only the existing documentation inconsistencies in Highlevel APIs
-title: "[Bug Report: Documentation Errors] "
-labels: ["bug-documentation-errors"]
+name: "🌟 Feature Request: New APIs"
+description: Suggest a new feature or documentation improvement
+title: "[Feature New API] "
+labels: ["feature-request"]
 assignees: []
 body:
   - type: markdown
     attributes:
       value: |
-        ## Thank you for reporting documentation errors in our API!
+        ## Thank you for suggesting a new API feature!
         
-        Please fill out the information below to help us address the issue quickly.
+        Please fill out the information below to help us understand your feature request.
 
   - type: textarea
-    id: bug-description
+    id: feature-description
     attributes:
-      label: 🐛 Describe the Bug
-      description: A clear and concise description of what the bug is.
-      placeholder: The documentation for endpoint X says Y but it should be Z...
-    validations:
-      required: true
-
-  - type: input
-    id: api-endpoint
-    attributes:
-      label: 📍 API Endpoint
-      description: Which API endpoint does this relate to?
-      placeholder: e.g., /api/v2/users/{id}
+      label: 🌟 Describe the Feature
+      description: A clear and concise description of the proposed improvement.
+      placeholder: I would like to see an API endpoint that can...
     validations:
       required: true
 
   - type: textarea
-    id: expected-behavior
+    id: justification
     attributes:
-      label: ✅ Expected Behavior
-      description: What should have happened?
-      placeholder: The documentation should state that...
+      label: 🚀 Justification
+      description: Why would this be useful for other developers?
+      placeholder: This would help developers by...
     validations:
       required: true
 
   - type: textarea
-    id: code-samples
+    id: suggestions
     attributes:
-      label: 💻 Screenshots or Code Samples
-      description: Paste relevant markdown/code samples or screenshots.
+      label: 📝 Suggestions
+      description: If applicable, include ideas or mockups of the improvement.
       placeholder: |
         ```json
         {
-          "example": "code here"
+          "suggested_endpoint": "/api/v2/new-feature",
+          "method": "POST",
+          "response": "..."
         }
         ```
     validations:
@@ -56,7 +49,7 @@ body:
     id: product-area
     attributes:
       label: Product Area
-      description: Which product area does this issue relate to?
+      description: Which product area would this new API relate to?
       options:
         - wordpress
         - saas
@@ -131,7 +124,7 @@ body:
     id: additional-context
     attributes:
       label: 🧠 Additional Context
-      description: Any other helpful information?
-      placeholder: This issue also affects other endpoints...
+      description: Any other details you'd like to share?
+      placeholder: This feature would integrate well with...
     validations:
       required: false 

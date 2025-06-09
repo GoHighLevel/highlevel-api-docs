@@ -1,22 +1,22 @@
-name: "🐛 Bug Report: Documentation Errors"
-description: Report a problem with only the existing documentation inconsistencies in Highlevel APIs
-title: "[Bug Report: Documentation Errors] "
-labels: ["bug-documentation-errors"]
+name: "🐛 Bug Report: API Field Missing"
+description: Report a problem where existing API Endpoints have missing fields but available in Highlevel UI
+title: "[Bug Report: API Field Missing] "
+labels: ["bug-missing-api-field"]
 assignees: []
 body:
   - type: markdown
     attributes:
       value: |
-        ## Thank you for reporting documentation errors in our API!
+        ## Thank you for reporting missing API fields!
         
-        Please fill out the information below to help us address the issue quickly.
+        Please fill out the information below to help us address the missing field issue quickly.
 
   - type: textarea
     id: bug-description
     attributes:
       label: 🐛 Describe the Bug
       description: A clear and concise description of what the bug is.
-      placeholder: The documentation for endpoint X says Y but it should be Z...
+      placeholder: The API endpoint is missing field X which is available in the Highlevel UI...
     validations:
       required: true
 
@@ -34,7 +34,7 @@ body:
     attributes:
       label: ✅ Expected Behavior
       description: What should have happened?
-      placeholder: The documentation should state that...
+      placeholder: The API should return field X with value Y...
     validations:
       required: true
 
@@ -46,7 +46,7 @@ body:
       placeholder: |
         ```json
         {
-          "example": "code here"
+          "missing_field": "should_be_here"
         }
         ```
     validations:
@@ -132,6 +132,6 @@ body:
     attributes:
       label: 🧠 Additional Context
       description: Any other helpful information?
-      placeholder: This issue also affects other endpoints...
+      placeholder: This field is also missing in other related endpoints...
     validations:
       required: false 
