@@ -1,0 +1,61 @@
+name: API Documentation Issue Processing
+
+on:
+  issues:
+    types: [opened]  # Only trigger on new issues
+  workflow_dispatch:  # Keep manual trigger for testing
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: false
+        type: string
+
+jobs:
+  process-api-issue:
+    name: Process API Documentation Issue
+    runs-on: ubuntu-latest
+    # Only run on the API docs repository and non-internal issues
+    if: |
+      github.repository == 'GoHighLevel/highlevel-api-docs' &&
+      (github.event_name == 'workflow_dispatch' || !contains(github.event.issue.labels.*.name, 'internal'))
+    
+    steps:
+      - name: Get Issue Data
+        id: get-issue
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.issue_number }}" != "" ]]; then
+            # If triggered manually with an issue number
+            ISSUE_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues/${{ inputs.issue_number }}")
+            echo "issue_data=$ISSUE_DATA" >> $GITHUB_OUTPUT
+          else
+            # If triggered by new issue
+            echo "issue_data=${{ toJSON(github.event.issue) }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Process Issue via Reusable Workflow
+        uses: GoHighLevel/private-github-workflows/.github/workflows/reusable-clickup-automation.yml@main
+        with:
+          calling_event_type: 'issue_opened'
+          script_name: 'process_issue.js'
+          job_description: 'Process API Documentation Issue'
+          github_issue_json: ${{ steps.get-issue.outputs.issue_data }}
+
+      - name: Handle Failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = context.issue.number || ${{ inputs.issue_number }};
+            if (issueNumber) {
+              const comment = `❌ There was an error processing this issue.\n` +
+                            `We'll look into this as soon as possible.`;
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: comment
+              });
+            } 
