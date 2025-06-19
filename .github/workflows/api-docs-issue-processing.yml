@@ -11,13 +11,15 @@ on:
         type: string
 
 jobs:
-  process-api-issue:
-    name: Process API Documentation Issue
+  get-issue-data:
+    name: Get Issue Data
     runs-on: ubuntu-latest
     # Only run on the API docs repository and non-internal issues
     if: |
       github.repository == 'GoHighLevel/highlevel-api-docs' &&
       (github.event_name == 'workflow_dispatch' || !contains(github.event.issue.labels.*.name, 'internal'))
+    outputs:
+      issue_data: ${{ steps.get-issue.outputs.issue_data }}
     
     steps:
       - name: Get Issue Data
@@ -33,16 +35,23 @@ jobs:
             echo "issue_data=${{ toJSON(github.event.issue) }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Process Issue via Reusable Workflow
-        uses: GoHighLevel/private-github-workflows/.github/workflows/reusable-clickup-automation.yml@main
-        with:
-          calling_event_type: 'issue_opened'
-          script_name: 'process_issue.js'
-          job_description: 'Process API Documentation Issue'
-          github_issue_json: ${{ steps.get-issue.outputs.issue_data }}
+  process-api-issue:
+    name: Process API Documentation Issue
+    needs: get-issue-data
+    uses: GoHighLevel/private-github-workflows/.github/workflows/reusable-clickup-automation.yml@main
+    with:
+      calling_event_type: 'issue_opened'
+      script_name: 'process_issue.js'
+      job_description: 'Process API Documentation Issue'
+      github_issue_json: ${{ needs.get-issue-data.outputs.issue_data }}
 
-      - name: Handle Failure
-        if: failure()
+  handle-failure:
+    name: Handle Failure
+    needs: process-api-issue
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Post Failure Comment
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
