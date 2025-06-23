@@ -27,8 +27,10 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install axios
-        run: npm install axios
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install axios @actions/core
 
       - name: Process Issue and Create ClickUp Task
         id: process
@@ -40,12 +42,8 @@ jobs:
           ONCALL_API_VERSION: ${{ secrets.ONCALL_API_VERSION }}
         with:
           script: |
-            // Import required modules
-            const { getOctokit } = require('@actions/github');
+            const core = require('@actions/core');
             const axios = (await import('axios')).default;
-
-            // Initialize octokit
-            const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
             // Configuration constants
             const CLICKUP_LIST_ID = "901002929528";
@@ -165,7 +163,7 @@ jobs:
                 });
                 return response.data.endpoint;
               } catch (error) {
-                console.error("Error getting OnCall endpoint:", error.message);
+                console.error("Error getting OnCall endpoint:", error.response?.data || error.message);
                 return null;
               }
             }
@@ -264,7 +262,7 @@ jobs:
               // Get issue data
               let issueData;
               if (context.eventName === 'workflow_dispatch' && core.getInput('issue_number')) {
-                const { data: issue } = await octokit.rest.issues.get({
+                const { data: issue } = await github.rest.issues.get({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issueNumber
@@ -279,7 +277,7 @@ jobs:
               }
 
               // Add processing label
-              await octokit.rest.issues.addLabels({
+              await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNumber,
@@ -306,14 +304,14 @@ jobs:
                 await sendOnCallNotification(message, productInfo);
 
                 // Add success comment and label
-                await octokit.rest.issues.createComment({
+                await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issueNumber,
                   body: `✅ Issue processed successfully!\n\nClickUp Task: ${createdTask.url}\nDue Date: ${dueDateStr}`
                 });
 
-                await octokit.rest.issues.addLabels({
+                await github.rest.issues.addLabels({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issueNumber,
@@ -323,7 +321,7 @@ jobs:
 
               // Remove processing label
               try {
-                await octokit.rest.issues.removeLabel({
+                await github.rest.issues.removeLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issueNumber,
@@ -339,14 +337,14 @@ jobs:
               // Add error label and comment
               const issueNumber = context.issue.number || core.getInput('issue_number');
               if (issueNumber) {
-                await octokit.rest.issues.addLabels({
+                await github.rest.issues.addLabels({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issueNumber,
                   labels: ['processing-error']
                 });
 
-                await octokit.rest.issues.createComment({
+                await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issueNumber,
@@ -355,7 +353,7 @@ jobs:
 
                 // Try to remove processing label
                 try {
-                  await octokit.rest.issues.removeLabel({
+                  await github.rest.issues.removeLabel({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: issueNumber,
