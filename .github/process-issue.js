@@ -392,15 +392,32 @@ async function sendOnCallNotification(message, productInfo) {
 // Main function to process GitHub issues
 async function processIssue(github, context, core) {
   try {
-    const issueNumber = context.issue.number || core.getInput('issue_number');
-    console.log(`Processing issue: ${issueNumber}`);
-    if (!issueNumber || isNaN(parseInt(issueNumber))) {
-      throw new Error(`Invalid issue number: ${issueNumber}`);
+    // Get and clean the issue number
+    let issueNumber;
+    if (context.eventName === 'workflow_dispatch') {
+      // For manual triggers, get from input and clean it
+      const inputNumber = core.getInput('issue_number');
+      // Remove any non-numeric characters and whitespace
+      issueNumber = inputNumber.trim().replace(/[^\d]/g, '');
+    } else {
+      // For automatic triggers from issues
+      issueNumber = context.issue.number;
     }
+
+    console.log(`Raw issue number input:`, issueNumber);
+    
+    // Validate the cleaned number
+    if (!issueNumber || isNaN(parseInt(issueNumber)) || parseInt(issueNumber) <= 0) {
+      throw new Error(`Invalid issue number: ${issueNumber}. Please provide a valid positive number.`);
+    }
+
+    // Convert to integer for consistency
+    issueNumber = parseInt(issueNumber);
+    console.log(`Processing issue number:`, issueNumber);
 
     // Get issue data
     let issueData;
-    if (context.eventName === 'workflow_dispatch' && core.getInput('issue_number')) {
+    if (context.eventName === 'workflow_dispatch') {
       const { data: issue } = await github.rest.issues.get({
         owner: context.repo.owner,
         repo: context.repo.repo,

@@ -3,12 +3,12 @@ name: API Documentation Issue Processing
 on:
   issues:
     types: [opened]  # Only trigger on new issues
-  workflow_dispatch:  # Keep manual trigger for testing
+  workflow_dispatch:
     inputs:
       issue_number:
         description: 'Issue number to process (must be a valid issue number)'
-        required: false
-        type: string
+        required: true
+        type: string  # Keep as string since workflow_dispatch inputs are always strings
 
 # Add concurrency to prevent race conditions
 concurrency:
@@ -37,6 +37,25 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Check required secrets
+        run: |
+          if [ -z "${{ secrets.CLICKUP_API_TOKEN }}" ]; then
+            echo "CLICKUP_API_TOKEN is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ONCALL_AUTH_TOKEN }}" ]; then
+            echo "ONCALL_AUTH_TOKEN is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ONCALL_SERVICE_URL }}" ]; then
+            echo "ONCALL_SERVICE_URL is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ONCALL_API_VERSION }}" ]; then
+            echo "ONCALL_API_VERSION is not set"
+            exit 1
+          fi
+
       - name: Install axios
         run: npm install axios
 
@@ -53,8 +72,12 @@ jobs:
           script: |
             try {
               const processIssue = require('./.github/process-issue.js');
+              console.log('Starting issue processing...');
+              console.log('Event name:', context.eventName);
+              console.log('Input issue number:', core.getInput('issue_number'));
               await processIssue(github, context, core);
             } catch (error) {
-              core.setFailed(error.message);
+              console.error('Full error details:', error);
+              core.setFailed(`Error processing issue: ${error.message}`);
               throw error;
             } 
