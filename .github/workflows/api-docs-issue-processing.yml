@@ -6,9 +6,14 @@ on:
   workflow_dispatch:  # Keep manual trigger for testing
     inputs:
       issue_number:
-        description: 'Issue number to process'
+        description: 'Issue number to process (must be a valid issue number)'
         required: false
         type: string
+
+# Add concurrency to prevent race conditions
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.issue.number || github.event.inputs.issue_number || github.sha }}
+  cancel-in-progress: true
 
 jobs:
   process-issue:
@@ -18,6 +23,11 @@ jobs:
     if: |
       github.repository == 'GoHighLevel/highlevel-api-docs' &&
       (github.event_name == 'workflow_dispatch' || !contains(github.event.issue.labels.*.name, 'internal'))
+    
+    permissions:
+      issues: write  # Required for issue labeling and commenting
+      contents: read # Required for checkout
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,10 +37,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: |
-          npm init -y
-          npm install axios @actions/core
+      - name: Install axios
+        run: npm install axios
 
       - name: Process Issue and Create ClickUp Task
         id: process
@@ -41,327 +49,12 @@ jobs:
           ONCALL_SERVICE_URL: ${{ secrets.ONCALL_SERVICE_URL }}
           ONCALL_API_VERSION: ${{ secrets.ONCALL_API_VERSION }}
         with:
+          debug: true  # Enable debug mode for better error logging
           script: |
-            const core = require('@actions/core');
-            const axios = (await import('axios')).default;
-
-            // Configuration constants
-            const CLICKUP_LIST_ID = "901002929528";
-            const CLICKUP_API_BASE_URL = "https://api.clickup.com/api/v2";
-            const CUSTOM_FIELD_IDS = {
-              API_ISSUE_TYPE: "49bc39d0-e792-4b70-a706-422c06ebc47f",
-              MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be"
-            };
-
-            // Team and sub-team definitions
-            const TEAM = {
-              CRM: 'crm',
-              AUTOMATIONS: 'automations',
-              LEADGEN: 'leadgen',
-              REVEX: 'revex',
-              PLATFORM: 'platform',
-              MOBILE: 'mobile'
-            };
-
-            // Product channel mapping (simplified for brevity, add more as needed)
-            const PRODUCT_CHANNELS = {
-              "wordpress": { em: "Hemant", team: TEAM.REVEX, sub_team: "wordpress" },
-              "saas": { em: "Daljeet Singh", team: TEAM.REVEX, sub_team: "saas" },
-              "marketplace": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: "marketplace" }
-              // Add other product channels as needed
-            };
-
-            // SLA definitions
-            const SLA_DEFINITIONS = {
-              "critical": 1,
-              "high": 3,
-              "medium": 7,
-              "low": 14
-            };
-            const DEFAULT_SLA_DAYS = 7;
-
-            // API Issue Type to SLA Days Mapping
-            const API_ISSUE_TYPE_SLA_DAYS = {
-              "Documentation Errors": 7,
-              "API Issues / Defects": 7,
-              "Missing fields in APIs": 3,
-              "New APIs": 14,
-              "New Products": 20
-            };
-
-            // Helper functions
-            function determineProductInfo(title, body) {
-              const textToSearch = (title + " " + (body || "")).toLowerCase();
-              for (const product in PRODUCT_CHANNELS) {
-                if (textToSearch.includes(product)) {
-                  return {
-                    product,
-                    ...PRODUCT_CHANNELS[product]
-                  };
-                }
-              }
-              return {
-                product: 'marketplace',
-                ...PRODUCT_CHANNELS['marketplace']
-              };
-            }
-
-            function determineApiIssueType(labels) {
-              const API_ISSUE_TYPE_VALUES = {
-                'bug': 1,
-                'bug-missing-api-field': 1,
-                'documentation': 2,
-                'missing-fields': 3,
-                'new-api': 4,
-                'new-product': 5
-              };
-
-              for (const label of labels || []) {
-                const labelName = (label.name || "").toLowerCase();
-                if (API_ISSUE_TYPE_VALUES[labelName]) {
-                  return API_ISSUE_TYPE_VALUES[labelName];
-                }
-              }
-
-              return API_ISSUE_TYPE_VALUES['new-api'];
-            }
-
-            function calculateDueDate(labels, apiIssueType) {
-              // First check for priority labels
-              for (const label of labels) {
-                const labelName = (label.name || "").toLowerCase();
-                if (SLA_DEFINITIONS[labelName] !== undefined) {
-                  return new Date().getTime() + (SLA_DEFINITIONS[labelName] * 24 * 60 * 60 * 1000);
-                }
-              }
-
-              // If no priority label found, use API issue type based SLA
-              const issueTypeMap = {
-                1: "API Issues / Defects",
-                2: "Documentation Errors",
-                3: "Missing fields in APIs",
-                4: "New APIs",
-                5: "New Products"
-              };
-
-              const issueTypeName = issueTypeMap[apiIssueType] || "Documentation Errors";
-              const slaDays = API_ISSUE_TYPE_SLA_DAYS[issueTypeName] || DEFAULT_SLA_DAYS;
-              
-              const dueDate = new Date();
-              dueDate.setDate(dueDate.getDate() + slaDays);
-              return dueDate.getTime();
-            }
-
-            async function getOnCallEndpoint(subTeam) {
-              try {
-                const response = await axios.get(process.env.ONCALL_SERVICE_URL, {
-                  params: { subTeam },
-                  headers: {
-                    'Authorization': `Bearer ${process.env.ONCALL_AUTH_TOKEN}`,
-                    'version': process.env.ONCALL_API_VERSION
-                  }
-                });
-                return response.data.endpoint;
-              } catch (error) {
-                console.error("Error getting OnCall endpoint:", error.response?.data || error.message);
-                return null;
-              }
-            }
-
-            async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs) {
-              if (!process.env.CLICKUP_API_TOKEN) {
-                throw new Error("CLICKUP_API_TOKEN not found in environment");
-              }
-
-              const url = `${CLICKUP_API_BASE_URL}/list/${CLICKUP_LIST_ID}/task`;
-              const headers = {
-                "Authorization": process.env.CLICKUP_API_TOKEN,
-                "Content-Type": "application/json"
-              };
-
-              const taskName = issueData.title;
-              const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}`;
-
-              const payload = {
-                name: taskName,
-                description: description,
-                due_date: dueDateMs,
-                custom_fields: [
-                  {
-                    id: CUSTOM_FIELD_IDS.API_ISSUE_TYPE,
-                    value: apiIssueTypeValue
-                  }
-                ]
-              };
-
-              try {
-                const response = await axios.post(url, payload, { headers });
-                return response.data;
-              } catch (error) {
-                console.error("Error creating ClickUp task:", error.response?.data || error.message);
-                throw error;
-              }
-            }
-
-            async function sendOnCallNotification(message, productInfo) {
-              const endpoint = await getOnCallEndpoint(productInfo.sub_team);
-              if (!endpoint) {
-                console.warn("Warning: Failed to get OnCall endpoint. Skipping notification.");
-                return;
-              }
-
-              const alertMessage = `Doc for this alert: https://github.com/GoHighLevel/private-github-workflows/blob/main/alerts/api_documentation_issue.md
-
-              Hey, we have received a new GitHub issue that needs attention,
-              Team: ${productInfo.team}
-              Sub-team: ${productInfo.sub_team}
-              Product: ${productInfo.product}
-
-              --- Issue Details ---
-              ${message}
-
-              --- Links ---
-              GitHub Issue: ${message.match(/GitHub URL: (.*)/)?.[1] || 'N/A'}
-              ClickUp Task: ${message.match(/ClickUp Task Created: (.*)/)?.[1] || 'N/A'}
-              API Issue Type: ${message.match(/API Issue Type: (.*)/)?.[1] || 'N/A'}
-              Due Date: ${message.match(/Due Date: (.*)/)?.[1] || 'N/A'}
-
-              If you are facing any difficulties or need assistance, please reach out to @api-team on Slack.`;
-
-              const payload = {
-                labels: {
-                  team: productInfo.team,
-                  category: "API Documentation",
-                  severity: "p2",
-                  sub_team: productInfo.sub_team,
-                  alertname: "API Documentation Issue"
-                },
-                status: "firing",
-                annotations: {
-                  AlertValues: alertMessage
-                }
-              };
-
-              try {
-                await axios.post(endpoint, payload, {
-                  headers: { "Content-Type": "application/json" }
-                });
-                console.log("OnCall notification sent successfully.");
-              } catch (error) {
-                console.error("Error sending OnCall notification:", error.response?.data || error.message);
-              }
-            }
-
-            // Main execution
             try {
-              const issueNumber = context.issue.number || core.getInput('issue_number');
-              if (!issueNumber) {
-                throw new Error("No issue number provided");
-              }
-
-              // Get issue data
-              let issueData;
-              if (context.eventName === 'workflow_dispatch' && core.getInput('issue_number')) {
-                const { data: issue } = await github.rest.issues.get({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber
-                });
-                issueData = issue;
-              } else {
-                issueData = context.payload.issue;
-              }
-
-              if (!issueData) {
-                throw new Error("Could not get issue data");
-              }
-
-              // Add processing label
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                labels: ['processing']
-              });
-
-              // Process the issue
-              const productInfo = determineProductInfo(issueData.title, issueData.body);
-              console.log(`Determined Product Info:`, productInfo);
-
-              const apiIssueTypeValue = determineApiIssueType(issueData.labels);
-              console.log(`Determined API Issue Type: ${apiIssueTypeValue}`);
-
-              const dueDateMs = calculateDueDate(issueData.labels, apiIssueTypeValue);
-              const dueDateStr = new Date(dueDateMs).toISOString().split('T')[0];
-              console.log(`Calculated Due Date: ${dueDateStr}`);
-
-              // Create ClickUp task
-              const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
-
-              if (createdTask && createdTask.id) {
-                console.log(`Successfully created ClickUp task: ID ${createdTask.id}`);
-                const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\n🚀 ClickUp Task Created: ${createdTask.url}\n📢 Product: ${productInfo.product}\n🗂️ API Issue Type: ${apiIssueTypeValue}\n🗓️ Due Date: ${dueDateStr}`;
-                await sendOnCallNotification(message, productInfo);
-
-                // Add success comment and label
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  body: `✅ Issue processed successfully!\n\nClickUp Task: ${createdTask.url}\nDue Date: ${dueDateStr}`
-                });
-
-                await github.rest.issues.addLabels({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  labels: ['processed']
-                });
-              }
-
-              // Remove processing label
-              try {
-                await github.rest.issues.removeLabel({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  name: 'processing'
-                });
-              } catch (e) {
-                console.log('Could not remove processing label:', e.message);
-              }
-
+              const processIssue = require('./.github/process-issue.js');
+              await processIssue(github, context, core);
             } catch (error) {
-              console.error('Error processing issue:', error);
-              
-              // Add error label and comment
-              const issueNumber = context.issue.number || core.getInput('issue_number');
-              if (issueNumber) {
-                await github.rest.issues.addLabels({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  labels: ['processing-error']
-                });
-
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  body: `❌ Error processing issue:\n\`\`\`\n${error.message}\n\`\`\``
-                });
-
-                // Try to remove processing label
-                try {
-                  await github.rest.issues.removeLabel({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issueNumber,
-                    name: 'processing'
-                  });
-                } catch (e) {
-                  console.log('Could not remove processing label:', e.message);
-                }
-              }
+              core.setFailed(error.message);
               throw error;
             } 
