@@ -393,6 +393,7 @@ async function sendOnCallNotification(message, productInfo) {
 async function processIssue(github, context, core) {
   try {
     const issueNumber = context.issue.number || core.getInput('issue_number');
+    console.log(`Processing issue: ${issueNumber}`);
     if (!issueNumber || isNaN(parseInt(issueNumber))) {
       throw new Error(`Invalid issue number: ${issueNumber}`);
     }
