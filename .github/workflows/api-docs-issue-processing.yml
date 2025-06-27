@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       issue_number:
-        description: 'Issue number to process (must be a valid issue number)'
+        description: 'Issue number to process (must be a valid positive number)'
         required: true
-        type: string  # Keep as string since workflow_dispatch inputs are always strings
+        type: number
 
 # Add concurrency to prevent race conditions
 concurrency:
@@ -74,7 +74,13 @@ jobs:
               const processIssue = require('./.github/process-issue.js');
               console.log('Starting issue processing...');
               console.log('Event name:', context.eventName);
-              console.log('Input issue number:', core.getInput('issue_number'));
+              if (context.eventName === 'workflow_dispatch') {
+                const issueNumber = github.event.inputs.issue_number;
+                console.log('Input issue number:', issueNumber);
+                if (!issueNumber || Number(issueNumber) <= 0) {
+                  throw new Error('Please provide a valid positive issue number');
+                }
+              }
               await processIssue(github, context, core);
             } catch (error) {
               console.error('Full error details:', error);

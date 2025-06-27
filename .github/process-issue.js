@@ -392,27 +392,20 @@ async function sendOnCallNotification(message, productInfo) {
 // Main function to process GitHub issues
 async function processIssue(github, context, core) {
   try {
-    // Get and clean the issue number
+    // Get issue number
     let issueNumber;
     if (context.eventName === 'workflow_dispatch') {
-      // For manual triggers, get from input and clean it
-      const inputNumber = core.getInput('issue_number');
-      // Remove any non-numeric characters and whitespace
-      issueNumber = inputNumber.trim().replace(/[^\d]/g, '');
+      // For manual triggers, get from workflow dispatch inputs
+      issueNumber = context.payload.inputs.issue_number;
+      // Since input type is number, we don't need string cleaning
+      if (!issueNumber || issueNumber <= 0) {
+        throw new Error(`Invalid issue number: ${issueNumber}. Please provide a valid positive number.`);
+      }
     } else {
       // For automatic triggers from issues
       issueNumber = context.issue.number;
     }
 
-    console.log(`Raw issue number input:`, issueNumber);
-    
-    // Validate the cleaned number
-    if (!issueNumber || isNaN(parseInt(issueNumber)) || parseInt(issueNumber) <= 0) {
-      throw new Error(`Invalid issue number: ${issueNumber}. Please provide a valid positive number.`);
-    }
-
-    // Convert to integer for consistency
-    issueNumber = parseInt(issueNumber);
     console.log(`Processing issue number:`, issueNumber);
 
     // Get issue data
