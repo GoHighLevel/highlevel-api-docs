@@ -68,22 +68,18 @@ jobs:
           ONCALL_SERVICE_URL: ${{ secrets.ONCALL_SERVICE_URL }}
           ONCALL_API_VERSION: ${{ secrets.ONCALL_API_VERSION }}
         with:
-          debug: true  # Enable debug mode for better error logging
+          debug: false
           script: |
             try {
               const processIssue = require('./.github/process-issue.js');
-              console.log('Starting issue processing...');
-              console.log('Event name:', context.eventName);
               if (context.eventName === 'workflow_dispatch') {
-                const issueNumber = github.event.inputs.issue_number;
-                console.log('Input issue number:', issueNumber);
+                const issueNumber = context.payload?.inputs?.issue_number;
                 if (!issueNumber || Number(issueNumber) <= 0) {
                   throw new Error('Please provide a valid positive issue number');
                 }
               }
               await processIssue(github, context, core);
             } catch (error) {
-              console.error('Full error details:', error);
               core.setFailed(`Error processing issue: ${error.message}`);
               throw error;
             } 
