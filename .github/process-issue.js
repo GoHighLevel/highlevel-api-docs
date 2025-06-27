@@ -457,7 +457,7 @@ async function processIssue(github, context, core) {
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: issueNumber,
-        body: `✅ Issue processed successfully!\n\nClickUp Task: ${createdTask.url}\nDue Date: ${dueDateStr}`
+        body: `✅ Issue processed successfully!\n\nYour issue has been reviewed and assigned to the appropriate team.`
       });
 
       await github.rest.issues.addLabels({
