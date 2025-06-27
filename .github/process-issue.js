@@ -406,8 +406,6 @@ async function processIssue(github, context, core) {
       issueNumber = context.issue.number;
     }
 
-    console.log(`Processing issue number:`, issueNumber);
-
     // Get issue data
     let issueData;
     if (context.eventName === 'workflow_dispatch') {
@@ -435,20 +433,14 @@ async function processIssue(github, context, core) {
 
     // Process the issue
     const productInfo = determineProductInfo(issueData.title, issueData.body);
-    console.log(`Determined Product Info:`, productInfo);
-
     const apiIssueTypeValue = determineApiIssueType(issueData.labels);
-    console.log(`Determined API Issue Type: ${apiIssueTypeValue}`);
-
     const dueDateMs = calculateDueDate(issueData.labels, apiIssueTypeValue);
     const dueDateStr = new Date(dueDateMs).toISOString().split('T')[0];
-    console.log(`Calculated Due Date: ${dueDateStr}`);
 
     // Create ClickUp task
     const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
 
     if (createdTask && createdTask.id) {
-      console.log(`Successfully created ClickUp task: ID ${createdTask.id}`);
       const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\n🚀 ClickUp Task Created: ${createdTask.url}\n📢 Product: ${productInfo.product}\n🗂️ API Issue Type: ${apiIssueTypeValue}\n🗓️ Due Date: ${dueDateStr}`;
       await sendOnCallNotification(message, productInfo);
 
@@ -480,16 +472,11 @@ async function processIssue(github, context, core) {
         name: 'processing'
       });
     } catch (e) {
-      console.log('Could not remove processing label:', e.message);
+      // Ignore error if label doesn't exist
     }
 
   } catch (error) {
     const errorMessage = error.response?.data?.message || error.message;
-    console.error('Error processing issue:', {
-      message: errorMessage,
-      stack: error.stack,
-      response: error.response?.data
-    });
     
     const issueNumber = context.issue.number || core.getInput('issue_number');
     if (issueNumber) {
@@ -515,7 +502,7 @@ async function processIssue(github, context, core) {
           name: 'processing'
         });
       } catch (e) {
-        console.log('Could not remove processing label:', e.message);
+        // Ignore error if label doesn't exist
       }
 
       core.setOutput('error', errorMessage);
