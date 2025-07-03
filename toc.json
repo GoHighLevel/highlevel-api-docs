@@ -50,6 +50,11 @@
             "uri": "oauth/oauth.json"
         },
         {
+            "type": "item",
+            "title": "Marketplace Modules",
+            "uri": "docs/marketplace modules/list.json"
+        },
+        {
             "type": "divider",
             "title": "APIs"
         },
