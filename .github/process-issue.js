@@ -5,7 +5,8 @@ const CLICKUP_LIST_ID = "901002929528";
 const CLICKUP_API_BASE_URL = "https://api.clickup.com/api/v2";
 const CUSTOM_FIELD_IDS = {
   API_ISSUE_TYPE: "49bc39d0-e792-4b70-a706-422c06ebc47f",
-  MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be"
+  MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be",
+  GITHUB_ISSUE_ID: "879f5d73-a102-49a5-bfb1-83d6ccbb0a41"
 };
 
 // Team Definitions
@@ -195,11 +196,43 @@ async function retryOperation(operation, maxRetries = 3, delay = 1000) {
   throw lastError;
 }
 
+// Helper function to extract Product Area
+function extractProductArea(body) {
+  if (!body) return null;
+  const productAreaMatch = body.match(/### Product Area\s*\n\s*(.*?)(?:\n|$)/);
+  return productAreaMatch ? productAreaMatch[1].trim() : null;
+}
+
+function getDefaultProduct() {
+  return {
+    product: 'marketplace',
+    ...PRODUCT_CHANNELS['marketplace']
+  };
+}
+
 // Determine product info from issue title and body
 function determineProductInfo(title, body) {
   if (!title) throw new Error("Issue title is required");
   
-  const textToSearch = (title + " " + (body || "")).toLowerCase();
+  // Extract Product Area field
+  const productArea = extractProductArea(body);
+  
+  if (productArea && PRODUCT_CHANNELS[productArea.toLowerCase()]) {
+    const productInfo = {
+      product: productArea.toLowerCase(),
+      ...PRODUCT_CHANNELS[productArea.toLowerCase()]
+    };
+    
+    if (!productInfo.team || !productInfo.sub_team) {
+      console.warn(`Invalid product channel configuration for ${productArea}`);
+      return getDefaultProduct();
+    }
+    
+    return productInfo;
+  }
+  
+  // Fallback to searching in title if Product Area is not found
+  const textToSearch = title.toLowerCase();
   for (const product in PRODUCT_CHANNELS) {
     if (textToSearch.includes(product)) {
       const productInfo = {
@@ -209,19 +242,14 @@ function determineProductInfo(title, body) {
       
       if (!productInfo.team || !productInfo.sub_team) {
         console.warn(`Invalid product channel configuration for ${product}`);
-        return {
-          product: 'marketplace',
-          ...PRODUCT_CHANNELS['marketplace']
-        };
+        return getDefaultProduct();
       }
       
       return productInfo;
     }
   }
-  return {
-    product: 'marketplace',
-    ...PRODUCT_CHANNELS['marketplace']
-  };
+  
+  return getDefaultProduct();
 }
 
 // Determine API issue type from labels
@@ -297,7 +325,7 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
     };
 
     const taskName = issueData.title;
-    const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}`;
+    const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}\n\n⚠️ Important: Please do not close this ClickUp task directly. The task will be automatically closed when the corresponding GitHub issue is closed.`;
 
     const payload = {
       name: taskName,
@@ -307,6 +335,10 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
         {
           id: CUSTOM_FIELD_IDS.API_ISSUE_TYPE,
           value: apiIssueTypeValue
+        },
+        {
+          id: CUSTOM_FIELD_IDS.GITHUB_ISSUE_ID,
+          value: issueData.number.toString()
         }
       ]
     };
