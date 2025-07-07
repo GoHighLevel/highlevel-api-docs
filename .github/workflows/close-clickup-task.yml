@@ -1,0 +1,25 @@
+name: Close ClickUp Task
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  close-clickup-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Close ClickUp Task
+        run: node .github/workflows/scripts/close-clickup-task.js
+        env:
+          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_API_TOKEN }}
+          CLICKUP_WORKSPACE_ID: ${{ secrets.CLICKUP_WORKSPACE_ID }}
+          GITHUB_ISSUE_FIELD_ID: ${{ secrets.GITHUB_ISSUE_FIELD_ID }} 
