@@ -5,7 +5,8 @@ const CLICKUP_LIST_ID = "901002929528";
 const CLICKUP_API_BASE_URL = "https://api.clickup.com/api/v2";
 const CUSTOM_FIELD_IDS = {
   API_ISSUE_TYPE: "49bc39d0-e792-4b70-a706-422c06ebc47f",
-  MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be"
+  MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be",
+  GITHUB_ISSUE_ID: "879f5d73-a102-49a5-bfb1-83d6ccbb0a41"
 };
 
 // Team Definitions
@@ -324,7 +325,7 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
     };
 
     const taskName = issueData.title;
-    const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}`;
+    const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}\n\n⚠️ Important: Please do not close this ClickUp task directly. The task will be automatically closed when the corresponding GitHub issue is closed.`;
 
     const payload = {
       name: taskName,
@@ -334,6 +335,10 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
         {
           id: CUSTOM_FIELD_IDS.API_ISSUE_TYPE,
           value: apiIssueTypeValue
+        },
+        {
+          id: CUSTOM_FIELD_IDS.GITHUB_ISSUE_ID,
+          value: issueData.number.toString()
         }
       ]
     };
