@@ -1,6 +1,6 @@
-# Custom Widgets
+# Web Widgets
 
-Create your own widget
+Create your own web widget
 
 Here's a short Loom on how to get started: https://www.loom.com/share/ceaca6bf36e34be3bf6a648eb5f1e6a1
 

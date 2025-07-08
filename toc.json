@@ -50,9 +50,20 @@
             "uri": "oauth/oauth.json"
         },
         {
-            "type": "item",
+            "type": "group",
             "title": "Marketplace Modules",
-            "uri": "docs/marketplace modules/list.json"
+            "items": [
+                {
+                    "type": "item",
+                    "title": "Conversation Providers",
+                    "uri": "docs/marketplace modules/ConversationProviders.md"
+                },
+                {
+                    "type": "item",
+                    "title": "Web Widgets",
+                    "uri": "docs/marketplace modules/Widgets.md"
+                }
+            ]
         },
         {
             "type": "divider",
