@@ -394,7 +394,7 @@ async function sendOnCallNotification(message, productInfo) {
     API Issue Type: ${message.match(/API Issue Type: (.*)/)?.[1] || 'N/A'}
     Due Date: ${message.match(/Due Date: (.*)/)?.[1] || 'N/A'}
 
-    If you are facing any difficulties or need assistance, please reach out to @api-team on Slack.`;
+    If you are facing any difficulties or need assistance, please reach out to api-team on Slack.`;
 
     const payload = {
       labels: {
@@ -402,7 +402,7 @@ async function sendOnCallNotification(message, productInfo) {
         category: "API Documentation",
         severity: "p2",
         sub_team: productInfo.sub_team,
-        alertname: "API Documentation Issue"
+        alertname: `API Documentation Issue${context.issue?.number ? ` #${context.issue.number}` : context.payload?.inputs?.issue_number ? ` #${context.payload.inputs.issue_number}` : ''}`
       },
       status: "firing",
       annotations: {
