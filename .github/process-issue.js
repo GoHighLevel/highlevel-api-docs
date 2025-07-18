@@ -402,7 +402,7 @@ async function sendOnCallNotification(message, productInfo) {
         category: "API Documentation",
         severity: "p2",
         sub_team: productInfo.sub_team,
-        alertname: "API Documentation Issue"
+        alertname: `API Documentation Issue${context.issue?.number ? ` #${context.issue.number}` : context.payload?.inputs?.issue_number ? ` #${context.payload.inputs.issue_number}` : ''}`
       },
       status: "firing",
       annotations: {
