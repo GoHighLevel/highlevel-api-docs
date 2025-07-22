@@ -54,7 +54,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -64,7 +64,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -141,7 +141,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -151,7 +151,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -218,7 +218,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -228,7 +228,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -308,7 +308,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -389,7 +389,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -399,7 +399,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -478,7 +478,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -488,7 +488,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -565,7 +565,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -575,7 +575,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -646,7 +646,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -656,7 +656,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -718,36 +718,6 @@
       }
     },
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
       "OptionDTO": {
         "type": "object",
         "properties": {

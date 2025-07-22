@@ -33,7 +33,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -43,7 +43,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -53,7 +53,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -109,7 +109,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -119,7 +119,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -129,7 +129,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -155,10 +155,10 @@
             "name": "skip",
             "required": false,
             "in": "query",
-            "example": "1",
             "description": "Parameter to skip the number installed locations",
             "schema": {
               "default": "0",
+              "example": "1",
               "type": "string"
             }
           },
@@ -166,10 +166,10 @@
             "name": "limit",
             "required": false,
             "in": "query",
-            "example": "10",
             "description": "Parameter to limit the number installed locations",
             "schema": {
               "default": "20",
+              "example": "10",
               "type": "string"
             }
           },
@@ -177,9 +177,9 @@
             "name": "query",
             "required": false,
             "in": "query",
-            "example": "location name",
             "description": "Parameter to search for the installed location by name",
             "schema": {
+              "example": "location name",
               "type": "string"
             }
           },
@@ -187,9 +187,9 @@
             "name": "isInstalled",
             "required": false,
             "in": "query",
-            "example": true,
             "description": "Filters out location which are installed for specified app under the specified company",
             "schema": {
+              "example": true,
               "type": "boolean"
             }
           },
@@ -197,9 +197,9 @@
             "name": "companyId",
             "required": true,
             "in": "query",
-            "example": "tDtDnQdgm2LXpyiqYvZ6",
             "description": "Parameter to search by the companyId",
             "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
               "type": "string"
             }
           },
@@ -207,9 +207,19 @@
             "name": "appId",
             "required": true,
             "in": "query",
-            "example": "tDtDnQdgm2LXpyiqYvZ6",
             "description": "Parameter to search by the appId",
             "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "versionId",
+            "required": false,
+            "in": "query",
+            "description": "VersionId of the app",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
               "type": "string"
             }
           },
@@ -217,9 +227,9 @@
             "name": "onTrial",
             "required": false,
             "in": "query",
-            "example": true,
             "description": "Filters out locations which are installed for specified app in trial mode",
             "schema": {
+              "example": true,
               "type": "boolean"
             }
           },
@@ -227,9 +237,9 @@
             "name": "planId",
             "required": false,
             "in": "query",
-            "example": true,
             "description": "Filters out location which are installed for specified app under the specified planId",
             "schema": {
+              "example": true,
               "type": "string"
             }
           },
@@ -262,7 +272,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -272,7 +282,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -282,7 +292,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -318,36 +328,6 @@
   ],
   "components": {
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
       "GetAccessCodebodyDto": {
         "type": "object",
         "properties": {
@@ -362,7 +342,8 @@
             "type": "string",
             "enum": [
               "authorization_code",
-              "refresh_token"
+              "refresh_token",
+              "client_credentials"
             ]
           },
           "code": {
@@ -448,33 +429,15 @@
             "type": "string",
             "description": "Plan Id of the subscribed plan in paid apps.",
             "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "isBulkInstallation": {
+            "type": "boolean",
+            "example": "Bearer"
           }
         },
         "required": [
           "userId"
         ]
-      },
-      "UnprocessableDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 422
-          },
-          "message": {
-            "example": [
-              "Unprocessable Entity"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "error": {
-            "type": "string",
-            "example": "Unprocessable Entity"
-          }
-        }
       },
       "GetLocationAccessCodeBodyDto": {
         "type": "object",

@@ -34,8 +34,8 @@
             "required": true,
             "in": "path",
             "description": "Unique identifier of the custom menu",
-            "example": "62e589c1-c456-47e1-a9a7-cb8900014311",
             "schema": {
+              "example": "62e589c1-c456-47e1-a9a7-cb8900014311",
               "type": "string"
             }
           }
@@ -59,7 +59,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -72,7 +72,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -119,8 +119,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the custom menu to delete",
-            "example": "62e589c1-c456-47e1-a9a7-cb8900014311",
             "schema": {
+              "example": "62e589c1-c456-47e1-a9a7-cb8900014311",
               "type": "string"
             }
           }
@@ -144,7 +144,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -160,7 +160,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -207,8 +207,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the custom menu to update",
-            "example": "62e589c1-c456-47e1-a9a7-cb8900014311",
             "schema": {
+              "example": "62e589c1-c456-47e1-a9a7-cb8900014311",
               "type": "string"
             }
           }
@@ -242,7 +242,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -258,7 +258,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -307,8 +307,8 @@
             "required": false,
             "in": "query",
             "description": "Unique identifier of the location",
-            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
+              "example": "5DP4iH6HLkQsiKESj6rh",
               "type": "string"
             }
           },
@@ -317,10 +317,10 @@
             "required": false,
             "in": "query",
             "description": "Number of items to skip for pagination",
-            "example": 0,
             "schema": {
               "minimum": 0,
               "default": 0,
+              "example": 0,
               "type": "number"
             }
           },
@@ -329,10 +329,10 @@
             "required": false,
             "in": "query",
             "description": "Maximum number of items to return",
-            "example": 10,
             "schema": {
               "minimum": 1,
               "default": 20,
+              "example": 10,
               "type": "number"
             }
           },
@@ -341,8 +341,8 @@
             "required": false,
             "in": "query",
             "description": "Search query to filter custom menus by name, supports partial || full names",
-            "example": "custom-menu-link-name",
             "schema": {
+              "example": "custom-menu-link-name",
               "type": "string"
             }
           },
@@ -351,8 +351,8 @@
             "required": false,
             "in": "query",
             "description": "Filter to show only agency-level menu links. When omitted, fetches both agency and sub-account menu links. Ignored if locationId is provided",
-            "example": true,
             "schema": {
+              "example": true,
               "type": "boolean"
             }
           }
@@ -376,7 +376,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -389,7 +389,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -461,7 +461,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -474,7 +474,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -526,6 +526,14 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
       "Agency-Access": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
@@ -536,58 +544,6 @@
       }
     },
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
-      "UnprocessableDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 422
-          },
-          "message": {
-            "example": [
-              "Unprocessable Entity"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "error": {
-            "type": "string",
-            "example": "Unprocessable Entity"
-          }
-        }
-      },
       "IconSchemaOptional": {
         "type": "object",
         "properties": {

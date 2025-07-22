@@ -33,8 +33,8 @@
             "name": "companyId",
             "required": true,
             "in": "path",
-            "example": "ve9EPM428h8vShlRW1KT",
             "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
               "type": "string"
             }
           }
@@ -55,7 +55,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -65,7 +65,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -75,7 +75,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -85,9 +85,6 @@
           "Companies"
         ],
         "security": [
-          {
-            "bearer": []
-          },
           {
             "Agency-Access": []
           }
@@ -130,68 +127,24 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
       "Agency-Access": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "name": "Authorization",
         "in": "header",
-        "description": "Use the Access Token generated with user type as Agency.",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
         "type": "http"
       }
     },
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
-      "UnprocessableDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 422
-          },
-          "message": {
-            "example": [
-              "Unprocessable Entity"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "error": {
-            "type": "string",
-            "example": "Unprocessable Entity"
-          }
-        }
-      },
       "IOnboardingDto": {
         "type": "object",
         "properties": {
@@ -237,237 +190,46 @@
           "snapshotId": {
             "type": "string",
             "example": ""
+          },
+          "planId": {
+            "type": "string",
+            "description": "Selected agency plan unique plan Id",
+            "example": "plan_EOi37NLV12u68i"
+          },
+          "affiliateSignup": {
+            "type": "boolean",
+            "description": "Set to true if it is from affiliate",
+            "example": true
+          },
+          "hasJoinedKickoffCall": {
+            "type": "boolean",
+            "description": "Set to true if user joined onboarding call",
+            "example": true
+          },
+          "kickoffActionTaken": {
+            "type": "boolean",
+            "description": "Set to true if user joined onboarding call",
+            "example": true
+          },
+          "hasJoinedImplementationCall": {
+            "type": "boolean",
+            "description": "Set to true if user joined implementation call",
+            "example": true
+          },
+          "version": {
+            "type": "string",
+            "description": "This helps in A/B tracking of onboarding flow",
+            "example": "1"
+          },
+          "metaData": {
+            "type": "object",
+            "description": "metaData for onboarding",
+            "example": true
           }
         },
         "required": [
           "pending"
         ]
-      },
-      "EndTrialDto": {
-        "type": "object",
-        "properties": {
-          "trial_end_req_by": {
-            "type": "string",
-            "example": ""
-          },
-          "trial_ended_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          }
-        },
-        "required": [
-          "trial_end_req_by",
-          "trial_ended_on"
-        ]
-      },
-      "AgencyProAddOnDto": {
-        "type": "object",
-        "properties": {
-          "is_active": {
-            "type": "boolean",
-            "example": true
-          },
-          "agency_pro_addon_subscription_id": {
-            "type": "string",
-            "example": "price_a21hvDAS456asc"
-          },
-          "agency_pro_addon_active_plan": {
-            "type": "string",
-            "enum": [
-              "reviews_monthly_150",
-              "listing_monthly_50",
-              "conversations_monthly_100",
-              "priority-support_monthly_300",
-              "priority-support_annual_300",
-              "priority-support_monthly_300_legacy",
-              "priority-support_annual_300_legacy",
-              "priority-support_monthly_240_july",
-              "hipaa_monthly_297",
-              "hipaa_annual_297",
-              "hipaa_monthly_297_legacy",
-              "agency-pro-plus_monthly_399",
-              "agency-pro-plus_annual_399"
-            ],
-            "example": "agency-pro-plus_monthly_399"
-          }
-        },
-        "required": [
-          "is_active",
-          "agency_pro_addon_subscription_id",
-          "agency_pro_addon_active_plan"
-        ]
-      },
-      "ReactivationAttemptDto": {
-        "type": "object",
-        "properties": {
-          "attempted_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "attempted_by": {
-            "type": "string",
-            "example": "john.doe@example.com"
-          },
-          "invoice_id": {
-            "type": "string",
-            "example": "in_1NZoVqFpU9DlKp7RclfCqtIF"
-          }
-        },
-        "required": [
-          "attempted_on",
-          "attempted_by",
-          "invoice_id"
-        ]
-      },
-      "DowngradeDto": {
-        "type": "object",
-        "properties": {
-          "attempted_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "attempted_by": {
-            "type": "string",
-            "example": "john.doe@example.com"
-          },
-          "previous_plan": {
-            "type": "string",
-            "example": "$497 / month"
-          },
-          "current_plan": {
-            "type": "string",
-            "example": "$297 / month"
-          },
-          "reason": {
-            "type": "string",
-            "example": "Expensive"
-          }
-        },
-        "required": [
-          "attempted_on",
-          "attempted_by",
-          "previous_plan",
-          "current_plan",
-          "reason"
-        ]
-      },
-      "PauseSubscriptionInfoDto": {
-        "type": "object",
-        "properties": {
-          "requested_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "req_by": {
-            "type": "string",
-            "example": "request by"
-          },
-          "reason": {
-            "type": "string",
-            "example": "Expensive"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "approved",
-              "rejected"
-            ],
-            "example": "pending"
-          },
-          "processed_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          }
-        },
-        "required": [
-          "requested_on",
-          "req_by",
-          "reason",
-          "status",
-          "processed_on"
-        ]
-      },
-      "BillingInfoDto": {
-        "type": "object",
-        "properties": {
-          "first_trial_extension_processed_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "first_trial_extension_reason": {
-            "type": "string",
-            "example": "Some reason for extending trial"
-          },
-          "second_trial_extension_processed_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "second_trial_extension_reason": {
-            "type": "string",
-            "example": "Some reason for extending trial"
-          },
-          "pause_subscription_requested_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "pause_subscription_reason": {
-            "type": "string",
-            "example": "Some reason for pausing subscription"
-          },
-          "pause_subscription_status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "approved",
-              "rejected"
-            ],
-            "example": "pending"
-          },
-          "pause_subscription_req_processed_on": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "pause_subscription_req_by": {
-            "type": "string",
-            "example": "john.doe@example.com"
-          },
-          "end_trial_early": {
-            "$ref": "#/components/schemas/EndTrialDto"
-          },
-          "agency_pro_addon": {
-            "$ref": "#/components/schemas/AgencyProAddOnDto"
-          },
-          "coupons_added": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "reactivation_attempt": {
-            "$ref": "#/components/schemas/ReactivationAttemptDto"
-          },
-          "downgrade": {
-            "$ref": "#/components/schemas/DowngradeDto"
-          },
-          "first_payment_date": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2023-08-02T00:00:00.000Z"
-          },
-          "pause_subscription_info": {
-            "$ref": "#/components/schemas/PauseSubscriptionInfoDto"
-          }
-        }
       },
       "GetCompanyByIdSchema": {
         "type": "object",
@@ -512,10 +274,6 @@
             "type": "string",
             "example": "https://app.gohighlevel.com/terms-of-service"
           },
-          "theme": {
-            "type": "string",
-            "example": "default-dark-v1"
-          },
           "address": {
             "type": "string",
             "example": "3500 Deer Creek Road"
@@ -543,10 +301,6 @@
           "relationshipNumber": {
             "type": "string",
             "example": "x-xxx-xxx"
-          },
-          "faviconUrl": {
-            "type": "string",
-            "example": "https://firebasestorage.googleapis.com/v0/b/highlevel-staging.appspot.com/o/companyPhotos%2F5DP4iH6HLkQsiKESj6rh.gif?alt=media&token=2aec9720-59a7-46af-a187-d4a2774ee873"
           },
           "subdomain": {
             "type": "string",
@@ -620,10 +374,6 @@
               }
             ]
           },
-          "stripeId": {
-            "type": "string",
-            "example": ""
-          },
           "upgradeEnabledForClients": {
             "type": "boolean",
             "example": true,
@@ -646,10 +396,6 @@
               "stripeConnectInitiatedBy": "string"
             },
             "description": "Saas Settings"
-          },
-          "stripeActivePlan": {
-            "type": "string",
-            "example": "agency_monthly_297"
           },
           "stripeConnectId": {
             "type": "string",
@@ -677,8 +423,37 @@
             "type": "boolean",
             "example": false
           },
-          "billingInfo": {
-            "$ref": "#/components/schemas/BillingInfoDto"
+          "referralId": {
+            "type": "string",
+            "example": "john-doe-21"
+          },
+          "isEnterpriseAccount": {
+            "type": "boolean",
+            "example": true
+          },
+          "businessNiche": {
+            "type": "string",
+            "example": "Accounting School",
+            "description": "The business niche in which the agency is operating"
+          },
+          "businessCategory": {
+            "type": "string",
+            "example": "Automotive",
+            "description": "Business category"
+          },
+          "businessAffinityGroup": {
+            "type": "string",
+            "example": "Vehicle Dealerships",
+            "description": "The affinity group of the agency"
+          },
+          "isSandboxAccount": {
+            "type": "boolean",
+            "example": true
+          },
+          "enableNewSubAccountDefaultData": {
+            "type": "boolean",
+            "example": false,
+            "description": "Flag to determine if new sub-accounts should use default data"
           }
         }
       },

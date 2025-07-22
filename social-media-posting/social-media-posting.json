@@ -79,7 +79,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -89,7 +89,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -99,7 +99,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -180,7 +180,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -190,7 +190,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -200,7 +200,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -289,7 +289,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -299,7 +299,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -309,7 +309,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -390,7 +390,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -400,7 +400,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -410,7 +410,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -491,7 +491,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -501,7 +501,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -511,7 +511,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -592,7 +592,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -602,7 +602,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -612,7 +612,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -701,7 +701,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -711,7 +711,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -721,7 +721,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -800,7 +800,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -810,7 +810,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -820,7 +820,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -891,7 +891,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -901,7 +901,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -914,7 +914,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -983,7 +983,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -993,7 +993,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1003,7 +1003,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1104,7 +1104,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1114,7 +1114,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1124,7 +1124,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1218,7 +1218,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1228,7 +1228,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1238,7 +1238,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1319,7 +1319,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1329,7 +1329,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1339,7 +1339,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1428,7 +1428,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1438,7 +1438,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1448,7 +1448,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1542,7 +1542,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1552,7 +1552,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1562,7 +1562,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1643,7 +1643,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1653,7 +1653,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1663,7 +1663,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1752,7 +1752,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1762,7 +1762,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1772,7 +1772,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1866,7 +1866,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1876,7 +1876,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1886,7 +1886,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1967,7 +1967,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1977,7 +1977,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1987,7 +1987,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2076,7 +2076,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2086,7 +2086,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2096,7 +2096,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2191,7 +2191,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2201,7 +2201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2211,7 +2211,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2288,7 +2288,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2298,7 +2298,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2308,7 +2308,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2393,7 +2393,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2403,7 +2403,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2413,7 +2413,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2488,7 +2488,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2498,7 +2498,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2508,7 +2508,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2615,7 +2615,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2625,7 +2625,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2635,7 +2635,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2715,7 +2715,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2725,7 +2725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2735,7 +2735,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2832,7 +2832,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2842,7 +2842,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2852,7 +2852,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2939,7 +2939,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2949,7 +2949,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2959,7 +2959,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3036,7 +3036,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3046,7 +3046,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3056,7 +3056,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3145,7 +3145,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3155,7 +3155,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3165,7 +3165,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3259,7 +3259,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3269,7 +3269,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3279,7 +3279,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3360,7 +3360,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3370,7 +3370,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3380,7 +3380,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3469,7 +3469,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3479,7 +3479,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3489,7 +3489,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3583,7 +3583,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3593,7 +3593,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3603,7 +3603,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3684,7 +3684,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3694,7 +3694,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3704,7 +3704,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3804,7 +3804,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3814,7 +3814,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3824,7 +3824,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3904,7 +3904,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3914,7 +3914,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3924,7 +3924,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4024,7 +4024,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4034,7 +4034,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4044,7 +4044,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4124,7 +4124,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4134,7 +4134,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4144,7 +4144,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4157,6 +4157,637 @@
           {
             "bearer": []
           }
+        ]
+      }
+    },
+    "/social-media-posting/statistics": {
+      "post": {
+        "operationId": "get-social-media-statistics",
+        "summary": "Get Social Media Statistics",
+        "description": "Retrieve analytics data for multiple social media accounts. Provides metrics for the last 7 days with comparison to the previous 7 days. Supports filtering by platforms and specific connected accounts.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location ID",
+            "example": "w37swmmLbA02zgqKPpxITe2",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "profileIds": {
+                    "type": "array",
+                    "description": "Array of connected social media account IDs to fetch analytics for. This can be found as 'profileId' in /accounts api.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "67a5a9aa776c837de4aa5b12"
+                    ],
+                    "minItems": 1
+                  },
+                  "platforms": {
+                    "type": "array",
+                    "description": "Array of social media platforms to filter analytics by. If not provided, all platforms will be included. NOTE: Linkedin (PAGE only) and Tiktok (BUSINESS only) are supported.",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "facebook",
+                        "instagram",
+                        "linkedin",
+                        "google",
+                        "pinterest",
+                        "youtube",
+                        "tiktok"
+                      ]
+                    },
+                    "example": [
+                      "facebook",
+                      "instagram"
+                    ]
+                  }
+                },
+                "required": [
+                  "profileIds"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully retrieved analytics data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "description": "Analytics data grouped by metrics and platforms",
+                      "properties": {
+                        "dayRange": {
+                          "type": "array",
+                          "description": "Array of day names for the analytics period",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "Mon",
+                            "Tue",
+                            "Wed",
+                            "Thu",
+                            "Fri",
+                            "Sat",
+                            "Sun"
+                          ]
+                        },
+                        "totals": {
+                          "type": "object",
+                          "description": "Aggregated metrics totals",
+                          "properties": {
+                            "posts": {
+                              "type": "number"
+                            },
+                            "likes": {
+                              "type": "number"
+                            },
+                            "followers": {
+                              "type": "number"
+                            },
+                            "impressions": {
+                              "type": "number"
+                            },
+                            "comments": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "postPerformance": {
+                          "type": "object",
+                          "description": "Post performance metrics over time",
+                          "properties": {
+                            "posts": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "impressions": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            },
+                            "likes": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            },
+                            "comments": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        },
+                        "breakdowns": {
+                          "type": "object",
+                          "description": "Detailed breakdowns by metric and platform",
+                          "properties": {
+                            "posts": {
+                              "type": "object",
+                              "properties": {
+                                "total": {
+                                  "type": "number"
+                                },
+                                "totalChange": {
+                                  "type": "number"
+                                },
+                                "platforms": {
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "type": "number"
+                                      },
+                                      "change": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "impressions": {
+                              "type": "object",
+                              "properties": {
+                                "total": {
+                                  "type": "number"
+                                },
+                                "totalChange": {
+                                  "type": "number"
+                                },
+                                "platforms": {
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "type": "number"
+                                      },
+                                      "change": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "reach": {
+                              "type": "object",
+                              "properties": {
+                                "total": {
+                                  "type": "number"
+                                },
+                                "totalChange": {
+                                  "type": "number"
+                                },
+                                "platforms": {
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "type": "number"
+                                      },
+                                      "change": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "engagement": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "likes": {
+                                    "type": "number"
+                                  },
+                                  "comments": {
+                                    "type": "number"
+                                  },
+                                  "shares": {
+                                    "type": "number"
+                                  },
+                                  "change": {
+                                    "type": "number"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "platformTotals": {
+                          "type": "object",
+                          "description": "Platform-wise totals with time series data",
+                          "properties": {
+                            "impressions": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "total": {
+                                    "type": "number"
+                                  },
+                                  "series": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "followers": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "total": {
+                                    "type": "number"
+                                  },
+                                  "series": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "likes": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "total": {
+                                    "type": "number"
+                                  },
+                                  "series": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "demographics": {
+                          "type": "object",
+                          "description": "Demographic data breakdown",
+                          "properties": {
+                            "gender": {
+                              "type": "object",
+                              "properties": {
+                                "totals": {
+                                  "type": "object",
+                                  "properties": {
+                                    "male": {
+                                      "type": "object",
+                                      "properties": {
+                                        "total": {
+                                          "type": "number"
+                                        },
+                                        "percentage": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "female": {
+                                      "type": "object",
+                                      "properties": {
+                                        "total": {
+                                          "type": "number"
+                                        },
+                                        "percentage": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "unknown": {
+                                      "type": "object",
+                                      "properties": {
+                                        "total": {
+                                          "type": "number"
+                                        },
+                                        "percentage": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "age": {
+                              "type": "object",
+                              "properties": {
+                                "totals": {
+                                  "type": "object",
+                                  "properties": {
+                                    "13-17": {
+                                      "type": "number"
+                                    },
+                                    "18-24": {
+                                      "type": "number"
+                                    },
+                                    "25-34": {
+                                      "type": "number"
+                                    },
+                                    "35-44": {
+                                      "type": "number"
+                                    },
+                                    "45-54": {
+                                      "type": "number"
+                                    },
+                                    "55-64": {
+                                      "type": "number"
+                                    },
+                                    "65+": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Analytics Built Successfully"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "example": "42fc8dd8-d55b-475f-944f-9efb90d77564"
+                    }
+                  },
+                  "example": {
+                    "results": {
+                      "dayRange": [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Thu",
+                        "Fri",
+                        "Sat",
+                        "Sun"
+                      ],
+                      "totals": {
+                        "posts": 0,
+                        "likes": 0,
+                        "followers": 0,
+                        "impressions": 0,
+                        "comments": 0
+                      },
+                      "postPerformance": {
+                        "posts": {
+                          "google": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                          ]
+                        },
+                        "impressions": [
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "likes": [
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "comments": [
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0
+                        ]
+                      },
+                      "breakdowns": {
+                        "posts": {
+                          "total": 0,
+                          "totalChange": 0,
+                          "platforms": {
+                            "google": {
+                              "value": 0,
+                              "change": 0
+                            }
+                          }
+                        },
+                        "impressions": {
+                          "total": 0,
+                          "totalChange": 0,
+                          "platforms": {
+                            "google": {
+                              "value": 0,
+                              "change": 0
+                            }
+                          }
+                        },
+                        "reach": {
+                          "total": 0,
+                          "totalChange": 0,
+                          "platforms": {
+                            "google": {
+                              "value": 0,
+                              "change": 0
+                            }
+                          }
+                        },
+                        "engagement": {
+                          "google": {
+                            "likes": 0,
+                            "comments": 0,
+                            "shares": 0,
+                            "change": 0
+                          }
+                        }
+                      },
+                      "platformTotals": {
+                        "impressions": {
+                          "google": {
+                            "total": 0,
+                            "series": [
+                              0,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                            ]
+                          }
+                        },
+                        "followers": {
+                          "google": {
+                            "total": 0,
+                            "series": [
+                              0,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                            ]
+                          }
+                        },
+                        "likes": {
+                          "google": {
+                            "total": 0,
+                            "series": [
+                              0,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                            ]
+                          }
+                        }
+                      },
+                      "demographics": {
+                        "gender": {
+                          "totals": {
+                            "male": {
+                              "total": 0,
+                              "percentage": 0
+                            },
+                            "female": {
+                              "total": 0,
+                              "percentage": 0
+                            },
+                            "unknown": {
+                              "total": 0,
+                              "percentage": 0
+                            }
+                          }
+                        },
+                        "age": {
+                          "totals": {
+                            "13-17": 0,
+                            "18-24": 0,
+                            "25-34": 0,
+                            "35-44": 0,
+                            "45-54": 0,
+                            "55-64": 0,
+                            "65+": 0
+                          }
+                        }
+                      }
+                    },
+                    "message": "Analytics Built Successfully",
+                    "traceId": "42fc8dd8-d55b-475f-944f-9efb90d77564"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Occurs when more than 100 accounts are requested or invalid parameters are provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity - Invalid request body format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Statistics"
         ]
       }
     }
@@ -4206,58 +4837,6 @@
       }
     },
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
-      "UnprocessableDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 422
-          },
-          "message": {
-            "example": [
-              "Unprocessable Entity"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "error": {
-            "type": "string",
-            "example": "Unprocessable Entity"
-          }
-        }
-      },
       "GoogleLocationSchema": {
         "type": "object",
         "properties": {
@@ -5238,7 +5817,9 @@
           }
         },
         "required": [
-          "type"
+          "type",
+          "accountIds",
+          "userId"
         ]
       },
       "CreatePostSuccessfulResponseSchema": {
@@ -8063,7 +8644,9 @@
         "properties": {
           "postIds": {
             "description": "Requested Results",
-            "example":  ["662791ee3f216822d7da0c8c"],
+            "example": [
+              "662791ee3f216822d7da0c8c"
+            ],
             "type": "array",
             "items": {
               "type": "string"
@@ -8099,7 +8682,7 @@
           },
           "results": {
             "description": "Message and deleted count",
-            "example": { 
+            "example": {
               "message": "Posts deleted successfully",
               "deletedCount": 10
             }
