@@ -24,7 +24,7 @@ const TEAM = {
 // Slack Webhook Mapping for Team Alerts
 const TEAM_SLACK_WEBHOOKS = {
   [TEAM.CRM]: 'https://hooks.slack.com/services/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',
-  [TEAM.PLATFORM]: TEAM_SLACK_WEBHOOKS[TEAM.CRM],
+  [TEAM.PLATFORM]: 'https://hooks.slack.com/services/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',
   [TEAM.AUTOMATIONS]: 'https://hooks.slack.com/services/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',
   [TEAM.REVEX]: 'https://hooks.slack.com/services/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',
   [TEAM.LEADGEN]: 'https://hooks.slack.com/services/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',
