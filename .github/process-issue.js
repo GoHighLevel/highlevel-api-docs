@@ -369,7 +369,7 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
 }
 
 // Send notification to Slack using team-specific webhooks
-async function sendSlackNotification(message, productInfo, github) {
+async function sendSlackNotification(message, productInfo) {
   if (!message) throw new Error("Notification message is required");
   if (!productInfo?.team) {
     throw new Error("Invalid product info for Slack notification");
@@ -381,13 +381,13 @@ async function sendSlackNotification(message, productInfo, github) {
     return;
   }
 
-  // Search for EM's GitHub username
-  let emGithubUsername = null;
-  if (productInfo.em && github) {
+  // Search for EM's Slack user ID
+  let emSlackUserId = null;
+  if (productInfo.em) {
     try {
-      emGithubUsername = await searchGithubUserByName(productInfo.em, github);
+      emSlackUserId = await searchSlackUserByName(productInfo.em);
     } catch (error) {
-      console.warn(`Could not find GitHub user for EM: ${productInfo.em}`, error.message);
+      console.warn(`Could not find Slack user for EM: ${productInfo.em}`, error.message);
     }
   }
 
@@ -406,7 +406,7 @@ async function sendSlackNotification(message, productInfo, github) {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `${emGithubUsername ? `👤 *Assigned EM:* @${emGithubUsername}` : productInfo.em ? `👤 *Assigned EM:* ${productInfo.em} (GitHub user not found)` : '👤 *Assigned EM:* Not assigned'}`
+            text: `${emSlackUserId ? `👤 *Assigned EM:* <@${emSlackUserId}>` : productInfo.em ? `👤 *Assigned EM:* ${productInfo.em} (Slack user not found)` : '👤 *Assigned EM:* Not assigned'}`
           }
         },
         {
@@ -471,9 +471,9 @@ async function sendSlackNotification(message, productInfo, github) {
       ]
     };
 
-    // Add mention in main text if we found GitHub username
-    if (emGithubUsername) {
-      slackMessage.text = `🚨 *New API Documentation Issue* - @${emGithubUsername}`;
+    // Add mention in main text if we found Slack user ID
+    if (emSlackUserId) {
+      slackMessage.text = `🚨 *New API Documentation Issue* - <@${emSlackUserId}>`;
     }
 
     await axios.post(webhookUrl, slackMessage, {
@@ -488,46 +488,72 @@ async function sendSlackNotification(message, productInfo, github) {
   }
 }
 
-// Search for GitHub user by name
-async function searchGithubUserByName(name, github) {
-  if (!name || !github) {
-    throw new Error("Name and GitHub instance are required");
+// Search for Slack user by name using Slack API
+async function searchSlackUserByName(name) {
+  if (!name) {
+    throw new Error("Name is required");
+  }
+
+  const slackToken = process.env.SLACK_BOT_TOKEN;
+  if (!slackToken) {
+    console.warn("SLACK_BOT_TOKEN not found in environment variables, skipping Slack user search");
+    return null;
   }
 
   try {
-    // Search for users with the given name
-    const searchResult = await github.rest.search.users({
-      q: `${name} in:fullname`,
-      per_page: 10
-    });
+    return await retryOperation(async () => {
+      // Use Slack's users.list API to get all users
+      const response = await axios.get('https://slack.com/api/users.list', {
+        headers: {
+          'Authorization': `Bearer ${slackToken}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 10000
+      });
 
-    if (searchResult.data.items && searchResult.data.items.length > 0) {
-      // Look for exact or close name matches
-      const exactMatch = searchResult.data.items.find(user => 
-        user.name && user.name.toLowerCase().includes(name.toLowerCase())
-      );
-      
-      if (exactMatch) {
-        return exactMatch.login;
+      if (!response.data.ok) {
+        throw new Error(`Slack API error: ${response.data.error}`);
       }
+
+      const users = response.data.members || [];
       
-      // If no exact match, try the first result
-      return searchResult.data.items[0].login;
-    }
+      // Search for user by real name or display name
+      const searchName = name.toLowerCase().trim();
+      
+      // Try exact match first
+      let foundUser = users.find(user => {
+        const realName = (user.real_name || '').toLowerCase();
+        const displayName = (user.profile?.display_name || '').toLowerCase();
+        const firstName = (user.profile?.first_name || '').toLowerCase();
+        const lastName = (user.profile?.last_name || '').toLowerCase();
+        
+        return realName === searchName || 
+               displayName === searchName ||
+               `${firstName} ${lastName}`.trim() === searchName;
+      });
 
-    // Fallback: search by login name as well
-    const loginSearchResult = await github.rest.search.users({
-      q: `${name.replace(/\s+/g, '')} in:login`,
-      per_page: 5
+      // If no exact match, try partial match
+      if (!foundUser) {
+        foundUser = users.find(user => {
+          const realName = (user.real_name || '').toLowerCase();
+          const displayName = (user.profile?.display_name || '').toLowerCase();
+          
+          return realName.includes(searchName) || 
+                 displayName.includes(searchName) ||
+                 searchName.includes(realName) ||
+                 searchName.includes(displayName);
+        });
+      }
+
+      if (foundUser && !foundUser.deleted && !foundUser.is_bot) {
+        console.log(`Found Slack user: ${foundUser.real_name} (${foundUser.id})`);
+        return foundUser.id;
+      }
+
+      throw new Error(`No active Slack user found for name: ${name}`);
     });
-
-    if (loginSearchResult.data.items && loginSearchResult.data.items.length > 0) {
-      return loginSearchResult.data.items[0].login;
-    }
-
-    throw new Error(`No GitHub user found for name: ${name}`);
   } catch (error) {
-    console.error(`Error searching for GitHub user: ${name}`, error.message);
+    console.error(`Error searching for Slack user: ${name}`, error.message);
     throw error;
   }
 }
@@ -607,7 +633,7 @@ async function processIssue(github, context, core) {
       
       // Send Slack notification (always send, even in dry run)
       console.log("📱 Sending Slack notification...");
-      await sendSlackNotification(message, productInfo, github);
+      await sendSlackNotification(message, productInfo);
 
       // Add success comment and label
       if (DRY_RUN) {
