@@ -8,6 +8,9 @@ const CUSTOM_FIELD_IDS = {
   GITHUB_ISSUE_ID: "879f5d73-a102-49a5-bfb1-83d6ccbb0a41"
 };
 
+// DRY RUN MODE - Set to true to skip actual API calls
+const DRY_RUN = true;
+
 // Team Definitions
 const TEAM = {
   CRM: 'crm',
@@ -298,6 +301,34 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
   if (!apiIssueTypeValue) throw new Error("API issue type is required");
   if (!dueDateMs) throw new Error("Due date is required");
 
+  if (DRY_RUN) {
+    console.log("\n📋 DRY_RUN: ClickUp Task Creation Details");
+    console.log("-".repeat(40));
+    console.log(`Task Name: ${issueData.title}`);
+    console.log(`List ID: ${CLICKUP_LIST_ID}`);
+    console.log(`Due Date: ${new Date(dueDateMs).toISOString()}`);
+    console.log(`API Issue Type Value: ${apiIssueTypeValue}`);
+    console.log(`GitHub Issue Number: ${issueData.number}`);
+    console.log("\n📤 Full ClickUp API Payload:");
+    console.log(JSON.stringify({
+      name: issueData.title,
+      description: `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}\n\n⚠️ Important: Please do not close this ClickUp task directly. The task will be automatically closed when the corresponding GitHub issue is closed.`,
+      due_date: dueDateMs,
+      custom_fields: [
+        {
+          id: CUSTOM_FIELD_IDS.API_ISSUE_TYPE,
+          value: apiIssueTypeValue
+        },
+        {
+          id: CUSTOM_FIELD_IDS.GITHUB_ISSUE_ID,
+          value: issueData.number.toString()
+        }
+      ]
+    }, null, 2));
+    
+    return { id: "dry-run-task-id", url: `https://app.clickup.com/t/${CLICKUP_LIST_ID}/dry-run-task-id` };
+  }
+
   return retryOperation(async () => {
     const url = `${CLICKUP_API_BASE_URL}/list/${CLICKUP_LIST_ID}/task`;
     const headers = {
@@ -504,6 +535,10 @@ async function searchGithubUserByName(name, github) {
 // Main function to process GitHub issues
 async function processIssue(github, context, core) {
   try {
+    if (DRY_RUN) {
+      console.log("🧪 DRY RUN MODE ENABLED - No actual API calls will be made");
+      console.log("=".repeat(50));
+    }
     // Get issue number
     let issueNumber;
     if (context.eventName === 'workflow_dispatch') {
@@ -536,12 +571,16 @@ async function processIssue(github, context, core) {
     }
 
     // Add processing label
-    await github.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: issueNumber,
-      labels: ['processing']
-    });
+    if (DRY_RUN) {
+      console.log("DRY_RUN: Would add 'processing' label to GitHub issue");
+    } else {
+      await github.rest.issues.addLabels({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: issueNumber,
+        labels: ['processing']
+      });
+    }
 
     // Process the issue
     const productInfo = determineProductInfo(issueData.title, issueData.body);
@@ -549,65 +588,54 @@ async function processIssue(github, context, core) {
     const dueDateMs = calculateDueDate(issueData.labels, apiIssueTypeValue);
     const dueDateStr = new Date(dueDateMs).toISOString().split('T')[0];
 
+    if (DRY_RUN) {
+      console.log("\n🎯 Product Assignment Details");
+      console.log("-".repeat(30));
+      console.log(`Product: ${productInfo.product}`);
+      console.log(`Team: ${productInfo.team}`);
+      console.log(`Sub-team: ${productInfo.sub_team}`);
+      console.log(`Engineering Manager: ${productInfo.em}`);
+      console.log(`API Issue Type: ${apiIssueTypeValue}`);
+      console.log(`Due Date: ${dueDateStr}`);
+    }
+
     // Create ClickUp task
     const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
 
     if (createdTask && createdTask.id) {
       const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\n🚀 ClickUp Task Created: ${createdTask.url}\n📢 Product: ${productInfo.product}\n🗂️ API Issue Type: ${apiIssueTypeValue}\n🗓️ Due Date: ${dueDateStr}`;
       
-      // Send Slack notification
+      // Send Slack notification (always send, even in dry run)
+      console.log("📱 Sending Slack notification...");
       await sendSlackNotification(message, productInfo, github);
 
       // Add success comment and label
-      await github.rest.issues.createComment({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        body: `✅ Issue processed successfully!\n\nYour issue has been reviewed and assigned to the appropriate team.`
-      });
+      if (DRY_RUN) {
+        console.log("DRY_RUN: Would add success comment and 'processed' label to GitHub issue");
+      } else {
+        await github.rest.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          body: `✅ Issue processed successfully!\n\nYour issue has been reviewed and assigned to the appropriate team.`
+        });
 
-      await github.rest.issues.addLabels({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        labels: ['processed']
-      });
+        await github.rest.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          labels: ['processed']
+        });
+      }
 
       core.setOutput('clickup_task_id', createdTask.id);
       core.setOutput('clickup_task_url', createdTask.url);
     }
 
     // Remove processing label
-    try {
-      await github.rest.issues.removeLabel({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        name: 'processing'
-      });
-    } catch (e) {
-      // Ignore error if label doesn't exist
-    }
-
-  } catch (error) {
-    const errorMessage = error.response?.data?.message || error.message;
-    
-    const issueNumber = context.issue.number || core.getInput('issue_number');
-    if (issueNumber) {
-      await github.rest.issues.addLabels({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        labels: ['processing-error']
-      });
-
-      await github.rest.issues.createComment({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        body: `❌ Error processing issue:\n\`\`\`\n${errorMessage}\n\`\`\``
-      });
-
+    if (DRY_RUN) {
+      console.log("DRY_RUN: Would remove 'processing' label from GitHub issue");
+    } else {
       try {
         await github.rest.issues.removeLabel({
           owner: context.repo.owner,
@@ -617,6 +645,42 @@ async function processIssue(github, context, core) {
         });
       } catch (e) {
         // Ignore error if label doesn't exist
+      }
+    }
+
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || error.message;
+    
+    const issueNumber = context.issue.number || core.getInput('issue_number');
+    if (issueNumber) {
+      if (DRY_RUN) {
+        console.log("DRY_RUN: Would add 'processing-error' label and error comment to GitHub issue");
+        console.log("Error message:", errorMessage);
+      } else {
+        await github.rest.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          labels: ['processing-error']
+        });
+
+        await github.rest.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          body: `❌ Error processing issue:\n\`\`\`\n${errorMessage}\n\`\`\``
+        });
+
+        try {
+          await github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            name: 'processing'
+          });
+        } catch (e) {
+          // Ignore error if label doesn't exist
+        }
       }
 
       core.setOutput('error', errorMessage);
