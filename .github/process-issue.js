@@ -5,7 +5,6 @@ const CLICKUP_LIST_ID = "901002929528";
 const CLICKUP_API_BASE_URL = "https://api.clickup.com/api/v2";
 const CUSTOM_FIELD_IDS = {
   API_ISSUE_TYPE: "49bc39d0-e792-4b70-a706-422c06ebc47f",
-  MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be",
   GITHUB_ISSUE_ID: "879f5d73-a102-49a5-bfb1-83d6ccbb0a41"
 };
 
@@ -19,10 +18,19 @@ const TEAM = {
   MOBILE: 'mobile'
 };
 
+// Slack Webhook Mapping for Team Alerts
+const TEAM_SLACK_WEBHOOKS = {
+  [TEAM.CRM]: 'https://hooks.slack.com/services/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',
+  [TEAM.PLATFORM]: TEAM_SLACK_WEBHOOKS[TEAM.CRM],
+  [TEAM.AUTOMATIONS]: 'https://hooks.slack.com/services/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',
+  [TEAM.REVEX]: 'https://hooks.slack.com/services/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',
+  [TEAM.LEADGEN]: 'https://hooks.slack.com/services/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',
+  [TEAM.MOBILE]: 'https://hooks.slack.com/services/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'
+};
+
 // Sub-team Definitions
 const CRM_SUB_TEAM = {
   MARKETPLACE: 'marketplace',
-  API_QUERIES: 'API Queries',
   MARKETPLACE_MODULES: 'marketplace-modules',
   INTEGRATIONS: 'integrations',
   CONTACTS: 'contacts',
@@ -36,46 +44,29 @@ const AUTOMATIONS_SUB_TEAM = {
   WORKFLOWS: 'workflows',
   CALENDARS: 'calendars',
   REPORTING: 'reporting',
-  AFFILIATE_MANAGER: 'am',
-  AD_PUBLISHING: 'ad-publishing',
-  ELIZA: 'eliza'
+  AD_PUBLISHING: 'ad-publishing'
 };
 
 const LEADGEN_SUB_TEAM = {
-  BLOGS: 'blogs',
   FUNNELS: 'funnels',
-  MEDIA_LIBRARY: 'cm-medias',
   FORMS: 'forms',
   SURVEYS: 'surveys',
-  PAYMENT_PRODUCTS: 'payment-products',
   PAYMENTS: 'payments',
+  PAYMENT_PRODUCTS: 'payment-products',
   PROPOSALS: 'proposals',
-  ECOM_STORE: 'ecomm-store',
   EMAIL_BUILDER: 'emails',
   TEMPLATES: 'templates',
-  WIDGETS: 'Widgets',
-  BLOGGING: 'Blogging',
   SOCIAL_PLANNER: 'social-media',
   ONBOARDING: 'onboarding',
   LAUNCHPAD: 'LaunchPad',
-  CONTENT_AI: 'blogs',
-  LOCALIZATION: 'localization',
-  FRONTEND_PLATFORM: 'platform-ui',
-  TASK_SCHEDULER: 'cm-ts'
+  CONTENT_AI: 'blogs'
 };
 
 const REVEX_SUB_TEAM = {
-  AGENCY: 'agency_dashboard',
-  AFFILIATE_PORTAL: 'affiliate_portal',
-  INTERNAL_TOOLS: 'internal-tools',
   ISV_LC_EMAIL: 'lc-email',
-  GATEKEEPER: 'gatekeeper',
   ISV_LC_WHATSAPP: 'whatsapp',
   ISV_LC_PHONE: 'lc-phone',
-  BLADE_PLATFORM: 'blade-platform',
-  SUBACCOUNTS: 'subaccounts',
   SAAS: 'saas',
-  AGENCY_DASHBOARD: 'agency_dashboard',
   YEXT: 'yext',
   RESELLING: 'reselling',
   PROSPECTING: 'prospecting',
@@ -86,21 +77,11 @@ const REVEX_SUB_TEAM = {
   COMMUNITIES: 'communities',
   CLIENT_PORTAL: 'client-portal',
   SNAPSHOTS: 'snapshots',
-  STRIPE_CONSUMER: 'stripe-consumer',
-  MOBILE_APP_CUSTOMISER: 'mobile-app-customiser',
   GOKOLLAB: 'gokollab'
 };
 
 const PLATFORM_SUB_TEAM = {
-  DATA: 'data',
-  INFRA: 'infra',
-  SERVICES: 'services',
-  AI: 'ai',
-  SRE: 'sre'
-};
-
-const MOBILE_SUB_TEAM = {
-  BACKEND: 'backend'
+  SERVICES: 'services'
 };
 
 // Product Channel Mapping
@@ -356,68 +337,167 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
   });
 }
 
-// Send notification to OnCall service
-async function sendOnCallNotification(message, productInfo) {
+// Send notification to Slack using team-specific webhooks
+async function sendSlackNotification(message, productInfo, github) {
   if (!message) throw new Error("Notification message is required");
-  if (!productInfo?.team || !productInfo?.sub_team) {
-    throw new Error("Invalid product info for notification");
+  if (!productInfo?.team) {
+    throw new Error("Invalid product info for Slack notification");
+  }
+
+  const webhookUrl = TEAM_SLACK_WEBHOOKS[productInfo.team];
+  if (!webhookUrl) {
+    console.warn(`No Slack webhook found for team: ${productInfo.team}`);
+    return;
+  }
+
+  // Search for EM's GitHub username
+  let emGithubUsername = null;
+  if (productInfo.em && github) {
+    try {
+      emGithubUsername = await searchGithubUserByName(productInfo.em, github);
+    } catch (error) {
+      console.warn(`Could not find GitHub user for EM: ${productInfo.em}`, error.message);
+    }
   }
 
   try {
-    const response = await axios.get(process.env.ONCALL_SERVICE_URL, {
-      params: { subTeam: productInfo.sub_team },
-      headers: {
-        'Authorization': `Bearer ${process.env.ONCALL_AUTH_TOKEN}`,
-        'version': process.env.ONCALL_API_VERSION
-      },
-      timeout: 10000
-    });
-    
-    if (!response.data?.endpoint) {
-      throw new Error("OnCall endpoint not found in response");
-    }
-
-    const endpoint = response.data.endpoint;
-    const alertMessage = `Doc for this alert: https://github.com/GoHighLevel/private-github-workflows/blob/main/alerts/api_documentation_issue.md
-
-    Hey, we have received a new GitHub issue that needs attention,
-    Team: ${productInfo.team}
-    Sub-team: ${productInfo.sub_team}
-    Product: ${productInfo.product}
-
-    --- Issue Details ---
-    ${message}
-
-    --- Links ---
-    GitHub Issue: ${message.match(/GitHub URL: (.*)/)?.[1] || 'N/A'}
-    ClickUp Task: ${message.match(/ClickUp Task Created: (.*)/)?.[1] || 'N/A'}
-    API Issue Type: ${message.match(/API Issue Type: (.*)/)?.[1] || 'N/A'}
-    Due Date: ${message.match(/Due Date: (.*)/)?.[1] || 'N/A'}
-
-    If you are facing any difficulties or need assistance, please reach out to api-team on Slack.`;
-
-    const payload = {
-      labels: {
-        team: productInfo.team,
-        category: "API Documentation",
-        severity: "p2",
-        sub_team: productInfo.sub_team,
-        alertname: `API Documentation Issue${context.issue?.number ? ` #${context.issue.number}` : context.payload?.inputs?.issue_number ? ` #${context.payload.inputs.issue_number}` : ''}`
-      },
-      status: "firing",
-      annotations: {
-        AlertValues: alertMessage
-      }
+    const slackMessage = {
+      text: `🚨 *New API Documentation Issue*`,
+      blocks: [
+        {
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: "🚨 New API Documentation Issue"
+          }
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `${emGithubUsername ? `👤 *Assigned EM:* @${emGithubUsername}` : productInfo.em ? `👤 *Assigned EM:* ${productInfo.em} (GitHub user not found)` : '👤 *Assigned EM:* Not assigned'}`
+          }
+        },
+        {
+          type: "section",
+          fields: [
+            {
+              type: "mrkdwn",
+              text: `*Team:* ${productInfo.team}`
+            },
+            {
+              type: "mrkdwn", 
+              text: `*Sub-team:* ${productInfo.sub_team || 'N/A'}`
+            },
+            {
+              type: "mrkdwn",
+              text: `*Product:* ${productInfo.product}`
+            },
+            {
+              type: "mrkdwn",
+              text: `*Due Date:* ${message.match(/Due Date: (.*)/)?.[1] || 'N/A'}`
+            }
+          ]
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `*Issue Details:*\n${message}`
+          }
+        },
+        {
+          type: "actions",
+          elements: [
+            ...(message.match(/GitHub URL: (.*)/)?.[1] ? [{
+              type: "button",
+              text: {
+                type: "plain_text",
+                text: "View GitHub Issue"
+              },
+              url: message.match(/GitHub URL: (.*)/)?.[1],
+              style: "primary"
+            }] : []),
+            ...(message.match(/ClickUp Task Created: (.*)/)?.[1] ? [{
+              type: "button", 
+              text: {
+                type: "plain_text",
+                text: "View ClickUp Task"
+              },
+              url: message.match(/ClickUp Task Created: (.*)/)?.[1]
+            }] : [])
+          ]
+        },
+        {
+          type: "context",
+          elements: [
+            {
+              type: "mrkdwn",
+              text: "📖 For help, reach out to #api-team on Slack | 📋 <https://github.com/GoHighLevel/private-github-workflows/blob/main/alerts/api_documentation_issue.md|Documentation>"
+            }
+          ]
+        }
+      ]
     };
 
-    await axios.post(endpoint, payload, {
+    // Add mention in main text if we found GitHub username
+    if (emGithubUsername) {
+      slackMessage.text = `🚨 *New API Documentation Issue* - @${emGithubUsername}`;
+    }
+
+    await axios.post(webhookUrl, slackMessage, {
       headers: { "Content-Type": "application/json" },
       timeout: 10000
     });
-    console.log("OnCall notification sent successfully.");
+    
+    console.log(`Slack notification sent successfully to ${productInfo.team} team.`);
   } catch (error) {
-    console.error("Error sending OnCall notification:", error.response?.data || error.message);
+    console.error(`Error sending Slack notification to ${productInfo.team}:`, error.response?.data || error.message);
     // Don't throw error for notification failure
+  }
+}
+
+// Search for GitHub user by name
+async function searchGithubUserByName(name, github) {
+  if (!name || !github) {
+    throw new Error("Name and GitHub instance are required");
+  }
+
+  try {
+    // Search for users with the given name
+    const searchResult = await github.rest.search.users({
+      q: `${name} in:fullname`,
+      per_page: 10
+    });
+
+    if (searchResult.data.items && searchResult.data.items.length > 0) {
+      // Look for exact or close name matches
+      const exactMatch = searchResult.data.items.find(user => 
+        user.name && user.name.toLowerCase().includes(name.toLowerCase())
+      );
+      
+      if (exactMatch) {
+        return exactMatch.login;
+      }
+      
+      // If no exact match, try the first result
+      return searchResult.data.items[0].login;
+    }
+
+    // Fallback: search by login name as well
+    const loginSearchResult = await github.rest.search.users({
+      q: `${name.replace(/\s+/g, '')} in:login`,
+      per_page: 5
+    });
+
+    if (loginSearchResult.data.items && loginSearchResult.data.items.length > 0) {
+      return loginSearchResult.data.items[0].login;
+    }
+
+    throw new Error(`No GitHub user found for name: ${name}`);
+  } catch (error) {
+    console.error(`Error searching for GitHub user: ${name}`, error.message);
+    throw error;
   }
 }
 
@@ -474,7 +554,9 @@ async function processIssue(github, context, core) {
 
     if (createdTask && createdTask.id) {
       const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\n🚀 ClickUp Task Created: ${createdTask.url}\n📢 Product: ${productInfo.product}\n🗂️ API Issue Type: ${apiIssueTypeValue}\n🗓️ Due Date: ${dueDateStr}`;
-      await sendOnCallNotification(message, productInfo);
+      
+      // Send Slack notification
+      await sendSlackNotification(message, productInfo, github);
 
       // Add success comment and label
       await github.rest.issues.createComment({
