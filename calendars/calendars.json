@@ -34,8 +34,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id",
-            "example": "ve9EPM428h8vShlRW1KT",
             "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
               "type": "string"
             }
           }
@@ -56,7 +56,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -66,7 +66,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -135,7 +135,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -145,7 +145,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -216,7 +216,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -226,7 +226,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -275,8 +275,8 @@
             "required": true,
             "in": "path",
             "description": "Group Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
             "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
               "type": "string"
             }
           }
@@ -297,7 +297,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -307,7 +307,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -354,8 +354,8 @@
             "required": true,
             "in": "path",
             "description": "Group Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
             "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
               "type": "string"
             }
           }
@@ -386,7 +386,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -396,7 +396,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -445,8 +445,8 @@
             "required": true,
             "in": "path",
             "description": "Group Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
             "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
               "type": "string"
             }
           }
@@ -477,7 +477,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -487,7 +487,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -503,11 +503,11 @@
         ]
       }
     },
-    "/calendars/events": {
-      "get": {
-        "operationId": "get-calendar-events",
-        "summary": "Get Calendar Events",
-        "description": "Get Calendar Events",
+    "/calendars/events/appointments": {
+      "post": {
+        "operationId": "create-appointment",
+        "summary": "Create appointment",
+        "description": "Create appointment",
         "parameters": [
           {
             "name": "Authorization",
@@ -529,422 +529,6 @@
               "enum": [
                 "2021-04-15"
               ]
-            }
-          },
-          {
-            "name": "locationId",
-            "required": true,
-            "in": "query",
-            "description": "Location Id",
-            "example": "0007BWpSzSwfiuSl0tR2",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "required": false,
-            "in": "query",
-            "description": "User Id - Owner of an appointment. Either of userId, groupId or calendarId is required",
-            "example": "CVokAlI8fgw4WYWoCtQz",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "calendarId",
-            "required": false,
-            "in": "query",
-            "description": "Either of calendarId, userId or groupId is required",
-            "example": "BqTwX8QFwXzpegMve9EQ",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "groupId",
-            "required": false,
-            "in": "query",
-            "description": "Either of groupId, calendarId or userId is required",
-            "example": "ocQHyuzHvysMo5N5VsXc",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "startTime",
-            "required": true,
-            "in": "query",
-            "description": "Start Time (in millis)",
-            "example": "1680373800000",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "endTime",
-            "required": true,
-            "in": "query",
-            "description": "End Time (in millis)",
-            "example": "1680978599999",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCalendarEventsSuccessfulResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Calendar Events"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
-    "/calendars/blocked-slots": {
-      "get": {
-        "operationId": "get-blocked-slots",
-        "summary": "Get Blocked Slots",
-        "description": "Get Blocked Slots",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
-            }
-          },
-          {
-            "name": "locationId",
-            "required": true,
-            "in": "query",
-            "description": "Location Id",
-            "example": "0007BWpSzSwfiuSl0tR2",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "required": false,
-            "in": "query",
-            "description": "User Id - Owner of an appointment. Either of userId, groupId or calendarId is required",
-            "example": "CVokAlI8fgw4WYWoCtQz",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "calendarId",
-            "required": false,
-            "in": "query",
-            "description": "Either of calendarId, userId or groupId is required",
-            "example": "BqTwX8QFwXzpegMve9EQ",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "groupId",
-            "required": false,
-            "in": "query",
-            "description": "Either of groupId, calendarId or userId is required",
-            "example": "ocQHyuzHvysMo5N5VsXc",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "startTime",
-            "required": true,
-            "in": "query",
-            "description": "Start Time (in millis)",
-            "example": "1680373800000",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "endTime",
-            "required": true,
-            "in": "query",
-            "description": "End Time (in millis)",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCalendarEventsSuccessfulResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Calendar Events"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
-    "/calendars/{calendarId}/free-slots": {
-      "get": {
-        "operationId": "get-slots",
-        "summary": "Get Free Slots",
-        "description": "Get free slots for a calendar between a date range. Optionally a consumer can also request free slots in a particular timezone and also for a particular user.",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
-            }
-          },
-          {
-            "name": "calendarId",
-            "required": true,
-            "in": "path",
-            "description": "Calendar Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "startDate",
-            "required": true,
-            "in": "query",
-            "description": "Start Date",
-            "example": 1548898600000,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "endDate",
-            "required": true,
-            "in": "query",
-            "description": "End Date",
-            "example": 1601490599999,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "timezone",
-            "required": false,
-            "in": "query",
-            "description": "The timezone in which the free slots are returned",
-            "example": "America/Chihuahua",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "required": false,
-            "in": "query",
-            "description": "The user for whom the free slots are returned",
-            "example": "082goXVW3lIExEQPOnd3",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userIds",
-            "required": false,
-            "in": "query",
-            "description": "The users for whom the free slots are returned",
-            "example": "[082goXVW3lIExEQPOnd3]",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "enableLookBusy",
-            "required": false,
-            "in": "query",
-            "description": "Apply Look Busy",
-            "example": false,
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetSlotsSuccessfulResponseDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Calendars"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
-    "/calendars/{calendarId}": {
-      "put": {
-        "operationId": "update-calendar",
-        "summary": "Update Calendar",
-        "description": "Update calendar by ID.",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
-            }
-          },
-          {
-            "name": "calendarId",
-            "required": true,
-            "in": "path",
-            "description": "Calendar Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -953,7 +537,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CalendarUpdateDTO"
+                "$ref": "#/components/schemas/AppointmentCreateSchema"
               }
             }
           }
@@ -964,7 +548,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CalendarByIdSuccessfulResponseDTO"
+                  "$ref": "#/components/schemas/AppointmentSchemaResponse"
                 }
               }
             }
@@ -974,7 +558,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -984,172 +568,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
           }
         },
         "tags": [
-          "Calendars"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      },
-      "get": {
-        "operationId": "get-calendar",
-        "summary": "Get Calendar",
-        "description": "Get calendar by ID",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
-            }
-          },
-          {
-            "name": "calendarId",
-            "required": true,
-            "in": "path",
-            "description": "Calendar Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CalendarByIdSuccessfulResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Calendars"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "delete-calendar",
-        "summary": "Delete Calendar",
-        "description": "Delete calendar by ID",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
-            }
-          },
-          {
-            "name": "calendarId",
-            "required": true,
-            "in": "path",
-            "description": "Calendar Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CalendarDeleteSuccessfulResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Calendars"
+          "Calendar Events"
         ],
         "security": [
           {
@@ -1159,98 +585,10 @@
       }
     },
     "/calendars/events/appointments/{eventId}": {
-      "get": {
-        "operationId": "get-appointment",
-        "summary": "Get Appointment",
-        "description": "Get appointment by ID",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
-            }
-          },
-          {
-            "name": "eventId",
-            "required": true,
-            "in": "path",
-            "description": "Event Id or Instance id. For recurring appointments send masterEventId to modify original series.",
-            "examples": {
-              "example1": {
-                "summary": "Event ID",
-                "value": "ocQHyuzHvysMo5N5VsXc"
-              },
-              "example2": {
-                "summary": "Recurring Instance ID",
-                "value": "ocQHyuzHvysMo5N5VsXc_1729821600000_1800"
-              }
-            },
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCalendarEventSuccessfulResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Calendar Events"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      },
       "put": {
         "operationId": "edit-appointment",
         "summary": "Update Appointment",
-        "description": "Update appointment by ID",
+        "description": "Update appointment",
         "parameters": [
           {
             "name": "Authorization",
@@ -1320,7 +658,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1330,7 +668,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1344,13 +682,11 @@
             "bearer": []
           }
         ]
-      }
-    },
-    "/calendars/events/appointments": {
-      "post": {
-        "operationId": "create-appointment",
-        "summary": "Create Appointment",
-        "description": "Create appointment",
+      },
+      "get": {
+        "operationId": "get-appointment",
+        "summary": "Get Appointment",
+        "description": "Get appointment by ID",
         "parameters": [
           {
             "name": "Authorization",
@@ -1373,25 +709,34 @@
                 "2021-04-15"
               ]
             }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppointmentCreateSchema"
+          },
+          {
+            "name": "eventId",
+            "required": true,
+            "in": "path",
+            "description": "Event Id or Instance id. For recurring appointments send masterEventId to modify original series.",
+            "examples": {
+              "example1": {
+                "summary": "Event ID",
+                "value": "ocQHyuzHvysMo5N5VsXc"
+              },
+              "example2": {
+                "summary": "Recurring Instance ID",
+                "value": "ocQHyuzHvysMo5N5VsXc_1729821600000_1800"
               }
+            },
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppointmentSchemaResponse"
+                  "$ref": "#/components/schemas/GetCalendarEventSuccessfulResponseDTO"
                 }
               }
             }
@@ -1401,7 +746,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1411,7 +756,269 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendar Events"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/calendars/events": {
+      "get": {
+        "operationId": "get-calendar-events",
+        "summary": "Get Calendar Events",
+        "description": "Get Calendar Events",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "0007BWpSzSwfiuSl0tR2",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "description": "User Id - Owner of an appointment. Either of userId, groupId or calendarId is required",
+            "schema": {
+              "example": "CVokAlI8fgw4WYWoCtQz",
+              "type": "string"
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": false,
+            "in": "query",
+            "description": "Either of calendarId, userId or groupId is required",
+            "schema": {
+              "example": "BqTwX8QFwXzpegMve9EQ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "required": false,
+            "in": "query",
+            "description": "Either of groupId, calendarId or userId is required",
+            "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "required": true,
+            "in": "query",
+            "description": "Start Time (in millis)",
+            "schema": {
+              "example": "1680373800000",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endTime",
+            "required": true,
+            "in": "query",
+            "description": "End Time (in millis)",
+            "schema": {
+              "example": "1680978599999",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCalendarEventsSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendar Events"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/calendars/blocked-slots": {
+      "get": {
+        "operationId": "get-blocked-slots",
+        "summary": "Get Blocked Slots",
+        "description": "Get Blocked Slots",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "0007BWpSzSwfiuSl0tR2",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "description": "User Id - Owner of an appointment. Either of userId, groupId or calendarId is required",
+            "schema": {
+              "example": "CVokAlI8fgw4WYWoCtQz",
+              "type": "string"
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": false,
+            "in": "query",
+            "description": "Either of calendarId, userId or groupId is required",
+            "schema": {
+              "example": "BqTwX8QFwXzpegMve9EQ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "required": false,
+            "in": "query",
+            "description": "Either of groupId, calendarId or userId is required",
+            "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "required": true,
+            "in": "query",
+            "description": "Start Time (in millis)",
+            "schema": {
+              "example": "1680373800000",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endTime",
+            "required": true,
+            "in": "query",
+            "description": "End Time (in millis)",
+            "schema": {
+              "example": "1680978599999",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCalendarEventsSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1461,7 +1068,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BlockSlotCreateSchema"
+                "$ref": "#/components/schemas/BlockSlotCreateRequestDTO"
               }
             }
           }
@@ -1472,7 +1079,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateBookedSlotSuccessfulResponseDto"
+                  "$ref": "#/components/schemas/BlockedSlotSuccessfulResponseDto"
                 }
               }
             }
@@ -1482,7 +1089,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1492,14 +1099,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
           }
         },
         "tags": [
-          "Calendars"
+          "Calendar Events"
         ],
         "security": [
           {
@@ -1540,8 +1147,17 @@
             "name": "eventId",
             "required": true,
             "in": "path",
-            "description": "Event Id",
-            "example": "ocQHyuzHvysMo5N5VsXc",
+            "description": "Event Id or Instance id. For recurring appointments send masterEventId to modify original series.",
+            "examples": {
+              "example1": {
+                "summary": "Event ID",
+                "value": "ocQHyuzHvysMo5N5VsXc"
+              },
+              "example2": {
+                "summary": "Recurring Instance ID",
+                "value": "ocQHyuzHvysMo5N5VsXc_1729821600000_1800"
+              }
+            },
             "schema": {
               "type": "string"
             }
@@ -1552,7 +1168,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BlockSlotEditSchema"
+                "$ref": "#/components/schemas/BlockSlotEditRequestDTO"
               }
             }
           }
@@ -1563,7 +1179,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateBookedSlotSuccessfulResponseDto"
+                  "$ref": "#/components/schemas/BlockedSlotSuccessfulResponseDto"
                 }
               }
             }
@@ -1573,7 +1189,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1583,7 +1199,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1591,6 +1207,388 @@
         },
         "tags": [
           "Calendar Events"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/calendars/{calendarId}/free-slots": {
+      "get": {
+        "operationId": "get-slots",
+        "summary": "Get Free Slots",
+        "description": "Get free slots for a calendar between a date range. Optionally a consumer can also request free slots in a particular timezone and also for a particular user.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": true,
+            "in": "path",
+            "description": "Calendar Id",
+            "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "required": true,
+            "in": "query",
+            "description": "Start Date (**⚠️ Important:** Date range cannot be more than 31 days)",
+            "schema": {
+              "example": 1548898600000,
+              "type": "number"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": true,
+            "in": "query",
+            "description": "End Date (**⚠️ Important:** Date range cannot be more than 31 days)",
+            "schema": {
+              "example": 1601490599999,
+              "type": "number"
+            }
+          },
+          {
+            "name": "timezone",
+            "required": false,
+            "in": "query",
+            "description": "The timezone in which the free slots are returned",
+            "schema": {
+              "example": "America/Chihuahua",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "description": "The user for whom the free slots are returned",
+            "schema": {
+              "example": "082goXVW3lIExEQPOnd3",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userIds",
+            "required": false,
+            "in": "query",
+            "description": "The users for whom the free slots are returned",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSlotsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendars"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/calendars/{calendarId}": {
+      "put": {
+        "operationId": "update-calendar",
+        "summary": "Update Calendar",
+        "description": "Update calendar by ID.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": true,
+            "in": "path",
+            "description": "Calendar Id",
+            "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalendarUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarByIdSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendars"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get-calendar",
+        "summary": "Get Calendar",
+        "description": "Get calendar by ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": true,
+            "in": "path",
+            "description": "Calendar Id",
+            "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarByIdSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendars"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-calendar",
+        "summary": "Delete Calendar",
+        "description": "Delete calendar by ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": true,
+            "in": "path",
+            "description": "Calendar Id",
+            "schema": {
+              "example": "ocQHyuzHvysMo5N5VsXc",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarDeleteSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendars"
         ],
         "security": [
           {
@@ -1673,7 +1671,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1683,7 +1681,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1732,9 +1730,9 @@
             "required": true,
             "in": "query",
             "description": "Limit of notes to fetch",
-            "example": 10,
             "schema": {
               "maximum": 20,
+              "example": 10,
               "type": "number"
             }
           },
@@ -1743,9 +1741,9 @@
             "required": true,
             "in": "query",
             "description": "Offset of notes to fetch",
-            "example": 0,
             "schema": {
               "minimum": 0,
+              "example": 0,
               "type": "number"
             }
           },
@@ -1775,7 +1773,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1785,7 +1783,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1863,7 +1861,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1873,7 +1871,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1953,7 +1951,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1963,7 +1961,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2031,7 +2029,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2041,7 +2039,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2124,7 +2122,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2134,7 +2132,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2225,7 +2223,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2235,7 +2233,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2316,7 +2314,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2326,7 +2324,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2427,7 +2425,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2437,7 +2435,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2519,7 +2517,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2529,7 +2527,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2577,28 +2575,6 @@
             "name": "calendarId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "altType",
-            "required": false,
-            "in": "query",
-            "description": "Specifies the model associated with the notification. This can be extended to support additional models in the future. For now only Calendars is supported",
-            "schema": {
-              "default": "calendar",
-              "enum": [
-                "calendar"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "name": "altId",
-            "required": false,
-            "in": "query",
-            "description": "Specifies the ID of the model associated with the notification. This can be extended to support additional models in the future.",
             "schema": {
               "type": "string"
             }
@@ -2659,7 +2635,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2669,7 +2645,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2747,7 +2723,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2757,7 +2733,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2829,7 +2805,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2839,7 +2815,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2919,7 +2895,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2929,7 +2905,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2999,7 +2975,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3009,7 +2985,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3053,8 +3029,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id",
-            "example": "ve9EPM428h8vShlRW1KT",
             "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
               "type": "string"
             }
           },
@@ -3063,8 +3039,8 @@
             "required": false,
             "in": "query",
             "description": "Group Id",
-            "example": "BqTwX8QFwXzpegMve9EQ",
             "schema": {
+              "example": "BqTwX8QFwXzpegMve9EQ",
               "type": "string"
             }
           },
@@ -3073,9 +3049,9 @@
             "required": false,
             "in": "query",
             "description": "Show drafted",
-            "example": false,
             "schema": {
               "default": true,
+              "example": false,
               "type": "boolean"
             }
           }
@@ -3096,7 +3072,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3106,7 +3082,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3175,7 +3151,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3185,7 +3161,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3237,6 +3213,14 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
       "Agency-Access": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
@@ -3247,36 +3231,6 @@
       }
     },
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
       "GroupDTO": {
         "type": "object",
         "properties": {
@@ -3894,6 +3848,131 @@
           }
         }
       },
+      "BlockSlotCreateRequestDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "example": "Test Event"
+          },
+          "calendarId": {
+            "type": "string",
+            "description": "Either calendarId or assignedUserId can be set, not both.",
+            "example": "CVokAlI8fgw4WYWoCtQz"
+          },
+          "assignedUserId": {
+            "type": "string",
+            "description": "Either calendarId or assignedUserId can be set, not both.",
+            "example": "CVokAlI8fgw4WYWoCtQz"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Start Time",
+            "example": "2021-06-23T03:30:00+05:30"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "End Time",
+            "example": "2021-06-23T04:30:00+05:30"
+          }
+        },
+        "required": [
+          "calendarId",
+          "locationId"
+        ]
+      },
+      "BlockedSlotSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id",
+            "example": "0TkCdp9PfvLeWKYRRvIz"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "example": "My event"
+          },
+          "startTime": {
+            "type": "object",
+            "description": "Start Time",
+            "example": "2021-06-23T03:30:00+05:30"
+          },
+          "endTime": {
+            "type": "object",
+            "description": "End Time",
+            "example": "2021-06-23T04:30:00+05:30"
+          },
+          "calendarId": {
+            "type": "string",
+            "description": "Calendar id",
+            "example": "CVokAlI8fgw4WYWoCtQz"
+          },
+          "assignedUserId": {
+            "type": "string",
+            "description": "Assigned User Id",
+            "example": "0007BWpSzSwfiuSl0tR2"
+          }
+        },
+        "required": [
+          "id",
+          "locationId",
+          "title",
+          "startTime",
+          "endTime"
+        ]
+      },
+      "BlockSlotEditRequestDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "example": "Test Event"
+          },
+          "calendarId": {
+            "type": "string",
+            "description": "Either calendarId or assignedUserId can be set, not both.",
+            "example": "CVokAlI8fgw4WYWoCtQz"
+          },
+          "assignedUserId": {
+            "type": "string",
+            "description": "Either calendarId or assignedUserId can be set, not both.",
+            "example": "CVokAlI8fgw4WYWoCtQz"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Start Time",
+            "example": "2021-06-23T03:30:00+05:30"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "End Time",
+            "example": "2021-06-23T04:30:00+05:30"
+          }
+        },
+        "required": [
+          "calendarId",
+          "locationId"
+        ]
+      },
       "SlotsSchema": {
         "type": "object",
         "properties": {
@@ -4201,7 +4280,7 @@
             "example": "BqTwX8QFwXzpegMve9EQ"
           },
           "teamMembers": {
-            "description": "Team members are required for calendars of type: Round Robin, Collective, Class, Service.",
+            "description": "Team members are required for calendars of type: Round Robin, Collective, Class, Service. Personal calendar must have exactly one team member.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TeamMember"
@@ -4593,7 +4672,7 @@
             "example": "BqTwX8QFwXzpegMve9EQ"
           },
           "teamMembers": {
-            "description": "Team members are for calendars of type: Round Robin, Collective, Class, Service.",
+            "description": "Team members are for calendars of type: Round Robin, Collective, Class, Service. Personal calendar must have exactly one team member.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TeamMemberResponse"
@@ -4940,7 +5019,7 @@
             "example": "BqTwX8QFwXzpegMve9EQ"
           },
           "teamMembers": {
-            "description": "Team members",
+            "description": "Team members are required for calendars of type: Round Robin, Collective, Class, Service. Personal calendar must have exactly one team member.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TeamMember"
@@ -5203,123 +5282,6 @@
         "properties": {
           "event": {
             "$ref": "#/components/schemas/CalendarEventDTO"
-          }
-        }
-      },
-      "BlockSlotCreateSchema": {
-        "type": "object",
-        "properties": {
-          "calendarId": {
-            "type": "string",
-            "description": "Calendar Id (Block Slot can only be created on simple/event calendars)",
-            "example": "CVokAlI8fgw4WYWoCtQz"
-          },
-          "locationId": {
-            "type": "string",
-            "description": "Location Id",
-            "example": "C2QujeCh8ZnC7al2InWR"
-          },
-          "startTime": {
-            "type": "string",
-            "description": "Start Time",
-            "example": "2021-06-23T03:30:00+05:30"
-          },
-          "endTime": {
-            "type": "string",
-            "description": "End Time",
-            "example": "2021-06-23T04:30:00+05:30"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title",
-            "example": "Test Event"
-          },
-          "assignedUserId": {
-            "type": "string",
-            "description": "Assigned User Id",
-            "example": "CVokAlI8fgw4WYWoCtQz"
-          }
-        },
-        "required": [
-          "locationId",
-          "startTime",
-          "endTime"
-        ]
-      },
-      "CreateBookedSlotSuccessfulResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Id",
-            "example": "0TkCdp9PfvLeWKYRRvIz"
-          },
-          "locationId": {
-            "type": "string",
-            "description": "Location Id",
-            "example": "C2QujeCh8ZnC7al2InWR"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title",
-            "example": "My event"
-          },
-          "startTime": {
-            "type": "string",
-            "description": "Start Time",
-            "example": "2021-06-23T03:30:00+05:30"
-          },
-          "endTime": {
-            "type": "string",
-            "description": "End Time",
-            "example": "2021-06-23T04:30:00+05:30"
-          },
-          "calendarId": {
-            "type": "string",
-            "description": "Calendar id",
-            "example": "CVokAlI8fgw4WYWoCtQz"
-          },
-          "assignedUserId": {
-            "type": "string",
-            "description": "Assigned User Id",
-            "example": "0007BWpSzSwfiuSl0tR2"
-          }
-        },
-        "required": [
-          "id",
-          "locationId",
-          "title",
-          "startTime",
-          "endTime"
-        ]
-      },
-      "BlockSlotEditSchema": {
-        "type": "object",
-        "properties": {
-          "calendarId": {
-            "type": "string",
-            "description": "Calendar Id",
-            "example": "CVokAlI8fgw4WYWoCtQz"
-          },
-          "startTime": {
-            "type": "string",
-            "description": "Start Time",
-            "example": "2021-06-23T03:30:00+05:30"
-          },
-          "endTime": {
-            "type": "string",
-            "description": "End Time",
-            "example": "2021-06-23T04:30:00+05:30"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title",
-            "example": "Test Event"
-          },
-          "assignedUserId": {
-            "type": "string",
-            "description": "Assigned User Id",
-            "example": "CVokAlI8fgw4WYWoCtQz"
           }
         }
       },
@@ -5645,17 +5607,6 @@
             "type": "string",
             "description": "Notification ID"
           },
-          "altType": {
-            "type": "string",
-            "example": "calendar",
-            "enum": [
-              "calendar"
-            ]
-          },
-          "calendarId": {
-            "type": "string",
-            "example": "0as9d8as0d"
-          },
           "receiverType": {
             "type": "string",
             "example": "contact",
@@ -5864,19 +5815,6 @@
       "UpdateCalendarNotificationsDTO": {
         "type": "object",
         "properties": {
-          "altType": {
-            "type": "string",
-            "default": "calendar",
-            "description": "Specifies the model associated with the notification. This can be extended to support additional models in the future. For now only Calendars is supported",
-            "enum": [
-              "calendar"
-            ]
-          },
-          "altId": {
-            "type": "string",
-            "description": "Specifies the ID of the model associated with the notification. This can be extended to support additional models in the future.",
-            "example": "D7JP6b67AgWqTtfGaQcw"
-          },
           "receiverType": {
             "type": "string",
             "description": "Notification recipient type",
@@ -5893,6 +5831,13 @@
               "example1@email.com",
               "example2@email.com"
             ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "selectedUsers": {
+            "description": "selected user for in-App notification",
             "type": "array",
             "items": {
               "type": "string"
@@ -5941,7 +5886,7 @@
             "description": "Subject  for email notification. Not necessary for in-App notification"
           },
           "afterTime": {
-            "description": "Specifies the time after which the follow-up notification should be sent.",
+            "description": "Specifies the time after which the follow-up notification should be sent. This is not required for other notification types.",
             "example": [
               {
                 "timeOffset": 1,
@@ -5954,7 +5899,7 @@
             }
           },
           "beforeTime": {
-            "description": "Specifies the time before which the reminder notification should be sent.",
+            "description": "Specifies the time before which the reminder notification should be sent. This is not required for other notification types.",
             "example": [
               {
                 "timeOffset": 1,

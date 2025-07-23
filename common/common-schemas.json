@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Common Schemas",
+    "version": "1.0.0",
+    "description": "Shared schemas used across multiple microservices"
+  },
+  "components": {
+    "schemas": {
+      "BadRequestDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        }
+      },
+      "UnauthorizedDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid token: access token is invalid"
+          },
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "UnprocessableDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 422
+          },
+          "message": {
+            "example": [
+              "Unprocessable Entity"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "error": {
+            "type": "string",
+            "example": "Unprocessable Entity"
+          }
+        }
+      }
+    }
+  }
+}

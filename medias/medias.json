@@ -132,7 +132,7 @@
         },
         "security": [
           {
-            "Only-Location-Access": []
+            "Location-Access-Only": []
           }
         ]
       }
@@ -208,7 +208,7 @@
         },
         "security": [
           {
-            "Location-Access": []
+            "Location-Access-Only": []
           }
         ]
       }
@@ -277,7 +277,7 @@
         },
         "security": [
           {
-            "Location-Access": []
+            "Location-Access-Only": []
           }
         ]
       }
@@ -318,7 +318,7 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
-      "Only-Location-Access": {
+      "Location-Access-Only": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "name": "Authorization",
