@@ -22,27 +22,15 @@ function makeRequest(options, data = null) {
   });
 }
 
-async function findTaskByIssueId(issueId, workspaceId, apiToken) {
-  // First get the list of spaces
-  const spacesOptions = {
-    hostname: 'api.clickup.com',
-    path: `/api/v2/team/${workspaceId}/space`,
-    method: 'GET',
-    headers: {
-      'Authorization': apiToken,
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const spacesResponse = await makeRequest(spacesOptions);
-  const spaces = spacesResponse.spaces || [];
-
-  // For each space, get lists and search tasks
-  for (const space of spaces) {
-    // Get all folderless lists
-    const folderlessListsOptions = {
+async function findTaskInList(listId, issueId, githubFieldId, apiToken) {
+  console.log(`🔍 Searching for issue #${issueId}...`);
+  
+  let page = 0;
+  
+  while (true) {
+    const options = {
       hostname: 'api.clickup.com',
-      path: `/api/v2/space/${space.id}/list`,
+      path: `/api/v2/list/${listId}/task?page=${page}&include_closed=true`,
       method: 'GET',
       headers: {
         'Authorization': apiToken,
@@ -50,64 +38,30 @@ async function findTaskByIssueId(issueId, workspaceId, apiToken) {
       }
     };
 
-    const listsResponse = await makeRequest(folderlessListsOptions);
-    const lists = listsResponse.lists || [];
-
-    // Get all folders
-    const foldersOptions = {
-      hostname: 'api.clickup.com',
-      path: `/api/v2/space/${space.id}/folder`,
-      method: 'GET',
-      headers: {
-        'Authorization': apiToken,
-        'Content-Type': 'application/json'
-      }
-    };
-
-    const foldersResponse = await makeRequest(foldersOptions);
-    const folders = foldersResponse.folders || [];
-
-    // Get lists from folders
-    for (const folder of folders) {
-      const folderListsOptions = {
-        hostname: 'api.clickup.com',
-        path: `/api/v2/folder/${folder.id}/list`,
-        method: 'GET',
-        headers: {
-          'Authorization': apiToken,
-          'Content-Type': 'application/json'
+    const response = await makeRequest(options);
+    const tasks = response.tasks || [];
+    
+    if (tasks.length === 0) break;
+    
+    // Check each task for matching GitHub issue field
+    for (const task of tasks) {
+      if (task.custom_fields) {
+        const githubField = task.custom_fields.find(field => field.id === githubFieldId);
+        if (githubField && githubField.value == issueId) {
+          console.log(`✅ Found task: ${task.id} - "${task.name}"`);
+          return task.id;
         }
-      };
-
-      const folderListsResponse = await makeRequest(folderListsOptions);
-      lists.push(...(folderListsResponse.lists || []));
-    }
-
-    // Search tasks in each list
-    for (const list of lists) {
-      const tasksOptions = {
-        hostname: 'api.clickup.com',
-        path: `/api/v2/list/${list.id}/task?custom_fields=[{"field_id":"${process.env.GITHUB_ISSUE_FIELD_ID}","operator":"=","value":"${issueId}"}]`,
-        method: 'GET',
-        headers: {
-          'Authorization': apiToken,
-          'Content-Type': 'application/json'
-        }
-      };
-
-      const tasksResponse = await makeRequest(tasksOptions);
-      const tasks = tasksResponse.tasks || [];
-
-      if (tasks.length > 0) {
-        return tasks[0].id;
       }
     }
+    
+    if (response.last_page === true) break;
+    page++;
   }
-
+  
   return null;
 }
 
-async function closeClickUpTask(taskId, apiToken) {
+async function closeTask(taskId, apiToken) {
   const options = {
     hostname: 'api.clickup.com',
     path: `/api/v2/task/${taskId}`,
@@ -119,30 +73,38 @@ async function closeClickUpTask(taskId, apiToken) {
   };
 
   await makeRequest(options, { status: 'closed' });
+  console.log(`🔒 Task closed successfully!`);
 }
 
 async function main() {
+  console.log(`🚀 ClickUp Task Closer - Issue #${process.env.GITHUB_ISSUE_NUMBER}`);
+  
+  // Get environment variables
+  const issueId = process.env.GITHUB_ISSUE_NUMBER;
+  const apiToken = process.env.CLICKUP_API_TOKEN;
+  const listId = process.env.CLICKUP_SPACE_ID; // This is actually the list ID
+  const githubFieldId = process.env.GITHUB_ISSUE_FIELD_ID;
+  
+  // Validate required variables
+  if (!issueId || !apiToken || !listId || !githubFieldId) {
+    console.error(`❌ Missing required environment variables`);
+    process.exit(1);
+  }
+  
   try {
-    const issueId = process.env.GITHUB_ISSUE_NUMBER;
-    const clickupToken = process.env.CLICKUP_API_TOKEN;
-    const workspaceId = process.env.CLICKUP_WORKSPACE_ID;
-
-    if (!clickupToken || !workspaceId) {
-      console.error('Required environment variables are missing');
-      process.exit(1);
-    }
-
-    const taskId = await findTaskByIssueId(issueId, workspaceId, clickupToken);
+    // Find the task
+    const taskId = await findTaskInList(listId, issueId, githubFieldId, apiToken);
     
     if (!taskId) {
-      console.log('No ClickUp task found with matching GitHub issue ID');
+      console.log(`❌ No matching task found`);
       process.exit(0);
     }
-
-    await closeClickUpTask(taskId, clickupToken);
-    console.log(`Successfully closed ClickUp task ${taskId}`);
+    
+    // Close the task
+    await closeTask(taskId, apiToken);
+    
   } catch (error) {
-    console.error('Error:', error);
+    console.error(`💥 Error:`, error);
     process.exit(1);
   }
 }
