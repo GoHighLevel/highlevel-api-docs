@@ -126,9 +126,8 @@ async function main() {
     const issueId = process.env.GITHUB_ISSUE_NUMBER;
     const clickupToken = process.env.CLICKUP_API_TOKEN;
     const workspaceId = process.env.CLICKUP_WORKSPACE_ID;
-    const issueFieldId = process.env.GITHUB_ISSUE_FIELD_ID;
 
-    if (!clickupToken || !workspaceId || !issueFieldId) {
+    if (!clickupToken || !workspaceId) {
       console.error('Required environment variables are missing');
       process.exit(1);
     }
