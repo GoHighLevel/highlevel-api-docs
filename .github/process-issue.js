@@ -23,12 +23,12 @@ const TEAM = {
 
 // Slack Webhook Mapping for Team Alerts
 const TEAM_SLACK_WEBHOOKS = {
-  [TEAM.CRM]: 'https://hooks.slack.com/services/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',
-  [TEAM.PLATFORM]: 'https://hooks.slack.com/services/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',
-  [TEAM.AUTOMATIONS]: 'https://hooks.slack.com/services/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',
-  [TEAM.REVEX]: 'https://hooks.slack.com/services/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',
-  [TEAM.LEADGEN]: 'https://hooks.slack.com/services/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',
-  [TEAM.MOBILE]: 'https://hooks.slack.com/services/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'
+  [TEAM.CRM]: process.env.SLACK_WEBHOOK_CRM,
+  [TEAM.PLATFORM]: process.env.SLACK_WEBHOOK_CRM, // Platform uses same webhook as CRM
+  [TEAM.AUTOMATIONS]: process.env.SLACK_WEBHOOK_AUTOMATIONS,
+  [TEAM.REVEX]: process.env.SLACK_WEBHOOK_REVEX,
+  [TEAM.LEADGEN]: process.env.SLACK_WEBHOOK_LEADGEN,
+  [TEAM.MOBILE]: process.env.SLACK_WEBHOOK_MOBILE
 };
 
 // Sub-team Definitions
