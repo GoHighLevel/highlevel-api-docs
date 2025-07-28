@@ -207,10 +207,9 @@ function determineProductInfo(title, body) {
       ...PRODUCT_CHANNELS[productArea.toLowerCase()]
     };
     
-    if (!productInfo.team || !productInfo.sub_team) {
-      console.warn(`Invalid product channel configuration for ${productArea}`);
-      return getDefaultProduct();
-    }
+          if (!productInfo.team || !productInfo.sub_team) {
+        return getDefaultProduct();
+      }
     
     return productInfo;
   }
@@ -224,10 +223,9 @@ function determineProductInfo(title, body) {
         ...PRODUCT_CHANNELS[product]
       };
       
-      if (!productInfo.team || !productInfo.sub_team) {
-        console.warn(`Invalid product channel configuration for ${product}`);
-        return getDefaultProduct();
-      }
+              if (!productInfo.team || !productInfo.sub_team) {
+          return getDefaultProduct();
+        }
       
       return productInfo;
     }
@@ -248,7 +246,6 @@ function determineApiIssueType(labels) {
   };
 
   if (!Array.isArray(labels)) {
-    console.warn("Labels is not an array, defaulting to new-api");
     return API_ISSUE_TYPE_VALUES['new-api'];
   }
 
@@ -265,7 +262,6 @@ function determineApiIssueType(labels) {
 // Calculate due date based on labels and API issue type
 function calculateDueDate(labels, apiIssueType) {
   if (!Array.isArray(labels)) {
-    console.warn("Labels is not an array, using API issue type for SLA");
     labels = [];
   }
 
@@ -302,30 +298,6 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
   if (!dueDateMs) throw new Error("Due date is required");
 
   if (DRY_RUN) {
-    console.log("\n📋 DRY_RUN: ClickUp Task Creation Details");
-    console.log("-".repeat(40));
-    console.log(`Task Name: ${issueData.title}`);
-    console.log(`List ID: ${CLICKUP_LIST_ID}`);
-    console.log(`Due Date: ${new Date(dueDateMs).toISOString()}`);
-    console.log(`API Issue Type Value: ${apiIssueTypeValue}`);
-    console.log(`GitHub Issue Number: ${issueData.number}`);
-    console.log("\n📤 Full ClickUp API Payload:");
-    console.log(JSON.stringify({
-      name: issueData.title,
-      description: `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}\n\n⚠️ Important: Please do not close this ClickUp task directly. The task will be automatically closed when the corresponding GitHub issue is closed.`,
-      due_date: dueDateMs,
-      custom_fields: [
-        {
-          id: CUSTOM_FIELD_IDS.API_ISSUE_TYPE,
-          value: apiIssueTypeValue
-        },
-        {
-          id: CUSTOM_FIELD_IDS.GITHUB_ISSUE_ID,
-          value: issueData.number.toString()
-        }
-      ]
-    }, null, 2));
-    
     return { id: "dry-run-task-id", url: `https://app.clickup.com/t/${CLICKUP_LIST_ID}/dry-run-task-id` };
   }
 
@@ -377,7 +349,6 @@ async function sendSlackNotification(message, productInfo) {
 
   const webhookUrl = TEAM_SLACK_WEBHOOKS[productInfo.team];
   if (!webhookUrl) {
-    console.warn(`No Slack webhook found for team: ${productInfo.team}`);
     return;
   }
 
@@ -473,10 +444,7 @@ async function sendSlackNotification(message, productInfo) {
       headers: { "Content-Type": "application/json" },
       timeout: 10000
     });
-    
-    console.log(`Slack notification sent successfully to ${productInfo.team} team.`);
   } catch (error) {
-    console.error(`Error sending Slack notification to ${productInfo.team}:`, error.response?.data || error.message);
     // Don't throw error for notification failure
   }
 }
@@ -523,21 +491,15 @@ function getSlackUserId(name) {
   const slackUserId = SLACK_USER_IDS[normalizedName];
   
   if (slackUserId) {
-    console.log(`Found Slack user ID for ${name}: ${slackUserId}`);
     return slackUserId;
   }
   
-  console.warn(`No Slack user ID found for: ${name}`);
   return null;
 }
 
 // Main function to process GitHub issues
 async function processIssue(github, context, core) {
   try {
-    if (DRY_RUN) {
-      console.log("🧪 DRY RUN MODE ENABLED - No actual API calls will be made");
-      console.log("=".repeat(50));
-    }
     // Get issue number
     let issueNumber;
     if (context.eventName === 'workflow_dispatch') {
@@ -571,7 +533,7 @@ async function processIssue(github, context, core) {
 
     // Add processing label
     if (DRY_RUN) {
-      console.log("DRY_RUN: Would add 'processing' label to GitHub issue");
+      // Would add 'processing' label to GitHub issue
     } else {
       await github.rest.issues.addLabels({
         owner: context.repo.owner,
@@ -587,16 +549,7 @@ async function processIssue(github, context, core) {
     const dueDateMs = calculateDueDate(issueData.labels, apiIssueTypeValue);
     const dueDateStr = new Date(dueDateMs).toISOString().split('T')[0];
 
-    if (DRY_RUN) {
-      console.log("\n🎯 Product Assignment Details");
-      console.log("-".repeat(30));
-      console.log(`Product: ${productInfo.product}`);
-      console.log(`Team: ${productInfo.team}`);
-      console.log(`Sub-team: ${productInfo.sub_team}`);
-      console.log(`Engineering Manager: ${productInfo.em}`);
-      console.log(`API Issue Type: ${apiIssueTypeValue}`);
-      console.log(`Due Date: ${dueDateStr}`);
-    }
+
 
     // Create ClickUp task
     const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
@@ -605,12 +558,11 @@ async function processIssue(github, context, core) {
       const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}}`;
       
       // Send Slack notification (always send, even in dry run)
-      console.log("📱 Sending Slack notification...");
       await sendSlackNotification(message, productInfo);
 
       // Add success comment and label
       if (DRY_RUN) {
-        console.log("DRY_RUN: Would add success comment and 'processed' label to GitHub issue");
+        // Would add success comment and 'processed' label to GitHub issue
       } else {
         await github.rest.issues.createComment({
           owner: context.repo.owner,
@@ -633,7 +585,7 @@ async function processIssue(github, context, core) {
 
     // Remove processing label
     if (DRY_RUN) {
-      console.log("DRY_RUN: Would remove 'processing' label from GitHub issue");
+      // Would remove 'processing' label from GitHub issue
     } else {
       try {
         await github.rest.issues.removeLabel({
@@ -653,8 +605,7 @@ async function processIssue(github, context, core) {
     const issueNumber = context.issue.number || core.getInput('issue_number');
     if (issueNumber) {
       if (DRY_RUN) {
-        console.log("DRY_RUN: Would add 'processing-error' label and error comment to GitHub issue");
-        console.log("Error message:", errorMessage);
+        // Would add 'processing-error' label and error comment to GitHub issue
       } else {
         await github.rest.issues.addLabels({
           owner: context.repo.owner,
