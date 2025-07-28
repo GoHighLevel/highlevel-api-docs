@@ -75,10 +75,6 @@ jobs:
             echo "SLACK_WEBHOOK_MOBILE is not set"
             exit 1
           fi
-          if [ -z "${{ secrets.SLACK_BOT_TOKEN }}" ]; then
-            echo "SLACK_BOT_TOKEN is not set"
-            exit 1
-          fi
 
       - name: Install axios
         run: npm install axios
@@ -96,7 +92,6 @@ jobs:
           SLACK_WEBHOOK_REVEX: ${{ secrets.SLACK_WEBHOOK_REVEX }}
           SLACK_WEBHOOK_LEADGEN: ${{ secrets.SLACK_WEBHOOK_LEADGEN }}
           SLACK_WEBHOOK_MOBILE: ${{ secrets.SLACK_WEBHOOK_MOBILE }}
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
           debug: false
           script: |

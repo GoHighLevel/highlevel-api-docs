@@ -124,7 +124,7 @@ const PRODUCT_CHANNELS = {
 
   // CRM_SUB_TEAM
   "contacts": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
-  "conversations": { em: "Ravi", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
+  "conversations": { em: "Vara", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
   "marketplace": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.MARKETPLACE },
   "conversations-ai": { em: "Debayan", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS_AI },
   "bulk-actions": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.BULK_ACTIONS },
@@ -381,15 +381,8 @@ async function sendSlackNotification(message, productInfo) {
     return;
   }
 
-  // Search for EM's Slack user ID
-  let emSlackUserId = null;
-  if (productInfo.em) {
-    try {
-      emSlackUserId = await searchSlackUserByName(productInfo.em);
-    } catch (error) {
-      console.warn(`Could not find Slack user for EM: ${productInfo.em}`, error.message);
-    }
-  }
+  // Get EM's Slack user ID
+  const emSlackUserId = productInfo.em ? getSlackUserId(productInfo.em) : null;
 
   try {
     const slackMessage = {
@@ -488,74 +481,54 @@ async function sendSlackNotification(message, productInfo) {
   }
 }
 
-// Search for Slack user by name using Slack API
-async function searchSlackUserByName(name) {
-  if (!name) {
-    throw new Error("Name is required");
+// Hardcoded Slack user ID mapping
+const SLACK_USER_IDS = {
+  "hemant": "U014U941QAU",
+  "daljeet singh": "U03DGTZPT0W", 
+  "neha": "U03VC600741",
+  "anurag singh": "U07V6AMVB6C",
+  "sayeed": "U01JZM889B5",
+  "abhishek": "U08636YFL79", // Abhishek Dubey (HighLevel)
+  "nikita": "U05SHUU0H9V", // Nikita Bathla (HighLevel)
+  "upamanyu sarangi": "U04SB013EG2", // Upamanyu Sarangi (HighLevel)
+  "pranoy sarkar": "U01KWLDD62Z", // Pranoy Sarkar (HighLevel)
+  "dhruv": "U05J82F03SS", // Dhruv Mehta (HighLevel)
+  "abhishek maheshwari": "U0549US5N0Y", // Abhishek Maheshwari (HighLevel)
+  "anwar": "U04GBJQE6MC", // Mohd Anwar Hussain (HighLevel)
+  "manish kr": "U06FU5YTVML", // Manish
+  "ajay dev": "U02CSM62TJ5", // Ajay (HighLevel)
+  "vinamra sareen": "U072WN3JUF2", // Vinamra Sareen (HighLevel)
+  "sai allu": "U076C0T9BJ7", // Allu Sai Prudhvi
+  "harsh kurra": "U01EZBMRA68", // Harsh Kurra(HighLevel)
+  "vatsal mehta": "U06493HASKC", // Vatsal Mehta (HighLevel)
+  "jees": "U05D2QNGXK3", // Jees K Denny (HighLevel)
+  "mayur": "U07K39SB23X", // Mayur Ghai (HighLevel)
+  "sunil": "U04S3BHBR5H", // Sunil Kandpal (Highlevel)
+  "hemant goyal": "U05T4CMKUHL", // Hemant Goyal (HighLevel)
+  "ankit jain": "U03UXFXFNHW", // Ankit Jain (HighLevel)
+  "baibhab": "U01910WRLQ6", // Baibhab (HighLevel)
+  "harsh tomar": "U062ZJXAN0Y", // Harsh Tomar (HighLevel)
+  "shivendra": "U085SE1QYSY", // Shivendra Soni
+  "arvind": "U081TQ2QNJC", // Arvind Jain
+  "yogesh": "U02G2LV4FE0",
+  "vara": "U07CV4GADAB",
+  "gaurav kanted": "U02SJKP0CGN"
+};
+
+// Get Slack user ID by name
+function getSlackUserId(name) {
+  if (!name) return null;
+  
+  const normalizedName = name.toLowerCase().trim();
+  const slackUserId = SLACK_USER_IDS[normalizedName];
+  
+  if (slackUserId) {
+    console.log(`Found Slack user ID for ${name}: ${slackUserId}`);
+    return slackUserId;
   }
-
-  const slackToken = process.env.SLACK_BOT_TOKEN;
-  if (!slackToken) {
-    console.warn("SLACK_BOT_TOKEN not found in environment variables, skipping Slack user search");
-    return null;
-  }
-
-  try {
-    return await retryOperation(async () => {
-      // Use Slack's users.list API to get all users
-      const response = await axios.get('https://slack.com/api/users.list', {
-        headers: {
-          'Authorization': `Bearer ${slackToken}`,
-          'Content-Type': 'application/json'
-        },
-        timeout: 10000
-      });
-
-      if (!response.data.ok) {
-        throw new Error(`Slack API error: ${response.data.error}`);
-      }
-
-      const users = response.data.members || [];
-      
-      // Search for user by real name or display name
-      const searchName = name.toLowerCase().trim();
-      
-      // Try exact match first
-      let foundUser = users.find(user => {
-        const realName = (user.real_name || '').toLowerCase();
-        const displayName = (user.profile?.display_name || '').toLowerCase();
-        const firstName = (user.profile?.first_name || '').toLowerCase();
-        const lastName = (user.profile?.last_name || '').toLowerCase();
-        
-        return realName === searchName || 
-               displayName === searchName ||
-               `${firstName} ${lastName}`.trim() === searchName;
-      });
-
-      // If no exact match, try partial match
-      if (!foundUser) {
-        foundUser = users.find(user => {
-          const realName = (user.real_name || '').toLowerCase();
-          const displayName = (user.profile?.display_name || '').toLowerCase();
-          
-          return realName.includes(searchName) || 
-                 displayName.includes(searchName) ||
-                 searchName.includes(realName) ||
-                 searchName.includes(displayName);
-        });
-      }
-
-      if (foundUser && !foundUser.deleted && !foundUser.is_bot) {
-        console.log(`Found Slack user: ${foundUser.real_name} (${foundUser.id})`);
-        return foundUser.id;
-      }
-
-      throw new Error(`No active Slack user found for name: ${name}`);
-    });
-  } catch (error) {
-    console.error(`Error searching for Slack user: ${name}`, error.message);
-    throw error;
-  }
+  
+  console.warn(`No Slack user ID found for: ${name}`);
+  return null;
 }
 
 // Main function to process GitHub issues
