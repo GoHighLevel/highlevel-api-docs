@@ -9,7 +9,7 @@ const CUSTOM_FIELD_IDS = {
 };
 
 // DRY RUN MODE - Set to true to skip actual API calls
-const DRY_RUN = true;
+const DRY_RUN = false;
 
 // Team Definitions
 const TEAM = {
