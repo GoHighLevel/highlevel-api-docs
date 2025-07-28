@@ -602,7 +602,7 @@ async function processIssue(github, context, core) {
     const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
 
     if (createdTask && createdTask.id) {
-      const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\n🚀 ClickUp Task Created: ${createdTask.url}\n📢 Product: ${productInfo.product}\n🗂️ API Issue Type: ${apiIssueTypeValue}\n🗓️ Due Date: ${dueDateStr}`;
+      const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}}`;
       
       // Send Slack notification (always send, even in dry run)
       console.log("📱 Sending Slack notification...");
