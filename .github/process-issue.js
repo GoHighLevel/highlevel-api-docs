@@ -5,9 +5,11 @@ const CLICKUP_LIST_ID = "901002929528";
 const CLICKUP_API_BASE_URL = "https://api.clickup.com/api/v2";
 const CUSTOM_FIELD_IDS = {
   API_ISSUE_TYPE: "49bc39d0-e792-4b70-a706-422c06ebc47f",
-  MODULE: "710f1ecb-36ca-4beb-9c84-476a839275be",
   GITHUB_ISSUE_ID: "879f5d73-a102-49a5-bfb1-83d6ccbb0a41"
 };
+
+// DRY RUN MODE - Set to true to skip actual API calls
+const DRY_RUN = false;
 
 // Team Definitions
 const TEAM = {
@@ -19,10 +21,19 @@ const TEAM = {
   MOBILE: 'mobile'
 };
 
+// Slack Webhook Mapping for Team Alerts
+const TEAM_SLACK_WEBHOOKS = {
+  [TEAM.CRM]: process.env.SLACK_WEBHOOK_CRM,
+  [TEAM.PLATFORM]: process.env.SLACK_WEBHOOK_CRM, // Platform uses same webhook as CRM
+  [TEAM.AUTOMATIONS]: process.env.SLACK_WEBHOOK_AUTOMATIONS,
+  [TEAM.REVEX]: process.env.SLACK_WEBHOOK_REVEX,
+  [TEAM.LEADGEN]: process.env.SLACK_WEBHOOK_LEADGEN,
+  [TEAM.MOBILE]: process.env.SLACK_WEBHOOK_MOBILE
+};
+
 // Sub-team Definitions
 const CRM_SUB_TEAM = {
   MARKETPLACE: 'marketplace',
-  API_QUERIES: 'API Queries',
   MARKETPLACE_MODULES: 'marketplace-modules',
   INTEGRATIONS: 'integrations',
   CONTACTS: 'contacts',
@@ -36,46 +47,29 @@ const AUTOMATIONS_SUB_TEAM = {
   WORKFLOWS: 'workflows',
   CALENDARS: 'calendars',
   REPORTING: 'reporting',
-  AFFILIATE_MANAGER: 'am',
-  AD_PUBLISHING: 'ad-publishing',
-  ELIZA: 'eliza'
+  AD_PUBLISHING: 'ad-publishing'
 };
 
 const LEADGEN_SUB_TEAM = {
-  BLOGS: 'blogs',
   FUNNELS: 'funnels',
-  MEDIA_LIBRARY: 'cm-medias',
   FORMS: 'forms',
   SURVEYS: 'surveys',
-  PAYMENT_PRODUCTS: 'payment-products',
   PAYMENTS: 'payments',
+  PAYMENT_PRODUCTS: 'payment-products',
   PROPOSALS: 'proposals',
-  ECOM_STORE: 'ecomm-store',
   EMAIL_BUILDER: 'emails',
   TEMPLATES: 'templates',
-  WIDGETS: 'Widgets',
-  BLOGGING: 'Blogging',
   SOCIAL_PLANNER: 'social-media',
   ONBOARDING: 'onboarding',
   LAUNCHPAD: 'LaunchPad',
-  CONTENT_AI: 'blogs',
-  LOCALIZATION: 'localization',
-  FRONTEND_PLATFORM: 'platform-ui',
-  TASK_SCHEDULER: 'cm-ts'
+  CONTENT_AI: 'blogs'
 };
 
 const REVEX_SUB_TEAM = {
-  AGENCY: 'agency_dashboard',
-  AFFILIATE_PORTAL: 'affiliate_portal',
-  INTERNAL_TOOLS: 'internal-tools',
   ISV_LC_EMAIL: 'lc-email',
-  GATEKEEPER: 'gatekeeper',
   ISV_LC_WHATSAPP: 'whatsapp',
   ISV_LC_PHONE: 'lc-phone',
-  BLADE_PLATFORM: 'blade-platform',
-  SUBACCOUNTS: 'subaccounts',
   SAAS: 'saas',
-  AGENCY_DASHBOARD: 'agency_dashboard',
   YEXT: 'yext',
   RESELLING: 'reselling',
   PROSPECTING: 'prospecting',
@@ -86,21 +80,11 @@ const REVEX_SUB_TEAM = {
   COMMUNITIES: 'communities',
   CLIENT_PORTAL: 'client-portal',
   SNAPSHOTS: 'snapshots',
-  STRIPE_CONSUMER: 'stripe-consumer',
-  MOBILE_APP_CUSTOMISER: 'mobile-app-customiser',
   GOKOLLAB: 'gokollab'
 };
 
 const PLATFORM_SUB_TEAM = {
-  DATA: 'data',
-  INFRA: 'infra',
-  SERVICES: 'services',
-  AI: 'ai',
-  SRE: 'sre'
-};
-
-const MOBILE_SUB_TEAM = {
-  BACKEND: 'backend'
+  SERVICES: 'services'
 };
 
 // Product Channel Mapping
@@ -140,7 +124,7 @@ const PRODUCT_CHANNELS = {
 
   // CRM_SUB_TEAM
   "contacts": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
-  "conversations": { em: "Ravi", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
+  "conversations": { em: "Vara", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
   "marketplace": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.MARKETPLACE },
   "conversations-ai": { em: "Debayan", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS_AI },
   "bulk-actions": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.BULK_ACTIONS },
@@ -223,10 +207,9 @@ function determineProductInfo(title, body) {
       ...PRODUCT_CHANNELS[productArea.toLowerCase()]
     };
     
-    if (!productInfo.team || !productInfo.sub_team) {
-      console.warn(`Invalid product channel configuration for ${productArea}`);
-      return getDefaultProduct();
-    }
+          if (!productInfo.team || !productInfo.sub_team) {
+        return getDefaultProduct();
+      }
     
     return productInfo;
   }
@@ -240,10 +223,9 @@ function determineProductInfo(title, body) {
         ...PRODUCT_CHANNELS[product]
       };
       
-      if (!productInfo.team || !productInfo.sub_team) {
-        console.warn(`Invalid product channel configuration for ${product}`);
-        return getDefaultProduct();
-      }
+              if (!productInfo.team || !productInfo.sub_team) {
+          return getDefaultProduct();
+        }
       
       return productInfo;
     }
@@ -264,7 +246,6 @@ function determineApiIssueType(labels) {
   };
 
   if (!Array.isArray(labels)) {
-    console.warn("Labels is not an array, defaulting to new-api");
     return API_ISSUE_TYPE_VALUES['new-api'];
   }
 
@@ -281,7 +262,6 @@ function determineApiIssueType(labels) {
 // Calculate due date based on labels and API issue type
 function calculateDueDate(labels, apiIssueType) {
   if (!Array.isArray(labels)) {
-    console.warn("Labels is not an array, using API issue type for SLA");
     labels = [];
   }
 
@@ -316,6 +296,10 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
   if (!productInfo?.product) throw new Error("Product info is invalid");
   if (!apiIssueTypeValue) throw new Error("API issue type is required");
   if (!dueDateMs) throw new Error("Due date is required");
+
+  if (DRY_RUN) {
+    return { id: "dry-run-task-id", url: `https://app.clickup.com/t/${CLICKUP_LIST_ID}/dry-run-task-id` };
+  }
 
   return retryOperation(async () => {
     const url = `${CLICKUP_API_BASE_URL}/list/${CLICKUP_LIST_ID}/task`;
@@ -356,69 +340,161 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
   });
 }
 
-// Send notification to OnCall service
-async function sendOnCallNotification(message, productInfo) {
+// Send notification to Slack using team-specific webhooks
+async function sendSlackNotification(message, productInfo) {
   if (!message) throw new Error("Notification message is required");
-  if (!productInfo?.team || !productInfo?.sub_team) {
-    throw new Error("Invalid product info for notification");
+  if (!productInfo?.team) {
+    throw new Error("Invalid product info for Slack notification");
   }
 
+  const webhookUrl = TEAM_SLACK_WEBHOOKS[productInfo.team];
+  if (!webhookUrl) {
+    return;
+  }
+
+  // Get EM's Slack user ID
+  const emSlackUserId = productInfo.em ? getSlackUserId(productInfo.em) : null;
+
   try {
-    const response = await axios.get(process.env.ONCALL_SERVICE_URL, {
-      params: { subTeam: productInfo.sub_team },
-      headers: {
-        'Authorization': `Bearer ${process.env.ONCALL_AUTH_TOKEN}`,
-        'version': process.env.ONCALL_API_VERSION
-      },
-      timeout: 10000
-    });
-    
-    if (!response.data?.endpoint) {
-      throw new Error("OnCall endpoint not found in response");
-    }
-
-    const endpoint = response.data.endpoint;
-    const alertMessage = `Doc for this alert: https://github.com/GoHighLevel/private-github-workflows/blob/main/alerts/api_documentation_issue.md
-
-    Hey, we have received a new GitHub issue that needs attention,
-    Team: ${productInfo.team}
-    Sub-team: ${productInfo.sub_team}
-    Product: ${productInfo.product}
-
-    --- Issue Details ---
-    ${message}
-
-    --- Links ---
-    GitHub Issue: ${message.match(/GitHub URL: (.*)/)?.[1] || 'N/A'}
-    ClickUp Task: ${message.match(/ClickUp Task Created: (.*)/)?.[1] || 'N/A'}
-    API Issue Type: ${message.match(/API Issue Type: (.*)/)?.[1] || 'N/A'}
-    Due Date: ${message.match(/Due Date: (.*)/)?.[1] || 'N/A'}
-
-    If you are facing any difficulties or need assistance, please reach out to api-team on Slack.`;
-
-    const payload = {
-      labels: {
-        team: productInfo.team,
-        category: "API Documentation",
-        severity: "p2",
-        sub_team: productInfo.sub_team,
-        alertname: `API Documentation Issue${context.issue?.number ? ` #${context.issue.number}` : context.payload?.inputs?.issue_number ? ` #${context.payload.inputs.issue_number}` : ''}`
-      },
-      status: "firing",
-      annotations: {
-        AlertValues: alertMessage
-      }
+    const slackMessage = {
+      text: `🚨 *New API Documentation Issue*`,
+      blocks: [
+        {
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: "🚨 New API Documentation Issue"
+          }
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `${emSlackUserId ? `👤 *Assigned EM:* <@${emSlackUserId}>` : productInfo.em ? `👤 *Assigned EM:* ${productInfo.em} (Slack user not found)` : '👤 *Assigned EM:* Not assigned'}`
+          }
+        },
+        {
+          type: "section",
+          fields: [
+            {
+              type: "mrkdwn",
+              text: `*Team:* ${productInfo.team}`
+            },
+            {
+              type: "mrkdwn", 
+              text: `*Sub-team:* ${productInfo.sub_team || 'N/A'}`
+            },
+            {
+              type: "mrkdwn",
+              text: `*Product:* ${productInfo.product}`
+            },
+            {
+              type: "mrkdwn",
+              text: `*Due Date:* ${message.match(/Due Date: (.*)/)?.[1] || 'N/A'}`
+            }
+          ]
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `*Issue Details:*\n${message}`
+          }
+        },
+        {
+          type: "actions",
+          elements: [
+            ...(message.match(/GitHub URL: (.*)/)?.[1] ? [{
+              type: "button",
+              text: {
+                type: "plain_text",
+                text: "View GitHub Issue"
+              },
+              url: message.match(/GitHub URL: (.*)/)?.[1],
+              style: "primary"
+            }] : []),
+            ...(message.match(/ClickUp Task Created: (.*)/)?.[1] ? [{
+              type: "button", 
+              text: {
+                type: "plain_text",
+                text: "View ClickUp Task"
+              },
+              url: message.match(/ClickUp Task Created: (.*)/)?.[1]
+            }] : [])
+          ]
+        },
+        {
+          type: "context",
+          elements: [
+            {
+              type: "mrkdwn",
+              text: "📖 For help, reach out to #api-team on Slack | 📋 <https://github.com/GoHighLevel/private-github-workflows/blob/main/alerts/api_documentation_issue.md|Documentation>"
+            }
+          ]
+        }
+      ]
     };
 
-    await axios.post(endpoint, payload, {
+    // Add mention in main text if we found Slack user ID
+    if (emSlackUserId) {
+      slackMessage.text = `🚨 *New API Documentation Issue* - <@${emSlackUserId}>`;
+    }
+
+    await axios.post(webhookUrl, slackMessage, {
       headers: { "Content-Type": "application/json" },
       timeout: 10000
     });
-    console.log("OnCall notification sent successfully.");
   } catch (error) {
-    console.error("Error sending OnCall notification:", error.response?.data || error.message);
     // Don't throw error for notification failure
   }
+}
+
+// Hardcoded Slack user ID mapping
+const SLACK_USER_IDS = {
+  "hemant": "U014U941QAU",
+  "daljeet singh": "U03DGTZPT0W", 
+  "neha": "U03VC600741",
+  "anurag singh": "U07V6AMVB6C",
+  "sayeed": "U01JZM889B5",
+  "abhishek": "U08636YFL79", // Abhishek Dubey (HighLevel)
+  "nikita": "U05SHUU0H9V", // Nikita Bathla (HighLevel)
+  "upamanyu sarangi": "U04SB013EG2", // Upamanyu Sarangi (HighLevel)
+  "pranoy sarkar": "U01KWLDD62Z", // Pranoy Sarkar (HighLevel)
+  "dhruv": "U05J82F03SS", // Dhruv Mehta (HighLevel)
+  "abhishek maheshwari": "U0549US5N0Y", // Abhishek Maheshwari (HighLevel)
+  "anwar": "U04GBJQE6MC", // Mohd Anwar Hussain (HighLevel)
+  "manish kr": "U06FU5YTVML", // Manish
+  "ajay dev": "U02CSM62TJ5", // Ajay (HighLevel)
+  "vinamra sareen": "U072WN3JUF2", // Vinamra Sareen (HighLevel)
+  "sai allu": "U076C0T9BJ7", // Allu Sai Prudhvi
+  "harsh kurra": "U01EZBMRA68", // Harsh Kurra(HighLevel)
+  "vatsal mehta": "U06493HASKC", // Vatsal Mehta (HighLevel)
+  "jees": "U05D2QNGXK3", // Jees K Denny (HighLevel)
+  "mayur": "U07K39SB23X", // Mayur Ghai (HighLevel)
+  "sunil": "U04S3BHBR5H", // Sunil Kandpal (Highlevel)
+  "hemant goyal": "U05T4CMKUHL", // Hemant Goyal (HighLevel)
+  "ankit jain": "U03UXFXFNHW", // Ankit Jain (HighLevel)
+  "baibhab": "U01910WRLQ6", // Baibhab (HighLevel)
+  "harsh tomar": "U062ZJXAN0Y", // Harsh Tomar (HighLevel)
+  "shivendra": "U085SE1QYSY", // Shivendra Soni
+  "arvind": "U081TQ2QNJC", // Arvind Jain
+  "yogesh": "U02G2LV4FE0",
+  "vara": "U07CV4GADAB",
+  "gaurav kanted": "U02SJKP0CGN"
+};
+
+// Get Slack user ID by name
+function getSlackUserId(name) {
+  if (!name) return null;
+  
+  const normalizedName = name.toLowerCase().trim();
+  const slackUserId = SLACK_USER_IDS[normalizedName];
+  
+  if (slackUserId) {
+    return slackUserId;
+  }
+  
+  return null;
 }
 
 // Main function to process GitHub issues
@@ -456,12 +532,16 @@ async function processIssue(github, context, core) {
     }
 
     // Add processing label
-    await github.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: issueNumber,
-      labels: ['processing']
-    });
+    if (DRY_RUN) {
+      // Would add 'processing' label to GitHub issue
+    } else {
+      await github.rest.issues.addLabels({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: issueNumber,
+        labels: ['processing']
+      });
+    }
 
     // Process the issue
     const productInfo = determineProductInfo(issueData.title, issueData.body);
@@ -469,63 +549,44 @@ async function processIssue(github, context, core) {
     const dueDateMs = calculateDueDate(issueData.labels, apiIssueTypeValue);
     const dueDateStr = new Date(dueDateMs).toISOString().split('T')[0];
 
+
+
     // Create ClickUp task
     const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
 
     if (createdTask && createdTask.id) {
-      const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\n🚀 ClickUp Task Created: ${createdTask.url}\n📢 Product: ${productInfo.product}\n🗂️ API Issue Type: ${apiIssueTypeValue}\n🗓️ Due Date: ${dueDateStr}`;
-      await sendOnCallNotification(message, productInfo);
+      const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}}`;
+      
+      // Send Slack notification (always send, even in dry run)
+      await sendSlackNotification(message, productInfo);
 
       // Add success comment and label
-      await github.rest.issues.createComment({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        body: `✅ Issue processed successfully!\n\nYour issue has been reviewed and assigned to the appropriate team.`
-      });
+      if (DRY_RUN) {
+        // Would add success comment and 'processed' label to GitHub issue
+      } else {
+        await github.rest.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          body: `✅ Issue processed successfully!\n\nYour issue has been reviewed and assigned to the appropriate team.`
+        });
 
-      await github.rest.issues.addLabels({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        labels: ['processed']
-      });
+        await github.rest.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          labels: ['processed']
+        });
+      }
 
       core.setOutput('clickup_task_id', createdTask.id);
       core.setOutput('clickup_task_url', createdTask.url);
     }
 
     // Remove processing label
-    try {
-      await github.rest.issues.removeLabel({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        name: 'processing'
-      });
-    } catch (e) {
-      // Ignore error if label doesn't exist
-    }
-
-  } catch (error) {
-    const errorMessage = error.response?.data?.message || error.message;
-    
-    const issueNumber = context.issue.number || core.getInput('issue_number');
-    if (issueNumber) {
-      await github.rest.issues.addLabels({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        labels: ['processing-error']
-      });
-
-      await github.rest.issues.createComment({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: issueNumber,
-        body: `❌ Error processing issue:\n\`\`\`\n${errorMessage}\n\`\`\``
-      });
-
+    if (DRY_RUN) {
+      // Would remove 'processing' label from GitHub issue
+    } else {
       try {
         await github.rest.issues.removeLabel({
           owner: context.repo.owner,
@@ -535,6 +596,41 @@ async function processIssue(github, context, core) {
         });
       } catch (e) {
         // Ignore error if label doesn't exist
+      }
+    }
+
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || error.message;
+    
+    const issueNumber = context.issue.number || core.getInput('issue_number');
+    if (issueNumber) {
+      if (DRY_RUN) {
+        // Would add 'processing-error' label and error comment to GitHub issue
+      } else {
+        await github.rest.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          labels: ['processing-error']
+        });
+
+        await github.rest.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: issueNumber,
+          body: `❌ Error processing issue:\n\`\`\`\n${errorMessage}\n\`\`\``
+        });
+
+        try {
+          await github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            name: 'processing'
+          });
+        } catch (e) {
+          // Ignore error if label doesn't exist
+        }
       }
 
       core.setOutput('error', errorMessage);

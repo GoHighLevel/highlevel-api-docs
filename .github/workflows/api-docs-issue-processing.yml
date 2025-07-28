@@ -55,6 +55,26 @@ jobs:
             echo "ONCALL_API_VERSION is not set"
             exit 1
           fi
+          if [ -z "${{ secrets.SLACK_WEBHOOK_CRM }}" ]; then
+            echo "SLACK_WEBHOOK_CRM is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SLACK_WEBHOOK_AUTOMATIONS }}" ]; then
+            echo "SLACK_WEBHOOK_AUTOMATIONS is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SLACK_WEBHOOK_REVEX }}" ]; then
+            echo "SLACK_WEBHOOK_REVEX is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SLACK_WEBHOOK_LEADGEN }}" ]; then
+            echo "SLACK_WEBHOOK_LEADGEN is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SLACK_WEBHOOK_MOBILE }}" ]; then
+            echo "SLACK_WEBHOOK_MOBILE is not set"
+            exit 1
+          fi
 
       - name: Install axios
         run: npm install axios
@@ -67,6 +87,11 @@ jobs:
           ONCALL_AUTH_TOKEN: ${{ secrets.ONCALL_AUTH_TOKEN }}
           ONCALL_SERVICE_URL: ${{ secrets.ONCALL_SERVICE_URL }}
           ONCALL_API_VERSION: ${{ secrets.ONCALL_API_VERSION }}
+          SLACK_WEBHOOK_CRM: ${{ secrets.SLACK_WEBHOOK_CRM }}
+          SLACK_WEBHOOK_AUTOMATIONS: ${{ secrets.SLACK_WEBHOOK_AUTOMATIONS }}
+          SLACK_WEBHOOK_REVEX: ${{ secrets.SLACK_WEBHOOK_REVEX }}
+          SLACK_WEBHOOK_LEADGEN: ${{ secrets.SLACK_WEBHOOK_LEADGEN }}
+          SLACK_WEBHOOK_MOBILE: ${{ secrets.SLACK_WEBHOOK_MOBILE }}
         with:
           debug: false
           script: |
