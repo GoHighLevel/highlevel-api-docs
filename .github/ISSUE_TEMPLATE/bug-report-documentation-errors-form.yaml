@@ -117,16 +117,17 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: necessity-priority
+  - type: textarea
+    id: priority-justification
     attributes:
-      label: 🚨 Necessity and Priority
-      description: How critical is this documentation issue for your work?
-      options:
-        - Critical - Blocks major functionality
-        - High - Important for daily operations  
-        - Medium - Needed but has workarounds
-        - Low - Nice to have
+      label: 🚨 Why Should This Be Prioritized?
+      description: Please explain how this documentation issue impacts your work and why it should be addressed urgently.
+      placeholder: |
+        This should be prioritized because:
+        - It's preventing our team from...
+        - Developers are wasting time trying to...
+        - We can't properly implement...
+        - This confusion is causing errors in production...
     validations:
       required: true
 

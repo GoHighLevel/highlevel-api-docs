@@ -117,16 +117,17 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: necessity-priority
+  - type: textarea
+    id: priority-justification
     attributes:
-      label: 🚨 Necessity and Priority
-      description: How critical is this issue for your operations?
-      options:
-        - Critical - Blocks major functionality
-        - High - Important for daily operations  
-        - Medium - Needed but has workarounds
-        - Low - Nice to have
+      label: 🚨 Why Should This Be Prioritized?
+      description: Please explain the impact of this issue on your business/operations and why it should be addressed urgently.
+      placeholder: |
+        This should be prioritized because:
+        - It's blocking our ability to...
+        - X number of our customers are affected...
+        - We're losing revenue/productivity due to...
+        - This prevents us from launching/implementing...
     validations:
       required: true
 

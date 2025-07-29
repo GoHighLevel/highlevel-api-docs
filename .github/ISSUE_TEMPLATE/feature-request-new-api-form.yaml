@@ -110,16 +110,17 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: necessity-priority
+  - type: textarea
+    id: priority-justification
     attributes:
-      label: 🚨 Necessity and Priority
-      description: How critical is this new API for your operations?
-      options:
-        - Critical - Blocks major functionality
-        - High - Important for daily operations  
-        - Medium - Needed but has workarounds
-        - Low - Nice to have
+      label: 🚨 Why Should This Be Prioritized?
+      description: Please explain the business value of this API and why it should be prioritized over other features.
+      placeholder: |
+        This should be prioritized because:
+        - It would unlock new capabilities for...
+        - We have X customers waiting for this feature...
+        - It would save us Y hours per week...
+        - Without this API, we cannot...
     validations:
       required: true
 

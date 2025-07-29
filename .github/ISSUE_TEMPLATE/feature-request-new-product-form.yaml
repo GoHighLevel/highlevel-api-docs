@@ -103,16 +103,17 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: necessity-priority
+  - type: textarea
+    id: priority-justification
     attributes:
-      label: 🚨 Necessity and Priority
-      description: How critical is this new product feature for your operations?
-      options:
-        - Critical - Blocks major functionality
-        - High - Important for daily operations  
-        - Medium - Needed but has workarounds
-        - Low - Nice to have
+      label: 🚨 Why Should This Be Prioritized?
+      description: Please explain the business impact of this feature and why it should be prioritized in the product roadmap.
+      placeholder: |
+        This should be prioritized because:
+        - It would improve user experience by...
+        - Our competitors already offer this and we're losing customers...
+        - This would reduce support tickets by...
+        - It aligns with our goal of...
     validations:
       required: true
 
