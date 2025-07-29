@@ -105,6 +105,32 @@ body:
       required: true
 
   - type: textarea
+    id: use-case
+    attributes:
+      label: 📋 Use Case
+      description: Please describe your specific use case for this field. How would you use it in your application?
+      placeholder: |
+        We need this field to:
+        - Track user preferences in our system
+        - Display this information in our dashboard
+        - Make decisions based on this data
+    validations:
+      required: true
+
+  - type: dropdown
+    id: necessity-priority
+    attributes:
+      label: 🚨 Necessity and Priority
+      description: How critical is this issue for your operations?
+      options:
+        - Critical - Blocks major functionality
+        - High - Important for daily operations  
+        - Medium - Needed but has workarounds
+        - Low - Nice to have
+    validations:
+      required: true
+
+  - type: textarea
     id: additional-context
     attributes:
       label: 🧠 Additional Context

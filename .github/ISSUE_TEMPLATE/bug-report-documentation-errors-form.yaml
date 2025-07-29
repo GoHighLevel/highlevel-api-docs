@@ -105,6 +105,32 @@ body:
       required: true
 
   - type: textarea
+    id: use-case
+    attributes:
+      label: 📋 Use Case
+      description: Please describe your specific use case for this documentation. How are you trying to use this feature?
+      placeholder: |
+        I'm trying to:
+        - Implement this feature in my application
+        - Understand how to use this API correctly
+        - Follow the documentation to achieve a specific goal
+    validations:
+      required: true
+
+  - type: dropdown
+    id: necessity-priority
+    attributes:
+      label: 🚨 Necessity and Priority
+      description: How critical is this documentation issue for your work?
+      options:
+        - Critical - Blocks major functionality
+        - High - Important for daily operations  
+        - Medium - Needed but has workarounds
+        - Low - Nice to have
+    validations:
+      required: true
+
+  - type: textarea
     id: additional-context
     attributes:
       label: 🧠 Additional Context

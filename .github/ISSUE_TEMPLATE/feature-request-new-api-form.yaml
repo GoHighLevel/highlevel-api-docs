@@ -98,6 +98,32 @@ body:
       required: true
 
   - type: textarea
+    id: use-case
+    attributes:
+      label: 📋 Use Case
+      description: Please describe your specific use case for this new API. How would you integrate it into your application?
+      placeholder: |
+        We need this API to:
+        - Enable our users to perform X
+        - Integrate with our existing workflow for Y
+        - Automate the process of Z
+    validations:
+      required: true
+
+  - type: dropdown
+    id: necessity-priority
+    attributes:
+      label: 🚨 Necessity and Priority
+      description: How critical is this new API for your operations?
+      options:
+        - Critical - Blocks major functionality
+        - High - Important for daily operations  
+        - Medium - Needed but has workarounds
+        - Low - Nice to have
+    validations:
+      required: true
+
+  - type: textarea
     id: additional-context
     attributes:
       label: 🧠 Additional Context

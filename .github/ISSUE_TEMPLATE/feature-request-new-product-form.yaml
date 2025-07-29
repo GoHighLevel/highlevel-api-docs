@@ -91,6 +91,32 @@ body:
       required: true
 
   - type: textarea
+    id: use-case
+    attributes:
+      label: 📋 Use Case
+      description: Please describe your specific use case for this new product feature. How would it benefit your workflow?
+      placeholder: |
+        This feature would help us:
+        - Streamline our process for X
+        - Better serve our customers by Y
+        - Save time and resources on Z
+    validations:
+      required: true
+
+  - type: dropdown
+    id: necessity-priority
+    attributes:
+      label: 🚨 Necessity and Priority
+      description: How critical is this new product feature for your operations?
+      options:
+        - Critical - Blocks major functionality
+        - High - Important for daily operations  
+        - Medium - Needed but has workarounds
+        - Low - Nice to have
+    validations:
+      required: true
+
+  - type: textarea
     id: additional-context
     attributes:
       label: 🧠 Additional Context
