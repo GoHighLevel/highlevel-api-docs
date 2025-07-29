@@ -56,7 +56,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -66,7 +66,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -76,7 +76,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -126,8 +126,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -136,8 +136,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -158,8 +158,8 @@
             "required": false,
             "in": "query",
             "description": "startAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -168,8 +168,8 @@
             "required": false,
             "in": "query",
             "description": "endAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -178,8 +178,8 @@
             "required": false,
             "in": "query",
             "description": "To search for an invoice by id / name / email / phoneNo",
-            "example": "Alex",
             "schema": {
+              "example": "Alex",
               "type": "string"
             }
           },
@@ -188,8 +188,8 @@
             "required": false,
             "in": "query",
             "description": "payment mode",
-            "example": "live",
             "schema": {
+              "example": "live",
               "enum": [
                 "default",
                 "live",
@@ -203,8 +203,8 @@
             "required": true,
             "in": "query",
             "description": "Limit the number of items to return",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           },
@@ -213,8 +213,8 @@
             "required": true,
             "in": "query",
             "description": "Number of items to skip",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           }
@@ -235,7 +235,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -245,7 +245,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -255,7 +255,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -307,8 +307,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -317,8 +317,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -327,8 +327,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -352,7 +352,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -362,7 +362,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -372,7 +372,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -422,8 +422,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -454,7 +454,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -464,7 +464,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -474,7 +474,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -524,8 +524,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -534,8 +534,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -544,8 +544,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -569,7 +569,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -579,7 +579,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -589,7 +589,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -641,8 +641,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -673,7 +673,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -683,7 +683,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -693,7 +693,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -745,8 +745,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -777,7 +777,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -787,7 +787,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -797,7 +797,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -871,7 +871,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -881,7 +881,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -891,7 +891,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -941,8 +941,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -951,8 +951,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -973,8 +973,8 @@
             "required": false,
             "in": "query",
             "description": "startAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -983,8 +983,8 @@
             "required": false,
             "in": "query",
             "description": "endAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -993,8 +993,8 @@
             "required": false,
             "in": "query",
             "description": "To search for an invoice by id / name / email / phoneNo",
-            "example": "Alex",
             "schema": {
+              "example": "Alex",
               "type": "string"
             }
           },
@@ -1003,8 +1003,8 @@
             "required": false,
             "in": "query",
             "description": "payment mode",
-            "example": "live",
             "schema": {
+              "example": "live",
               "enum": [
                 "default",
                 "live",
@@ -1018,8 +1018,8 @@
             "required": true,
             "in": "query",
             "description": "Limit the number of items to return",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           },
@@ -1028,8 +1028,8 @@
             "required": true,
             "in": "query",
             "description": "Number of items to skip",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           }
@@ -1050,7 +1050,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1060,7 +1060,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1070,7 +1070,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1122,8 +1122,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -1132,8 +1132,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -1142,8 +1142,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -1167,7 +1167,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1177,7 +1177,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1187,7 +1187,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1237,8 +1237,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -1269,7 +1269,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1279,7 +1279,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1289,7 +1289,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1339,8 +1339,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -1349,8 +1349,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -1359,8 +1359,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -1384,7 +1384,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1394,7 +1394,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1404,7 +1404,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1456,8 +1456,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -1478,7 +1478,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1488,7 +1488,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1498,7 +1498,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1550,8 +1550,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -1582,7 +1582,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1592,7 +1592,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1602,7 +1602,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1654,8 +1654,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -1686,7 +1686,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1696,7 +1696,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1706,7 +1706,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1758,8 +1758,8 @@
             "required": true,
             "in": "path",
             "description": "Schedule Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -1790,7 +1790,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1800,7 +1800,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1810,7 +1810,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1884,7 +1884,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1894,7 +1894,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -1904,7 +1904,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1985,7 +1985,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -1995,7 +1995,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2005,7 +2005,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2057,8 +2057,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -2067,8 +2067,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -2077,8 +2077,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -2102,7 +2102,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2112,7 +2112,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2122,7 +2122,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2172,8 +2172,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -2204,7 +2204,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2214,7 +2214,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2224,7 +2224,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2274,8 +2274,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -2284,8 +2284,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -2294,8 +2294,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -2340,7 +2340,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2350,7 +2350,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2402,8 +2402,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -2434,7 +2434,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2444,7 +2444,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2454,7 +2454,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2506,8 +2506,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -2565,7 +2565,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2575,7 +2575,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2627,8 +2627,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -2659,7 +2659,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2669,7 +2669,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2679,7 +2679,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2731,8 +2731,8 @@
             "required": true,
             "in": "path",
             "description": "Invoice Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           }
@@ -2763,7 +2763,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2773,7 +2773,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2783,7 +2783,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -2850,7 +2850,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2860,7 +2860,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2934,7 +2934,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -2944,7 +2944,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -2954,7 +2954,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3006,8 +3006,8 @@
             "required": true,
             "in": "path",
             "description": "Estimate Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -3038,7 +3038,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3048,7 +3048,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3058,7 +3058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3108,8 +3108,8 @@
             "required": true,
             "in": "path",
             "description": "Estimate Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -3140,7 +3140,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3150,7 +3150,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3160,7 +3160,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3212,8 +3212,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id or Agency Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -3245,7 +3245,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3255,7 +3255,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3265,7 +3265,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3317,8 +3317,8 @@
             "required": true,
             "in": "path",
             "description": "Estimate Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -3349,7 +3349,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3359,7 +3359,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3369,7 +3369,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3421,8 +3421,8 @@
             "required": true,
             "in": "path",
             "description": "Estimate Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -3453,7 +3453,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3463,7 +3463,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3473,7 +3473,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3525,8 +3525,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id or Agency Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -3546,8 +3546,8 @@
             "required": false,
             "in": "query",
             "description": "startAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -3556,8 +3556,8 @@
             "required": false,
             "in": "query",
             "description": "endAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -3566,8 +3566,8 @@
             "required": false,
             "in": "query",
             "description": "search text for estimates name",
-            "example": "Home services estimate",
             "schema": {
+              "example": "Home services estimate",
               "type": "string"
             }
           },
@@ -3576,8 +3576,8 @@
             "required": false,
             "in": "query",
             "description": "estimate status",
-            "example": "sent",
             "schema": {
+              "example": "sent",
               "enum": [
                 "all",
                 "draft",
@@ -3595,8 +3595,8 @@
             "required": false,
             "in": "query",
             "description": "Contact ID for the estimate",
-            "example": "AmuzcoPBpgKeccNsFlib",
             "schema": {
+              "example": "AmuzcoPBpgKeccNsFlib",
               "type": "string"
             }
           },
@@ -3605,8 +3605,8 @@
             "required": true,
             "in": "query",
             "description": "Limit the number of items to return",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           },
@@ -3615,8 +3615,8 @@
             "required": true,
             "in": "query",
             "description": "Number of items to skip",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           }
@@ -3637,7 +3637,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3647,7 +3647,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3657,7 +3657,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3724,7 +3724,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3734,7 +3734,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3786,8 +3786,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id or Agency Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -3807,8 +3807,8 @@
             "required": false,
             "in": "query",
             "description": "To search for an estimate template by id / name",
-            "example": "Alex",
             "schema": {
+              "example": "Alex",
               "type": "string"
             }
           },
@@ -3817,8 +3817,8 @@
             "required": true,
             "in": "query",
             "description": "Limit the number of items to return",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           },
@@ -3827,8 +3827,8 @@
             "required": true,
             "in": "query",
             "description": "Number of items to skip",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           }
@@ -3849,7 +3849,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3859,7 +3859,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3869,7 +3869,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -3941,7 +3941,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -3951,7 +3951,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -3961,7 +3961,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4013,8 +4013,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -4045,7 +4045,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4055,7 +4055,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4065,7 +4065,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4115,8 +4115,8 @@
             "required": true,
             "in": "path",
             "description": "Template Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -4147,7 +4147,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4157,7 +4157,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4167,7 +4167,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4219,8 +4219,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id or Agency Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -4240,8 +4240,8 @@
             "required": true,
             "in": "query",
             "description": "Template Id",
-            "example": "5f9d6d8b1b2d2c001f2d9e4b",
             "schema": {
+              "example": "5f9d6d8b1b2d2c001f2d9e4b",
               "type": "string"
             }
           }
@@ -4262,7 +4262,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4272,7 +4272,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4282,7 +4282,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4356,7 +4356,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4366,7 +4366,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4376,7 +4376,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4426,8 +4426,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -4436,8 +4436,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -4458,8 +4458,8 @@
             "required": false,
             "in": "query",
             "description": "startAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -4468,8 +4468,8 @@
             "required": false,
             "in": "query",
             "description": "endAt in YYYY-MM-DD format",
-            "example": "2023-01-01",
             "schema": {
+              "example": "2023-01-01",
               "type": "string"
             }
           },
@@ -4478,8 +4478,8 @@
             "required": false,
             "in": "query",
             "description": "To search for an invoice by id / name / email / phoneNo",
-            "example": "Alex",
             "schema": {
+              "example": "Alex",
               "type": "string"
             }
           },
@@ -4488,8 +4488,8 @@
             "required": false,
             "in": "query",
             "description": "payment mode",
-            "example": "live",
             "schema": {
+              "example": "live",
               "enum": [
                 "default",
                 "live",
@@ -4503,8 +4503,8 @@
             "required": false,
             "in": "query",
             "description": "Contact ID for the invoice",
-            "example": "AmuzcoPBpgKeccNsFlib",
             "schema": {
+              "example": "AmuzcoPBpgKeccNsFlib",
               "type": "string"
             }
           },
@@ -4513,8 +4513,8 @@
             "required": true,
             "in": "query",
             "description": "Limit the number of items to return",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           },
@@ -4523,8 +4523,8 @@
             "required": true,
             "in": "query",
             "description": "Number of items to skip",
-            "example": 10,
             "schema": {
+              "example": 10,
               "type": "string"
             }
           },
@@ -4533,8 +4533,8 @@
             "required": false,
             "in": "query",
             "description": "The field on which sorting should be applied",
-            "example": "issueDate",
             "schema": {
+              "example": "issueDate",
               "enum": [
                 "issueDate"
               ],
@@ -4546,8 +4546,8 @@
             "required": false,
             "in": "query",
             "description": "The order of sort which should be applied for the sortField",
-            "example": "descend",
             "schema": {
+              "example": "descend",
               "enum": [
                 "ascend",
                 "descend"
@@ -4572,7 +4572,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -4582,7 +4582,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -4592,7 +4592,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -4654,39 +4654,17 @@
         "in": "header",
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
         "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
       }
     },
     "schemas": {
-      "BadRequestDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad Request"
-          }
-        }
-      },
-      "UnauthorizedDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Invalid token: access token is invalid"
-          },
-          "error": {
-            "type": "string",
-            "example": "Unauthorized"
-          }
-        }
-      },
       "AddressDto": {
         "type": "object",
         "properties": {
@@ -4791,8 +4769,7 @@
         "required": [
           "_id",
           "name",
-          "rate",
-          "calculation"
+          "rate"
         ]
       },
       "InvoiceItemDto": {
@@ -5082,6 +5059,64 @@
           "stripe"
         ]
       },
+      "ProcessingFeePaidChargeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "name of the processing fee",
+            "example": "Processing Fee"
+          },
+          "charge": {
+            "type": "number",
+            "description": "charge for the processing fee",
+            "example": 10
+          },
+          "amount": {
+            "type": "number",
+            "description": "amount of the processing fee",
+            "example": 10
+          },
+          "_id": {
+            "type": "string",
+            "description": "id of the processing fee",
+            "example": "673d01d7d547648a8dab6211"
+          }
+        },
+        "required": [
+          "name",
+          "charge",
+          "amount",
+          "_id"
+        ]
+      },
+      "ProcessingFeeDto": {
+        "type": "object",
+        "properties": {
+          "charges": {
+            "description": "charges for the processing fee",
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "collectedMiscellaneousCharges": {
+            "type": "number",
+            "description": "collected miscellaneous charges",
+            "example": 10
+          },
+          "paidCharges": {
+            "description": "paid miscellaneous charges",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessingFeePaidChargeDto"
+            }
+          }
+        },
+        "required": [
+          "charges"
+        ]
+      },
       "CreateInvoiceTemplateDto": {
         "type": "object",
         "properties": {
@@ -5169,6 +5204,14 @@
             "items": {
               "type": "string"
             }
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [
@@ -5293,28 +5336,6 @@
           "createdAt",
           "updatedAt"
         ]
-      },
-      "UnprocessableDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 422
-          },
-          "message": {
-            "example": [
-              "Unprocessable Entity"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "error": {
-            "type": "string",
-            "example": "Unprocessable Entity"
-          }
-        }
       },
       "GetTemplateResponseDto": {
         "type": "object",
@@ -5496,6 +5517,14 @@
             "type": "string",
             "description": "Template title",
             "example": "New Template"
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [
@@ -5755,7 +5784,9 @@
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "phoneNo",
+          "email"
         ]
       },
       "CustomRRuleOptionsDto": {
@@ -6002,6 +6033,14 @@
             "items": {
               "$ref": "#/components/schemas/AttachmentsDto"
             }
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [
@@ -6616,6 +6655,14 @@
             "items": {
               "$ref": "#/components/schemas/AttachmentsDto"
             }
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [
@@ -7891,6 +7938,14 @@
               "$ref": "#/components/schemas/AttachmentsDto"
             }
           },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
+          },
           "id": {
             "type": "string",
             "description": "id of invoice to update. If skipped, a new invoice will be created"
@@ -8086,6 +8141,14 @@
             "items": {
               "$ref": "#/components/schemas/AttachmentsDto"
             }
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [
@@ -8830,6 +8893,14 @@
             "items": {
               "$ref": "#/components/schemas/AttachmentsDto"
             }
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the invoice",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [
@@ -9583,6 +9654,11 @@
             "items": {
               "type": "string"
             }
+          },
+          "fulfilledAt": {
+            "type": "string",
+            "description": "Updated At to be recorded against the invoice.",
+            "example": "2025-03-19T05:03:00.000Z"
           }
         },
         "required": [
@@ -9717,6 +9793,67 @@
         },
         "required": [
           "enabled"
+        ]
+      },
+      "PaymentScheduleDateConfigDto": {
+        "type": "object",
+        "properties": {
+          "depositDateType": {
+            "type": "string",
+            "description": "Deposit date type",
+            "example": "estimate_accepted",
+            "enum": [
+              "estimate_accepted",
+              "custom"
+            ]
+          },
+          "scheduleDateType": {
+            "type": "string",
+            "description": "Payment Schedule Date Type",
+            "example": "regular_interval",
+            "enum": [
+              "regular_interval",
+              "custom"
+            ]
+          }
+        },
+        "required": [
+          "depositDateType",
+          "scheduleDateType"
+        ]
+      },
+      "PaymentScheduleConfigDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Payment Schedule Type",
+            "example": "fixed",
+            "enum": [
+              "fixed",
+              "percentage"
+            ]
+          },
+          "dateConfig": {
+            "description": "Due date type configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentScheduleDateConfigDto"
+              }
+            ]
+          },
+          "schedules": {
+            "description": "Payment Schedule Items",
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "type",
+          "dateConfig",
+          "schedules"
         ]
       },
       "CreateEstimatesDto": {
@@ -9859,6 +9996,22 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/AutoInvoicingDto"
+              }
+            ]
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the estimate",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
+          },
+          "paymentScheduleConfig": {
+            "description": "Payment Schedule Config for the estimate",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentScheduleConfigDto"
               }
             ]
           }
@@ -10403,6 +10556,22 @@
               }
             ]
           },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the estimate",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
+          },
+          "paymentScheduleConfig": {
+            "description": "Payment Schedule Config for the estimate",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentScheduleConfigDto"
+              }
+            ]
+          },
           "estimateStatus": {
             "type": "string",
             "description": "Estimate Status",
@@ -10674,6 +10843,14 @@
             "items": {
               "$ref": "#/components/schemas/AttachmentsDto"
             }
+          },
+          "miscellaneousCharges": {
+            "description": "miscellaneous charges for the estimate",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessingFeeDto"
+              }
+            ]
           }
         },
         "required": [

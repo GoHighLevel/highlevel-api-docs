@@ -170,6 +170,11 @@
         },
         {
             "type": "item",
+            "title": "Store",
+            "uri": "store/store.json"
+        },
+        {
+            "type": "item",
             "title": "Saas",
             "uri": "saas-api/saas-api.json"
         },
@@ -236,6 +241,11 @@
             "type": "item",
             "title": "AppUninstall",
             "uri": "docs/webhook events/AppUninstall.md"
+        },
+        {
+            "type": "item",
+            "title": "ExternalAuthConnected",
+            "uri": "docs/webhook events/ExternalAuthConnected.md"
         },
         {
             "type": "item",
