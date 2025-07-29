@@ -163,6 +163,42 @@ const API_ISSUE_TYPE_SLA_DAYS = {
   "New Products": 20
 };
 
+// Manager to ClickUp User ID Mapping
+// Generated on: 2025-01-29T08:47:14.054Z
+const MANAGER_TO_CLICKUP_USER_ID = {
+  "Abhishek": "94981980",
+  "Abhishek Maheshwari": "94981980",
+  "Ajay Dev": "89021250",
+  "Ankit Jain": "95052620",
+  "Anurag Singh": "94881035",
+  "Anwar": "89021242",
+  "Arvind": "94818265",
+  "Baibhab": "7816084",
+  "Daljeet Singh": "55354445",
+  "Debayan": "88876236",
+  "Dhruv": "95075364",
+  "Gaurav Kanted": "94969512",
+  "Harsh Kurra": "94937676",
+  "Harsh Tomar": "94937676",
+  "Hemant": "95023184",
+  "Hemant Goyal": "95023184",
+  "Jees": "63077932",
+  "Manish KR": "94895433",
+  "Mayur": "94870642",
+  "Neha": "89082461",
+  "Nikita": "95078996",
+  "Pranoy Sarkar": "50317804",
+  "Ravi": "95094800",
+  "Sai Allu": "88893194",
+  "Sayeed": "57201962",
+  "Shivendra": "94952187",
+  "Sunil": "57188581",
+  "Upamanyu Sarangi": "89044164",
+  "Vatsal Mehta": "88893194",
+  "Vinamra Sareen": "89021257",
+  "Yogesh": "94961418"
+};
+
 // Helper function to retry failed API calls
 async function retryOperation(operation, maxRetries = 3, delay = 1000) {
   let lastError;
@@ -309,7 +345,18 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
     };
 
     const taskName = issueData.title;
-    const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n--- Issue Details ---\n${issueData.body || "No description provided."}\n\n⚠️ Important: Please do not close this ClickUp task directly. The task will be automatically closed when the corresponding GitHub issue is closed.`;
+    
+    // Build product area details section
+    const productAreaDetails = [
+      `📦 **Product Area Details**`,
+      `- **Product**: ${productInfo.product || 'N/A'}`,
+      `- **Team**: ${productInfo.team || 'N/A'}`,
+      `- **Sub-team**: ${productInfo.sub_team || 'N/A'}`,
+      `- **Engineering Manager**: ${productInfo.em || 'Not assigned'}`,
+      ''
+    ].join('\n');
+    
+    const description = `GitHub Issue: #${issueData.number}\nLink: ${issueData.html_url}\n\n${productAreaDetails}\n--- Issue Details ---\n${issueData.body || "No description provided."}\n\n⚠️ Important: Please do not close this ClickUp task directly. The task will be automatically closed when the corresponding GitHub issue is closed.`;
 
     const payload = {
       name: taskName,
@@ -326,6 +373,15 @@ async function createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueD
         }
       ]
     };
+
+    // Try to assign the manager if they have a mapped ClickUp user ID
+    if (productInfo.em && MANAGER_TO_CLICKUP_USER_ID[productInfo.em]) {
+      const userId = MANAGER_TO_CLICKUP_USER_ID[productInfo.em];
+      payload.assignees = [userId];
+      console.log(`Assigned task to manager: ${productInfo.em} (ID: ${userId})`);
+    } else if (productInfo.em) {
+      console.log(`No ClickUp user ID mapped for manager: ${productInfo.em}`);
+    }
 
     const response = await axios.post(url, payload, { 
       headers,
@@ -555,7 +611,10 @@ async function processIssue(github, context, core) {
     const createdTask = await createClickUpTask(issueData, productInfo, apiIssueTypeValue, dueDateMs);
 
     if (createdTask && createdTask.id) {
-      const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}}`;
+      // Construct ClickUp task URL
+      const clickupTaskUrl = createdTask.url || `https://app.clickup.com/t/${CLICKUP_LIST_ID}/${createdTask.id}`;
+      
+      const message = `New GitHub Issue Processed: #${issueData.number} ${issueData.title}\nGitHub URL: ${issueData.html_url}\nClickUp Task Created: ${clickupTaskUrl}\nDue Date: ${dueDateStr}`;
       
       // Send Slack notification (always send, even in dry run)
       await sendSlackNotification(message, productInfo);
