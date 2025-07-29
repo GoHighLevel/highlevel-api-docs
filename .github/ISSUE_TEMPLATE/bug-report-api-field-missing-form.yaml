@@ -105,6 +105,33 @@ body:
       required: true
 
   - type: textarea
+    id: use-case
+    attributes:
+      label: 📋 Use Case
+      description: Please describe your specific use case for this field. How would you use it in your application?
+      placeholder: |
+        We need this field to:
+        - Track user preferences in our system
+        - Display this information in our dashboard
+        - Make decisions based on this data
+    validations:
+      required: true
+
+  - type: textarea
+    id: priority-justification
+    attributes:
+      label: 🚨 Why Should This Be Prioritized?
+      description: Please explain the impact of this issue on your business/operations and why it should be addressed urgently.
+      placeholder: |
+        This should be prioritized because:
+        - It's blocking our ability to...
+        - X number of our customers are affected...
+        - We're losing revenue/productivity due to...
+        - This prevents us from launching/implementing...
+    validations:
+      required: true
+
+  - type: textarea
     id: additional-context
     attributes:
       label: 🧠 Additional Context
