@@ -16,10 +16,13 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Close ClickUp Task
         run: node .github/workflows/scripts/close-clickup-task.js
         env:
           GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number }}
           CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_API_TOKEN }}
-          CLICKUP_WORKSPACE_ID: ${{ secrets.CLICKUP_WORKSPACE_ID }}
+          CLICKUP_SPACE_ID: ${{ secrets.CLICKUP_SPACE_ID }}
           GITHUB_ISSUE_FIELD_ID: ${{ secrets.GITHUB_ISSUE_FIELD_ID }} 
