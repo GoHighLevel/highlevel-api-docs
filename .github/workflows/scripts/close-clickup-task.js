@@ -1,33 +1,29 @@
-const https = require('https');
+const axios = require('axios');
 
 function makeRequest(options, data = null) {
-  return new Promise((resolve, reject) => {
-    const req = https.request(options, (res) => {
-      let responseData = '';
-      res.on('data', (chunk) => responseData += chunk);
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(responseData));
-        } else {
-          reject(`Request failed: ${res.statusCode} ${responseData}`);
-        }
-      });
+  const config = {
+    method: options.method,
+    url: `https://${options.hostname}${options.path}`,
+    headers: options.headers,
+    data: data,
+    timeout: 10000
+  };
+  
+  return axios(config)
+    .then(response => response.data)
+    .catch(error => {
+      console.error(`API Error: ${error.response?.status} - ${error.response?.data?.err || error.message}`);
+      throw error;
     });
-
-    req.on('error', (error) => reject(error));
-    if (data) {
-      req.write(JSON.stringify(data));
-    }
-    req.end();
-  });
 }
 
 async function findTaskInList(listId, issueId, githubFieldId, apiToken) {
   console.log(`🔍 Searching for issue #${issueId}...`);
   
   let page = 0;
+  const maxPages = 50; // Prevent infinite loops
   
-  while (true) {
+  while (page < maxPages) {
     const options = {
       hostname: 'api.clickup.com',
       path: `/api/v2/list/${listId}/task?page=${page}&include_closed=true`,
@@ -58,6 +54,7 @@ async function findTaskInList(listId, issueId, githubFieldId, apiToken) {
     page++;
   }
   
+  console.log(`⚠️ Searched ${maxPages} pages but no matching task found`);
   return null;
 }
 
