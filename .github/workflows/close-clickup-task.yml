@@ -28,7 +28,7 @@ jobs:
       - name: Close ClickUp Task
         run: node .github/workflows/scripts/close-clickup-task.js
         env:
-          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
           CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_API_TOKEN }}
           CLICKUP_SPACE_ID: ${{ secrets.CLICKUP_SPACE_ID }}
-          GITHUB_ISSUE_FIELD_ID: ${{ secrets.GITHUB_ISSUE_FIELD_ID }} 
+          CLICKUP_GITHUB_FIELD_ID: ${{ secrets.CLICKUP_GITHUB_FIELD_ID }} 
