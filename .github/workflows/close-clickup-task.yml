@@ -3,6 +3,12 @@ name: Close ClickUp Task
 on:
   issues:
     types: [closed]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'GitHub Issue Number'
+        required: true
+        type: string
 
 jobs:
   close-clickup-task:
@@ -16,13 +22,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install axios
+        run: npm install axios
 
       - name: Close ClickUp Task
         run: node .github/workflows/scripts/close-clickup-task.js
         env:
-          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number }}
+          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
           CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_API_TOKEN }}
           CLICKUP_SPACE_ID: ${{ secrets.CLICKUP_SPACE_ID }}
           GITHUB_ISSUE_FIELD_ID: ${{ secrets.GITHUB_ISSUE_FIELD_ID }} 
