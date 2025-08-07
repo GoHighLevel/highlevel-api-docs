@@ -98,6 +98,33 @@ body:
       required: true
 
   - type: textarea
+    id: use-case
+    attributes:
+      label: 📋 Use Case
+      description: Please describe your specific use case for this new API. How would you integrate it into your application?
+      placeholder: |
+        We need this API to:
+        - Enable our users to perform X
+        - Integrate with our existing workflow for Y
+        - Automate the process of Z
+    validations:
+      required: true
+
+  - type: textarea
+    id: priority-justification
+    attributes:
+      label: 🚨 Why Should This Be Prioritized?
+      description: Please explain the business value of this API and why it should be prioritized over other features.
+      placeholder: |
+        This should be prioritized because:
+        - It would unlock new capabilities for...
+        - We have X customers waiting for this feature...
+        - It would save us Y hours per week...
+        - Without this API, we cannot...
+    validations:
+      required: true
+
+  - type: textarea
     id: additional-context
     attributes:
       label: 🧠 Additional Context
