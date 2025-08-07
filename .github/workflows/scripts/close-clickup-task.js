@@ -74,13 +74,13 @@ async function closeTask(taskId, apiToken) {
 }
 
 async function main() {
-  console.log(`🚀 ClickUp Task Closer - Issue #${process.env.GITHUB_ISSUE_NUMBER}`);
+  console.log(`🚀 ClickUp Task Closer - Issue #${process.env.ISSUE_NUMBER}`);
   
   // Get environment variables
-  const issueId = process.env.GITHUB_ISSUE_NUMBER;
+  const issueId = process.env.ISSUE_NUMBER;
   const apiToken = process.env.CLICKUP_API_TOKEN;
   const listId = process.env.CLICKUP_SPACE_ID; // This is actually the list ID
-  const githubFieldId = process.env.GITHUB_ISSUE_FIELD_ID;
+  const githubFieldId = process.env.CLICKUP_GITHUB_FIELD_ID;
   
   // Validate required variables
   if (!issueId || !apiToken || !listId || !githubFieldId) {
