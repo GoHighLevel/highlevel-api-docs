@@ -12,16 +12,6 @@
         },
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -81,7 +71,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       }
@@ -90,18 +82,8 @@
       "get": {
         "operationId": "get-duplicate-contact",
         "summary": "Get Duplicate Contact",
-        "description": "Get Duplicate Contact.<br><br>If `Allow Duplicate Contact` is disabled under Settings, the global unique identifier will be used for searching the contact. If the setting is enabled, first priority for search is `email` and the second priority will be `phone`.",
+        "description": "Get Duplicate Contact.<br/><br/>If `Allow Duplicate Contact` is disabled under Settings, the global unique identifier will be used for searching the contact. If the setting is enabled, first priority for search is `email` and the second priority will be `phone`.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -175,7 +157,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       }
@@ -186,16 +170,6 @@
         "summary": "Get all Tasks",
         "description": "Get all Tasks",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -256,7 +230,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       },
@@ -265,16 +241,6 @@
         "summary": "Create Task",
         "description": "Create Task",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -355,7 +321,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -366,16 +334,6 @@
         "summary": "Get Task",
         "description": "Get Task",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -455,16 +413,6 @@
         "summary": "Update Task",
         "description": "Update Task",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -565,16 +513,6 @@
         "description": "Delete Task",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -655,16 +593,6 @@
         "summary": "Update Task Completed",
         "description": "Update Task Completed",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -767,16 +695,6 @@
         "description": "Get Appointments for Contact",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -846,7 +764,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       }
@@ -857,16 +777,6 @@
         "summary": "Add Tags",
         "description": "Add Tags",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -947,7 +857,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -956,16 +868,6 @@
         "summary": "Remove Tags",
         "description": "Remove Tags",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1046,7 +948,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -1057,16 +961,6 @@
         "summary": "Get All Notes",
         "description": "Get All Notes",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1127,7 +1021,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       },
@@ -1136,16 +1032,6 @@
         "summary": "Create Note",
         "description": "Create Note",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1226,7 +1112,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -1237,16 +1125,6 @@
         "summary": "Get Note",
         "description": "Get Note",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1336,16 +1214,6 @@
         "summary": "Update Note",
         "description": "Update Note",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1446,16 +1314,6 @@
         "description": "Delete Note",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1547,16 +1405,6 @@
         "description": "Allows you to update tags to multiple contacts at once, you can add or remove tags from the contacts",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1647,16 +1495,6 @@
         "description": "Add/Remove Contacts From Business . Passing a `null` businessId will remove the businessId from the contacts",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1712,16 +1550,6 @@
         "summary": "Get Contact",
         "description": "Get Contact",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1792,7 +1620,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       },
@@ -1801,16 +1631,6 @@
         "summary": "Update Contact",
         "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1891,7 +1711,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -1900,16 +1722,6 @@
         "summary": "Delete Contact",
         "description": "Delete Contact",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1980,7 +1792,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -1991,16 +1805,6 @@
         "summary": "Upsert Contact",
         "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a><br><br>The Upsert API will adhere to the configuration defined under the “Allow Duplicate Contact” setting at the Location level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.<br><br>If two separate contacts already exist—one with the same email and another with the same phone—and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2071,7 +1875,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -2082,16 +1888,6 @@
         "summary": "Get Contacts By BusinessId",
         "description": "Get Contacts By BusinessId",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2198,7 +1994,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       }
@@ -2209,16 +2007,6 @@
         "summary": "Add Followers",
         "description": "Add Followers",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2299,7 +2087,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -2308,16 +2098,6 @@
         "summary": "Remove Followers",
         "description": "Remove Followers",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2398,7 +2178,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -2409,16 +2191,6 @@
         "summary": "Add Contact to Campaign",
         "description": "Add contact to Campaign",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2519,16 +2291,6 @@
         "description": "Remove Contact From Campaign",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2620,16 +2382,6 @@
         "description": "Remove Contact From Every Campaign",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2699,7 +2451,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -2710,16 +2464,6 @@
         "summary": "Add Contact to Workflow",
         "description": "Add Contact to Workflow",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2819,16 +2563,6 @@
         "summary": "Delete Contact to Workflow",
         "description": "Delete Contact to Workflow",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2931,16 +2665,6 @@
         "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a>",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3010,7 +2734,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -3020,16 +2746,6 @@
         "description": "Get Contacts\n\n **Note:** This API endpoint is deprecated. Please use the [Search Contacts](https://highlevel.stoplight.io/docs/integrations/dbe4f3a00a106-search-contacts) endpoint instead.",
         "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3141,7 +2857,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       }
@@ -3188,6 +2906,10 @@
     },
     {
       "name": "Search",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Followers",
       "description": "Documentation for Contacts API"
     }
   ],
@@ -3428,6 +3150,14 @@
           "dateOfBirth": {
             "type": "string",
             "example": "1990-01-01"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "john"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "doe"
           },
           "firstNameLowerCase": {
             "type": "string",
@@ -5384,5 +5114,20 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Contacts",
+    "tags": [
+      "Contacts",
+      "Tasks",
+      "Appointments",
+      "Tags",
+      "Notes",
+      "Campaigns",
+      "Workflow",
+      "Bulk",
+      "Search",
+      "Followers"
+    ]
   }
 }

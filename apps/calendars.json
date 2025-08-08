@@ -8,16 +8,6 @@
         "description": "Get all calendar groups in a location.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -77,7 +67,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/groups.readonly"
+            ]
           }
         ]
       },
@@ -86,16 +78,6 @@
         "summary": "Create Calendar Group",
         "description": "Create Calendar Group",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -156,7 +138,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/groups.write"
+            ]
           }
         ]
       }
@@ -167,16 +151,6 @@
         "summary": "Validate group slug",
         "description": "Validate if group slug is available or not.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -237,7 +211,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/groups.write"
+            ]
           }
         ]
       }
@@ -248,16 +224,6 @@
         "summary": "Delete Group",
         "description": "Delete Group",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -318,7 +284,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/groups.write"
+            ]
           }
         ]
       },
@@ -327,16 +295,6 @@
         "summary": "Update Group",
         "description": "Update Group by group ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -407,7 +365,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/groups.write"
+            ]
           }
         ]
       }
@@ -418,16 +378,6 @@
         "summary": "Disable Group",
         "description": "Disable Group",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -498,7 +448,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/groups.write"
+            ]
           }
         ]
       }
@@ -509,16 +461,6 @@
         "summary": "Create appointment",
         "description": "Create appointment",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -579,7 +521,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.write"
+            ]
           }
         ]
       }
@@ -590,16 +534,6 @@
         "summary": "Update Appointment",
         "description": "Update appointment",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -679,7 +613,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.write"
+            ]
           }
         ]
       },
@@ -688,16 +624,6 @@
         "summary": "Get Appointment",
         "description": "Get appointment by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -767,7 +693,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.readonly"
+            ]
           }
         ]
       }
@@ -779,16 +707,6 @@
         "description": "Get Calendar Events",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -898,7 +816,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.readonly"
+            ]
           }
         ]
       }
@@ -910,16 +830,6 @@
         "description": "Get Blocked Slots",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1029,7 +939,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.readonly"
+            ]
           }
         ]
       }
@@ -1040,16 +952,6 @@
         "summary": "Create Block Slot",
         "description": "Create block slot",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1110,7 +1012,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.write"
+            ]
           }
         ]
       }
@@ -1121,16 +1025,6 @@
         "summary": "Update Block Slot",
         "description": "Update block slot by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1210,7 +1104,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.write"
+            ]
           }
         ]
       }
@@ -1221,16 +1117,6 @@
         "summary": "Get Free Slots",
         "description": "Get free slots for a calendar between a date range. Optionally a consumer can also request free slots in a particular timezone and also for a particular user.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1343,7 +1229,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars.readonly"
+            ]
           }
         ]
       }
@@ -1354,16 +1242,6 @@
         "summary": "Update Calendar",
         "description": "Update calendar by ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1434,7 +1312,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars.write"
+            ]
           }
         ]
       },
@@ -1443,16 +1323,6 @@
         "summary": "Get Calendar",
         "description": "Get calendar by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1513,7 +1383,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars.readonly"
+            ]
           }
         ]
       },
@@ -1522,16 +1394,6 @@
         "summary": "Delete Calendar",
         "description": "Delete calendar by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1592,7 +1454,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars.write"
+            ]
           }
         ]
       }
@@ -1603,16 +1467,6 @@
         "summary": "Delete Event",
         "description": "Delete event by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1692,7 +1546,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.write"
+            ]
           }
         ]
       }
@@ -1703,16 +1559,6 @@
         "summary": "Get Notes",
         "description": "Get Appointment Notes",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1794,7 +1640,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.readonly"
+            ]
           }
         ]
       },
@@ -1803,16 +1651,6 @@
         "summary": "Create Note",
         "description": "Create Note",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1882,7 +1720,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars/events.write"
+            ]
           }
         ]
       }
@@ -1893,16 +1733,6 @@
         "summary": "Update Note",
         "description": "Update Note",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1982,16 +1812,6 @@
         "description": "Delete Note",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2061,16 +1881,6 @@
         "summary": "Get Calendar Resource",
         "description": "Get calendar resource by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2152,16 +1962,6 @@
         "summary": "Update Calendar Resource",
         "description": "Update calendar resource by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2254,16 +2054,6 @@
         "description": "Delete calendar resource by ID",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2346,16 +2136,6 @@
         "summary": "List Calendar Resources",
         "description": "List calendar resources by resource type and location ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2446,7 +2226,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "calendars/resources.readonly"
+            ]
           }
         ]
       },
@@ -2455,16 +2237,6 @@
         "summary": "Create Calendar Resource",
         "description": "Create calendar resource by resource type",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2538,7 +2310,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "calendars/resources.write"
+            ]
           }
         ]
       }
@@ -2549,16 +2323,6 @@
         "summary": "Get notifications",
         "description": "Get calendar notifications based on query",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2653,6 +2417,13 @@
         },
         "tags": [
           "Calendar Notifications"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars/events.readonly"
+            ]
+          }
         ]
       },
       "post": {
@@ -2660,16 +2431,6 @@
         "summary": "Create notification",
         "description": "Create Calendar notifications, either one or multiple. All notification settings must be for single calendar only",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2741,6 +2502,13 @@
         },
         "tags": [
           "Calendar Notifications"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars/events.write"
+            ]
+          }
         ]
       }
     },
@@ -2750,16 +2518,6 @@
         "summary": "Get notification",
         "description": "Find Event notification by notificationId",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2823,6 +2581,11 @@
         },
         "tags": [
           "Calendar Notifications"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
         ]
       },
       "put": {
@@ -2830,16 +2593,6 @@
         "summary": "Update notification",
         "description": "Update Event notification by id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2913,23 +2666,18 @@
         },
         "tags": [
           "Calendar Notifications"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
         ]
       },
       "delete": {
         "operationId": "delete-event-notification",
-        "summary": "",
+        "summary": "Delete Notification",
         "description": "Delete notification",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2993,6 +2741,11 @@
         },
         "tags": [
           "Calendar Notifications"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
         ]
       }
     },
@@ -3002,16 +2755,6 @@
         "summary": "Get Calendars",
         "description": "Get all calendars in a location.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3093,7 +2836,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars.readonly"
+            ]
           }
         ]
       },
@@ -3102,16 +2847,6 @@
         "summary": "Create Calendar",
         "description": "Create calendar in a location.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3172,7 +2907,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "calendars.write"
+            ]
           }
         ]
       }
@@ -3187,6 +2924,26 @@
   "tags": [
     {
       "name": "Calendars",
+      "description": "Documentation for Calendars API"
+    },
+    {
+      "name": "Calendar Groups",
+      "description": "Documentation for Calendars API"
+    },
+    {
+      "name": "Calendar Events",
+      "description": "Documentation for Calendars API"
+    },
+    {
+      "name": "Appointment Notes",
+      "description": "Documentation for Calendars API"
+    },
+    {
+      "name": "Calendar Resources: Rooms & Equipments",
+      "description": "Documentation for Calendars API"
+    },
+    {
+      "name": "Calendar Notifications",
       "description": "Documentation for Calendars API"
     }
   ],
@@ -5934,5 +5691,16 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Calendars",
+    "tags": [
+      "Calendars",
+      "Calendar Groups",
+      "Calendar Events",
+      "Appointment Notes",
+      "Calendar Resources: Rooms & Equipments",
+      "Calendar Notifications"
+    ]
   }
 }

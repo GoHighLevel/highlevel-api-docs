@@ -8,16 +8,6 @@
         "description": "Fetches list of files and folders from the media library",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -71,7 +61,7 @@
           },
           {
             "name": "type",
-            "required": false,
+            "required": true,
             "in": "query",
             "description": "Type",
             "example": "file",
@@ -97,14 +87,14 @@
             "example": "location",
             "schema": {
               "type": "string",
-              "enum": ["agency","location"]
+              "enum": ["location"]
             }
           },
           {
             "name": "altId",
             "required": true,
             "in": "query",
-            "description": "location or agency Id",
+            "description": "location Id",
             "schema": {
               "type": "string"
             }
@@ -113,6 +103,16 @@
             "name": "parentId",
             "in": "query",
             "description": "parent id or folder id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fetchAll",
+            "required": false,
+            "description": "Fetch all files or folders",
+            "example": "false",
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -132,8 +132,11 @@
         },
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access": ["medias.readonly"]
           }
+        ],
+        "tags": [
+          "Medias"
         ]
       }
     },
@@ -143,16 +146,6 @@
         "summary": "Upload File into Media Library",
         "description": "If hosted is set to true then fileUrl is required. Else file is required. If adding a file, maximum allowed is 25 MB",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -208,8 +201,11 @@
         },
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access": ["medias.write"]
           }
+        ],
+        "tags": [
+          "Medias"
         ]
       }
     },
@@ -219,16 +215,6 @@
         "summary": "Delete File or Folder",
         "description": "Deletes specific file or folder from the media library",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -257,13 +243,13 @@
             "example": "location",
             "schema": {
               "type": "string",
-              "enum": ["agency","location"]
+              "enum": ["location"]
             }
           },
           {
             "name": "altId",
             "required": true,
-            "description": "location or agency Id",
+            "description": "location Id",
             "in": "query",
             "schema": {
               "type": "string"
@@ -277,8 +263,223 @@
         },
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access": ["medias.write"]
           }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      },
+      "post": {
+        "operationId": "update-media-object",
+        "summary": "Update File/ Folder",
+        "description": "Updates a single file or folder by ID",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the file or folder to update",
+            "schema": {
+              "type": "string"
+            },
+            "example": "686f9817f0d3165be9fbcef6"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "updated": true,
+                    "traceId": "33a641a2-c4a6-4123-aa82-c5b84f1a14ee"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/folder": {
+      "post": {
+        "operationId": "create-media-folder",
+        "summary": "Create Folder",
+        "description": "Creates a new folder in the media library",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFolderParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the newly created folder object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FolderDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/update-files": {
+      "put": {
+        "operationId": "bulk-update-media-objects",
+        "summary": "Bulk Update Files/ Folders",
+        "description": "Updates metadata or status of multiple files and folders",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMediaObjects"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "updated": true,
+                      "id": "686f9817f0d3165be9fbcef6"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/delete-files": {
+      "put": {
+        "operationId": "bulk-delete-media-objects",
+        "summary": "Bulk Delete / Trash Files or Folders",
+        "description": "Soft-deletes or trashes multiple files and folders in a single request",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteMediaObjectsBodyParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "deleted": true,
+                      "id": "686f630df0d3166d68fbcec2"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
         ]
       }
     }
@@ -371,7 +572,299 @@
         "required": [
           "fileId"
         ]
+      },
+      "FolderDTO": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location identifier that owns this folder",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the folder",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the folder",
+            "example": "New Folder"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder (null for root folders)",
+            "example": "64af50c42d567a3b4f5989e0"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the object (always 'folder' for folders)",
+            "example": "folder"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the folder has been deleted",
+            "example": false
+          },
+          "pendingUpload": {
+            "type": "boolean",
+            "description": "Whether there are pending uploads to this folder",
+            "example": false
+          },
+          "category": {
+            "type": "string",
+            "description": "Primary category of content stored in the folder",
+            "example": "image"
+          },
+          "subCategory": {
+            "type": "string",
+            "description": "Sub-category of content stored in the folder",
+            "example": "logo"
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "Whether the folder is private and not publicly accessible",
+            "example": false
+          },
+          "relocatedFolder": {
+            "type": "boolean",
+            "description": "Whether the folder has been moved from its original location",
+            "example": false
+          },
+          "migrationCompleted": {
+            "type": "boolean",
+            "description": "Whether the data migration process has been completed for this folder",
+            "example": true
+          },
+          "appFolder": {
+            "type": "boolean",
+            "description": "Whether this is a system-generated application folder",
+            "example": false
+          },
+          "isEssential": {
+            "type": "boolean",
+            "description": "Whether the folder is essential and should not be deleted",
+            "example": false
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the folder"
+          },
+          "lastUpdatedBy": {
+            "type": "string",
+            "description": "ID of the user who last updated the folder",
+            "example": "user-uuid-123"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name",
+          "type"
+        ]
+      },
+      "CreateFolderParams": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity (location only)",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the folder to be created",
+            "example": "New Folder"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder (optional)",
+            "example": "64af50c42d567a3b4f5989e0"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name"
+        ]
+      },
+      "UpdateObject": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name for the file or folder",
+            "example": "Updated File Name.pdf"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the file or folder",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location identifier that owns the file or folder",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          }
+        },
+        "required": [
+          "name",
+          "altType",
+          "altId"
+        ]
+      },
+      "UpdateMediaObjects": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location identifier",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the files",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "filesToBeUpdated": {
+            "type": "array",
+            "description": "Array of file objects to be updated",
+            "items": {
+              "$ref": "#/components/schemas/UpdateMediaObject"
+            },
+            "example": [
+              {
+                "id": "686f9817f0d3165be9fbcef6",
+                "name": "Updated File Name.pdf"
+              }
+            ]
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "filesToBeUpdated"
+        ]
+      },
+      "DeleteMediaObjectItem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier of the file or folder to be deleted",
+            "example": "686f630df0d3166d68fbcec2"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "UpdateMediaObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the file or folder to be updated",
+            "example": "686f9817f0d3165be9fbcef6"
+          },
+          "name": {
+            "type": "string",
+            "description": "New name for the file or folder",
+            "example": "Updated File Name.pdf"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "DeleteMediaObjectsBodyParams": {
+        "type": "object",
+        "properties": {
+          "filesToBeDeleted": {
+            "type": "array",
+            "description": "Array of file objects to be deleted or trashed",
+            "items": {
+              "$ref": "#/components/schemas/DeleteMediaObjectItem"
+            },
+            "example": [
+              {
+                "_id": "686f630df0d3166d68fbcec2"
+              }
+            ]
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the files",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location identifier",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status to set for the files (deleted or trashed)",
+            "enum": [
+              "deleted",
+              "trashed"
+            ],
+            "example": "deleted"
+          }
+        },
+        "required": [
+          "filesToBeDeleted",
+          "altType",
+          "altId",
+          "status"
+        ]
+      },
+      "MoveOrDeleteObjectParams": {
+        "type": "object",
+        "properties": {
+          "altType": {
+            "type": "string"
+          },
+          "altId": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "altType",
+          "altId",
+          "_id"
+        ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Media Library",
+    "tags": [
+      "Medias"
+    ]
   }
 }
+

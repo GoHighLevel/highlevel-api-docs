@@ -12,16 +12,6 @@
         },
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -111,7 +101,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "objects/schema.readonly"
+            ]
           }
         ]
       },
@@ -124,16 +116,6 @@
           "description": "To understand objects and records, please have a look at the documentation here "
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -214,7 +196,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "objects/schema.write"
+            ]
           }
         ]
       }
@@ -225,16 +209,6 @@
         "summary": "Get Record By Id",
         "description": "Allows you to get a Standard Object like business and custom object record by Id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -318,16 +292,6 @@
           "description": "Click here for more information"
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -426,16 +390,6 @@
         "description": "Delete Record By Id . Supported Objects are business and custom objects.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -521,16 +475,6 @@
         },
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -600,7 +544,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "objects/record.write"
+            ]
           }
         ]
       }
@@ -611,16 +557,6 @@
         "summary": "Search Object Records",
         "description": "Supported Objects are custom objects and standard objects like \"business\". Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0/87cpx-379336",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -691,7 +627,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "objects/record.readonly"
+            ]
           }
         ]
       }
@@ -706,16 +644,6 @@
           "description": "To understand objects and records, please have a look the documentation."
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -786,7 +714,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "objects/schema.readonly"
+            ]
           }
         ]
       },
@@ -799,16 +729,6 @@
           "description": "To understand objects and records, please have a look at the documentation here "
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -879,7 +799,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "Agency-Access": [
+              "objects/schema.write"
+            ]
           }
         ]
       }
@@ -894,6 +816,54 @@
   "tags": [
     {
       "name": "Custom Objects Schema",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Object Schema",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Sub-Account (Formerly Location)",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Records",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Search Object Records",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Search",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Tags",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Tasks Search",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Custom Field",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Custom Value",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Timezone",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Template",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "ElasticSearch",
       "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
     }
   ],
@@ -918,6 +888,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
         "type": "http"
       },
       "Agency-Access": {
@@ -1654,5 +1632,23 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Objects",
+    "tags": [
+      "Custom Objects Schema",
+      "Object Schema",
+      "Sub-Account (Formerly Location)",
+      "Records",
+      "Search Object Records",
+      "Search",
+      "Tags",
+      "Tasks Search",
+      "Custom Field",
+      "Custom Value",
+      "Timezone",
+      "Template",
+      "ElasticSearch"
+    ]
   }
 }

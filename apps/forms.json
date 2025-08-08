@@ -8,16 +8,6 @@
         "description": "Get Forms Submissions",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -148,7 +138,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "forms.readonly"
+            ]
           }
         ]
       }
@@ -157,18 +149,8 @@
       "post": {
         "operationId": "upload-to-custom-fields",
         "summary": "Upload files to custom fields",
-        "description": "Post the necessary fields for the API to upload files. The files need to be a buffer with the key \"< custom_field_id >_< file_id >\". <br /> Here custom field id is the ID of your custom field and file id is a randomly generated id (or uuid) <br /> There is support for multiple file uploads as well. Have multiple fields in the format mentioned.<br />File size is limited to 50 MB.<br /><br /> The allowed file types are: <br> <ul><li>PDF</li><li>DOCX</li><li>DOC</li><li>JPG</li><li>JPEG</li><li>PNG</li><li>GIF</li><li>CSV</li><li>XLSX</li><li>XLS</li><li>MP4</li><li>MPEG</li><li>ZIP</li><li>RAR</li><li>TXT</li><li>SVG</li></ul> <br /><br /> The API will return the updated contact object.",
+        "description": "Post the necessary fields for the API to upload files. The files need to be a buffer with the key \"< custom_field_id >_< file_id >\". <br /> Here custom field id is the ID of your custom field and file id is a randomly generated id (or uuid) <br /> There is support for multiple file uploads as well. Have multiple fields in the format mentioned.<br />File size is limited to 50 MB.<br /><br /> The allowed file types are: <br/> <ul><li>PDF</li><li>DOCX</li><li>DOC</li><li>JPG</li><li>JPEG</li><li>PNG</li><li>GIF</li><li>CSV</li><li>XLSX</li><li>XLS</li><li>MP4</li><li>MPEG</li><li>ZIP</li><li>RAR</li><li>TXT</li><li>SVG</li></ul> <br /><br /> The API will return the updated contact object.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -238,7 +220,14 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "forms.write"
+            ]
+          },
+          {
+            "Location-Access": [
+              "forms.write"
+            ]
           }
         ]
       }
@@ -249,16 +238,6 @@
         "summary": "Get Forms",
         "description": "Get Forms",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -347,7 +326,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "forms.readonly"
+            ]
           }
         ]
       }
@@ -639,5 +620,11 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Forms",
+    "tags": [
+      "Forms"
+    ]
   }
 }

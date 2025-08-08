@@ -8,13 +8,15 @@
         "description": "Import Courses through public channels",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "Version",
             "in": "header",
-            "description": "Access Token",
+            "description": "API Version",
             "required": true,
             "schema": {
               "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+              "enum": [
+                "2021-07-28"
+              ]
             }
           }
         ],
@@ -49,7 +51,7 @@
   },
   "tags": [
     {
-      "name": "courses",
+      "name": "Courses",
       "description": "API Service for Courses and Memberships"
     }
   ],
@@ -332,5 +334,9 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Courses",
+    "tags": ["Courses"]
   }
 }

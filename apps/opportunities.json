@@ -8,16 +8,6 @@
         "description": "Search Opportunity",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -33,8 +23,8 @@
             "name": "q",
             "required": false,
             "in": "query",
-            "example": "john@deo.com",
             "schema": {
+              "example": "john@deo.com",
               "type": "string"
             }
           },
@@ -43,8 +33,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id",
-            "example": "i2SpAtBVHSVea1sL6oah",
             "schema": {
+              "example": "i2SpAtBVHSVea1sL6oah",
               "type": "string"
             }
           },
@@ -52,9 +42,9 @@
             "name": "pipeline_id",
             "required": false,
             "in": "query",
-            "example": "bCkKGpDsyPP4peuKowkG",
             "description": "Pipeline Id",
             "schema": {
+              "example": "bCkKGpDsyPP4peuKowkG",
               "type": "string"
             }
           },
@@ -62,9 +52,9 @@
             "name": "pipeline_stage_id",
             "required": false,
             "in": "query",
-            "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10",
             "description": "stage Id",
             "schema": {
+              "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10",
               "type": "string"
             }
           },
@@ -72,9 +62,9 @@
             "name": "contact_id",
             "required": false,
             "in": "query",
-            "example": "WFwVrSSjZ2CNHbZThQX2",
             "description": "Contact Id",
             "schema": {
+              "example": "WFwVrSSjZ2CNHbZThQX2",
               "type": "string"
             }
           },
@@ -97,8 +87,8 @@
             "name": "assigned_to",
             "required": false,
             "in": "query",
-            "example": "082goXVW3lIExEQPOnd3",
             "schema": {
+              "example": "082goXVW3lIExEQPOnd3",
               "type": "string"
             }
           },
@@ -106,9 +96,9 @@
             "name": "campaignId",
             "required": false,
             "in": "query",
-            "example": "Y2I9XM7aO1hncuSOlc9L",
             "description": "Campaign Id",
             "schema": {
+              "example": "Y2I9XM7aO1hncuSOlc9L",
               "type": "string"
             }
           },
@@ -117,8 +107,8 @@
             "required": false,
             "in": "query",
             "description": "Opportunity Id",
-            "example": "123akv4LFn6C9frZoy3e",
             "schema": {
+              "example": "123akv4LFn6C9frZoy3e",
               "type": "string"
             }
           },
@@ -126,8 +116,8 @@
             "name": "order",
             "required": false,
             "in": "query",
-            "example": "added_asc",
             "schema": {
+              "example": "added_asc",
               "type": "string"
             }
           },
@@ -136,8 +126,8 @@
             "required": false,
             "in": "query",
             "description": "End date",
-            "example": "mm-dd-yyyy",
             "schema": {
+              "example": "mm-dd-yyyy",
               "type": "string"
             }
           },
@@ -146,8 +136,8 @@
             "required": false,
             "in": "query",
             "description": "Start After",
-            "example": "1628008053263",
             "schema": {
+              "example": "1628008053263",
               "type": "string"
             }
           },
@@ -155,9 +145,9 @@
             "name": "startAfterId",
             "required": false,
             "in": "query",
-            "example": "UIaE1WjAwWKdlyD7osQI",
             "description": "Start After Id",
             "schema": {
+              "example": "UIaE1WjAwWKdlyD7osQI",
               "type": "string"
             }
           },
@@ -166,8 +156,8 @@
             "required": false,
             "in": "query",
             "description": "Start date",
-            "example": "mm-dd-yyyy",
             "schema": {
+              "example": "mm-dd-yyyy",
               "type": "string"
             }
           },
@@ -175,8 +165,8 @@
             "name": "country",
             "required": false,
             "in": "query",
-            "example": "US",
             "schema": {
+              "example": "US",
               "type": "string"
             }
           },
@@ -224,7 +214,6 @@
             "required": false,
             "in": "query",
             "description": "get Calender event in contact",
-            "example": false,
             "schema": {
               "type": "boolean"
             }
@@ -277,7 +266,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.readonly"
+            ]
           }
         ]
       }
@@ -288,16 +279,6 @@
         "summary": "Get Pipelines",
         "description": "Get Pipelines",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -357,7 +338,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.readonly"
+            ]
           }
         ]
       }
@@ -368,16 +351,6 @@
         "summary": "Get Opportunity",
         "description": "Get Opportunity",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -448,7 +421,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.readonly"
+            ]
           }
         ]
       },
@@ -457,16 +432,6 @@
         "summary": "Delete Opportunity",
         "description": "Delete Opportunity",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -537,7 +502,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       },
@@ -546,16 +513,6 @@
         "summary": "Update Opportunity",
         "description": "Update Opportunity",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -636,7 +593,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       }
@@ -647,16 +606,6 @@
         "summary": "Update Opportunity Status",
         "description": "Update Opportunity Status",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -737,7 +686,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       }
@@ -748,16 +699,6 @@
         "summary": "Upsert Opportunity",
         "description": "Upsert Opportunity",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -828,7 +769,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       }
@@ -839,16 +782,6 @@
         "summary": "Add Followers",
         "description": "Add Followers",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -929,7 +862,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       },
@@ -938,16 +873,6 @@
         "summary": "Remove Followers",
         "description": "Remove Followers",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1028,7 +953,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       }
@@ -1039,16 +966,6 @@
         "summary": "Create Opportunity",
         "description": "Create Opportunity",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1119,7 +1036,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "opportunities.write"
+            ]
           }
         ]
       }
@@ -1151,6 +1070,10 @@
     {
       "name": "Pipiline Search",
       "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Followers",
+      "description": "Documentation for Opportunities API"
     }
   ],
   "servers": [
@@ -1174,6 +1097,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
         "type": "http"
       },
       "Agency-Access": {
@@ -1806,5 +1737,16 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Opportunities",
+    "tags": [
+      "Opportunities",
+      "Search",
+      "Pipelines",
+      "Export",
+      "Pipiline Search",
+      "Followers"
+    ]
   }
 }

@@ -58,6 +58,30 @@
     {
       "name": "Conversation Channel",
       "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Sub-Account (Formerly Location)",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Tags",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Tasks Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Timezone",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "ElasticSearch",
+      "description": "Documentation for Sub-Account (Formerly location) API"
     }
   ],
   "servers": [
@@ -81,6 +105,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
         "type": "http"
       },
       "Agency-Access": {
@@ -2149,16 +2181,6 @@
         "description": "Search Sub-Account (Formerly Location)",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2270,10 +2292,14 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "locations.readonly"
+            ]
           },
           {
-            "Location-Access": []
+            "Location-Access": [
+              "locations.readonly"
+            ]
           }
         ]
       }
@@ -2284,16 +2310,6 @@
         "summary": "Get Sub-Account (Formerly Location)",
         "description": "Get details of a Sub-Account (Formerly Location) by passing the sub-account id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2364,10 +2380,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "locations.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "locations.readonly"
+            ]
           }
         ]
       },
@@ -2376,16 +2396,6 @@
         "summary": "Put Sub-Account (Formerly Location)",
         "description": "Update a Sub-Account (Formerly Location) based on the data provided",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2456,7 +2466,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "locations.write"
+            ]
           }
         ]
       },
@@ -2465,16 +2477,6 @@
         "summary": "Delete Sub-Account (Formerly Location)",
         "description": "Delete a Sub-Account (Formerly Location) from the Agency",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2545,7 +2547,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "locations.internal-access-only"
+            ]
           }
         ]
       }
@@ -2556,16 +2560,6 @@
         "summary": "Get Tags",
         "description": "Get Sub-Account (Formerly Location) Tags",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2636,7 +2630,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/tags.readonly"
+            ]
           }
         ]
       },
@@ -2645,16 +2641,6 @@
         "summary": "Create Tag",
         "description": "Create tag",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2735,7 +2721,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/tags.write"
+            ]
           }
         ]
       }
@@ -2746,16 +2734,6 @@
         "summary": "Get tag by id",
         "description": "Get tag by id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2845,16 +2823,6 @@
         "summary": "Update tag",
         "description": "Update tag",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2955,16 +2923,6 @@
         "description": "Delete tag",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3056,16 +3014,6 @@
         "description": "Task Search",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3145,7 +3093,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/tasks.readonly"
+            ]
           }
         ]
       }
@@ -3156,16 +3106,6 @@
         "summary": "Get Custom Fields",
         "description": "Get Custom Fields",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3251,7 +3191,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.readonly"
+            ]
           }
         ]
       },
@@ -3260,16 +3202,6 @@
         "summary": "Create Custom Field",
         "description": "Create Custom Field",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3350,7 +3282,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       }
@@ -3361,16 +3295,6 @@
         "summary": "Get Custom Field",
         "description": "Get Custom Field",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3469,16 +3393,6 @@
         "summary": "Update Custom Field",
         "description": "Update Custom Field",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3579,16 +3493,6 @@
         "description": "Delete Custom Field",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3680,16 +3584,6 @@
         "description": "Uploads File to customFields",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3767,7 +3661,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       }
@@ -3778,16 +3674,6 @@
         "summary": "Get Custom Values",
         "description": "Get Custom Values",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3848,7 +3734,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customValues.readonly"
+            ]
           }
         ]
       },
@@ -3857,16 +3745,6 @@
         "summary": "Create Custom Value",
         "description": "Create Custom Value",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3947,7 +3825,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customValues.write"
+            ]
           }
         ]
       }
@@ -3958,16 +3838,6 @@
         "summary": "Get Custom Value",
         "description": "Get Custom Value",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4057,16 +3927,6 @@
         "summary": "Update Custom Value",
         "description": "Update Custom Value",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4167,16 +4027,6 @@
         "description": "Delete Custom Value",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -4268,16 +4118,6 @@
         "description": "Fetch the available timezones",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -4330,10 +4170,14 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations.readonly"
+            ]
           },
           {
-            "Location-Access": []
+            "Location-Access": [
+              "locations.readonly"
+            ]
           }
         ]
       }
@@ -4344,16 +4188,6 @@
         "summary": "GET all or email/sms templates",
         "description": "GET all or email/sms templates",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4477,7 +4311,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/templates.readonly"
+            ]
           }
         ]
       }
@@ -4488,16 +4324,6 @@
         "summary": "DELETE an email/sms template",
         "description": "DELETE an email/sms template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4583,16 +4409,6 @@
         "description": "<div>\n                  <p>Create a new Sub-Account (Formerly Location) based on the data provided</p> \n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                          This feature is only available on Agency Pro ($497) plan.\n                        </strong>\n                      </span>\n                  </div>\n                </div>\n    ",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -4652,10 +4468,36 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "locations.write"
+            ]
           }
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Sub-Account (Formerly location)",
+    "tags": [
+      "Location",
+      "Location Tags",
+      "Custom Field",
+      "Custom Value",
+      "Template",
+      "Tags Search",
+      "Location Notes",
+      "Location Tasks",
+      "Location Search",
+      "Custom Field Search",
+      "Location Keys",
+      "Labs",
+      "Conversation Channel",
+      "Search",
+      "Sub-Account (Formerly Location)",
+      "Tags",
+      "Tasks Search",
+      "Timezone",
+      "ElasticSearch"
+    ]
   }
 }

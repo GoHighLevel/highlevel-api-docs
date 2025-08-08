@@ -8,16 +8,6 @@
         "description": "Returns a list of all conversations matching the search criteria along with the sort and filter options selected.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -183,7 +173,8 @@
                 "TYPE_FACEBOOK_COMMENT",
                 "TYPE_INSTAGRAM_COMMENT",
                 "TYPE_CUSTOM_CALL",
-                "TYPE_INTERNAL_COMMENT"
+                "TYPE_INTERNAL_COMMENT",
+                "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
               ],
               "type": "string"
             }
@@ -326,7 +317,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations.readonly"
+            ]
           }
         ]
       }
@@ -337,16 +330,6 @@
         "summary": "Get Conversation",
         "description": "Get the conversation details based on the conversation ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -407,7 +390,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations.readonly"
+            ]
           }
         ]
       },
@@ -416,16 +401,6 @@
         "summary": "Update Conversation",
         "description": "Update the conversation details based on the conversation ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -496,7 +471,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations.write"
+            ]
           }
         ]
       },
@@ -505,16 +482,6 @@
         "summary": "Delete Conversation",
         "description": "Delete the conversation details based on the conversation ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -575,7 +542,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations.write"
+            ]
           }
         ]
       }
@@ -585,18 +554,7 @@
         "operationId": "get-email-by-id",
         "summary": "Get email by Id",
         "description": "Get email by Id",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Email object for the id given.",
@@ -620,16 +578,6 @@
         "summary": "Cancel a scheduled email message.",
         "description": "Post the messageId for the API to delete a scheduled email message. <br />",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "emailMessageId",
             "required": true,
@@ -664,16 +612,6 @@
         "summary": "Get message by message id",
         "description": "Get message by message id.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -724,7 +662,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.readonly"
+            ]
           }
         ]
       }
@@ -735,16 +675,6 @@
         "summary": "Get messages by conversation id",
         "description": "Get messages by conversation id.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -808,7 +738,8 @@
                 "TYPE_ACTIVITY_PAYMENT",
                 "TYPE_ACTIVITY_OPPORTUNITY",
                 "TYPE_LIVE_CHAT",
-                "TYPE_INTERNAL_COMMENTS"
+                "TYPE_INTERNAL_COMMENTS",
+                "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
               ],
               "type": "string"
             }
@@ -851,7 +782,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.readonly"
+            ]
           }
         ]
       }
@@ -862,16 +795,6 @@
         "summary": "Send a new message",
         "description": "Post the necessary fields for the API to send a new message.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -932,7 +855,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.write"
+            ]
           }
         ]
       }
@@ -943,16 +868,6 @@
         "summary": "Add an inbound message",
         "description": "Post the necessary fields for the API to add a new inbound message. <br />",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1013,7 +928,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.write"
+            ]
           }
         ]
       }
@@ -1024,16 +941,6 @@
         "summary": "Add an external outbound call",
         "description": "Post the necessary fields for the API to add a new outbound call.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1094,7 +1001,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.write"
+            ]
           }
         ]
       }
@@ -1105,16 +1014,6 @@
         "summary": "Cancel a scheduled message.",
         "description": "Post the messageId for the API to delete a scheduled message. <br />",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1175,7 +1074,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.write"
+            ]
           }
         ]
       }
@@ -1184,18 +1085,8 @@
       "post": {
         "operationId": "upload-file-attachments",
         "summary": "Upload file attachments",
-        "description": "Post the necessary fields for the API to upload files. The files need to be a buffer with the key \"fileAttachment\". <br /><br /> The allowed file types are: <br> <ul><li>JPG</li><li>JPEG</li><li>PNG</li><li>MP4</li><li>MPEG</li><li>ZIP</li><li>RAR</li><li>PDF</li><li>DOC</li><li>DOCX</li><li>TXT</li><li>MP3</li><li>WAV</li></ul> <br /><br /> The API will return an object with the URLs",
+        "description": "Post the necessary fields for the API to upload files. The files need to be a buffer with the key \"fileAttachment\". <br /><br /> The allowed file types are: <br/> <ul><li>JPG</li><li>JPEG</li><li>PNG</li><li>MP4</li><li>MPEG</li><li>ZIP</li><li>RAR</li><li>PDF</li><li>DOC</li><li>DOCX</li><li>TXT</li><li>MP3</li><li>WAV</li></ul> <br /><br /> The API will return an object with the URLs",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1276,7 +1167,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.write"
+            ]
           }
         ]
       }
@@ -1287,16 +1180,6 @@
         "summary": "Update message status",
         "description": "Post the necessary fields for the API to update message status.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1360,6 +1243,16 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1367,7 +1260,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations/message.write"
+            ]
           }
         ]
       }
@@ -1378,16 +1273,6 @@
         "summary": "Get Recording by Message ID",
         "description": "Get the recording for a message by passing the message id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1474,16 +1359,6 @@
         "description": "Get the recording transcription for a message by passing the message id",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1568,16 +1443,6 @@
         "description": "Download the recording transcription for a message by passing the message id",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1619,13 +1484,6 @@
               },
               "Content-Disposition": {
                 "description": "Attachment; filename=\"transcription.txt\""
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/"
-                }
               }
             }
           },
@@ -1669,16 +1527,6 @@
         "summary": "Agent/Ai-Bot is typing a message indicator for live chat",
         "description": "Agent/AI-Bot will call this when they are typing a message in live chat message",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1749,7 +1597,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "conversations/livechat.write"
+            ]
           }
         ]
       }
@@ -1760,16 +1610,6 @@
         "summary": "Create Conversation",
         "description": "Creates a new conversation with the data provided",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1830,7 +1670,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "conversations.write"
+            ]
           }
         ]
       }
@@ -1849,6 +1691,18 @@
     },
     {
       "name": "Search",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Email",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Messages",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Providers",
       "description": "Documentation for Conversations API"
     }
   ],
@@ -1875,6 +1729,14 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
       "Agency-Access": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
@@ -1885,6 +1747,53 @@
       }
     },
     "schemas": {
+      "BadRequestDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        }
+      },
+      "UnauthorizedDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid token: access token is invalid"
+          },
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "ForbiddenDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "example": "You do not have permission to access this resource"
+          },
+          "error": {
+            "type": "string",
+            "example": "Forbidden"
+          }
+        }
+      },
       "StartAfterNumberSchema": {
         "type": "object",
         "properties": {
@@ -1973,7 +1882,8 @@
               "TYPE_FACEBOOK_COMMENT",
               "TYPE_INSTAGRAM_COMMENT",
               "TYPE_CUSTOM_CALL",
-              "TYPE_INTERNAL_COMMENT"
+              "TYPE_INTERNAL_COMMENT",
+              "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
             ]
           },
           "type": {
@@ -2304,7 +2214,8 @@
               "TYPE_FACEBOOK_COMMENT",
               "TYPE_INSTAGRAM_COMMENT",
               "TYPE_CUSTOM_CALL",
-              "TYPE_INTERNAL_COMMENT"
+              "TYPE_INTERNAL_COMMENT",
+              "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
             ],
             "example": "TYPE_CALL"
           },
@@ -2575,6 +2486,11 @@
             "type": "string",
             "example": "ve9EPM428h8vShlRW1KT"
           },
+          "altId": {
+            "type": "string",
+            "description": "Alternative identifier for the message",
+            "example": "msg_123456789"
+          },
           "type": {
             "type": "number",
             "example": 1
@@ -2618,7 +2534,8 @@
               "TYPE_FACEBOOK_COMMENT",
               "TYPE_INSTAGRAM_COMMENT",
               "TYPE_CUSTOM_CALL",
-              "TYPE_INTERNAL_COMMENT"
+              "TYPE_INTERNAL_COMMENT",
+              "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
             ]
           },
           "locationId": {
@@ -2715,29 +2632,31 @@
       "GetMessagesByConversationResponseDto": {
         "type": "object",
         "properties": {
-          "lastMessageId": {
-            "type": "string",
-            "description": "Id of the last message in the messages array",
-            "example": "p1mRSHeLDhAms5q0LMr4"
-          },
-          "nextPage": {
-            "type": "boolean",
-            "description": "Next page value true indicates only 20 message is in the response. Rest of the messages are in the next page. Please use the lastMessageId value in the query to get the next page messages",
-            "example": true
-          },
           "messages": {
-            "description": "Array of messages",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GetMessageResponseDto"
-            }
+            "type": "object",
+            "properties": {
+              "lastMessageId": {
+                "type": "string",
+                "description": "Id of the last message in the messages array",
+                "example": "p1mRSHeLDhAms5q0LMr4"
+              },
+              "nextPage": {
+                "type": "boolean",
+                "description": "Next page value true indicates only 20 message is in the response. Rest of the messages are in the next page. Please use the lastMessageId value in the query to get the next page messages",
+                "example": true
+              },
+              "messages": {
+                "description": "Array of messages",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GetMessageResponseDto"
+                }
+              }
+            },
+            "required": ["lastMessageId", "nextPage", "messages"]
           }
         },
-        "required": [
-          "lastMessageId",
-          "nextPage",
-          "messages"
-        ]
+        "required": ["messages"]
       },
       "SendMessageBodyDto": {
         "type": "object",
@@ -3357,5 +3276,15 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Conversations",
+    "tags": [
+      "Conversations",
+      "Search",
+      "Email",
+      "Messages",
+      "Providers"
+    ]
   }
 }

@@ -8,16 +8,6 @@
         "description": "API to create a template",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -87,10 +77,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/template.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/template.write"
+            ]
           }
         ]
       },
@@ -99,16 +93,6 @@
         "summary": "List templates",
         "description": "API to get list of templates",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -266,10 +250,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/template.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/template.readonly"
+            ]
           }
         ]
       }
@@ -280,16 +268,6 @@
         "summary": "Get an template",
         "description": "API to get an template by template id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -383,10 +361,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/template.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/template.readonly"
+            ]
           }
         ]
       },
@@ -395,16 +377,6 @@
         "summary": "Update template",
         "description": "API to update an template by template id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -485,10 +457,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/template.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/template.write"
+            ]
           }
         ]
       },
@@ -497,16 +473,6 @@
         "summary": "Delete template",
         "description": "API to update an template by template id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -600,10 +566,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/template.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/template.write"
+            ]
           }
         ]
       }
@@ -614,16 +584,6 @@
         "summary": "Update template late fees configuration",
         "description": "API to update template late fees configuration by template id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -719,16 +679,6 @@
         "description": "API to update template late fees configuration by template id",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -823,16 +773,6 @@
         "description": "API to create an invoice Schedule",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -902,10 +842,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       },
@@ -914,16 +858,6 @@
         "summary": "List schedules",
         "description": "API to get list of schedules",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1081,10 +1015,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.readonly"
+            ]
           }
         ]
       }
@@ -1095,16 +1033,6 @@
         "summary": "Get an schedule",
         "description": "API to get an schedule by schedule id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1198,10 +1126,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.readonly"
+            ]
           }
         ]
       },
@@ -1210,16 +1142,6 @@
         "summary": "Update schedule",
         "description": "API to update an schedule by schedule id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1300,10 +1222,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       },
@@ -1312,16 +1238,6 @@
         "summary": "Delete schedule",
         "description": "API to delete an schedule by schedule id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1415,10 +1331,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       }
@@ -1429,16 +1349,6 @@
         "summary": "Update scheduled recurring invoice",
         "description": "API to update scheduled recurring invoice",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1509,10 +1419,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       }
@@ -1523,16 +1437,6 @@
         "summary": "Schedule an schedule invoice",
         "description": "API to schedule an schedule invoice to start sending to the customer",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1613,10 +1517,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       }
@@ -1627,16 +1535,6 @@
         "summary": "Manage Auto payment for an schedule invoice",
         "description": "API to manage auto payment for a schedule",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1717,10 +1615,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       }
@@ -1731,16 +1633,6 @@
         "summary": "Cancel an scheduled invoice",
         "description": "API to cancel a scheduled invoice by schedule id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1821,10 +1713,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/schedule.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/schedule.write"
+            ]
           }
         ]
       }
@@ -1835,16 +1731,6 @@
         "summary": "Create & Send",
         "description": "API to create or update a text2pay invoice",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1915,7 +1801,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           }
         ]
       }
@@ -1926,16 +1814,6 @@
         "summary": "Generate Invoice Number",
         "description": "Get the next invoice number for the given location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2016,10 +1894,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.readonly"
+            ]
           }
         ]
       }
@@ -2030,16 +1912,6 @@
         "summary": "Get invoice",
         "description": "API to get invoice by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2133,10 +2005,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.readonly"
+            ]
           }
         ]
       },
@@ -2145,16 +2021,6 @@
         "summary": "Update invoice",
         "description": "API to update invoice by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2235,10 +2101,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.write"
+            ]
           }
         ]
       },
@@ -2247,16 +2117,6 @@
         "summary": "Delete invoice",
         "description": "API to delete invoice by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2361,10 +2221,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.write"
+            ]
           }
         ]
       }
@@ -2375,16 +2239,6 @@
         "summary": "Update invoice late fees configuration",
         "description": "API to update invoice late fees configuration by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2479,16 +2333,6 @@
         "summary": "Void invoice",
         "description": "API to delete invoice by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2586,10 +2430,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.write"
+            ]
           }
         ]
       }
@@ -2600,16 +2448,6 @@
         "summary": "Send invoice",
         "description": "API to send invoice by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2690,10 +2528,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.write"
+            ]
           }
         ]
       }
@@ -2704,16 +2546,6 @@
         "summary": "Record a manual payment for an invoice",
         "description": "API to record manual payment for an invoice by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2794,10 +2626,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.write"
+            ]
           }
         ]
       }
@@ -2808,16 +2644,6 @@
         "summary": "Update invoice last visited at",
         "description": "API to update invoice last visited at by invoice id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2885,16 +2711,6 @@
         "summary": "Create New Estimate",
         "description": "Create a new estimate with the provided details",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2965,10 +2781,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       }
@@ -2979,16 +2799,6 @@
         "summary": "Update Estimate",
         "description": "Update an existing estimate with new details",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3069,10 +2879,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       },
@@ -3081,16 +2895,6 @@
         "summary": "Delete Estimate",
         "description": "Delete an existing estimate",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3171,10 +2975,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       }
@@ -3185,16 +2993,6 @@
         "summary": "Generate Estimate Number",
         "description": "Get the next estimate number for the given location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3276,10 +3074,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.readonly"
+            ]
           }
         ]
       }
@@ -3290,16 +3092,6 @@
         "summary": "Send Estimate",
         "description": "API to send estimate by estimate id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3380,10 +3172,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       }
@@ -3394,16 +3190,6 @@
         "summary": "Create Invoice from Estimate",
         "description": "Create a new invoice from an existing estimate",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3484,10 +3270,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       }
@@ -3498,16 +3288,6 @@
         "summary": "List Estimates",
         "description": "Get a paginated list of estimates",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3668,10 +3448,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.readonly"
+            ]
           }
         ]
       }
@@ -3682,16 +3466,6 @@
         "summary": "Update estimate last visited at",
         "description": "API to update estimate last visited at by estimate id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3759,16 +3533,6 @@
         "summary": "List Estimate Templates",
         "description": "Get a list of estimate templates or a specific template by ID",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3880,10 +3644,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.readonly"
+            ]
           }
         ]
       },
@@ -3892,16 +3660,6 @@
         "summary": "Create Estimate Template",
         "description": "Create a new estimate template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3972,10 +3730,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       }
@@ -3986,16 +3748,6 @@
         "summary": "Update Estimate Template",
         "description": "Update an existing estimate template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4076,10 +3828,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       },
@@ -4088,16 +3844,6 @@
         "summary": "Delete Estimate Template",
         "description": "Delete an existing estimate template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4178,10 +3924,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.write"
+            ]
           }
         ]
       }
@@ -4192,16 +3942,6 @@
         "summary": "Preview Estimate Template",
         "description": "Get a preview of an estimate template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4293,10 +4033,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices/estimate.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices/estimate.readonly"
+            ]
           }
         ]
       }
@@ -4307,16 +4051,6 @@
         "summary": "Create Invoice",
         "description": "API to create an invoice",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4387,10 +4121,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.write"
+            ]
           }
         ]
       },
@@ -4399,16 +4137,6 @@
         "summary": "List invoices",
         "description": "API to get list of invoices",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4603,10 +4331,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "invoices.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "invoices.readonly"
+            ]
           }
         ]
       }
@@ -4621,6 +4353,22 @@
   "tags": [
     {
       "name": "Invoice",
+      "description": "Documentation for invoice API"
+    },
+    {
+      "name": "Template",
+      "description": "Documentation for invoice API"
+    },
+    {
+      "name": "Schedule",
+      "description": "Documentation for invoice API"
+    },
+    {
+      "name": "Text2Pay",
+      "description": "Documentation for invoice API"
+    },
+    {
+      "name": "Estimate",
       "description": "Documentation for invoice API"
     }
   ],
@@ -11059,5 +10807,15 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Invoice",
+    "tags": [
+      "Invoice",
+      "Template",
+      "Schedule",
+      "Text2Pay",
+      "Estimate"
+    ]
   }
 }
