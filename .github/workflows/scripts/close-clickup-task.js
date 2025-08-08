@@ -5,10 +5,12 @@ function makeRequest(options, data = null) {
     method: options.method,
     url: `https://${options.hostname}${options.path}`,
     headers: options.headers,
-    data: data,
     timeout: 10000
   };
   
+  if (data) {
+    config.data = data;
+  }
   return axios(config)
     .then(response => response.data)
     .catch(error => {
@@ -26,7 +28,7 @@ async function findTaskInList(listId, issueId, githubFieldId, apiToken) {
   while (page < maxPages) {
     const options = {
       hostname: 'api.clickup.com',
-      path: `/api/v2/list/${listId}/task?page=${page}&include_closed=true`,
+      path: `/api/v2/list/${listId}/task?page=${page}`,
       method: 'GET',
       headers: {
         'Authorization': apiToken,
@@ -43,7 +45,7 @@ async function findTaskInList(listId, issueId, githubFieldId, apiToken) {
     for (const task of tasks) {
       if (task.custom_fields) {
         const githubField = task.custom_fields.find(field => field.id === githubFieldId);
-        if (githubField && githubField.value == issueId) {
+        if (githubField && githubField.value?.trim() == issueId) {
           console.log(`✅ Found task: ${task.id} - "${task.name}"`);
           return task.id;
         }
@@ -64,7 +66,7 @@ async function closeTask(taskId, apiToken) {
     path: `/api/v2/task/${taskId}`,
     method: 'PUT',
     headers: {
-      'Authorization': apiToken,
+      'Authorization': apiToken.trim(),
       'Content-Type': 'application/json'
     }
   };
