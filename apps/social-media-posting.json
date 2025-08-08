@@ -8,16 +8,6 @@
         "description": "Open the API in a window with appropriate params and headers instead of using the Curl. User is navigated to Google login OAuth screen. On successful login, listen on window object for message where event listener returns data in its callback function. \n  ### Sample code to listen to event data:\n    window.addEventListener('message', \n      function(e) {\n        if (e.data && e.data.page === 'social_media_posting') {\n        const { actionType, page, platform, placement, accountId, reconnectAccounts } = e.data\n        }\n      },\n    false)\n  ### Event Data Response:\n    {\n      actionType: string,            Ex: \"close\" \n      page: string,                  Ex: \"social-media-posting\" \n      platform: string,              Ex: \"google\" \n      placement: string,             Ex: \"placement\" \n      accountId: string,             Ex: \"658a9b6833b91e0ecb8f3958\" \n      reconnectAccounts: string[]]   Ex: [\"658a9b6833b91e0ecb834acd\", \"efd2daa9b6833b91e0ecb8f3511\"] \n    }\n  ### The accountId retrieved from above data can be used to fetch Google account details using below API -\n  API: '/social-media-posting/oauth/google/accounts/:accountId' \n\n  Method: GET",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -110,7 +100,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/oauth.readonly"]
           }
         ]
       }
@@ -121,16 +111,6 @@
         "summary": "Get google business locations",
         "description": "Get google business locations",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -220,16 +200,6 @@
         "summary": "Set google business locations",
         "description": "Set google business locations",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -332,16 +302,6 @@
         "description": "Get Posts",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -421,7 +381,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/post.readonly"]
           }
         ]
       }
@@ -432,16 +392,6 @@
         "summary": "Create post",
         "description": "Create posts for all supported platforms. It is possible to create customized posts per channel by using the same platform account IDs in a request and hitting the create post API multiple times with different summaries and account IDs per platform.\n\nThe content and media limitations, as well as platform rate limiters corresponding to the respective platforms, are provided in the following reference link:\n\n  Link: [Platform Limitations](https://help.leadconnectorhq.com/support/solutions/articles/48001240003-social-planner-image-video-content-and-api-limitations \"Social Planner Help\")",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -522,7 +472,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/post.write"]
           }
         ]
       }
@@ -533,16 +483,6 @@
         "summary": "Get post",
         "description": "Get post",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -632,16 +572,6 @@
         "summary": "Edit post",
         "description": "Create posts for all supported platforms. It is possible to create customized posts per channel by using the same platform account IDs in a request and hitting the create post API multiple times with different summaries and account IDs per platform.\n\nThe content and media limitations, as well as platform rate limiters corresponding to the respective platforms, are provided in the following reference link:\n\n  Link: [Platform Limitations](https://help.leadconnectorhq.com/support/solutions/articles/48001240003-social-planner-image-video-content-and-api-limitations \"Social Planner Help\")",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -742,16 +672,6 @@
         "description": "Delete Post",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -843,16 +763,6 @@
         "description": "Deletes multiple posts based on the provided list of post IDs. \n                  This operation is useful for clearing up large numbers of posts efficiently. \n                  \nNote: \n                  \n1.The maximum number of posts that can be deleted in a single request is '50'.\n                  \n2.However, It will only get deleted in Highlevel database but still\n                   it is recommended to be cautious of this operation.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -935,16 +845,6 @@
         "description": "Get list of accounts and groups",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1014,7 +914,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/account.readonly"]
           }
         ]
       }
@@ -1025,16 +925,6 @@
         "summary": "Delete Account",
         "description": "Delete account and account from group",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1147,16 +1037,6 @@
         "description": "Open the API in a window with appropriate params and headers instead of using the Curl. User is navigated to Facebook login OAuth screen. On successful login, listen on window object for message where event listener returns data in its callback function. \n  ### Sample code to listen to event data:\n    window.addEventListener('message', \n      function(e) {\n        if (e.data && e.data.page === 'social_media_posting') {\n        const { actionType, page, platform, placement, accountId, reconnectAccounts } = e.data\n        }\n      },\n    false)\n  ### Event Data Response:\n    {\n      actionType: string,            Ex: \"close\" \n      page: string,                  Ex: \"social-media-posting\" \n      platform: string,              Ex: \"facebook\" \n      placement: string,             Ex: \"placement\" \n      accountId: string,             Ex: \"658a9b6833b91e0ecb8f3958\" \n      reconnectAccounts: string[]]   Ex: [\"658a9b6833b91e0ecb834acd\", \"efd2daa9b6833b91e0ecb8f3511\"] \n    }\n  ### The accountId retrieved from above data can be used to fetch Facebook account details using below API -\n  API: '/social-media-posting/oauth/facebook/accounts/:accountId' \n\n  Method: GET",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1261,16 +1141,6 @@
         "description": "Get facebook pages",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1359,16 +1229,6 @@
         "summary": "Attach facebook pages",
         "description": "Attach facebook pages",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1471,16 +1331,6 @@
         "description": "Open the API in a window with appropriate params and headers instead of using the Curl. User is navigated to Instagram login OAuth screen. On successful login, listen on window object for message where event listener returns data in its callback function. \n  ### Sample code to listen to event data:\n    window.addEventListener('message', \n      function(e) {\n        if (e.data && e.data.page === 'social_media_posting') {\n        const { actionType, page, platform, placement, accountId, reconnectAccounts } = e.data\n        }\n      },\n    false)\n  ### Event Data Response:\n    {\n      actionType: string,            Ex: \"close\" \n      page: string,                  Ex: \"social-media-posting\" \n      platform: string,              Ex: \"instagram\" \n      placement: string,             Ex: \"placement\" \n      accountId: string,             Ex: \"658a9b6833b91e0ecb8f3958\" \n      reconnectAccounts: string[]]   Ex: [\"658a9b6833b91e0ecb834acd\", \"efd2daa9b6833b91e0ecb8f3511\"] \n    }\n  ### The accountId retrieved from above data can be used to fetch Instagram account details using below API -\n  API: '/social-media-posting/oauth/instagram/accounts/:accountId' \n\n  Method: GET",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1573,7 +1423,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/oauth.readonly"]
           }
         ]
       }
@@ -1584,16 +1434,6 @@
         "summary": "Get Instagram Professional Accounts",
         "description": "Get Instagram Professional Accounts",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1683,16 +1523,6 @@
         "summary": "Attach Instagram Professional Accounts",
         "description": "Attach Instagram Professional Accounts",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1794,16 +1624,6 @@
         "summary": "Starts OAuth For LinkedIn Account",
         "description": "Open the API in a window with appropriate params and headers instead of using the Curl. User is navigated to LinkedIn login OAuth screen. On successful login, listen on window object for message where event listener returns data in its callback function. \n  ### Sample code to listen to event data:\n    window.addEventListener('message', \n      function(e) {\n        if (e.data && e.data.page === 'social_media_posting') {\n        const { actionType, page, platform, placement, accountId, reconnectAccounts } = e.data\n        }\n      },\n    false)\n  ### Event Data Response:\n    {\n      actionType: string,            Ex: \"close\" \n      page: string,                  Ex: \"social-media-posting\" \n      platform: string,              Ex: \"linkedin\" \n      placement: string,             Ex: \"placement\" \n      accountId: string,             Ex: \"658a9b6833b91e0ecb8f3958\" \n      reconnectAccounts: string[]]   Ex: [\"658a9b6833b91e0ecb834acd\", \"efd2daa9b6833b91e0ecb8f3511\"] \n    }\n  ### The accountId retrieved from above data can be used to fetch LinkedIn account details using below API -\n  API: '/social-media-posting/oauth/linkedin/accounts/:accountId' \n\n  Method: GET",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1909,16 +1729,6 @@
         "description": "Get Linkedin pages and profile",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2007,16 +1817,6 @@
         "summary": "Attach linkedin pages and profile",
         "description": "Attach linkedin pages and profile",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2120,16 +1920,6 @@
         "deprecated": true,
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2219,6 +2009,11 @@
         },
         "tags": [
           "Oauth | Twitter"
+        ],
+        "security": [
+          {
+            "bearer": ["socialplanner/oauth.readonly"]
+          }
         ]
       }
     },
@@ -2229,16 +2024,6 @@
         "description": "<div><div>\n  <span style= \"display: inline-block;\n    width: 25px; height: 25px;\n    background-color: red;\n    color: black;\n    font-weight: bold;\n    font-size: 24px;\n    text-align: center;\n    line-height: 20px;\n    border: 2px solid black;\n    border-radius: 20%;\n    margin-right: 10px;\">\n    !\n  </span>\n  <span><strong>As of December 4, 2024, X (formerly Twitter) is no longer supported. We apologise for any inconvenience.</strong></span>\n</div></div>",
         "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2324,16 +2109,6 @@
         "description": "<div><div>\n  <span style= \"display: inline-block;\n    width: 25px; height: 25px;\n    background-color: red;\n    color: black;\n    font-weight: bold;\n    font-size: 24px;\n    text-align: center;\n    line-height: 20px;\n    border: 2px solid black;\n    border-radius: 20%;\n    margin-right: 10px;\">\n    !\n  </span>\n  <span><strong>As of December 4, 2024, X (formerly Twitter) is no longer supported. We apologise for any inconvenience.</strong></span>\n</div></div>",
         "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2430,16 +2205,6 @@
         "summary": "Upload CSV",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2519,7 +2284,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/csv.write"]
           }
         ]
       },
@@ -2527,16 +2292,6 @@
         "operationId": "get-upload-status",
         "summary": "Get Upload Status",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2657,16 +2412,6 @@
         "summary": "Set Accounts",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2746,7 +2491,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/csv.write"]
           }
         ]
       }
@@ -2756,16 +2501,6 @@
         "operationId": "get-csv-post",
         "summary": "Get CSV Post",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2872,16 +2607,6 @@
         "summary": "Start CSV Finalize",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -2979,16 +2704,6 @@
         "summary": "Delete CSV",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3077,16 +2792,6 @@
         "operationId": "delete-csv-post",
         "summary": "Delete CSV Post",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3188,16 +2893,6 @@
         "description": "Open the API in a window with appropriate params and headers instead of using the Curl. User is navigated to Tiktok login OAuth screen. On successful login, listen on window object for message where event listener returns data in its callback function. \n  ### Sample code to listen to event data:\n    window.addEventListener('message', \n      function(e) {\n        if (e.data && e.data.page === 'social_media_posting') {\n        const { actionType, page, platform, placement, accountId, reconnectAccounts } = e.data\n        }\n      },\n    false)\n  ### Event Data Response:\n    {\n      actionType: string,            Ex: \"close\" \n      page: string,                  Ex: \"social-media-posting\" \n      platform: string,              Ex: \"tiktok\" \n      placement: string,             Ex: \"placement\" \n      accountId: string,             Ex: \"658a9b6833b91e0ecb8f3958\" \n      reconnectAccounts: string[]]   Ex: [\"658a9b6833b91e0ecb834acd\", \"efd2daa9b6833b91e0ecb8f3511\"] \n    }\n  ### The accountId retrieved from above data can be used to fetch Tiktok account details using below API -\n  API: '/social-media-posting/oauth/tiktok/accounts/:accountId' \n\n  Method: GET",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3290,7 +2985,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/oauth.readonly"]
           }
         ]
       }
@@ -3301,16 +2996,6 @@
         "summary": "Get Tiktok profile",
         "description": "Get Tiktok profile",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3400,16 +3085,6 @@
         "summary": "Attach Tiktok profile",
         "description": "Attach Tiktok profile",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3512,16 +3187,6 @@
         "description": "Open the API in a window with appropriate params and headers instead of using the Curl. User is navigated to Tiktok-Business login OAuth screen. On successful login, listen on window object for message where event listener returns data in its callback function. \n  ### Sample code to listen to event data:\n    window.addEventListener('message', \n      function(e) {\n        if (e.data && e.data.page === 'social_media_posting') {\n        const { actionType, page, platform, placement, accountId, reconnectAccounts } = e.data\n        }\n      },\n    false)\n  ### Event Data Response:\n    {\n      actionType: string,            Ex: \"close\" \n      page: string,                  Ex: \"social-media-posting\" \n      platform: string,              Ex: \"tiktok-business\" \n      placement: string,             Ex: \"placement\" \n      accountId: string,             Ex: \"658a9b6833b91e0ecb8f3958\" \n      reconnectAccounts: string[]]   Ex: [\"658a9b6833b91e0ecb834acd\", \"efd2daa9b6833b91e0ecb8f3511\"] \n    }\n  ### The accountId retrieved from above data can be used to fetch Tiktok-Business account details using below API -\n  API: '/social-media-posting/oauth/tiktok-business/accounts/:accountId' \n\n  Method: GET",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -3614,7 +3279,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/oauth.readonly"]
           }
         ]
       }
@@ -3625,16 +3290,6 @@
         "summary": "Get Tiktok Business profile",
         "description": "Get Tiktok Business profile",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3725,16 +3380,6 @@
         "operationId": "get-categories-location-id",
         "summary": "Get categories by location id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -3835,7 +3480,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["socialplanner/category.readonly"]
           }
         ]
       }
@@ -3945,16 +3590,6 @@
         "operationId": "get-tags-location-id",
         "summary": "Get tags by location id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4066,16 +3701,6 @@
         "summary": "Get tags by ids",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -4166,16 +3791,6 @@
         "summary": "Get Social Media Statistics",
         "description": "Retrieve analytics data for multiple social media accounts. Provides metrics for the last 7 days with comparison to the previous 7 days. Supports filtering by platforms and specific connected accounts.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -4800,7 +4415,51 @@
   },
   "tags": [
     {
-      "name": "Social Media Posting",
+      "name": "Oauth | Google",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Post",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Account",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Oauth | Facebook",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Oauth | Instagram",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Oauth | LinkedIn",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Oauth | Twitter",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "CSV",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Oauth | Tiktok",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Category",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Tag",
+      "description": "Documentation for Social Media Posting API"
+    },
+    {
+      "name": "Statistics",
       "description": "Documentation for Social Media Posting API"
     }
   ],
@@ -8696,5 +8355,22 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Social Planner",
+    "tags": [
+      "Oauth | Google",
+      "Post",
+      "Account",
+      "Oauth | Facebook",
+      "Oauth | Instagram",
+      "Oauth | LinkedIn",
+      "Oauth | Twitter",
+      "CSV",
+      "Oauth | Tiktok",
+      "Category",
+      "Tag",
+      "Statistics"
+    ]
   }
 }

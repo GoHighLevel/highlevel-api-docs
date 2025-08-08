@@ -8,16 +8,6 @@
         "description": "The \"Check url slug\" API allows check the blog slug validation which is needed before publishing any blog post. Please use blogs/check-slug.readonly. you can find the POST ID from the post edit url.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513ef"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -98,9 +88,12 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "blogs/check-slug.readonly"
+            ]
           }
         ]
       }
@@ -111,16 +104,6 @@
         "summary": "Update Blog Post",
         "description": "The \"Update Blog Post\" API allows you update blog post for any given blog site. Please use blogs/post-update.write",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -186,9 +169,12 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "blogs/post-update.write"
+            ]
           }
         ]
       }
@@ -199,16 +185,6 @@
         "summary": "Create Blog Post",
         "description": "The \"Create Blog Post\" API allows you create blog post for any given blog site. Please use blogs/post.write",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -274,9 +250,12 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "blogs/post.write"
+            ]
           }
         ]
       }
@@ -287,16 +266,6 @@
         "summary": "Get all authors",
         "description": "The \"Get all authors\" Api return the blog authors for a given location ID. Please use \"blogs/author.readonly\" ",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -382,9 +351,12 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "blogs/author.readonly"
+            ]
           }
         ]
       }
@@ -395,16 +367,6 @@
         "summary": "Get all categories",
         "description": "The \"Get all categories\" Api return the blog categoies for a given location ID. Please use \"blogs/category.readonly\" ",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -487,9 +449,12 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "blogs/category.readonly"
+            ]
           }
         ]
       }
@@ -500,16 +465,6 @@
         "summary": "Get Blog posts by Blog ID",
         "description": "The \"Get Blog posts by Blog ID\" API allows you get blog posts for any given blog site using blog ID.Please use blogs/posts.readonly",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -543,7 +498,7 @@
           {
             "name": "limit",
             "required": true,
-            "example":4,
+            "example": 4,
             "in": "query",
             "schema": {
               "type": "number"
@@ -552,7 +507,7 @@
           {
             "name": "offset",
             "required": true,
-            "example":0,
+            "example": 0,
             "in": "query",
             "schema": {
               "type": "number"
@@ -562,7 +517,7 @@
             "name": "searchTerm",
             "required": false,
             "description": "search for any post by name",
-            "example":"ai news",
+            "example": "ai news",
             "in": "query",
             "schema": {
               "type": "string"
@@ -571,7 +526,7 @@
           {
             "name": "status",
             "required": false,
-            "example":"PUBLISHED",
+            "example": "PUBLISHED",
             "in": "query",
             "schema": {
               "enum": [
@@ -582,7 +537,6 @@
               ],
               "type": "string"
             }
-            
           }
         ],
         "responses": {
@@ -627,9 +581,10 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": ["blogs/posts.readonly"]
           }
         ]
       }
@@ -640,16 +595,6 @@
         "summary": "Get Blogs by Location ID",
         "description": "The \"Get Blogs by Location ID\" API allows you get blogs using Location ID.Please use blogs/list.readonly",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -742,9 +687,10 @@
             }
           }
         },
+        "tags": ["Blogs"],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": ["blogs/list.readonly"]
           }
         ]
       }
@@ -758,7 +704,7 @@
   },
   "tags": [
     {
-      "name": "blogs",
+      "name": "Blogs",
       "description": "Documentation for Blogs"
     }
   ],
@@ -853,7 +799,10 @@
             "type": "string"
           },
           "categories": {
-            "example": ["9c48df2694a849b6089f9d0d3513efe","6683abde331c041f32c07aee"],
+            "example": [
+              "9c48df2694a849b6089f9d0d3513efe",
+              "6683abde331c041f32c07aee"
+            ],
             "type": "array",
             "items": {
               "type": "string"
@@ -861,29 +810,32 @@
             "description": "This needs to be array of category ids, which you can get from the category get api call."
           },
           "tags": {
-            "example": ["blog","seo"],
+            "example": [
+              "blog",
+              "seo"
+            ],
             "type": "array",
             "items": {
               "type": "string"
             }
           },
           "author": {
-            "example":"6683abde331c041f32c07aea",
+            "example": "6683abde331c041f32c07aea",
             "type": "string",
             "description": "This needs to be author id, which you can get from the author get api call."
           },
           "urlSlug": {
-            "example":"any-blog-post-url",
+            "example": "any-blog-post-url",
             "type": "string"
           },
           "canonicalLink": {
-            "example":"https://tryghl.blog/post/testing-unsplash",
+            "example": "https://tryghl.blog/post/testing-unsplash",
             "type": "string"
           },
           "publishedAt": {
-            "example":"2025-02-05T18:30:47.000Z",
+            "example": "2025-02-05T18:30:47.000Z",
             "type": "string",
-            "description":"Provide ISO timestamp"
+            "description": "Provide ISO timestamp"
           }
         },
         "required": [
@@ -960,7 +912,10 @@
             "type": "string"
           },
           "categories": {
-            "example": ["9c48df2694a849b6089f9d0d3513efe","6683abde331c041f32c07aee"],
+            "example": [
+              "9c48df2694a849b6089f9d0d3513efe",
+              "6683abde331c041f32c07aee"
+            ],
             "type": "array",
             "items": {
               "type": "string"
@@ -968,29 +923,32 @@
             "description": "This needs to be array of category ids, which you can get from the category get api call."
           },
           "tags": {
-            "example": ["blog","seo"],
+            "example": [
+              "blog",
+              "seo"
+            ],
             "type": "array",
             "items": {
               "type": "string"
             }
           },
           "author": {
-            "example":"6683abde331c041f32c07aea",
+            "example": "6683abde331c041f32c07aea",
             "type": "string",
             "description": "This needs to be author id, which you can get from the author get api call."
           },
           "urlSlug": {
-            "example":"any-blog-post-url",
+            "example": "any-blog-post-url",
             "type": "string"
           },
           "canonicalLink": {
-            "example":"https://tryghl.blog/post/testing-unsplash",
+            "example": "https://tryghl.blog/post/testing-unsplash",
             "type": "string"
           },
           "publishedAt": {
-            "example":"2025-02-05T18:30:47.000Z",
+            "example": "2025-02-05T18:30:47.000Z",
             "type": "string",
-            "description":"Provide ISO timestamp"
+            "description": "Provide ISO timestamp"
           }
         },
         "required": [
@@ -1270,5 +1228,9 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Blogs",
+    "tags": ["Blogs"]
   }
 }

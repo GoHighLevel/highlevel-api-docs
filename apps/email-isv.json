@@ -8,16 +8,6 @@
         "description": "Verify Email",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -118,7 +108,7 @@
   },
   "tags": [
     {
-      "name": "email-isv",
+      "name": "Email Verification",
       "description": "Documentation for Email ISV API"
     }
   ],
@@ -272,5 +262,11 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "LC Email",
+    "tags": [
+      "Email Verification"
+    ]
   }
 }

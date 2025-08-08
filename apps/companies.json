@@ -8,16 +8,6 @@
         "description": "Get Comapny",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -86,7 +76,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "companies.readonly"
+            ]
           }
         ]
       }
@@ -466,5 +458,11 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Companies",
+    "tags": [
+      "Companies"
+    ]
   }
 }

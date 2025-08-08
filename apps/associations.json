@@ -12,16 +12,6 @@
         },
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -91,7 +81,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations/relation.write"
+            ]
           }
         ]
       }
@@ -102,16 +94,6 @@
         "summary": "Get all relations By record Id",
         "description": "Get all relations by record Id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -220,7 +202,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations/relation.readonly"
+            ]
           }
         ]
       }
@@ -231,16 +215,6 @@
         "summary": "Delete Relation",
         "description": "Delete Relation",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -319,7 +293,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations/relation.write"
+            ]
           }
         ]
       }
@@ -330,16 +306,6 @@
         "summary": "Get association key by key name",
         "description": "Using this api you can get standard / user defined association by key",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -416,7 +382,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.readonly"
+            ]
           }
         ]
       }
@@ -431,16 +399,6 @@
           "description": "Click here for more information"
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -519,7 +477,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.readonly"
+            ]
           }
         ]
       }
@@ -534,16 +494,6 @@
           "description": "Click here for more information"
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -622,7 +572,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.write"
+            ]
           }
         ]
       },
@@ -631,16 +583,6 @@
         "summary": "Delete Association",
         "description": "Delete USER_DEFINED Association By Id, deleting an association will also all the relations for that association",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -709,7 +651,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.write"
+            ]
           }
         ]
       },
@@ -718,16 +662,6 @@
         "summary": "Get association by ID",
         "description": "Using this api you can get SYSTEM_DEFINED / USER_DEFINED association by id ",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -796,7 +730,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.readonly"
+            ]
           }
         ]
       }
@@ -811,16 +747,6 @@
           "description": "Click here for more information"
         },
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -891,7 +817,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.write"
+            ]
           }
         ]
       },
@@ -900,16 +828,6 @@
         "summary": "Get all associations for a sub-account / location",
         "description": "Get all Associations",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -997,7 +915,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "associations.readonly"
+            ]
           }
         ]
       }
@@ -1012,6 +932,10 @@
   "tags": [
     {
       "name": "Associations",
+      "description": "Documentation for Associations API"
+    },
+    {
+      "name": "Relations",
       "description": "Documentation for Associations API"
     }
   ],
@@ -1036,6 +960,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
         "type": "http"
       },
       "Agency-Access": {
@@ -1216,5 +1148,12 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Associations",
+    "tags": [
+      "Associations",
+      "Relations"
+    ]
   }
 }

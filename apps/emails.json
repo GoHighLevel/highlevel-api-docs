@@ -8,16 +8,6 @@
         "description": "Get Campaigns",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "locationId",
             "required": true,
             "in": "query",
@@ -231,6 +221,13 @@
             }
           }
         },
+        "security": [
+          {
+            "Location-Access": [
+              "emails/schedule.readonly"
+            ]
+          }
+        ],
         "tags": [
           "Campaigns"
         ]
@@ -242,16 +239,6 @@
         "summary": "Create a new template",
         "description": "Create a new template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -320,6 +307,13 @@
             }
           }
         },
+        "security": [
+          {
+            "Location-Access": [
+              "emails/builder.write"
+            ]
+          }
+        ],
         "tags": [
           "Templates"
         ]
@@ -329,16 +323,6 @@
         "summary": "Fetch email templates",
         "description": "Fetch email templates by location id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "locationId",
             "required": true,
@@ -500,6 +484,13 @@
             }
           }
         },
+        "security": [
+          {
+            "Location-Access": [
+              "emails/builder.readonly"
+            ]
+          }
+        ],
         "tags": [
           "Templates"
         ]
@@ -511,16 +502,6 @@
         "summary": "Delete a template",
         "description": "Delete a template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "locationId",
             "required": true,
@@ -597,6 +578,11 @@
             }
           }
         },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
         "tags": [
           "Templates"
         ]
@@ -608,16 +594,6 @@
         "summary": "Update a template",
         "description": "Update a template",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -686,6 +662,13 @@
             }
           }
         },
+        "security": [
+          {
+            "Location-Access": [
+              "emails/builder.write"
+            ]
+          }
+        ],
         "tags": [
           "Templates"
         ]
@@ -701,6 +684,18 @@
   "tags": [
     {
       "name": "Emails",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Campaigns",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Templates",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Triggers",
       "description": "Documentation for emails API"
     }
   ],
@@ -733,6 +728,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
         "type": "http"
       }
     },
@@ -1177,5 +1180,14 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Email",
+    "tags": [
+      "Emails",
+      "Campaigns",
+      "Templates",
+      "Triggers"
+    ]
   }
 }

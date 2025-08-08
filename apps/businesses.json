@@ -8,16 +8,6 @@
         "description": "Update Business",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -96,7 +86,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "businesses.write"
+            ]
           }
         ]
       },
@@ -105,16 +97,6 @@
         "summary": "Delete Business",
         "description": "Delete Business",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -184,7 +166,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "businesses.write"
+            ]
           }
         ]
       },
@@ -193,16 +177,6 @@
         "summary": "Get Business",
         "description": "Get Business",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -272,7 +246,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "businesses.readonly"
+            ]
           }
         ]
       }
@@ -283,16 +259,6 @@
         "summary": "Get Businesses by Location",
         "description": "Get Businesses by Location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -352,7 +318,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "businesses.readonly"
+            ]
           }
         ]
       },
@@ -361,16 +329,6 @@
         "summary": "Create Business",
         "description": "Create Business",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -441,7 +399,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "businesses.write"
+            ]
           }
         ]
       }
@@ -482,12 +442,20 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
       "Agency-Access": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "name": "Authorization",
         "in": "header",
-        "description": "Use the Access Token generated with user type as Agency.",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
         "type": "http"
       }
     },
@@ -750,5 +718,11 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Business",
+    "tags": [
+      "Businesses"
+    ]
   }
 }

@@ -6,17 +6,8 @@
         "operationId": "locations",
         "summary": "Get locations by stripeId with companyId",
         "description": "Get locations by stripeCustomerId or stripeSubscriptionId with companyId",
+        "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -24,23 +15,25 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "customerId",
-            "required": true,
+            "required": false,
             "in": "query",
+            "description": "Stripe customer ID to find locations for",
+            "example": "cus_OD2oBjRfKEF6FV",
             "schema": {
               "type": "string"
             }
           },
           {
             "name": "subscriptionId",
-            "required": true,
+            "required": false,
             "in": "query",
+            "description": "Stripe subscription ID to find locations for",
+            "example": "sub_1NVqlLByVlfITvRXgirIdpyc",
             "schema": {
               "type": "string"
             }
@@ -49,6 +42,8 @@
             "name": "companyId",
             "required": true,
             "in": "query",
+            "description": "Company ID to filter locations",
+            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
               "type": "string"
             }
@@ -73,7 +68,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -83,7 +78,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -110,7 +105,7 @@
           }
         },
         "tags": [
-          "SaaS"
+          "Saas"
         ],
         "security": [
           {
@@ -124,17 +119,8 @@
         "operationId": "generate-payment-link",
         "summary": "Update SaaS subscription",
         "description": "Update SaaS subscription for given locationId and customerId",
+        "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -142,15 +128,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "locationId",
             "required": true,
             "in": "path",
+            "description": "Location ID to update subscription for",
+            "example": "AUKAtFVo0lWezBsBQ3FE",
             "schema": {
               "type": "string"
             }
@@ -182,7 +168,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -192,7 +178,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -219,7 +205,7 @@
           }
         },
         "tags": [
-          "SaaS"
+          "Saas"
         ],
         "security": [
           {
@@ -233,17 +219,8 @@
         "operationId": "bulk-disable-saas",
         "summary": "Disable SaaS for locations",
         "description": "Disable SaaS for locations for given locationIds",
+        "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -251,15 +228,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "companyId",
             "required": true,
             "in": "path",
+            "description": "Company ID to disable SaaS for",
+            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
               "type": "string"
             }
@@ -291,7 +268,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -301,7 +278,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -328,7 +305,7 @@
           }
         },
         "tags": [
-          "SaaS"
+          "Saas"
         ],
         "security": [
           {
@@ -342,17 +319,8 @@
         "operationId": "enable-saas-location",
         "summary": "Enable SaaS for Sub-Account (Formerly Location)",
         "description": "<div>\n                  <p>Enable SaaS for Sub-Account (Formerly Location) based on the data provided</p>\n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                          This feature is only available on Agency Pro ($497) plan.\n                        </strong>\n                      </span>\n                  </div>\n                </div>\n    ",
+        "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -360,15 +328,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "locationId",
             "required": true,
             "in": "path",
+            "description": "Location ID to enable SaaS for",
+            "example": "AUKAtFVo0lWezBsBQ3FE",
             "schema": {
               "type": "string"
             }
@@ -400,7 +368,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -410,7 +378,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -437,7 +405,7 @@
           }
         },
         "tags": [
-          "SaaS"
+          "Saas"
         ],
         "security": [
           {
@@ -451,17 +419,8 @@
         "operationId": "pause-location",
         "summary": "Pause location",
         "description": "Pause Sub account for given locationId",
+        "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -469,15 +428,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "locationId",
             "required": true,
             "in": "path",
+            "description": "Location ID to pause/unpause",
+            "example": "AUKAtFVo0lWezBsBQ3FE",
             "schema": {
               "type": "string"
             }
@@ -509,7 +468,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -519,7 +478,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -546,7 +505,7 @@
           }
         },
         "tags": [
-          "SaaS"
+          "Saas"
         ],
         "security": [
           {
@@ -560,17 +519,8 @@
         "operationId": "update-rebilling",
         "summary": "Update Rebilling",
         "description": "Bulk update rebilling for given locationIds",
+        "deprecated": true,
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -578,15 +528,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "companyId",
             "required": true,
             "in": "path",
+            "description": "Company ID to update rebilling for",
+            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
               "type": "string"
             }
@@ -618,7 +568,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -628,7 +578,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -655,7 +605,7 @@
           }
         },
         "tags": [
-          "SaaS"
+          "Saas"
         ],
         "security": [
           {
@@ -669,6 +619,7 @@
         "operationId": "get-agency-plans",
         "summary": "Get Agency Plans",
         "description": "Fetch all agency subscription plans for a given company ID",
+        "deprecated": true,
         "parameters": [
           {
             "name": "Authorization",
@@ -687,15 +638,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "companyId",
             "required": true,
             "in": "path",
+            "description": "Company ID to get agency plans for",
+            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
               "type": "string"
             }
@@ -720,7 +671,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -730,7 +681,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -756,9 +707,7 @@
             }
           }
         },
-        "tags": [
-          "SaaS"
-        ],
+        "tags": ["Saas"],
         "security": [
           {
             "Agency-Access": []
@@ -771,6 +720,7 @@
         "operationId": "get-location-subscription",
         "summary": "Get Location Subscription Details",
         "description": "Fetch subscription details for a specific location from location metadata",
+        "deprecated": true,
         "parameters": [
           {
             "name": "Authorization",
@@ -789,15 +739,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "locationId",
             "required": true,
             "in": "path",
+            "description": "Location ID to get subscription details for",
+            "example": "AUKAtFVo0lWezBsBQ3FE",
             "schema": {
               "type": "string"
             }
@@ -806,6 +756,8 @@
             "name": "companyId",
             "required": true,
             "in": "query",
+            "description": "Company ID to filter subscription details",
+            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
               "type": "string"
             }
@@ -827,7 +779,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -837,7 +789,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -863,9 +815,7 @@
             }
           }
         },
-        "tags": [
-          "SaaS"
-        ],
+        "tags": ["Saas"],
         "security": [
           {
             "Agency-Access": []
@@ -878,6 +828,7 @@
         "operationId": "bulk-enable-saas",
         "summary": "Bulk Enable SaaS",
         "description": "Enable SaaS mode for multiple locations with support for both SaaS v1 and v2",
+        "deprecated": true,
         "parameters": [
           {
             "name": "Authorization",
@@ -896,15 +847,15 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
             "name": "companyId",
             "required": true,
             "in": "path",
+            "description": "Company ID to enable SaaS for",
+            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
               "type": "string"
             }
@@ -936,7 +887,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                  "$ref": "#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -946,7 +897,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -972,9 +923,7 @@
             }
           }
         },
-        "tags": [
-          "SaaS"
-        ],
+        "tags": ["Saas"],
         "security": [
           {
             "Agency-Access": []
@@ -983,6 +932,738 @@
       }
     },
     "/saas-api/public-api/saas-locations/{companyId}": {
+      "get": {
+        "operationId": "get-saas-locations",
+        "summary": "Get SaaS Locations",
+        "description": "Fetch all SaaS-activated locations for a company with pagination",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "description": "Company ID to get SaaS locations for",
+            "example": "5DP4iH6HLkQsiKESj6rh",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination",
+            "example": 1,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SaaS locations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSaasLocationsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas-api/public-api/saas-plan/{planId}": {
+      "get": {
+        "operationId": "get-saas-plan",
+        "summary": "Get SaaS Plan",
+        "description": "Fetch a specific SaaS plan by plan ID",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "planId",
+            "required": true,
+            "in": "path",
+            "description": "Plan ID to get SaaS plan details for",
+            "example": "66c4d36534f21f900dc2a265",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "description": "Company ID to filter SaaS plan",
+            "example": "5DP4iH6HLkQsiKESj6rh",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SaaS plan retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaasPlanResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/locations": {
+      "get": {
+        "operationId": "locations",
+        "summary": "Get locations by stripeId with companyId",
+        "description": "Get locations by stripeCustomerId or stripeSubscriptionId with companyId",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "customerId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscriptionId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/update-saas-subscription/{locationId}": {
+      "put": {
+        "operationId": "generate-payment-link",
+        "summary": "Update SaaS subscription",
+        "description": "Update SaaS subscription for given locationId and customerId",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/bulk-disable-saas/{companyId}": {
+      "post": {
+        "operationId": "bulk-disable-saas",
+        "summary": "Disable SaaS for locations",
+        "description": "Disable SaaS for locations for given locationIds",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkDisableSaasDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/enable-saas/{locationId}": {
+      "post": {
+        "operationId": "enable-saas-location",
+        "summary": "Enable SaaS for Sub-Account (Formerly Location)",
+        "description": "<div>\n                  <p>Enable SaaS for Sub-Account (Formerly Location) based on the data provided</p>\n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                          This feature is only available on Agency Pro ($497) plan.\n                        </strong>\n                      </span>\n                  </div>\n                </div>\n    ",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnableSaasDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/pause/{locationId}": {
+      "post": {
+        "operationId": "pause-location",
+        "summary": "Pause location",
+        "description": "Pause Sub account for given locationId",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PauseLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/update-rebilling/{companyId}": {
+      "post": {
+        "operationId": "update-rebilling",
+        "summary": "Update Rebilling",
+        "description": "Bulk update rebilling for given locationIds",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRebillingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/agency-plans/{companyId}": {
+      "get": {
+        "operationId": "get-agency-plans",
+        "summary": "Get Agency Plans",
+        "description": "Fetch all agency subscription plans for a given company ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/get-saas-subscription/{locationId}": {
+      "get": {
+        "operationId": "get-location-subscription",
+        "summary": "Get Location Subscription Details",
+        "description": "Fetch subscription details for a specific location from location metadata",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/bulk-enable-saas/{companyId}": {
+      "post": {
+        "operationId": "bulk-enable-saas",
+        "summary": "Bulk Enable SaaS",
+        "description": "Enable SaaS mode for multiple locations with support for both SaaS v1 and v2",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-04-15"]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkEnableSaasRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Saas"],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/saas/saas-locations/{companyId}": {
       "get": {
         "operationId": "get-saas-locations",
         "summary": "Get SaaS Locations",
@@ -1005,9 +1686,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
@@ -1029,59 +1708,10 @@
         ],
         "responses": {
           "200": {
-            "description": "SaaS locations retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetSaasLocationsResponseDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundDTO"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InternalServerErrorDTO"
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "tags": [
-          "SaaS"
-        ],
+        "tags": ["Saas"],
         "security": [
           {
             "Agency-Access": []
@@ -1089,7 +1719,7 @@
         ]
       }
     },
-    "/saas-api/public-api/saas-plan/{planId}": {
+    "/saas/saas-plan/{planId}": {
       "get": {
         "operationId": "get-saas-plan",
         "summary": "Get SaaS Plan",
@@ -1112,9 +1742,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "2021-04-15"
-              ]
+              "enum": ["2021-04-15"]
             }
           },
           {
@@ -1136,114 +1764,13 @@
         ],
         "responses": {
           "200": {
-            "description": "SaaS plan retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SaasPlanResponseDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundDTO"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InternalServerErrorDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "SaaS"
-        ],
-        "security": [
-          {
-            "Agency-Access": []
-          }
-        ]
-      }
-    },
-    "/saas-api/location-metadata/{companyId}/fetch_saas_locations_count": {
-      "get": {
-        "operationId": "get-saas-location-count",
-        "summary": "Get SaaS location count",
-        "description": "Get count of SaaS locations for a company",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2023-02-21"
-              ]
-            }
-          },
-          {
-            "name": "companyId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
             "description": ""
           }
         },
-        "tags": [
-          "Location Metadata"
-        ],
+        "tags": ["Saas"],
         "security": [
           {
-            "bearer": []
+            "Agency-Access": []
           }
         ]
       }
@@ -1257,7 +1784,7 @@
   },
   "tags": [
     {
-      "name": "saas",
+      "name": "Saas",
       "description": "API Service for SaaS"
     }
   ],
@@ -1294,12 +1821,48 @@
       }
     },
     "schemas": {
+      "BadRequestDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400,
+            "description": "Status code"
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad Request",
+            "description": "Error message"
+          }
+        }
+      },
+      "UnauthorizedDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 401,
+            "description": "Status code"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid token: access token is invalid",
+            "description": "Error message"
+          },
+          "error": {
+            "type": "string",
+            "example": "Unauthorized",
+            "description": "Error message"
+          }
+        }
+      },
       "ResourceNotFoundDTO": {
         "type": "object",
         "properties": {
           "statusCode": {
             "type": "number",
-            "example": 404
+            "example": 404,
+            "description": "Status code"
           },
           "message": {
             "type": "string",
@@ -1308,7 +1871,8 @@
               "User not found",
               "Group not found",
               "Channel not found"
-            ]
+            ],
+            "description": "Error message"
           }
         }
       },
@@ -1317,11 +1881,13 @@
         "properties": {
           "statusCode": {
             "type": "number",
-            "example": 500
+            "example": 500,
+            "description": "Status code"
           },
           "message": {
             "type": "string",
-            "example": "Internal Server Error"
+            "example": "Internal Server Error",
+            "description": "Error message"
           }
         }
       },
@@ -1329,34 +1895,36 @@
         "type": "object",
         "properties": {
           "subscriptionId": {
-            "type": "string"
+            "type": "string",
+            "description": "Subscription ID",
+            "example": "sub_1QDPY5FpU9DlKp7RQ8BXfywx"
           },
           "customerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Customer ID",
+            "example": "cus_1QDPY5FpU9DlKp7RQ8BXfywx"
           },
           "companyId": {
-            "type": "string"
+            "type": "string",
+            "description": "Company ID",
+            "example": "companyId1"
           }
         },
-        "required": [
-          "subscriptionId",
-          "customerId",
-          "companyId"
-        ]
+        "required": ["subscriptionId", "customerId", "companyId"]
       },
       "BulkDisableSaasDto": {
         "type": "object",
         "properties": {
           "locationIds": {
+            "description": "Location IDs",
+            "example": ["locationId1", "locationId2"],
             "type": "array",
             "items": {
               "type": "string"
             }
           }
         },
-        "required": [
-          "locationIds"
-        ]
+        "required": ["locationIds"]
       },
       "BulkDisableSaasResponseDto": {
         "type": "object",
@@ -1369,9 +1937,7 @@
             }
           }
         },
-        "required": [
-          "data"
-        ]
+        "required": ["data"]
       },
       "EnableSaasDto": {
         "type": "object",
@@ -1406,16 +1972,18 @@
           },
           "contactId": {
             "type": "string",
-            "description": "Contact id to be mapped to the new sub-account if exists(Required Only for SaaS V2)",
+            "description": "Agency subaccount used for payment provider integration(Required Only for SaaS V2)",
             "example": "1QDPY5FpU9DlKp7RQ8BXfywx"
           },
           "providerLocationId": {
             "type": "string",
-            "description": "Agency subaccount used for payment provider integration(Required Only for SaaS V2)",
-            "example": "1QDPY5FpU9DlKp7RQ8BXfywx"
+            "description": "Agency Subaccount ID",
+            "example": "r06mdj4OrrERzYDvsOdh"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Description",
+            "example": "Description"
           },
           "saasPlanId": {
             "type": "string",
@@ -1428,10 +1996,7 @@
             "example": "price_1QDPY5FpU9DlKp7RQ8BXfywx"
           }
         },
-        "required": [
-          "companyId",
-          "isSaaSV2"
-        ]
+        "required": ["companyId", "isSaaSV2"]
       },
       "EnableSaasResponseDto": {
         "type": "object",
@@ -1446,24 +2011,23 @@
             }
           }
         },
-        "required": [
-          "data"
-        ]
+        "required": ["data"]
       },
       "PauseLocationDto": {
         "type": "object",
         "properties": {
           "paused": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Paused",
+            "example": true
           },
           "companyId": {
-            "type": "string"
+            "type": "string",
+            "description": "Company ID",
+            "example": "companyId1"
           }
         },
-        "required": [
-          "paused",
-          "companyId"
-        ]
+        "required": ["paused", "companyId"]
       },
       "UpdateRebillingDto": {
         "type": "object",
@@ -1494,10 +2058,7 @@
           },
           "locationIds": {
             "description": "Array of location IDs to update rebilling for",
-            "example": [
-              "zzyG7A4x6bRJl5SlhQhH",
-              "Vygq7VgXCDfg3xnl8TBR"
-            ],
+            "example": ["zzyG7A4x6bRJl5SlhQhH", "Vygq7VgXCDfg3xnl8TBR"],
             "type": "array",
             "items": {
               "type": "string"
@@ -1525,11 +2086,7 @@
             }
           }
         },
-        "required": [
-          "product",
-          "locationIds",
-          "config"
-        ]
+        "required": ["product", "locationIds", "config"]
       },
       "UpdateRebillingResponseDto": {
         "type": "object",
@@ -1540,9 +2097,7 @@
             "example": true
           }
         },
-        "required": [
-          "success"
-        ]
+        "required": ["success"]
       },
       "AgencyPlanResponseDto": {
         "type": "object",
@@ -1614,30 +2169,33 @@
               "type": "object",
               "properties": {
                 "id": {
+                  "description": "ID of the price",
                   "type": "string",
                   "example": "66a9edbfcc6c505a22db7976"
                 },
                 "billingInterval": {
+                  "description": "Billing interval for the plan",
                   "type": "string",
-                  "enum": [
-                    "month",
-                    "year"
-                  ],
+                  "enum": ["month", "year"],
                   "example": "month"
                 },
                 "active": {
+                  "description": "Indicates if the price is active",
                   "type": "boolean",
                   "example": true
                 },
                 "amount": {
+                  "description": "Amount of the price",
                   "type": "number",
                   "example": 150
                 },
                 "currency": {
+                  "description": "Currency of the price",
                   "type": "string",
                   "example": "AED"
                 },
                 "symbol": {
+                  "description": "Symbol of the price",
                   "type": "string",
                   "example": "$"
                 }
@@ -1747,11 +2305,7 @@
             "example": "active"
           }
         },
-        "required": [
-          "locationId",
-          "isSaaSV2",
-          "companyId"
-        ]
+        "required": ["locationId", "isSaaSV2", "companyId"]
       },
       "BulkEnableSaasActionPayloadDto": {
         "type": "object",
@@ -1777,19 +2331,14 @@
             "example": "r06mdj4OrrERzYDvsOdh"
           }
         },
-        "required": [
-          "saasPlanId"
-        ]
+        "required": ["saasPlanId"]
       },
       "BulkEnableSaasRequestDto": {
         "type": "object",
         "properties": {
           "locationIds": {
             "description": "Array of location IDs to enable SaaS for",
-            "example": [
-              "locationId1",
-              "locationId2"
-            ],
+            "example": ["locationId1", "locationId2"],
             "type": "array",
             "items": {
               "type": "string"
@@ -1809,11 +2358,7 @@
             ]
           }
         },
-        "required": [
-          "locationIds",
-          "isSaaSV2",
-          "actionPayload"
-        ]
+        "required": ["locationIds", "isSaaSV2", "actionPayload"]
       },
       "BulkEnableSaasResponseDto": {
         "type": "object",
@@ -1834,10 +2379,7 @@
             "example": "https://example.com/bulk-enable-saas"
           }
         },
-        "required": [
-          "success",
-          "message"
-        ]
+        "required": ["success", "message"]
       },
       "SaasLocationDto": {
         "type": "object",
@@ -1898,30 +2440,55 @@
             }
           }
         },
-        "required": [
-          "locationId",
-          "companyId",
-          "saasMode",
-          "subscriptionId"
-        ]
+        "required": ["locationId", "companyId", "saasMode", "subscriptionId"]
       },
       "GetSaasLocationsResponseDto": {
         "type": "object",
         "properties": {
           "locations": {
+            "description": "Array of SaaS locations",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SaasLocationDto"
             }
           },
           "pagination": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "example": 1,
+                "description": "Page number"
+              },
+              "limit": {
+                "type": "number",
+                "example": 10,
+                "description": "Number of items per page"
+              },
+              "total": {
+                "type": "number",
+                "example": 100,
+                "description": "Total number of items"
+              },
+              "totalPages": {
+                "type": "number",
+                "example": 10,
+                "description": "Total number of pages"
+              },
+              "hasNext": {
+                "type": "boolean",
+                "example": true,
+                "description": "Indicates if there is a next page"
+              },
+              "hasPrev": {
+                "type": "boolean",
+                "example": true,
+                "description": "Indicates if there is a previous page"
+              }
+            }
           }
         },
-        "required": [
-          "locations",
-          "pagination"
-        ]
+        "required": ["locations", "pagination"]
       },
       "SaasPlanResponseDto": {
         "type": "object",
@@ -1948,11 +2515,7 @@
           },
           "saasProducts": {
             "description": "Array of SaaS products included in the plan",
-            "example": [
-              "2-way-text-messaging",
-              "gmb-messaging",
-              "web-chat"
-            ],
+            "example": ["2-way-text-messaging", "gmb-messaging", "web-chat"],
             "type": "array",
             "items": {
               "type": "string"
@@ -1960,6 +2523,13 @@
           },
           "addOns": {
             "description": "Array of add-ons included in the plan",
+            "example": [
+              "YEXT_V2",
+              "WHATSAPP_V1",
+              "WORDPRESS_V1",
+              "AI_EMPLOYEE",
+              "Ad_Publishing_Connect_Your_BM"
+            ],
             "type": "array",
             "items": {
               "type": "string"
@@ -2002,10 +2572,7 @@
                 },
                 "billingInterval": {
                   "type": "string",
-                  "enum": [
-                    "month",
-                    "year"
-                  ],
+                  "enum": ["month", "year"],
                   "example": "month"
                 },
                 "active": {
@@ -2080,5 +2647,11 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Saas",
+    "tags": [
+      "Saas"
+    ]
   }
 }

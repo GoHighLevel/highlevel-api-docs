@@ -8,16 +8,6 @@
         "description": "Get Surveys Submissions",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Access Token"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -148,7 +138,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["surveys.readonly"]
           }
         ]
       }
@@ -159,16 +149,6 @@
         "summary": "Get Surveys",
         "description": "Get Surveys",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Access Token"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -257,7 +237,7 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": ["surveys.readonly"]
           }
         ]
       }
@@ -549,5 +529,9 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Surveys",
+    "tags": ["Surveys"]
   }
 }

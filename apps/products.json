@@ -8,16 +8,6 @@
         "description": "API to bulk update products (price, availability, collections, delete)",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -87,7 +77,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           }
         ]
       }
@@ -98,16 +90,6 @@
         "summary": "Create Price for a Product",
         "description": "The \"Create Price for a Product\" API allows adding a new price associated with a specific product to the system. Use this endpoint to create a price with the specified details for a particular product. Ensure that the required information is provided in the request payload.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -188,10 +170,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/prices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products/prices.write"
+            ]
           }
         ]
       },
@@ -200,16 +186,6 @@
         "summary": "List Prices for a Product",
         "description": "The \"List Prices for a Product\" API allows retrieving a paginated list of prices associated with a specific product. Customize your results by filtering prices or paginate through the list using the provided query parameters.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -322,10 +298,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/prices.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products/prices.readonly"
+            ]
           }
         ]
       }
@@ -336,16 +316,6 @@
         "summary": "List Inventory",
         "description": "The \"List Inventory API allows the user to retrieve a paginated list of inventory items. Use this endpoint to fetch details for multiple items in the inventory based on the provided query parameters.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -459,10 +429,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/prices.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products/prices.readonly"
+            ]
           }
         ]
       },
@@ -471,16 +445,6 @@
         "summary": "Update Inventory",
         "description": "The Update Inventory API allows the user to bulk update the inventory for multiple items. Use this endpoint to update the available quantity and out-of-stock purchase settings for multiple items in the inventory.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -551,10 +515,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/prices.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products/prices.write"
+            ]
           }
         ]
       }
@@ -565,16 +533,6 @@
         "summary": "Get Price by ID for a Product",
         "description": "The \"Get Price by ID for a Product\" API allows retrieving information for a specific price associated with a particular product using its unique identifier. Use this endpoint to fetch details for a single price based on the provided price ID and product ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -678,16 +636,6 @@
         "description": "The \"Update Price by ID for a Product\" API allows modifying information for a specific price associated with a particular product using its unique identifier. Use this endpoint to update details for a single price based on the provided price ID and product ID.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -789,16 +737,6 @@
         "summary": "Delete Price by ID for a Product",
         "description": "The \"Delete Price by ID for a Product\" API allows deleting a specific price associated with a particular product using its unique identifier. Use this endpoint to remove a price from the system.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -903,16 +841,6 @@
         "summary": "Fetch Product Store Stats",
         "description": "API to fetch the total number of products, included in the store, and excluded from the store and other stats",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1024,7 +952,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.readonly"
+            ]
           }
         ]
       }
@@ -1035,16 +965,6 @@
         "summary": "Action to include/exclude the product in store",
         "description": "API to update the status of products in a particular store",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1125,7 +1045,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           }
         ]
       }
@@ -1136,16 +1058,6 @@
         "summary": "Fetch Product Collections",
         "description": "Internal API to fetch the Product Collections",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1271,7 +1183,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/collection.readonly"
+            ]
           }
         ]
       },
@@ -1280,16 +1194,6 @@
         "summary": "Create Product Collection",
         "description": "Create a new Product Collection for a specific location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1360,27 +1264,19 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/collection.write"
+            ]
           }
         ]
       }
     },
     "/products/collections/{collectionId}": {
       "get": {
-        "operationId": "get-product-collection",
+        "operationId": "get-product-collection-id",
         "summary": "Get Details about individual product collection",
         "description": "Get Details about individual product collection",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1461,16 +1357,6 @@
         "description": "Update a specific product collection with Id :collectionId",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -1550,7 +1436,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/collection.write"
+            ]
           }
         ]
       },
@@ -1559,16 +1447,6 @@
         "summary": "Delete Product Collection",
         "description": "Delete specific product collection with Id :collectionId",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1662,7 +1540,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products/collection.write"
+            ]
           }
         ]
       }
@@ -1673,16 +1553,6 @@
         "summary": "Fetch Product Reviews",
         "description": "API to fetch the Product Reviews",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1864,7 +1734,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.readonly"
+            ]
           }
         ]
       }
@@ -1875,16 +1747,6 @@
         "summary": "Fetch Review Count as per status",
         "description": "API to fetch the Review Count as per status",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2016,7 +1878,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.readonly"
+            ]
           }
         ]
       }
@@ -2027,16 +1891,6 @@
         "summary": "Update Product Reviews",
         "description": "Update status, reply, etc of a particular review",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2117,7 +1971,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           }
         ]
       },
@@ -2126,16 +1982,6 @@
         "summary": "Delete Product Review",
         "description": "Delete specific product review",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2237,7 +2083,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           }
         ]
       }
@@ -2248,16 +2096,6 @@
         "summary": "Update Product Reviews",
         "description": "Update one or multiple product reviews: status, reply, etc.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2328,7 +2166,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           }
         ]
       }
@@ -2339,16 +2179,6 @@
         "summary": "Get Product by ID",
         "description": "The \"Get Product by ID\" API allows to retrieve information for a specific product using its unique identifier. Use this endpoint to fetch details for a single product based on the provided product ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2429,10 +2259,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products.readonly"
+            ]
           }
         ]
       },
@@ -2441,16 +2275,6 @@
         "summary": "Delete Product by ID",
         "description": "The \"Delete Product by ID\" API allows deleting a specific product using its unique identifier. Use this endpoint to remove a product from the system.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2531,10 +2355,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products.write"
+            ]
           }
         ]
       },
@@ -2543,16 +2371,6 @@
         "summary": "Update Product by ID",
         "description": "The \"Update Product by ID\" API allows modifying information for a specific product using its unique identifier. Use this endpoint to update details for a single product based on the provided product ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2633,10 +2451,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products.write"
+            ]
           }
         ]
       }
@@ -2647,16 +2469,6 @@
         "summary": "Create Product",
         "description": "The \"Create Product\" API allows adding a new product to the system. Use this endpoint to create a product with the specified details. Ensure that the required information is provided in the request payload.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2727,10 +2539,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.write"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products.write"
+            ]
           }
         ]
       },
@@ -2739,16 +2555,6 @@
         "summary": "List Products",
         "description": "The \"List Products\" API allows to retrieve a paginated list of products. Customize your results by filtering products based on name or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve product information.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2937,10 +2743,14 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "products.readonly"
+            ]
           },
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "products.readonly"
+            ]
           }
         ]
       }
@@ -2955,6 +2765,22 @@
   "tags": [
     {
       "name": "Products",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Prices",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Store",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Collections",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Reviews",
       "description": "Documentation for products API"
     }
   ],
@@ -5836,5 +5662,15 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Products",
+    "tags": [
+      "Products",
+      "Prices",
+      "Store",
+      "Collections",
+      "Reviews"
+    ]
   }
 }
