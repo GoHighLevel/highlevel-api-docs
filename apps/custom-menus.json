@@ -8,16 +8,6 @@
         "description": "Fetches a single custom menus based on id. This endpoint allows clients to retrieve custom menu configurations, which may include menu items, categories, and associated metadata",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -83,7 +73,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "custom-menu-link.readonly"
+            ]
           }
         ]
       },
@@ -92,16 +84,6 @@
         "summary": "Delete Custom Menu Link",
         "description": "Removes a specific custom menu from the system. This operation requires authentication and proper permissions. The custom menu is identified by its unique ID, and the operation is performed within the context of a specific company.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -171,7 +153,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "custom-menu-link.write"
+            ]
           }
         ]
       },
@@ -180,16 +164,6 @@
         "summary": "Update Custom Menu Link",
         "description": "Updates an existing custom menu for a given company. Requires authentication and proper permissions.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -269,7 +243,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "custom-menu-link.write"
+            ]
           }
         ]
       }
@@ -280,16 +256,6 @@
         "summary": "Get Custom Menu Links",
         "description": "Fetches a collection of custom menus based on specified criteria. This endpoint allows clients to retrieve custom menu configurations, which may include menu items, categories, and associated metadata. The response can be tailored using query parameters for filtering, sorting, and pagination.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -400,7 +366,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "custom-menu-link.readonly"
+            ]
           }
         ]
       },
@@ -409,16 +377,6 @@
         "summary": "Create Custom Menu Link",
         "description": "Creates a new custom menu for a company. Requires authentication and proper permissions. For Icon Usage Details please refer to  https://doc.clickup.com/8631005/d/h/87cpx-243696/d60fa70db6b92b2",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -485,7 +443,9 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "custom-menu-link.write"
+            ]
           }
         ]
       }
@@ -500,6 +460,10 @@
   "tags": [
     {
       "name": "custom-menus",
+      "description": "Documentation for Custom menus API"
+    },
+    {
+      "name": "Custom Menu Links",
       "description": "Documentation for Custom menus API"
     }
   ],
@@ -918,5 +882,12 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Custom menus",
+    "tags": [
+      "custom-menus",
+      "Custom Menu Links"
+    ]
   }
 }

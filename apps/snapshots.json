@@ -8,16 +8,6 @@
         "description": "Get a list of all own and imported Snapshots",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -88,16 +78,6 @@
         "summary": "Create Snapshot Share Link",
         "description": "Create a share link for snapshot",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "companyId",
             "required": true,
@@ -177,16 +157,6 @@
         "summary": "Get Snapshot Push between Dates",
         "description": "Get list of sub-accounts snapshot pushed in time period",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "snapshotId",
             "required": true,
@@ -303,16 +273,6 @@
         "summary": "Get Last Snapshot Push",
         "description": "Get Latest Snapshot Push Status for a location id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "companyId",
             "required": true,
@@ -604,5 +564,11 @@
         }
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Snapshots",
+    "tags": [
+      "Snapshots"
+    ]
   }
 }

@@ -5,19 +5,8 @@
       "post": {
         "operationId": "charge",
         "summary": "Create a new wallet charge",
-        "description": "<div>\n    <p>Create a new wallet charge</p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n            This feature is currently in Private Beta and not available to all developers.\n          </strong>\n        </span>\n    </div>\n  </div>",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          }
-        ],
+        "description": "Create a new wallet charge",
+        "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
@@ -84,25 +73,17 @@
         ],
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access-Only": [
+              "charges.write"
+            ]
           }
         ]
       },
       "get": {
         "operationId": "getCharges",
         "summary": "Get all wallet charges",
-        "description": "<div>\n    <p>Get all wallet charges</p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n            This feature is currently in Private Beta and not available to all developers.\n          </strong>\n        </span>\n    </div>\n  </div>",
+        "description": "Get all wallet charges",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "meterId",
             "required": false,
@@ -267,7 +248,9 @@
         ],
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access-Only": [
+              "charges.readonly"
+            ]
           }
         ]
       }
@@ -276,18 +259,8 @@
       "delete": {
         "operationId": "deleteCharge",
         "summary": "Delete a wallet charge",
-        "description": "<div>\n    <p>Delete a wallet charge</p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n            This feature is currently in Private Beta and not available to all developers.\n          </strong>\n        </span>\n    </div>\n  </div>",
+        "description": "Delete a wallet charge",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "chargeId",
             "required": true,
@@ -351,25 +324,17 @@
         ],
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access-Only": [
+              "charges.write"
+            ]
           }
         ]
       },
       "get": {
         "operationId": "getSpecificCharge",
         "summary": "Get specific wallet charge details",
-        "description": "<div>\n    <p>Get specific wallet charge details</p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n            This feature is currently in Private Beta and not available to all developers.\n          </strong>\n        </span>\n    </div>\n  </div>",
+        "description": "Get specific wallet charge details",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "chargeId",
             "required": true,
@@ -487,7 +452,9 @@
         ],
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access-Only": [
+              "charges.readonly"
+            ]
           }
         ]
       }
@@ -496,19 +463,8 @@
       "get": {
         "operationId": "hasFunds",
         "summary": "Check if account has sufficient funds",
-        "description": "<div>\n    <p>Check if account has sufficient funds</p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n            This feature is currently in Private Beta and not available to all developers.\n          </strong>\n        </span>\n    </div>\n  </div>",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          }
-        ],
+        "description": "Check if account has sufficient funds",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Returns fund availability status",
@@ -542,7 +498,9 @@
         ],
         "security": [
           {
-            "Location-Access-Only": []
+            "Location-Access-Only": [
+              "charges.readonly"
+            ]
           }
         ]
       }
@@ -557,6 +515,10 @@
   "tags": [
     {
       "name": "Marketplace",
+      "description": "Documentation for Marketplace API"
+    },
+    {
+      "name": "Wallet Charges",
       "description": "Documentation for Marketplace API"
     }
   ],
@@ -597,6 +559,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
         "type": "http"
       }
     },
@@ -653,5 +623,12 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Marketplace",
+    "tags": [
+      "Marketplace",
+      "Wallet Charges"
+    ]
   }
 }

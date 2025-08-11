@@ -8,16 +8,6 @@
         "description": "The \"Create White-label Integration Provider\" API allows adding a new payment provider integration to the system which is built on top of Authorize.net or NMI. Use this endpoint to create a integration provider with the specified details. Ensure that the required information is provided in the request payload. This endpoint can be only invoked using marketplace-app token",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -87,7 +77,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/integration.write"
+            ]
           }
         ]
       },
@@ -96,16 +88,6 @@
         "summary": "List White-label Integration Providers",
         "description": "The \"List White-label Integration Providers\" API allows to retrieve a paginated list of integration providers. Customize your results by filtering whitelabel integration providers(which are built directly on top of Authorize.net or NMI) based on name or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve integration provider information.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -211,7 +193,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/integration.readonly"
+            ]
           }
         ]
       }
@@ -222,16 +206,6 @@
         "summary": "List Orders",
         "description": "The \"List Orders\" API allows to retrieve a paginated list of orders. Customize your results by filtering orders based on name, alt type, order status, payment mode, date range, type of source, contact, funnel products or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve order information.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -414,7 +388,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/orders.readonly"
+            ]
           }
         ]
       }
@@ -425,16 +401,6 @@
         "summary": "Get Order by ID",
         "description": "The \"Get Order by ID\" API allows to retrieve information for a specific order using its unique identifier. Use this endpoint to fetch details for a single order based on the provided order ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -535,7 +501,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/orders.readonly"
+            ]
           }
         ]
       }
@@ -546,16 +514,6 @@
         "summary": "Create order fulfillment",
         "description": "The \"Order Fulfillment\" API facilitates the process of fulfilling an order.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -636,7 +594,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/orders.write"
+            ]
           }
         ]
       },
@@ -645,16 +605,6 @@
         "summary": "List fulfillment",
         "description": "List all fulfillment history of an order",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -746,7 +696,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/orders.readonly"
+            ]
           }
         ]
       }
@@ -757,16 +709,6 @@
         "summary": "List Transactions",
         "description": "The \"List Transactions\" API allows to retrieve a paginated list of transactions. Customize your results by filtering transactions based on name, alt type, transaction status, payment mode, date range, type of source, contact, subscription id, entity id or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve transaction information.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -969,7 +911,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/transactions.readonly"
+            ]
           }
         ]
       }
@@ -980,16 +924,6 @@
         "summary": "Get Transaction by ID",
         "description": "The \"Get Transaction by ID\" API allows to retrieve information for a specific transaction using its unique identifier. Use this endpoint to fetch details for a single transaction based on the provided transaction ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1090,7 +1024,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/transactions.readonly"
+            ]
           }
         ]
       }
@@ -1101,16 +1037,6 @@
         "summary": "List Subscriptions",
         "description": "The \"List Subscriptions\" API allows to retrieve a paginated list of subscriptions. Customize your results by filtering subscriptions based on name, alt type, subscription status, payment mode, date range, type of source, contact, subscription id, entity id, contact or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve subscription information.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1296,7 +1222,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/subscriptions.readonly"
+            ]
           }
         ]
       }
@@ -1307,16 +1235,6 @@
         "summary": "Get Subscription by ID",
         "description": "The \"Get Subscription by ID\" API allows to retrieve information for a specific subscription using its unique identifier. Use this endpoint to fetch details for a single subscription based on the provided subscription ID.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1410,7 +1328,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/subscriptions.readonly"
+            ]
           }
         ]
       }
@@ -1421,16 +1341,6 @@
         "summary": "List Coupons",
         "description": "The \"List Coupons\" API allows you to retrieve a list of all coupons available in your location. Use this endpoint to view all promotional offers and special discounts for your customers.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1541,7 +1451,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/coupons.readonly"
+            ]
           }
         ]
       }
@@ -1552,16 +1464,6 @@
         "summary": "Create Coupon",
         "description": "The \"Create Coupon\" API allows you to create a new promotional coupon with customizable parameters such as discount amount, validity period, usage limits, and applicable products. Use this endpoint to set up promotional offers and special discounts for your customers.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1612,7 +1514,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/coupons.write"
+            ]
           }
         ]
       },
@@ -1621,16 +1525,6 @@
         "summary": "Update Coupon",
         "description": "The \"Update Coupon\" API enables you to modify existing coupon details such as discount values, validity periods, usage limits, and other promotional parameters. Use this endpoint to adjust or extend promotional offers for your customers.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1681,7 +1575,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/coupons.write"
+            ]
           }
         ]
       },
@@ -1690,16 +1586,6 @@
         "summary": "Delete Coupon",
         "description": "The \"Delete Coupon\" API allows you to permanently remove a coupon from your system using its unique identifier. Use this endpoint to discontinue promotional offers or clean up unused coupons. Note that this action cannot be undone.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1750,7 +1636,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/coupons.write"
+            ]
           }
         ]
       },
@@ -1759,16 +1647,6 @@
         "summary": "Fetch Coupon",
         "description": "The \"Get Coupon Details\" API enables you to retrieve comprehensive information about a specific coupon using either its unique identifier or promotional code. Use this endpoint to view coupon parameters, usage statistics, validity periods, and other promotional details.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1852,7 +1730,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/coupons.readonly"
+            ]
           }
         ]
       }
@@ -1863,16 +1743,6 @@
         "summary": "Create new integration",
         "description": "API to create a new association for an app and location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -1953,25 +1823,17 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
           }
         ]
       },
       "delete": {
-        "operationId": "create-integration",
+        "operationId": "delete-integration",
         "summary": "Deleting an existing integration",
         "description": "API to delete an association for an app and location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2042,7 +1904,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
           }
         ]
       }
@@ -2053,16 +1917,6 @@
         "summary": "Fetch given provider config",
         "description": "API for fetching an existing payment config for given location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2133,7 +1987,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/custom-provider.readonly"
+            ]
           }
         ]
       },
@@ -2142,16 +1998,6 @@
         "summary": "Create new provider config",
         "description": "API to create a new payment config for given location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2232,7 +2078,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
           }
         ]
       }
@@ -2243,16 +2091,6 @@
         "summary": "Disconnect existing provider config",
         "description": "API to disconnect an existing payment config for given location",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -2333,7 +2171,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
           }
         ]
       }
@@ -2348,6 +2188,42 @@
   "tags": [
     {
       "name": "Payments",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Integrations",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Orders",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Order fulfillments",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Order Notes",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Transactions",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Subscriptions",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Coupons",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Custom Provider",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Payment Service V1",
       "description": "Documentation for payments API"
     }
   ],
@@ -5348,5 +5224,20 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Payments",
+    "tags": [
+      "Payments",
+      "Integrations",
+      "Orders",
+      "Order fulfillments",
+      "Order Notes",
+      "Transactions",
+      "Subscriptions",
+      "Coupons",
+      "Custom Provider",
+      "Payment Service V1"
+    ]
   }
 }

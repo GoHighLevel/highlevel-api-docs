@@ -8,16 +8,6 @@
         "description": "The \"Create Redirect\" API Allows adding a new url redirect to the system. Use this endpoint to create a url redirect with the specified details. Ensure that the required information is provided in the request payload.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -67,7 +57,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "funnels/redirect.write"
+            ]
           }
         ]
       }
@@ -78,16 +70,6 @@
         "summary": "Update Redirect By Id",
         "description": "The \"Update Redirect By Id\" API Allows updating an existing URL redirect in the system. Use this endpoint to modify a URL redirect with the specified ID using details provided in the request payload.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -146,7 +128,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "funnels/redirect.write"
+            ]
           }
         ]
       },
@@ -155,16 +139,6 @@
         "summary": "Delete Redirect By Id",
         "description": "The \"Delete Redirect By Id\" API Allows deletion of a URL redirect from the system using its unique identifier. Use this endpoint to delete a URL redirect with the specified ID using details provided in the request payload.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -215,7 +189,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "funnels/redirect.write"
+            ]
           }
         ]
       }
@@ -226,16 +202,6 @@
         "summary": "Fetch List of Redirects",
         "description": "Retrieves a list of all URL redirects based on the given query parameters.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -305,7 +271,9 @@
         ],
         "security": [
           {
-            "Location-Access": []
+            "Location-Access": [
+              "funnels/redirect.readonly"
+            ]
           }
         ]
       }
@@ -316,16 +284,6 @@
         "summary": "Fetch List of Funnels",
         "description": "Retrieves a list of all funnels based on the given query parameters.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "locationId",
             "required": true,
@@ -412,16 +370,6 @@
         "description": "Retrieves a list of all funnel pages based on the given query parameters.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "locationId",
             "required": true,
             "in": "query",
@@ -491,16 +439,6 @@
         "description": "Retrieves count of all funnel pages based on the given query parameters.",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "locationId",
             "required": true,
             "in": "query",
@@ -556,7 +494,23 @@
   },
   "tags": [
     {
-      "name": "Funnels",
+      "name": "Funnel",
+      "description": "Documentation for funnels API"
+    },
+    {
+      "name": "Products",
+      "description": "Documentation for funnels API"
+    },
+    {
+      "name": "Prices",
+      "description": "Documentation for funnels API"
+    },
+    {
+      "name": "Integrations",
+      "description": "Documentation for funnels API"
+    },
+    {
+      "name": "Redirect",
       "description": "Documentation for funnels API"
     }
   ],
@@ -888,5 +842,15 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "Funnels",
+    "tags": [
+      "Funnel",
+      "Products",
+      "Prices",
+      "Integrations",
+      "Redirect"
+    ]
   }
 }

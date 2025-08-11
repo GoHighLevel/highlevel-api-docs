@@ -8,16 +8,6 @@
         "description": "<div>\n                  <p> Get Custom Field / Folder By Id.</p> \n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                        Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n                        </strong>\n                      </span>\n                  </div>\n                </div>",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -75,7 +65,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.readonly"
+            ]
           }
         ]
       },
@@ -84,16 +76,6 @@
         "summary": "Update Custom Field By Id",
         "description": "<div>\n    <p> Update Custom Field By Id </p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n          Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n          </strong>\n        </span>\n    </div>\n  </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -162,7 +144,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       },
@@ -171,16 +155,6 @@
         "summary": "Delete Custom Field By Id",
         "description": "<div>\n    <p> Delete Custom Field By Id </p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n          Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n          </strong>\n        </span>\n    </div>\n  </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -239,7 +213,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       }
@@ -250,16 +226,6 @@
         "summary": "Get Custom Fields By Object Key",
         "description": "<div>\n                  <p> Get Custom Fields By Object Key</p> \n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                        Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n                        </strong>\n                      </span>\n                  </div>\n                </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -329,7 +295,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.readonly"
+            ]
           }
         ]
       }
@@ -340,16 +308,6 @@
         "summary": "Create Custom Field Folder",
         "description": "<div>\n    <p> Create Custom Field Folder </p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n          Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n          </strong>\n        </span>\n    </div>\n  </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -410,7 +368,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       }
@@ -421,16 +381,6 @@
         "summary": "Update Custom Field Folder Name",
         "description": "<div>\n    <p> Create Custom Field Folder </p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n          Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n          </strong>\n        </span>\n    </div>\n  </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -499,7 +449,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       },
@@ -508,16 +460,6 @@
         "summary": "Delete Custom Field Folder",
         "description": "<div>\n    <p> Create Custom Field Folder </p> \n    <div>\n      <span style= \"display: inline-block;\n                  width: 25px; height: 25px;\n                  background-color: yellow;\n                  color: black;\n                  font-weight: bold;\n                  font-size: 24px;\n                  text-align: center;\n                  line-height: 22px;\n                  border: 2px solid black;\n                  border-radius: 10%;\n                  margin-right: 10px;\">\n                  !\n        </span>\n        <span>\n          <strong>\n          Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n          </strong>\n        </span>\n    </div>\n  </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -543,8 +485,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id",
-            "example": "ve9EPM428h8vShlRW1KT",
             "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
               "type": "string"
             }
           }
@@ -586,7 +528,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       }
@@ -597,16 +541,6 @@
         "summary": "Create Custom Field",
         "description": "<div>\n                  <p> Create Custom Field </p> \n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                        Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n                        </strong>\n                      </span>\n                  </div>\n                </div>",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
           {
             "name": "Version",
             "in": "header",
@@ -667,14 +601,16 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "locations/customFields.write"
+            ]
           }
         ]
       }
     }
   },
   "info": {
-    "title": "CUSTOM_FIELDS API",
+    "title": "Custom Fields V2",
     "description": "Custom fields are data points that allow you to capture and store specific information tailored to your business requirements. You can create fields across field types like text, numeric, selection options and special fields like date/time or signature",
     "version": "1.0",
     "contact": {}
@@ -682,6 +618,10 @@
   "tags": [
     {
       "name": "CUSTOM_FIELDS",
+      "description": "Custom fields are data points that allow you to capture and store specific information tailored to your business requirements. You can create fields across field types like text, numeric, selection options and special fields like date/time or signature"
+    },
+    {
+      "name": "Custom Fields V2",
       "description": "Custom fields are data points that allow you to capture and store specific information tailored to your business requirements. You can create fields across field types like text, numeric, selection options and special fields like date/time or signature"
     }
   ],
@@ -706,6 +646,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
         "type": "http"
       },
       "Agency-Access": {
@@ -1144,5 +1092,12 @@
         ]
       }
     }
+  },
+  "x-tagGroups": {
+    "name": "CUSTOM_FIELDS",
+    "tags": [
+      "CUSTOM_FIELDS",
+      "Custom Fields V2"
+    ]
   }
 }
