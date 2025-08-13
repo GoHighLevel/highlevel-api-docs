@@ -3,7 +3,7 @@
   "paths": {
     "/saas-api/public-api/locations": {
       "get": {
-        "operationId": "locations",
+        "operationId": "locations-deprecated",
         "summary": "Get locations by stripeId with companyId",
         "description": "Get locations by stripeCustomerId or stripeSubscriptionId with companyId",
         "deprecated": true,
@@ -116,7 +116,7 @@
     },
     "/saas-api/public-api/update-saas-subscription/{locationId}": {
       "put": {
-        "operationId": "generate-payment-link",
+        "operationId": "update-saas-subscription-deprecated",
         "summary": "Update SaaS subscription",
         "description": "Update SaaS subscription for given locationId and customerId",
         "deprecated": true,
@@ -216,7 +216,7 @@
     },
     "/saas-api/public-api/bulk-disable-saas/{companyId}": {
       "post": {
-        "operationId": "bulk-disable-saas",
+        "operationId": "bulk-disable-saas-deprecated",
         "summary": "Disable SaaS for locations",
         "description": "Disable SaaS for locations for given locationIds",
         "deprecated": true,
@@ -316,7 +316,7 @@
     },
     "/saas-api/public-api/enable-saas/{locationId}": {
       "post": {
-        "operationId": "enable-saas-location",
+        "operationId": "enable-saas-location-deprecated",
         "summary": "Enable SaaS for Sub-Account (Formerly Location)",
         "description": "<div>\n                  <p>Enable SaaS for Sub-Account (Formerly Location) based on the data provided</p>\n                  <div>\n                    <span style= \"display: inline-block;\n                                width: 25px; height: 25px;\n                                background-color: yellow;\n                                color: black;\n                                font-weight: bold;\n                                font-size: 24px;\n                                text-align: center;\n                                line-height: 22px;\n                                border: 2px solid black;\n                                border-radius: 10%;\n                                margin-right: 10px;\">\n                                !\n                      </span>\n                      <span>\n                        <strong>\n                          This feature is only available on Agency Pro ($497) plan.\n                        </strong>\n                      </span>\n                  </div>\n                </div>\n    ",
         "deprecated": true,
@@ -416,7 +416,7 @@
     },
     "/saas-api/public-api/pause/{locationId}": {
       "post": {
-        "operationId": "pause-location",
+        "operationId": "pause-location-deprecated",
         "summary": "Pause location",
         "description": "Pause Sub account for given locationId",
         "deprecated": true,
@@ -516,7 +516,7 @@
     },
     "/saas-api/public-api/update-rebilling/{companyId}": {
       "post": {
-        "operationId": "update-rebilling",
+        "operationId": "update-rebilling-deprecated",
         "summary": "Update Rebilling",
         "description": "Bulk update rebilling for given locationIds",
         "deprecated": true,
@@ -616,7 +616,7 @@
     },
     "/saas-api/public-api/agency-plans/{companyId}": {
       "get": {
-        "operationId": "get-agency-plans",
+        "operationId": "get-agency-plans-deprecated",
         "summary": "Get Agency Plans",
         "description": "Fetch all agency subscription plans for a given company ID",
         "deprecated": true,
@@ -717,7 +717,7 @@
     },
     "/saas-api/public-api/get-saas-subscription/{locationId}": {
       "get": {
-        "operationId": "get-location-subscription",
+        "operationId": "get-location-subscription-deprecated",
         "summary": "Get Location Subscription Details",
         "description": "Fetch subscription details for a specific location from location metadata",
         "deprecated": true,
@@ -825,7 +825,7 @@
     },
     "/saas-api/public-api/bulk-enable-saas/{companyId}": {
       "post": {
-        "operationId": "bulk-enable-saas",
+        "operationId": "bulk-enable-saas-deprecated",
         "summary": "Bulk Enable SaaS",
         "description": "Enable SaaS mode for multiple locations with support for both SaaS v1 and v2",
         "deprecated": true,
@@ -933,7 +933,7 @@
     },
     "/saas-api/public-api/saas-locations/{companyId}": {
       "get": {
-        "operationId": "get-saas-locations",
+        "operationId": "get-saas-locations-deprecated",
         "summary": "Get SaaS Locations",
         "description": "Fetch all SaaS-activated locations for a company with pagination",
         "deprecated": true,
@@ -1041,7 +1041,7 @@
     },
     "/saas-api/public-api/saas-plan/{planId}": {
       "get": {
-        "operationId": "get-saas-plan",
+        "operationId": "get-saas-plan-deprecated",
         "summary": "Get SaaS Plan",
         "description": "Fetch a specific SaaS plan by plan ID",
         "deprecated": true,

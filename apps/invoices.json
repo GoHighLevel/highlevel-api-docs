@@ -580,7 +580,7 @@
     },
     "/invoices/template/{templateId}/late-fees-configuration": {
       "patch": {
-        "operationId": "update-invoice-late-fees-configuration",
+        "operationId": "update-invoice-template-late-fees-configuration",
         "summary": "Update template late fees configuration",
         "description": "API to update template late fees configuration by template id",
         "parameters": [
@@ -674,7 +674,7 @@
     },
     "/invoices/template/{templateId}/payment-methods-configuration": {
       "patch": {
-        "operationId": "update-invoice-late-fees-configuration",
+        "operationId": "update-invoice-payment-methods-configuration",
         "summary": "Update template late fees configuration",
         "description": "API to update template late fees configuration by template id",
         "parameters": [

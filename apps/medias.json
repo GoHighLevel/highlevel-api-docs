@@ -4,7 +4,7 @@
     "/medias/files": {
       "get": {
         "operationId": "fetch-media-content",
-        "summary": "Get List of Files",
+        "summary": "Get List of Files/ Folders",
         "description": "Fetches list of files and folders from the media library",
         "parameters": [
           {
@@ -445,7 +445,20 @@
         "operationId": "bulk-delete-media-objects",
         "summary": "Bulk Delete / Trash Files or Folders",
         "description": "Soft-deletes or trashes multiple files and folders in a single request",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -567,10 +580,16 @@
             "type": "string",
             "description": "ID of the uploaded file",
             "example": "file.pdf"
+          },
+          "url": {
+            "type": "string",
+            "description": "Google Cloud Storage URL of the uploaded file",
+            "example": "https://storage.googleapis.com/bucket-name/path/to/file.pdf"
           }
         },
         "required": [
-          "fileId"
+          "fileId",
+          "url"
         ]
       },
       "FolderDTO": {
