@@ -504,6 +504,140 @@
           }
         ]
       }
+    },
+    "/marketplace/app/{appId}/installations": {
+      "delete": {
+        "operationId": "uninstall-application",
+        "summary": "Uninstall an application",
+        "description": "Uninstalls an application from your company or a specific location. This will remove the application`s access and stop all its functionalities",
+        "parameters": [
+          {
+            "name": "appId",
+            "required": true,
+            "in": "path",
+            "description": "The application id which is to be uninstalled.",
+            "schema": {
+              "example": "674587703dfd4161f1e3c557",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteIntegrationBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully uninstalled the application",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteIntegrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access-Only": [
+              "oauth.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "oauth.write"
+            ]
+          }
+        ],
+        "tags": [
+          "App Management"
+        ]
+      }
+    },
+    "/marketplace/app/{appId}/installer-details": {
+      "get": {
+        "operationId": "get-installer-details",
+        "summary": "Get Installer Details",
+        "description": "Fetches installer details for the authenticated user. This endpoint returns information about the company, location, user, and installation details associated with the current OAuth token.",
+        "parameters": [
+          {
+            "name": "appId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the app to get installer details",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved installer details. Returns company, location, user, and installation information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInstallerDetailsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Invalid request parameters or missing required data."
+          },
+          "403": {
+            "description": "Forbidden. The client does not have necessary permissions to access installer details."
+          }
+        }
+      }
     }
   },
   "info": {
@@ -515,6 +649,10 @@
   "tags": [
     {
       "name": "Marketplace",
+      "description": "Documentation for Marketplace API"
+    },
+    {
+      "name": "App Management",
       "description": "Documentation for Marketplace API"
     },
     {
@@ -621,6 +759,139 @@
           "description",
           "units"
         ]
+      },
+      "DeleteIntegrationBodyDto": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "description": "The company id from which the application is to be uninstalled. If you pass agency token, then companyId is required. It will uninstall application from agency as well as all sub-accounts.",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The location id from which the application is to be uninstalled. If you pass location token, then locationId is required. It will uninstall application from that location only.",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for uninstalling the application. Reason is required if you are uninstalling the application as a developer.",
+            "example": "Application is not working as expected"
+          }
+        }
+      },
+      "DeleteIntegrationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "The status of the uninstallation of the application",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "WhitelabelDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain of the whitelabel company",
+            "example": "example.com"
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "Logo URL of the whitelabel company",
+            "example": "https://example.com/logo.png"
+          }
+        },
+        "required": [
+          "domain",
+          "logoUrl"
+        ]
+      },
+      "InstallerDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "description": "Company ID",
+            "example": "company123"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID (if applicable)",
+            "example": "location123"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name",
+            "example": "Example Company"
+          },
+          "companyEmail": {
+            "type": "string",
+            "description": "Company email",
+            "example": "contact@example.com"
+          },
+          "companyOwnerFullName": {
+            "type": "string",
+            "description": "Company owner full name",
+            "example": "John Doe"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID who installed the app",
+            "example": "user123"
+          },
+          "isWhitelabelCompany": {
+            "type": "boolean",
+            "description": "Whether the company is a whitelabel company",
+            "example": false
+          },
+          "companyHighLevelPlan": {
+            "type": "string",
+            "description": "Company plan",
+            "example": "agency_monthly_497"
+          },
+          "marketplaceAppPlanId": {
+            "type": "string",
+            "description": "Marketplace app plan ID for paid apps",
+            "example": "plan123"
+          },
+          "whitelabelDetails": {
+            "description": "Whitelabel details (only present if isWhitelabelCompany is true)",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WhitelabelDetailsDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "companyId",
+          "companyName",
+          "companyEmail",
+          "userId",
+          "isWhitelabelCompany"
+        ]
+      },
+      "GetInstallerDetailsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "installationDetails": {
+            "description": "Installation details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InstallerDetailsDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "installationDetails"
+        ]
       }
     }
   },
@@ -628,7 +899,8 @@
     "name": "Marketplace",
     "tags": [
       "Marketplace",
-      "Wallet Charges"
+      "Wallet Charges",
+      "App Management"
     ]
   }
 }
