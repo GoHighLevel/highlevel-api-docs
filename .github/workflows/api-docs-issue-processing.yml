@@ -75,9 +75,12 @@ jobs:
             echo "SLACK_WEBHOOK_MOBILE is not set"
             exit 1
           fi
+          if [ -z "${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}" ]; then
+            echo "Warning: GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON is not set, will use fallback data"
+          fi
 
-      - name: Install axios
-        run: npm install axios
+      - name: Install dependencies
+        run: npm install axios googleapis
 
       - name: Process Issue and Create ClickUp Task
         id: process
@@ -92,6 +95,7 @@ jobs:
           SLACK_WEBHOOK_REVEX: ${{ secrets.SLACK_WEBHOOK_REVEX }}
           SLACK_WEBHOOK_LEADGEN: ${{ secrets.SLACK_WEBHOOK_LEADGEN }}
           SLACK_WEBHOOK_MOBILE: ${{ secrets.SLACK_WEBHOOK_MOBILE }}
+          GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
         with:
           debug: false
           script: |
