@@ -176,7 +176,6 @@ const MANAGER_TO_CLICKUP_USER_ID = {
   "Arvind": "94818265",
   "Baibhab": "7816084",
   "Daljeet Singh": "55354445",
-  "Debayan": "88876236",
   "Dhruv": "95075364",
   "Gaurav Kanted": "49407057",
   "Harsh Kurra": "5975441",
