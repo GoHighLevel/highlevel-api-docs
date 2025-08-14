@@ -32,6 +32,7 @@
     {"team": "crm", "sub_team": "conversations"},
     {"team": "crm", "sub_team": "marketplace"},
     {"team": "crm", "sub_team": "conversations-ai"},
+    {"team": "crm", "sub_team": "voice-ai"},
     {"team": "crm", "sub_team": "bulk-actions"},
     {"team": "crm", "sub_team": "custom-objects"},
     {"team": "crm", "sub_team": "opportunities"},

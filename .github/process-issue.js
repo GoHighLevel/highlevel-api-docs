@@ -40,7 +40,8 @@ const CRM_SUB_TEAM = {
   OPPORTUNITIES: 'opportunities',
   BULK_ACTIONS: 'bulk-actions',
   CONVERSATIONS_AI: 'conversations-ai',
-  CONVERSATIONS: 'conversations'
+  CONVERSATIONS: 'conversations',
+  VOICE_AI: 'voice-ai'
 };
 
 const AUTOMATIONS_SUB_TEAM = {
@@ -124,9 +125,10 @@ const PRODUCT_CHANNELS = {
 
   // CRM_SUB_TEAM
   "contacts": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
-  "conversations": { em: "Vara", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
+  "conversations": { em: "Baibhab", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
   "marketplace": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.MARKETPLACE },
-  "conversations-ai": { em: "Debayan", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS_AI },
+  "conversations-ai": { em: "Dhairya Singh Raghav", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS_AI },
+  "voice-ai": { em: "Rashmi Pant", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.VOICE_AI },
   "bulk-actions": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.BULK_ACTIONS },
   "custom-objects": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
   "opportunities": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.OPPORTUNITIES },
@@ -176,7 +178,7 @@ const MANAGER_TO_CLICKUP_USER_ID = {
   "Arvind": "94818265",
   "Baibhab": "7816084",
   "Daljeet Singh": "55354445",
-  "Debayan": "88876236",
+  "Dhairya Singh Raghav": "61338476",
   "Dhruv": "95075364",
   "Gaurav Kanted": "49407057",
   "Harsh Kurra": "5975441",
@@ -189,6 +191,7 @@ const MANAGER_TO_CLICKUP_USER_ID = {
   "Neha": "61231059",
   "Nikita": "95078996",
   "Pranoy Sarkar": "16804265",
+  "Rashmi Pant": "88924959",
   "Ravi": "61368010",
   "Sai Allu": "88952037",
   "Sayeed": "7836399",
@@ -537,7 +540,9 @@ const SLACK_USER_IDS = {
   "arvind": "U081TQ2QNJC", // Arvind Jain
   "yogesh": "U02G2LV4FE0",
   "vara": "U07CV4GADAB",
-  "gaurav kanted": "U02SJKP0CGN"
+  "gaurav kanted": "U02SJKP0CGN",
+  "dhairya singh raghav": "U04B3MR44JZ",
+  "rashmi pant": "U071W6XRQ00"
 };
 
 // Get Slack user ID by name
