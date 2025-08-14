@@ -22,25 +22,25 @@ Required Messaging APIs:
 conversations/message.write
 Purpose: Conversations Provider Outbound Message Webhook Events, Adding inbound messages. Add external outbound call logs. Upload attachments to conversations. Update message statuses.
 
-conversations.readonly
+`conversations.readonly`
 Purpose: Query conversations APIs
 
-conversations.write
+`conversations.write`
 Purpose: Create/Update/Delete conversation. One conversationId is maintained per contact.
 
-contacts.readonly
-contacts.write
+`contacts.readonly`
+`contacts.write`
 Purpose: Create/Update contacts
 
 Optional Messaging APIs:
 conversations/message.readonly
--Recordings/Transcriptions and Outbound Message Webhook Event
+- Recordings/Transcriptions and Outbound Message Webhook Event
 
 ### Conversation Provider Configuration
 
 After you create your provider you will have an "ID" which is the "conversationProviderId".
 
-#### SMS Provider (default)
+#### SMS (Replace default SMS provider)
 
 Description: This enables a SMS provider to replace the default twilio/LC-Phone provider.
 
@@ -59,7 +59,7 @@ Workflows: Supports standard SMS modules.
 
 Bulk Actions: Supported
 
-#### SMS Provider (extra)
+#### SMS (Add new conversation channel)
 
 Description: This adds an additional SMS custom conversation provider.
 
