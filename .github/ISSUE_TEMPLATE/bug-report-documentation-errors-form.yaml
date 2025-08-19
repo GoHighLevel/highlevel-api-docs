@@ -94,6 +94,7 @@ body:
         - saas
         - snapshots
         - social-planner
+        - media-library
         - surveys
         - templates
         - text

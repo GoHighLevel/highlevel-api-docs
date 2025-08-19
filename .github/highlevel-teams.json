@@ -27,6 +27,7 @@
     {"team": "leadgen", "sub_team": "payment-products"},
     {"team": "leadgen", "sub_team": "proposals"},
     {"team": "leadgen", "sub_team": "social-planner"},
+    {"team": "leadgen", "sub_team": "media-library"},
     {"team": "leadgen", "sub_team": "templates"},
     {"team": "crm", "sub_team": "contacts"},
     {"team": "crm", "sub_team": "conversations"},
