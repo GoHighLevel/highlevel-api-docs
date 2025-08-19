@@ -63,7 +63,8 @@ const LEADGEN_SUB_TEAM = {
   SOCIAL_PLANNER: 'social-media',
   ONBOARDING: 'onboarding',
   LAUNCHPAD: 'LaunchPad',
-  CONTENT_AI: 'blogs'
+  CONTENT_AI: 'blogs',
+  MEDIA_LIBRARY: 'media-library'
 };
 
 const REVEX_SUB_TEAM = {
@@ -122,6 +123,7 @@ const PRODUCT_CHANNELS = {
   "proposals": { em: "Jees", team: TEAM.LEADGEN, sub_team: LEADGEN_SUB_TEAM.PROPOSALS },
   "social-planner": { em: "Mayur", team: TEAM.LEADGEN, sub_team: LEADGEN_SUB_TEAM.SOCIAL_PLANNER },
   "templates": { em: "Sunil", team: TEAM.LEADGEN, sub_team: LEADGEN_SUB_TEAM.TEMPLATES },
+  "media-library": { em: "Ajay Dev", team: TEAM.LEADGEN, sub_team: LEADGEN_SUB_TEAM.MEDIA_LIBRARY },
 
   // CRM_SUB_TEAM
   "contacts": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
@@ -171,7 +173,7 @@ const API_ISSUE_TYPE_SLA_DAYS = {
 const MANAGER_TO_CLICKUP_USER_ID = {
   "Abhishek": "84039776",
   "Abhishek Maheshwari": "44147964",
-  "Ajay Dev": "89021250",
+  "Ajay Dev": "7261351",
   "Ankit Jain": "61208277",
   "Anurag Singh": "89077861",
   "Anwar": "89021242",
@@ -524,7 +526,6 @@ const SLACK_USER_IDS = {
   "abhishek maheshwari": "U0549US5N0Y", // Abhishek Maheshwari (HighLevel)
   "anwar": "U04GBJQE6MC", // Mohd Anwar Hussain (HighLevel)
   "manish kr": "U06FU5YTVML", // Manish
-  "ajay dev": "U02CSM62TJ5", // Ajay (HighLevel)
   "vinamra sareen": "U072WN3JUF2", // Vinamra Sareen (HighLevel)
   "sai allu": "U076C0T9BJ7", // Allu Sai Prudhvi
   "harsh kurra": "U01EZBMRA68", // Harsh Kurra(HighLevel)
@@ -542,6 +543,7 @@ const SLACK_USER_IDS = {
   "vara": "U07CV4GADAB",
   "gaurav kanted": "U02SJKP0CGN",
   "dhairya singh raghav": "U04B3MR44JZ",
+  "ajay dev": "U02CSM62TJ5",
   "rashmi pant": "U071W6XRQ00"
 };
 
