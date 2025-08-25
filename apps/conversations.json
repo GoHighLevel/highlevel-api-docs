@@ -2615,6 +2615,11 @@
             "type": "string",
             "description": "Conversation Provider Id",
             "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "chatWidgetId": {
+            "type": "string",
+            "description": "Chat Widget Id",
+            "example": "67b0cc8cf14b19d85ace7s35"
           }
         },
         "required": [

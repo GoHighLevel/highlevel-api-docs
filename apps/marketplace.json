@@ -588,22 +588,16 @@
         },
         "security": [
           {
-            "Location-Access-Only": [
-              "oauth.write"
-            ]
+            "Location-Access-Only": []
           },
           {
-            "Agency-Access": [
-              "oauth.write"
-            ]
+            "Agency-Access": []
           }
         ],
         "tags": [
           "App Management"
         ]
-      }
-    },
-    "/marketplace/app/{appId}/installer-details": {
+      },
       "get": {
         "operationId": "get-installer-details",
         "summary": "Get Installer Details",
@@ -636,7 +630,10 @@
           "403": {
             "description": "Forbidden. The client does not have necessary permissions to access installer details."
           }
-        }
+        },
+        "tags": [
+          "App Management"
+        ]
       }
     }
   },
@@ -739,6 +736,10 @@
           "description": {
             "type": "string",
             "description": "Description of the charge"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price per unit to charge"
           },
           "units": {
             "type": "string",
@@ -896,11 +897,11 @@
     }
   },
   "x-tagGroups": {
-    "name": "Marketplace",
+    "name": "Developer marketplace",
     "tags": [
       "Marketplace",
-      "Wallet Charges",
-      "App Management"
+      "App Management",
+      "Wallet Charges"
     ]
   }
 }
