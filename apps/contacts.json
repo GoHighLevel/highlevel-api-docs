@@ -404,7 +404,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       },
@@ -503,7 +505,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -582,7 +586,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -683,7 +689,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -1205,7 +1213,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.readonly"
+            ]
           }
         ]
       },
@@ -1304,7 +1314,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -1393,7 +1405,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -1468,16 +1482,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -1803,7 +1807,7 @@
       "post": {
         "operationId": "upsert-contact",
         "summary": "Upsert Contact",
-        "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a><br><br>The Upsert API will adhere to the configuration defined under the “Allow Duplicate Contact” setting at the Location level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.<br><br>If two separate contacts already exist—one with the same email and another with the same phone—and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.",
+        "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a><br/><br/>The Upsert API will adhere to the configuration defined under the “Allow Duplicate Contact” setting at the Location level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.<br/><br/>If two separate contacts already exist—one with the same email and another with the same phone—and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.",
         "parameters": [
           {
             "name": "Version",
@@ -2281,7 +2285,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -2370,7 +2376,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -2554,7 +2562,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       },
@@ -2653,7 +2663,9 @@
         ],
         "security": [
           {
-            "bearer": []
+            "bearer": [
+              "contacts.write"
+            ]
           }
         ]
       }
@@ -2950,6 +2962,14 @@
         "name": "Authorization",
         "in": "header",
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
         "type": "http"
       }
     },

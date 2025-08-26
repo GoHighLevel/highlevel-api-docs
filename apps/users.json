@@ -196,16 +196,6 @@
         "description": "Filter users by company ID, deleted status, and email array",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Access Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
-            }
-          },
-          {
             "name": "Version",
             "in": "header",
             "description": "API Version",
@@ -244,7 +234,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
                 }
               }
             }
@@ -254,7 +244,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
                 }
               }
             }
@@ -264,7 +254,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnprocessableDTO"
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
                 }
               }
             }
@@ -275,10 +265,14 @@
         ],
         "security": [
           {
-            "Agency-Access": []
+            "Agency-Access": [
+              "users.readonly"
+            ]
           },
           {
-            "Location-Access": []
+            "Location-Access": [
+              "users.readonly"
+            ]
           }
         ]
       }
@@ -299,6 +293,16 @@
               "enum": [
                 "2021-07-28"
               ]
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
             }
           }
         ],
@@ -736,6 +740,14 @@
         "in": "header",
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
         "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
       }
     },
     "schemas": {
@@ -1039,6 +1051,7 @@
               "invoices/template.write",
               "reputation/review.write",
               "reputation/listing.write",
+              "reputation/reviewsAIAgents.write",
               "conversations.write",
               "conversations.readonly",
               "conversations/message.readonly",
@@ -1112,6 +1125,7 @@
               "qrcodes.write",
               "users/team-management.write",
               "users/team-management.readonly",
+              "loginas.write",
               "snapshots/api.readonly",
               "snapshots/api.create",
               "snapshots/api.edit",
@@ -1128,7 +1142,18 @@
               "internaltools.billing.readonly",
               "internaltools.billing-common.readonly",
               "internaltools.billing-common.write",
-              "loginas.write"
+              "voice-ai-agents.write",
+              "voice-ai-agent-goals.readonly",
+              "voice-ai-agent-goals.write",
+              "voice-ai-dashboard.readonly",
+              "agency/launchpad.write",
+              "agency/launchpad.readonly",
+              "launchpad.write",
+              "launchpad.readonly",
+              "text-ai-agents.write",
+              "text-ai-agent-goals.readonly",
+              "text-ai-agent-goals.write",
+              "text-ai-agent-training.write"
             ]
           },
           "roles": {
@@ -1159,28 +1184,6 @@
           "count": {
             "type": "number",
             "example": 1231
-          }
-        }
-      },
-      "UnprocessableDTO": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 422
-          },
-          "message": {
-            "example": [
-              "Unprocessable Entity"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "error": {
-            "type": "string",
-            "example": "Unprocessable Entity"
           }
         }
       },
@@ -1322,6 +1325,7 @@
               "invoices/template.write",
               "reputation/review.write",
               "reputation/listing.write",
+              "reputation/reviewsAIAgents.write",
               "conversations.write",
               "conversations.readonly",
               "conversations/message.readonly",
@@ -1395,6 +1399,7 @@
               "qrcodes.write",
               "users/team-management.write",
               "users/team-management.readonly",
+              "loginas.write",
               "snapshots/api.readonly",
               "snapshots/api.create",
               "snapshots/api.edit",
@@ -1411,7 +1416,18 @@
               "internaltools.billing.readonly",
               "internaltools.billing-common.readonly",
               "internaltools.billing-common.write",
-              "loginas.write"
+              "voice-ai-agents.write",
+              "voice-ai-agent-goals.readonly",
+              "voice-ai-agent-goals.write",
+              "voice-ai-dashboard.readonly",
+              "agency/launchpad.write",
+              "agency/launchpad.readonly",
+              "launchpad.write",
+              "launchpad.readonly",
+              "text-ai-agents.write",
+              "text-ai-agent-goals.readonly",
+              "text-ai-agent-goals.write",
+              "text-ai-agent-training.write"
             ]
           },
           "roles": {
@@ -1525,6 +1541,7 @@
                 "invoices/template.write",
                 "reputation/review.write",
                 "reputation/listing.write",
+                "reputation/reviewsAIAgents.write",
                 "conversations.write",
                 "conversations.readonly",
                 "conversations/message.readonly",
@@ -1598,6 +1615,7 @@
                 "qrcodes.write",
                 "users/team-management.write",
                 "users/team-management.readonly",
+                "loginas.write",
                 "snapshots/api.readonly",
                 "snapshots/api.create",
                 "snapshots/api.edit",
@@ -1614,7 +1632,18 @@
                 "internaltools.billing.readonly",
                 "internaltools.billing-common.readonly",
                 "internaltools.billing-common.write",
-                "loginas.write"
+                "voice-ai-agents.write",
+                "voice-ai-agent-goals.readonly",
+                "voice-ai-agent-goals.write",
+                "voice-ai-dashboard.readonly",
+                "agency/launchpad.write",
+                "agency/launchpad.readonly",
+                "launchpad.write",
+                "launchpad.readonly",
+                "text-ai-agents.write",
+                "text-ai-agent-goals.readonly",
+                "text-ai-agent-goals.write",
+                "text-ai-agent-training.write"
               ]
             }
           },
@@ -1670,6 +1699,7 @@
                 "invoices/template.write",
                 "reputation/review.write",
                 "reputation/listing.write",
+                "reputation/reviewsAIAgents.write",
                 "conversations.write",
                 "conversations.readonly",
                 "conversations/message.readonly",
@@ -1743,6 +1773,7 @@
                 "qrcodes.write",
                 "users/team-management.write",
                 "users/team-management.readonly",
+                "loginas.write",
                 "snapshots/api.readonly",
                 "snapshots/api.create",
                 "snapshots/api.edit",
@@ -1759,7 +1790,18 @@
                 "internaltools.billing.readonly",
                 "internaltools.billing-common.readonly",
                 "internaltools.billing-common.write",
-                "loginas.write"
+                "voice-ai-agents.write",
+                "voice-ai-agent-goals.readonly",
+                "voice-ai-agent-goals.write",
+                "voice-ai-dashboard.readonly",
+                "agency/launchpad.write",
+                "agency/launchpad.readonly",
+                "launchpad.write",
+                "launchpad.readonly",
+                "text-ai-agents.write",
+                "text-ai-agent-goals.readonly",
+                "text-ai-agent-goals.write",
+                "text-ai-agent-training.write"
               ]
             }
           },
@@ -1886,6 +1928,7 @@
                 "invoices/template.write",
                 "reputation/review.write",
                 "reputation/listing.write",
+                "reputation/reviewsAIAgents.write",
                 "conversations.write",
                 "conversations.readonly",
                 "conversations/message.readonly",
@@ -1959,6 +2002,7 @@
                 "qrcodes.write",
                 "users/team-management.write",
                 "users/team-management.readonly",
+                "loginas.write",
                 "snapshots/api.readonly",
                 "snapshots/api.create",
                 "snapshots/api.edit",
@@ -1975,7 +2019,18 @@
                 "internaltools.billing.readonly",
                 "internaltools.billing-common.readonly",
                 "internaltools.billing-common.write",
-                "loginas.write"
+                "voice-ai-agents.write",
+                "voice-ai-agent-goals.readonly",
+                "voice-ai-agent-goals.write",
+                "voice-ai-dashboard.readonly",
+                "agency/launchpad.write",
+                "agency/launchpad.readonly",
+                "launchpad.write",
+                "launchpad.readonly",
+                "text-ai-agents.write",
+                "text-ai-agent-goals.readonly",
+                "text-ai-agent-goals.write",
+                "text-ai-agent-training.write"
               ]
             }
           },
@@ -2031,6 +2086,7 @@
                 "invoices/template.write",
                 "reputation/review.write",
                 "reputation/listing.write",
+                "reputation/reviewsAIAgents.write",
                 "conversations.write",
                 "conversations.readonly",
                 "conversations/message.readonly",
@@ -2104,6 +2160,7 @@
                 "qrcodes.write",
                 "users/team-management.write",
                 "users/team-management.readonly",
+                "loginas.write",
                 "snapshots/api.readonly",
                 "snapshots/api.create",
                 "snapshots/api.edit",
@@ -2120,7 +2177,18 @@
                 "internaltools.billing.readonly",
                 "internaltools.billing-common.readonly",
                 "internaltools.billing-common.write",
-                "loginas.write"
+                "voice-ai-agents.write",
+                "voice-ai-agent-goals.readonly",
+                "voice-ai-agent-goals.write",
+                "voice-ai-dashboard.readonly",
+                "agency/launchpad.write",
+                "agency/launchpad.readonly",
+                "launchpad.write",
+                "launchpad.readonly",
+                "text-ai-agents.write",
+                "text-ai-agent-goals.readonly",
+                "text-ai-agent-goals.write",
+                "text-ai-agent-training.write"
               ]
             }
           },
