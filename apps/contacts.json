@@ -1429,6 +1429,20 @@
                 "2021-07-28"
               ]
             }
+          },
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "description": "Tags operation type",
+            "example": "add",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "add",
+                "remove"
+              ]
+            }
           }
         ],
         "requestBody": {
