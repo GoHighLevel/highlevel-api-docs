@@ -1807,7 +1807,7 @@
       "post": {
         "operationId": "upsert-contact",
         "summary": "Upsert Contact",
-        "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a><br/><br/>The Upsert API will adhere to the configuration defined under the “Allow Duplicate Contact” setting at the Location level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.<br/><br/>If two separate contacts already exist—one with the same email and another with the same phone—and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.",
+        "description": "Please find the list of acceptable values for the `country` field  <a href=\"https://highlevel.stoplight.io/docs/integrations/ZG9jOjI4MzUzNDIy-country-list\" target=\"_blank\">here</a><br/><br/>The Upsert API will adhere to the configuration defined under the \u201cAllow Duplicate Contact\u201d setting at the Location level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.<br/><br/>If two separate contacts already exist\u2014one with the same email and another with the same phone\u2014and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.",
         "parameters": [
           {
             "name": "Version",
@@ -3043,15 +3043,15 @@
             "type": "string",
             "example": "1a2b3c4d5e6f7g8h9i0j"
           },
-          "pipeline_id": {
+          "pipelineId": {
             "type": "string",
             "example": "pipeline123"
           },
-          "pipeline_stage_id": {
+          "pipelineStageId": {
             "type": "string",
             "example": "stage456"
           },
-          "monetary_value": {
+          "monetaryValue": {
             "type": "number",
             "example": 10000
           },
@@ -3754,7 +3754,8 @@
         "properties": {
           "url": {
             "type": "string",
-            "example": "Trigger Link"
+            "example": "Trigger Link",
+            "nullable": true
           },
           "campaign": {
             "type": "string",
@@ -3787,7 +3788,7 @@
           },
           "gclid": {
             "type": "string",
-            "example": "CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY£1-MAIWmEaAo2VEALW_WCB",
+            "example": "CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY\u00a31-MAIWmEaAo2VEALW_WCB",
             "nullable": true
           },
           "msclikid": {
@@ -3833,9 +3834,7 @@
             "nullable": true
           }
         },
-        "required": [
-          "url"
-        ]
+        "required": []
       },
       "GetContectByIdSchema": {
         "type": "object",
@@ -4013,7 +4012,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "example": [
               "test",
               "test2"
@@ -4039,7 +4038,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "object",
             "example": {}
           }
@@ -4061,7 +4060,7 @@
             "example": "my_custom_field",
             "description": "Pass either `id` or `key` of custom field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "string",
             "example": "9039160788"
           }
@@ -4078,7 +4077,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "string",
             "example": "My Text"
           }
@@ -4098,7 +4097,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "string",
             "example": "My Text"
           }
@@ -4118,7 +4117,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "string",
             "example": "My Selected Option"
           }
@@ -4138,7 +4137,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "string",
             "example": "My Selected Option"
           }
@@ -4158,7 +4157,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "object",
             "example": 100
           }
@@ -4178,7 +4177,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "object",
             "example": 100.5
           }
@@ -4198,7 +4197,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "example": [
               "test",
               "test2"
@@ -4224,7 +4223,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "example": [
               "test",
               "test2"
@@ -4250,7 +4249,7 @@
             "type": "string",
             "example": "my_custom_field"
           },
-          "field_value": {
+          "fieldValue": {
             "type": "object",
             "example": {
               "f31175d4-2b06-4fc6-b7bc-74cd814c68cb": {
