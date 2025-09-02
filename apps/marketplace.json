@@ -737,10 +737,6 @@
             "type": "string",
             "description": "Description of the charge"
           },
-          "price": {
-            "type": "number",
-            "description": "Price per unit to charge"
-          },
           "units": {
             "type": "string",
             "description": "Number of units to charge"
@@ -773,11 +769,6 @@
             "type": "string",
             "description": "The location id from which the application is to be uninstalled. If you pass location token, then locationId is required. It will uninstall application from that location only.",
             "example": "tDtDnQdgm2LXpyiqYvZ6"
-          },
-          "reason": {
-            "type": "string",
-            "description": "The reason for uninstalling the application. Reason is required if you are uninstalling the application as a developer.",
-            "example": "Application is not working as expected"
           }
         }
       },
