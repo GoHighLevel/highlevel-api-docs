@@ -1,0 +1,1420 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/proposals/document": {
+      "get": {
+        "operationId": "list-documents-contracts",
+        "summary": "List documents",
+        "description": "List documents for a location",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "hTlkh7t8gujsahgg93",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Document status, pass as comma separated values",
+            "schema": {
+              "example": "draft",
+              "enum": [
+                "draft",
+                "sent",
+                "viewed",
+                "completed",
+                "accepted"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentStatus",
+            "required": false,
+            "in": "query",
+            "description": "Payment status, pass as comma separated values",
+            "schema": {
+              "example": "paid",
+              "enum": [
+                "waiting_for_payment",
+                "paid",
+                "no_payment"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Limit to fetch number of records",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "Skip number of records",
+            "schema": {
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Search string",
+            "schema": {
+              "example": "document",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "description": "Date start from (ISO 8601), dateFrom & DateTo must be provided together",
+            "schema": {
+              "example": "2025-02-03T18:30:00.000Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "description": "Date to (ISO 8601), dateFrom & DateTo must be provided together",
+            "schema": {
+              "example": "2025-02-14T18:29:59.999Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentListResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          },
+          {
+            "Agency-Access": []
+          }
+        ],
+        "tags": [
+          "Documents"
+        ]
+      }
+    },
+    "/proposals/document/send": {
+      "post": {
+        "operationId": "send-documents-contracts",
+        "summary": "Send document",
+        "description": "Send document to a client",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendDocumentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Document sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendDocumentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          },
+          {
+            "Agency-Access": []
+          }
+        ],
+        "tags": [
+          "Documents"
+        ]
+      }
+    },
+    "/proposals/templates": {
+      "get": {
+        "operationId": "list-documents-contracts-templates",
+        "summary": "List templates",
+        "description": "List document contract templates for a location",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "jhg64gjhb436fv",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "description": "Date start from (ISO 8601)",
+            "schema": {
+              "example": "2025-02-03T18:30:00.000Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "description": "Date to (ISO 8601)",
+            "schema": {
+              "example": "2025-02-14T18:29:59.999Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated template types. Valid values: proposal, estimate, contentLibrary",
+            "schema": {
+              "example": "proposal,estimate",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Template Name",
+            "schema": {
+              "example": "Template Name",
+              "type": "string"
+            }
+          },
+          {
+            "name": "isPublicDocument",
+            "required": false,
+            "in": "query",
+            "description": "If the docForm is a DocForm",
+            "schema": {
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "description": "User Id, required when isPublicDocument is true",
+            "schema": {
+              "example": "1234567890",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "example": "10",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "Skip",
+            "schema": {
+              "example": "0",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Templates fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateListPaginationResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          },
+          {
+            "Agency-Access": []
+          }
+        ],
+        "tags": [
+          "Templates"
+        ]
+      }
+    },
+    "/proposals/templates/send": {
+      "post": {
+        "operationId": "send-documents-contracts-template",
+        "summary": "Send template",
+        "description": "Send template to a client",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendDocumentFromPublicApiBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Document sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendTemplateResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          },
+          {
+            "Agency-Access": []
+          }
+        ],
+        "tags": [
+          "Templates"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Documents and Contracts API",
+    "description": "Documentation for Documents and Contracts API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "documents",
+      "description": "Documentation for Documents and Contracts API"
+    },
+    {
+      "name": "contracts",
+      "description": "Documentation for Documents and Contracts API"
+    },
+    {
+      "name": "proposals",
+      "description": "Documentation for Documents and Contracts API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "EntityReference": {
+        "type": "string",
+        "description": "Entity type",
+        "enum": [
+          "contacts",
+          "users"
+        ]
+      },
+      "ELEMENTS_LOOKUP": {
+        "type": "string",
+        "description": "Element type",
+        "enum": [
+          "Page",
+          "Text",
+          "Image",
+          "Video",
+          "Table",
+          "ProductList",
+          "PageBreak",
+          "Signature",
+          "PaymentDetails",
+          "TextField",
+          "DateField",
+          "InitialsField",
+          "Checkbox",
+          "Row",
+          "Column"
+        ]
+      },
+      "FillableFieldsDTO": {
+        "type": "object",
+        "properties": {
+          "fieldId": {
+            "type": "string",
+            "description": "Field Id",
+            "example": "text_field_1"
+          },
+          "isRequired": {
+            "type": "boolean",
+            "description": "Is the field required",
+            "example": true
+          },
+          "hasCompleted": {
+            "type": "boolean",
+            "description": "Has the field been completed",
+            "example": true
+          },
+          "recipient": {
+            "type": "string",
+            "description": "Recipient",
+            "example": "John Doe"
+          },
+          "entityType": {
+            "$ref": "#/components/schemas/EntityReference"
+          },
+          "id": {
+            "type": "string",
+            "description": "Id",
+            "example": "2d0a6fe1-d519-4198-8785-3da1d7cab925"
+          },
+          "type": {
+            "example": "TextField",
+            "$ref": "#/components/schemas/ELEMENTS_LOOKUP"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value of the field",
+            "example": "John Doe"
+          }
+        },
+        "required": [
+          "fieldId",
+          "isRequired",
+          "hasCompleted",
+          "recipient",
+          "entityType",
+          "id",
+          "type",
+          "value"
+        ]
+      },
+      "DiscountDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123456",
+            "description": "Unique identifier for the discount"
+          },
+          "value": {
+            "type": "number",
+            "example": 10,
+            "description": "Discount value (either a percentage or custom amount)"
+          },
+          "type": {
+            "type": "string",
+            "example": "percentage",
+            "enum": [
+              "percentage",
+              "custom_amount"
+            ],
+            "description": "Type of discount"
+          }
+        },
+        "required": [
+          "id",
+          "value",
+          "type"
+        ]
+      },
+      "GrandTotalDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 100,
+            "description": "Total amount before discounts"
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency of the total amount"
+          },
+          "discountPercentage": {
+            "type": "number",
+            "example": 15,
+            "description": "Total discount percentage applied"
+          },
+          "discounts": {
+            "description": "List of applied discounts",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DiscountDto"
+            }
+          }
+        },
+        "required": [
+          "amount",
+          "currency",
+          "discountPercentage",
+          "discounts"
+        ]
+      },
+      "RecipientItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Recipient Id",
+            "example": "u240JcS0E5qE0ziHnwMm"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Recipient First Name",
+            "example": "Jim"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Recipient Last Name",
+            "example": "Anton"
+          },
+          "email": {
+            "type": "string",
+            "description": "Recipient Email",
+            "example": "jim@gmail.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Recipient Phone Number",
+            "example": "+1234567890"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Recipient Phone",
+            "example": "1234567890"
+          },
+          "hasCompleted": {
+            "type": "boolean",
+            "description": "Recipient has completed the document",
+            "example": true
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "signer"
+            ],
+            "description": "Recipient role",
+            "example": "signer"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Recipient is primary",
+            "example": true
+          },
+          "signingOrder": {
+            "type": "number",
+            "description": "Recipient signing order",
+            "example": 1
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "Recipient image url",
+            "example": "base64 image url"
+          },
+          "ip": {
+            "type": "string",
+            "description": "Recipient ip",
+            "example": "123.123.123.123"
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "Recipient user agent",
+            "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+          },
+          "signedDate": {
+            "type": "string",
+            "description": "Recipient signed date",
+            "example": "2025-02-03T18:30:00.000Z"
+          },
+          "contactName": {
+            "type": "string",
+            "description": "Recipient contact name",
+            "example": "Jim Anton"
+          },
+          "country": {
+            "type": "string",
+            "description": "Recipient country",
+            "example": "United States"
+          },
+          "entityName": {
+            "type": "string",
+            "description": "Recipient entity name",
+            "example": "Jim Anton"
+          },
+          "initialsImgUrl": {
+            "type": "string",
+            "description": "Recipient initials image url",
+            "example": "base64 image url"
+          },
+          "lastViewedAt": {
+            "type": "string",
+            "description": "Recipient last viewed date",
+            "example": "2025-02-03T18:30:00.000Z"
+          },
+          "shareLink": {
+            "type": "string",
+            "description": "Share link",
+            "example": "https://www.google.com"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "hasCompleted",
+          "role",
+          "isPrimary",
+          "signingOrder"
+        ]
+      },
+      "ProposalEstimateLinksDto": {
+        "type": "object",
+        "properties": {
+          "referenceId": {
+            "type": "string",
+            "description": "Reference ID",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document ID",
+            "example": "c1e87a91-93b2-4b78-821f-85cf0e1f925b"
+          },
+          "recipientId": {
+            "type": "string",
+            "description": "Recipient ID",
+            "example": "u240JcS0E5qE0ziHnwMm"
+          },
+          "entityName": {
+            "type": "string",
+            "enum": [
+              "contacts",
+              "users"
+            ],
+            "description": "Entity name that the recipient belongs to",
+            "example": "contacts"
+          },
+          "recipientCategory": {
+            "type": "string",
+            "enum": [
+              "recipient",
+              "cc",
+              "bcc"
+            ],
+            "description": "Recipient category (recipient, cc, or bcc)",
+            "example": "recipient"
+          },
+          "documentRevision": {
+            "type": "number",
+            "description": "Document revision number",
+            "example": 1
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Created by user ID",
+            "example": "b6d8fa28-1112-4dc7-b9d2-f22b75a477ea"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the document is deleted",
+            "example": false
+          }
+        },
+        "required": [
+          "referenceId",
+          "documentId",
+          "recipientId",
+          "entityName",
+          "recipientCategory",
+          "documentRevision",
+          "createdBy",
+          "deleted"
+        ]
+      },
+      "DocumentDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier",
+            "example": "67ac9a51106ee8311e911XXXX"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the document",
+            "example": "Document Name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the document",
+            "example": "proposal"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the document is deleted",
+            "example": false
+          },
+          "isExpired": {
+            "type": "boolean",
+            "description": "Whether the document is expired",
+            "example": false
+          },
+          "documentRevision": {
+            "type": "number",
+            "description": "Number of times document is moved to draft state",
+            "example": 1
+          },
+          "fillableFields": {
+            "description": "Fillable fields",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FillableFieldsDTO"
+            }
+          },
+          "grandTotal": {
+            "description": "Grand total object of the document",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GrandTotalDto"
+              }
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "description": "Locale of the location",
+            "example": "en-US"
+          },
+          "status": {
+            "type": "array",
+            "description": "Document status",
+            "example": "draft",
+            "items": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "sent",
+                "viewed",
+                "completed",
+                "accepted"
+              ]
+            }
+          },
+          "paymentStatus": {
+            "type": "array",
+            "description": "Payment status",
+            "example": "paid",
+            "items": {
+              "type": "string",
+              "enum": [
+                "waiting_for_payment",
+                "paid",
+                "no_payment"
+              ]
+            }
+          },
+          "recipients": {
+            "description": "Recipients",
+            "example": [
+              {
+                "id": "u240JcS0E5qE0ziHnwMm",
+                "email": "jim@gmail.com",
+                "imageUrl": "",
+                "contactName": "Jim Anton",
+                "firstName": "Jim",
+                "lastName": "Anton",
+                "role": "signer",
+                "hasCompleted": true,
+                "signingOrder": 1,
+                "imgUrl": "base64 image url",
+                "ip": "123.123.123.123"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipientItem"
+            }
+          },
+          "links": {
+            "description": "Links for the document if its sent",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProposalEstimateLinksDto"
+            }
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date start from (ISO 8601)",
+            "example": "2025-02-03T18:30:00.000Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date to (ISO 8601)",
+            "example": "2025-02-14T18:29:59.999Z"
+          }
+        },
+        "required": [
+          "locationId",
+          "documentId",
+          "_id",
+          "name",
+          "type",
+          "deleted",
+          "isExpired",
+          "documentRevision",
+          "fillableFields",
+          "grandTotal",
+          "locale",
+          "status",
+          "paymentStatus",
+          "recipients",
+          "links",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "DocumentListResponseDto": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "description": "List of documents",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total records available",
+            "example": 10
+          },
+          "whiteLabelBaseUrl": {
+            "type": "number",
+            "description": "WhiteLabel url for document",
+            "example": "https://example.com"
+          },
+          "whiteLabelBaseUrlForInvoice": {
+            "type": "number",
+            "description": "WhiteLabel url for invoice",
+            "example": "https://example.com"
+          }
+        },
+        "required": [
+          "documents",
+          "total"
+        ]
+      },
+      "BadRequestDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        }
+      },
+      "CCRecipientItem": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "example": "jim@gmail.com"
+          },
+          "id": {
+            "type": "string",
+            "description": "Contact ID",
+            "example": "contactId"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Contact Image URL",
+            "example": "https://example.com/image.jpg"
+          },
+          "contactName": {
+            "type": "string",
+            "description": "Contact Name",
+            "example": "Jim Anton"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First Name",
+            "example": "Jim"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name",
+            "example": "Anton"
+          }
+        },
+        "required": [
+          "email",
+          "id",
+          "imageUrl",
+          "contactName",
+          "firstName",
+          "lastName"
+        ]
+      },
+      "NotificationSendSettingDto": {
+        "type": "object",
+        "properties": {
+          "templateId": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "templateId",
+          "subject"
+        ]
+      },
+      "NotificationSenderSettingDto": {
+        "type": "object",
+        "properties": {
+          "fromEmail": {
+            "type": "string"
+          },
+          "fromName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fromEmail",
+          "fromName"
+        ]
+      },
+      "NotificationSettingsDto": {
+        "type": "object",
+        "properties": {
+          "receive": {
+            "$ref": "#/components/schemas/NotificationSendSettingDto"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/NotificationSenderSettingDto"
+          }
+        },
+        "required": [
+          "receive",
+          "sender"
+        ]
+      },
+      "SendDocumentDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "documentName": {
+            "type": "string",
+            "description": "Document Name",
+            "example": "new Document"
+          },
+          "medium": {
+            "type": "string",
+            "enum": [
+              "link",
+              "email"
+            ],
+            "description": "Medium to be used for sending the document",
+            "example": "email"
+          },
+          "ccRecipients": {
+            "description": "CC Recipient",
+            "example": [
+              {
+                "id": "u240JcS0E5qE0ziHnwMm",
+                "email": "jim@gmail.com",
+                "imageUrl": "",
+                "contactName": "Jim Anton",
+                "firstName": "Jim",
+                "lastName": "Anton"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CCRecipientItem"
+            }
+          },
+          "notificationSettings": {
+            "example": {
+              "sender": {
+                "fromName": "",
+                "fromEmail": ""
+              },
+              "receive": {
+                "subject": "",
+                "templateId": ""
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NotificationSettingsDto"
+              }
+            ]
+          },
+          "sentBy": {
+            "type": "string",
+            "description": "Sent ByUser Id",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "locationId",
+          "documentId",
+          "sentBy"
+        ]
+      },
+      "SendDocumentResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "links": {
+            "description": "Links for all recipients",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProposalEstimateLinksDto"
+            }
+          }
+        },
+        "required": [
+          "success",
+          "links"
+        ]
+      },
+      "TemplateListResponseDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "685d11c371c22e636e9c04b2",
+            "description": "Template ID"
+          },
+          "deleted": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the template is deleted"
+          },
+          "version": {
+            "type": "number",
+            "example": 2,
+            "description": "Template version"
+          },
+          "name": {
+            "type": "string",
+            "example": "New Template",
+            "description": "Template name"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "5rORm9p7RtxWQPzBIbTG",
+            "description": "Location ID"
+          },
+          "type": {
+            "type": "string",
+            "example": "proposal",
+            "description": "Template type",
+            "enum": [
+              "proposal",
+              "estimate",
+              "contentLibrary"
+            ]
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "K9PSPnWjfNoE8DCf5LJZ",
+            "description": "User ID who last updated the template"
+          },
+          "isPublicDocument": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the template is a public document"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2025-06-26T09:24:19.305Z",
+            "description": "Template creation date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2025-06-26T09:27:32.119Z",
+            "description": "Template last update date"
+          },
+          "id": {
+            "type": "string",
+            "example": "685d11c371c22e636e9c04b2",
+            "description": "Template ID (alias for _id)"
+          },
+          "documentCount": {
+            "type": "number",
+            "example": 0,
+            "description": "Document count (only present when isPublicDocument is true)"
+          },
+          "docFormUrl": {
+            "type": "string",
+            "example": "https://staging.sendlink.co/documents/doc-form/685d11c371c22e636e9c04b2?locale=en_US",
+            "description": "Document form URL (only present when isPublicDocument is true)"
+          }
+        },
+        "required": [
+          "_id",
+          "deleted",
+          "version",
+          "name",
+          "locationId",
+          "type",
+          "updatedBy",
+          "isPublicDocument",
+          "createdAt",
+          "updatedAt",
+          "id"
+        ]
+      },
+      "TemplateListPaginationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateListResponseDTO"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 2,
+            "description": "Total number of templates"
+          },
+          "traceId": {
+            "type": "string",
+            "example": "d5656876-86a5-46fb-84df-788f1da7937a",
+            "description": "Trace ID for request tracking"
+          }
+        },
+        "required": [
+          "data",
+          "total"
+        ]
+      },
+      "SendDocumentFromPublicApiBodyDto": {
+        "type": "object",
+        "properties": {
+          "templateId": {
+            "type": "string",
+            "description": "Template Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "sendDocument": {
+            "type": "boolean",
+            "description": "Send Document",
+            "example": true
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id",
+            "example": "hTlkh7t8gujsahgg93"
+          },
+          "opportunityId": {
+            "type": "string",
+            "description": "Opportunity Id",
+            "example": "hTlkh7t8gujsahgg93"
+          }
+        },
+        "required": [
+          "templateId",
+          "userId",
+          "locationId",
+          "contactId"
+        ]
+      },
+      "SendTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "links": {
+            "description": "Links for all recipients",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProposalEstimateLinksDto"
+            }
+          }
+        },
+        "required": [
+          "success",
+          "links"
+        ]
+      },
+      "UnauthorizedDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid token: access token is invalid"
+          },
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      }
+    }
+  }
+}

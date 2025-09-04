@@ -36,34 +36,13 @@
         },
         "responses": {
           "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SearchContactSuccessResponseDto"
-                }
-              }
-            }
+            "description": "Success"
           },
           "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
+            "description": "Unauthorized"
           }
         },
         "tags": [
@@ -2569,9 +2548,9 @@
         ]
       },
       "delete": {
-        "operationId": "delete-contact-to-workflow",
-        "summary": "Delete Contact to Workflow",
-        "description": "Delete Contact to Workflow",
+        "operationId": "delete-contact-from-workflow",
+        "summary": "Delete Contact from Workflow",
+        "description": "Delete Contact from Workflow",
         "parameters": [
           {
             "name": "Version",

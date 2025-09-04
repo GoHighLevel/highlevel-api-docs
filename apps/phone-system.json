@@ -1,0 +1,716 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/phone-system/number-pools": {
+      "get": {
+        "operationId": "getNumberPoolList",
+        "summary": "List Number Pools",
+        "description": "Get list of number pools",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "Location ID to filter pools",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved number pools list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true,
+                      "description": "Indicates if the request was successful"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "Array of number pool objects",
+                      "items": {
+                        "$ref": "#/components/schemas/NumberPoolDto"
+                      }
+                    },
+                    "total": {
+                      "type": "number",
+                      "example": 5,
+                      "description": "Total number of pools returned"
+                    }
+                  }
+                },
+                "examples": {
+                  "successful-response": {
+                    "summary": "Successful response with number pools",
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "id": "ve9EPM428h8vShlRW1KT",
+                          "name": "Sales Team Pool",
+                          "locationId": "loc123",
+                          "numbers": [
+                            {
+                              "phoneNumber": "+14155552671",
+                              "friendlyName": "Sales Line 1"
+                            }
+                          ],
+                          "forwardingNumber": "+14155552671",
+                          "whisper": true,
+                          "whisperMessage": "Incoming call from sales line",
+                          "callRecording": true,
+                          "isActive": true,
+                          "inboundCallService": {
+                            "type": "voice_ai",
+                            "value": "68e381b296a83800a27cd1"
+                          }
+                        }
+                      ],
+                      "total": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid location ID or parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid locationId format"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token"
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions for this location"
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "numberpools.read"
+            ]
+          }
+        ],
+        "tags": [
+          "Number Pools"
+        ]
+      }
+    },
+    "/phone-system/numbers/location/{locationId}": {
+      "get": {
+        "operationId": "active-numbers",
+        "summary": "List active numbers",
+        "description": "Retrieve a paginated list of active phone numbers for a specific location. Supports filtering, pagination, and optional exclusion of number pool assignments.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "The unique identifier of the location",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "How many resources to return in each list page. The default is 50, and the maximum is 1000.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 1000
+            },
+            "example": 100
+          },
+          {
+            "name": "page",
+            "in": "query", 
+            "description": "The page index for pagination. The default is 0.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "default": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "searchFilter",
+            "in": "query",
+            "description": "Filter numbers by phone number pattern. Supports partial matching (e.g., \"+91\" to find all Indian numbers).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "+91"
+          },
+          {
+            "name": "skipNumberPool",
+            "in": "query",
+            "description": "Whether to exclude numbers that are assigned to number pools. Default is true.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "example": true
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of active numbers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "numbers": {
+                      "type": "array",
+                      "description": "Array of phone number objects with detailed configuration",
+                      "items": {
+                        "$ref": "#/components/schemas/DetailedPhoneNumberDto"
+                      }
+                    },
+                    "isUnderGhl": {
+                      "type": "boolean",
+                      "description": "Whether this account is manged by LeadconnectorHQ",
+                      "example": true
+                    },
+                    "pageSize": {
+                      "type": "number",
+                      "description": "Number of items requested per page",
+                      "example": 100,
+                      "minimum": 1,
+                      "maximum": 1000
+                    },
+                    "page": {
+                      "type": "number",
+                      "description": "Current page index (0-based)",
+                      "example": 0,
+                      "minimum": 0
+                    },
+                    "accountStatus": {
+                      "type": "string",
+                      "description": "Current status of the account",
+                      "example": "active",
+                      "enum": ["active", "suspended", "closed"]
+                    }
+                  },
+                  "required": [
+                    "numbers",
+                    "isUnderGhl",
+                    "pageSize",
+                    "page",
+                    "accountStatus"
+                  ]
+                },
+                "examples": {
+                  "successful-response": {
+                    "summary": "Successful response with phone numbers",
+                    "value": {
+                      "numbers": [
+                        {
+                          "phoneNumber": "+14155552671",
+                          "friendlyName": "Sales Line 1",
+                          "sid": "PN1234567890abcdef1234567890abcde",
+                          "countryCode": "US",
+                          "capabilities": {
+                            "voice": true,
+                            "sms": true,
+                            "mms": true,
+                            "fax": false
+                          },
+                          "type": "local",
+                          "isDefaultNumber": true,
+                          "linkedUser": "user_123456789",
+                          "linkedRingAllUsers": ["user_123", "user_456"],
+                          "inboundCallService": {
+                            "type": "voice_ai",
+                            "value": "68e381b296a83800a27cd1"
+                          },
+                          "forwardingNumber": "+14155552672",
+                          "isGroupConversationEnabled": true,
+                          "addressSid": "AD1234567890abcdef1234567890abcde",
+                          "bundleSid": "BU1234567890abcdef1234567890abcde",
+                          "dateAdded": "2023-01-15T10:30:00Z",
+                          "dateUpdated": "2023-02-20T14:45:00Z",
+                          "origin": "twilio"
+                        },
+                        {
+                          "phoneNumber": "+18005551234",
+                          "friendlyName": "Support Toll-Free",
+                          "sid": "PN9876543210fedcba9876543210fedcb",
+                          "countryCode": "US",
+                          "capabilities": {
+                            "voice": true,
+                            "sms": false,
+                            "mms": false,
+                            "fax": false
+                          },
+                          "type": "toll-free",
+                          "isDefaultNumber": false,
+                          "linkedUser": null,
+                          "linkedRingAllUsers": ["user_789", "user_101"],
+                          "inboundCallService": null,
+                          "forwardingNumber": null,
+                          "isGroupConversationEnabled": false,
+                          "addressSid": null,
+                          "bundleSid": null,
+                          "dateAdded": "2023-01-16T14:20:00Z",
+                          "dateUpdated": "2023-01-16T14:20:00Z",
+                          "origin": "twilio"
+                        }
+                      ],
+                      "isUnderGhl": true,
+                      "pageSize": 100,
+                      "page": 0,
+                      "accountStatus": "active"
+                    }
+                  },
+                  "empty-response": {
+                    "summary": "Response when no numbers are found",
+                    "value": {
+                      "numbers": [],
+                      "total": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid locationId format or pagination parameters"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Phone system not connected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Phone system is not connected to this account"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "accountStatus": {
+                      "type": "string",
+                      "example": "suspended",
+                      "description": "Account status when error occurs"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "phonenumbers.read"
+            ]
+          }
+        ],
+        "tags": [
+          "Phone Numbers"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Phone System API",
+    "description": "Documentation for Phone System API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Phone Numbers",
+      "description": "Documentation for phone numbers management"
+    },
+    {
+      "name": "Number Pools",
+      "description": "Documentation for number pools management"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "DetailedPhoneNumberDto": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "E.164 formatted phone number",
+            "example": "+14155552671"
+          },
+          "friendlyName": {
+            "type": "string",
+            "description": "Human-readable name assigned to the number",
+            "example": "Sales Line 1",
+            "nullable": true
+          },
+          "sid": {
+            "type": "string",
+            "description": "Phone number SID (unique identifier)",
+            "example": "PN1234567890abcdef1234567890abcde"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code",
+            "example": "US"
+          },
+          "capabilities": {
+            "type": "object",
+            "description": "Communication capabilities supported by this number",
+            "properties": {
+              "voice": {
+                "type": "boolean",
+                "description": "Whether the number supports voice calls",
+                "example": true
+              },
+              "sms": {
+                "type": "boolean",
+                "description": "Whether the number supports SMS messaging",
+                "example": true
+              },
+              "mms": {
+                "type": "boolean",
+                "description": "Whether the number supports MMS messaging",
+                "example": true
+              },
+              "fax": {
+                "type": "boolean",
+                "description": "Whether the number supports fax transmission",
+                "example": false
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of phone number (local, toll-free, mobile, etc.)",
+            "example": "local",
+            "enum": ["local", "toll-free", "mobile", "national"]
+          },
+          "isDefaultNumber": {
+            "type": "boolean",
+            "description": "Whether this is the default outbound number for the location",
+            "example": false
+          },
+          "linkedUser": {
+            "type": "string",
+            "description": "User ID of the user assigned to this number",
+            "example": "user_123456789",
+            "nullable": true
+          },
+          "linkedRingAllUsers": {
+            "type": "array",
+            "description": "Array of user IDs that should ring when this number is called",
+            "items": {
+              "type": "string"
+            },
+            "example": ["user_123", "user_456"]
+          },
+          "inboundCallService": {
+            "type": "object",
+            "description": "Configuration for inbound call handling service",
+            "nullable": true,
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of inbound call service",
+                "example": "voice_ai",
+                "enum": ["voice_ai", "ivr", "forward"]
+              },
+              "value": {
+                "type": "string",
+                "description": "Service configuration value or ID",
+                "example": "68e381b296a83800a27cd1"
+              }
+            }
+          },
+          "forwardingNumber": {
+            "type": "string",
+            "description": "Phone number to forward calls to",
+            "example": "+14155552672",
+            "nullable": true
+          },
+          "isGroupConversationEnabled": {
+            "type": "boolean",
+            "description": "Whether group conversations are enabled for this number (US/CA numbers with SMS/MMS only)",
+            "example": true
+          },
+          "addressSid": {
+            "type": "string",
+            "description": "Address SID for compliance purposes",
+            "example": "AD1234567890abcdef1234567890abcde",
+            "nullable": true
+          },
+          "bundleSid": {
+            "type": "string",
+            "description": "Bundle SID for regulatory compliance",
+            "example": "BU1234567890abcdef1234567890abcde",
+            "nullable": true
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the number was originally purchased/added",
+            "example": "2023-01-15T10:30:00Z"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the number configuration was last updated",
+            "example": "2023-02-20T14:45:00Z"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Source or origin of the phone number",
+            "example": "twilio",
+            "enum": ["twilio", "hosted", "ported"]
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "sid",
+          "countryCode",
+          "capabilities",
+          "type",
+          "isDefaultNumber",
+          "linkedRingAllUsers",
+          "isGroupConversationEnabled"
+        ]
+      },
+      "NumberPoolDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "Unique identifier for the number pool"
+          },
+          "name": {
+            "type": "string",
+            "example": "Sales Team Pool",
+            "description": "Human-readable name of the number pool"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "loc123",
+            "description": "Location ID this pool belongs to"
+          },
+          "numbers": {
+            "type": "array",
+            "description": "Phone numbers in this pool",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "type": "string",
+                  "example": "+14155552671",
+                  "description": "E.164 formatted phone number"
+                },
+                "friendlyName": {
+                  "type": "string",
+                  "example": "Sales Line 1",
+                  "description": "Human-readable name for the number"
+                }
+              }
+            }
+          },
+          "forwardingNumber": {
+            "type": "string",
+            "example": "+14155552671",
+            "description": "Number to forward calls to"
+          },
+          "whisper": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether whisper is enabled"
+          },
+          "whisperMessage": {
+            "type": "string",
+            "example": "Incoming call from sales line",
+            "description": "Message played during whisper"
+          },
+          "callRecording": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether call recording is enabled"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the number pool is active"
+          },
+          "inboundCallService": {
+            "type": "object",
+            "description": "Inbound call service configuration",
+            "nullable": true,
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "voice_ai",
+                "description": "Type of inbound call service"
+              },
+              "value": {
+                "type": "string",
+                "example": "68e381b296a83800a27cd1",
+                "description": "Service configuration value/ID"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Phone System",
+    "tags": [
+      "Phone Numbers",
+      "Number Pools"
+    ]
+  }
+}
