@@ -2170,6 +2170,309 @@
             "example": 100
           }
         }
+      },
+      "CustomRRulesOptions": {
+        "type": "object",
+        "properties": {
+          "intervalType": {
+            "type": "string",
+            "enum": [
+              "yearly",
+              "monthly",
+              "weekly",
+              "daily",
+              "hourly"
+            ],
+            "example": "monthly"
+          },
+          "interval": {
+            "type": "number",
+            "example": 2
+          },
+          "startDate": {
+            "type": "string",
+            "example": "2021-09-30T00:00:00.000Z",
+            "description": "Start Date"
+          },
+          "endDate": {
+            "type": "string",
+            "example": "2021-09-30T00:00:00.000Z",
+            "description": "End Date"
+          },
+          "dayOfMonth": {
+            "type": "number",
+            "description": "1, 2, 3, ..., 27, 31",
+            "example": 15
+          },
+          "dayOfWeek": {
+            "type": "string",
+            "enum": [
+              "MO",
+              "TU",
+              "WE",
+              "TH",
+              "FR",
+              "SA",
+              "SU"
+            ],
+            "example": "MO"
+          },
+          "monthOfYear": {
+            "type": "number",
+            "description": "1, 2, ....., 11, 12",
+            "example": 1
+          },
+          "count": {
+            "type": "number",
+            "description": "Max number of task executions",
+            "example": 10
+          },
+          "createTaskIfOverDue": {
+            "type": "boolean",
+            "example": true,
+            "description": "Create Task If Over Due"
+          },
+          "dueAfterSeconds": {
+            "type": "number",
+            "example": 23404000,
+            "description": "Due after seconds"
+          }
+        },
+        "required": [
+          "intervalType",
+          "interval",
+          "startDate",
+          "dueAfterSeconds"
+        ]
+      },
+      "RecurringTaskResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Recurring Task Id"
+          },
+          "title": {
+            "type": "string",
+            "example": "Task Name",
+            "description": "Name of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Task Description",
+            "description": "Description of the task"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Location Id"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2021-04-15T10:00:00.000Z",
+            "description": "Updated At"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2021-04-15T10:00:00.000Z",
+            "description": "Created At"
+          },
+          "rruleOptions": {
+            "example": {
+              "createTaskIfOverDue": false,
+              "interval": 1,
+              "intervalType": "hourly",
+              "startDate": "2024-10-29T12:34:03.000Z",
+              "dueAfterSeconds": 600,
+              "count": 550
+            },
+            "description": "Recurring rules",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomRRulesOptions"
+              }
+            ]
+          },
+          "totalOccurrence": {
+            "type": "number",
+            "example": 10,
+            "description": "Total Occurrence"
+          },
+          "deleted": {
+            "type": "boolean",
+            "example": false,
+            "description": "Deleted"
+          },
+          "assignedTo": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Assigned To"
+          },
+          "contactId": {
+            "type": "string",
+            "example": "v5cEPM428h8vShlRW1KT",
+            "description": "Contact Id"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "locationId",
+          "updatedAt",
+          "createdAt",
+          "rruleOptions",
+          "totalOccurrence",
+          "deleted"
+        ]
+      },
+      "RecurringTaskSingleResponseDTO": {
+        "type": "object",
+        "properties": {
+          "recurringTask": {
+            "description": "Recurring Tasks",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringTaskResponseDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "recurringTask"
+        ]
+      },
+      "RecurringTaskCreateDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Task Name",
+            "description": "Name of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Task Description",
+            "description": "Description of the task"
+          },
+          "contactIds": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Contact Id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owners": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Assigned To",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rruleOptions": {
+            "example": {
+              "intervalType": "hourly",
+              "interval": 1,
+              "startDate": "2025-07-23T10:00:00.000Z",
+              "dueAfterSeconds": 600
+            },
+            "description": "Recurring rules",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomRRulesOptions"
+              }
+            ]
+          },
+          "ignoreTaskCreation": {
+            "type": "boolean",
+            "example": true,
+            "description": "Create initial task or not"
+          }
+        },
+        "required": [
+          "title",
+          "rruleOptions"
+        ]
+      },
+      "RecurringTaskUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Task Name",
+            "description": "Name of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Task Description",
+            "description": "Description of the task"
+          },
+          "contactIds": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Contact Id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owners": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Assigned To",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rruleOptions": {
+            "example": {
+              "intervalType": "hourly",
+              "interval": 1,
+              "startDate": "2025-07-23T10:00:00.000Z",
+              "dueAfterSeconds": 600
+            },
+            "description": "Recurring rules",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomRRulesOptions"
+              }
+            ]
+          },
+          "ignoreTaskCreation": {
+            "type": "boolean",
+            "example": true,
+            "description": "Create initial task or not"
+          }
+        }
+      },
+      "DeleteRecurringTaskResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Recurring Task Id"
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success"
+          }
+        },
+        "required": [
+          "id",
+          "success"
+        ]
       }
     }
   },
@@ -3096,6 +3399,334 @@
             "bearer": [
               "locations/tasks.readonly"
             ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/recurring-tasks/{id}": {
+      "get": {
+        "operationId": "get-recurring-task-by-id",
+        "summary": "Get Recurring Task By Id",
+        "description": "Get Recurring Task By Id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Recurring Task Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecurringTaskSingleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-recurring-task",
+        "summary": "Update Recurring Task",
+        "description": "Update Recurring Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Recurring Task Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecurringTaskUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecurringTaskSingleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-recurring-task",
+        "summary": "Delete Recurring Task",
+        "description": "Delete Recurring Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Recurring Task Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteRecurringTaskResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/recurring-tasks": {
+      "post": {
+        "operationId": "create-recurring-task",
+        "summary": "Create Recurring Task",
+        "description": "Create Recurring Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecurringTaskCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecurringTaskSingleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
           }
         ]
       }
