@@ -42,7 +42,8 @@
     {"team": "automation", "sub_team": "reporting"},
     {"team": "automation", "sub_team": "calendars"},
     {"team": "automation", "sub_team": "workflows"},
-    {"team": "automation", "sub_team": "ad-publishing"},  
+    {"team": "automation", "sub_team": "ad-publishing"},
+    {"team": "automation", "sub_team": "users"},  
     {"team": "ai", "sub_team": "voice"},
     {"team": "ai", "sub_team": "text"}
   ]

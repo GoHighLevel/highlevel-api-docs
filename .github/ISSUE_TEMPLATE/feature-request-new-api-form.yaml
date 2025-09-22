@@ -91,6 +91,7 @@ body:
         - surveys
         - templates
         - text
+        - users
         - voice
         - wordpress
         - workflows
