@@ -48,7 +48,8 @@ const AUTOMATIONS_SUB_TEAM = {
   WORKFLOWS: 'workflows',
   CALENDARS: 'calendars',
   REPORTING: 'reporting',
-  AD_PUBLISHING: 'ad-publishing'
+  AD_PUBLISHING: 'ad-publishing',
+  USERS: 'users'
 };
 
 const LEADGEN_SUB_TEAM = {
@@ -142,6 +143,7 @@ const PRODUCT_CHANNELS = {
   "calendars": { em: "Ankit Jain", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.CALENDARS },
   "workflows": { em: "Baibhab", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.WORKFLOWS },
   "ad-publishing": { em: "Harsh Tomar", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.AD_PUBLISHING },
+  "users": { em: "Baibhab", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.USERS },
 
   // PLATFORM_SUB_TEAM
   "voice": { em: "Shivendra", team: TEAM.PLATFORM, sub_team: PLATFORM_SUB_TEAM.SERVICES },
