@@ -1468,7 +1468,10 @@
               }
             ]
           }
-        }
+        },
+        "required": [
+          "locationId"
+        ]
       },
       "SendPostCallNotificationSchema": {
         "type": "object",
@@ -1931,7 +1934,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "CALL_TRANSFER"
           },
@@ -1963,6 +1967,9 @@
               },
               {
                 "$ref": "#/components/schemas/CustomActionParameters"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseParameters"
               }
             ]
           }
@@ -2199,7 +2206,8 @@
         "required": [
           "triggerPrompt",
           "transferToType",
-          "transferToValue"
+          "transferToValue",
+          "triggerMessage"
         ]
       },
       "DataExtractionActionParameters": {
@@ -2486,6 +2494,7 @@
         },
         "required": [
           "triggerPrompt",
+          "triggerMessage",
           "apiDetails"
         ]
       },
@@ -2497,26 +2506,14 @@
             "description": "When to query the knowledge base",
             "example": "When caller asks about pricing"
           },
-          "triggerMessage": {
-            "type": "string",
-            "description": "Message to tell the caller",
-            "example": "Let me look that up for you"
-          },
           "knowledgeBaseId": {
             "type": "string",
             "description": "Knowledge base ID to query",
             "example": "507f1f77bcf86cd799439011"
-          },
-          "parameters": {
-            "description": "Additional parameters for the knowledge base query",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomActionParameterDTO"
-            }
           }
         },
         "required": [
-          "triggerMessage",
+          "triggerPrompt",
           "knowledgeBaseId"
         ]
       },
@@ -2538,7 +2535,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "SMS"
           },
@@ -2546,11 +2544,6 @@
             "type": "string",
             "description": "Action name",
             "example": "Send SMS Confirmation"
-          },
-          "description": {
-            "type": "string",
-            "description": "Action description",
-            "example": "When caller asks for booking confirmation"
           },
           "actionParameters": {
             "description": "Action parameters - structure varies by actionType",
@@ -2737,38 +2730,37 @@
             "example": false
           },
           "executedCallActions": {
-            "description": "Actions performed during the call",
+            "description": "Actions performed during the call. Note: The APPOINTMENT_BOOKING action will only be visible in executedCallActions from Sep 9th 2025.",
             "example": [
               {
                 "actionId": "507f1f77bcf86cd799439015",
                 "actionType": "CALL_TRANSFER",
                 "actionName": "Transfer to Manager",
-                "description": "Transfers call to a manager when customer requests escalation",
                 "actionParameters": {
                   "transferToType": "number",
                   "transferToValue": "+12345678901",
                   "triggerMessage": "Let me transfer you to a manager right away",
                   "hearWhisperMessage": true
                 },
-                "executedAt": "2024-01-15T10:32:00.000Z"
+                "executedAt": "2024-01-15T10:32:00.000Z",
+                "triggerReceivedAt": "2024-01-15T10:31:45.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439016",
                 "actionType": "SMS",
                 "actionName": "Send Confirmation SMS",
-                "description": "Sends SMS confirmation to customer",
                 "actionParameters": {
                   "triggerPrompt": "When caller asks for booking confirmation",
                   "triggerMessage": "I'll send you a confirmation text",
                   "messageBody": "Your appointment is confirmed for tomorrow at 2 PM"
                 },
-                "executedAt": "2024-01-15T10:33:30.000Z"
+                "executedAt": "2024-01-15T10:33:30.000Z",
+                "triggerReceivedAt": "2024-01-15T10:33:15.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439017",
                 "actionType": "DATA_EXTRACTION",
                 "actionName": "Extract Phone Number",
-                "description": "Extracts customer phone number for contact record",
                 "actionParameters": {
                   "contactFieldId": "507f1f77bcf86cd799439018",
                   "description": "Customer's phone number",
@@ -2778,38 +2770,38 @@
                   ],
                   "overwriteExistingValue": false
                 },
-                "executedAt": "2024-01-15T10:34:15.000Z"
+                "executedAt": "2024-01-15T10:34:15.000Z",
+                "triggerReceivedAt": "2024-01-15T10:34:00.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439019",
                 "actionType": "WORKFLOW_TRIGGER",
                 "actionName": "Start Follow-up Workflow",
-                "description": "Triggers follow-up workflow for lead nurturing",
                 "actionParameters": {
                   "triggerPrompt": "When caller requests a quote",
                   "triggerMessage": "Let me start that process for you",
                   "workflowId": "507f1f77bcf86cd799439020"
                 },
-                "executedAt": "2024-01-15T10:35:00.000Z"
+                "executedAt": "2024-01-15T10:35:00.000Z",
+                "triggerReceivedAt": "2024-01-15T10:34:45.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439021",
                 "actionType": "APPOINTMENT_BOOKING",
                 "actionName": "Book Consultation",
-                "description": "Books consultation appointment with sales team",
                 "actionParameters": {
                   "calendarId": "507f1f77bcf86cd799439022",
                   "daysOfOfferingDates": 3,
                   "slotsPerDay": 3,
                   "hoursBetweenSlots": 1
                 },
-                "executedAt": "2024-01-15T10:36:45.000Z"
+                "executedAt": "2024-01-15T10:36:45.000Z",
+                "triggerReceivedAt": "2024-01-15T10:36:30.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439023",
                 "actionType": "CUSTOM_ACTION",
                 "actionName": "Check Order Status",
-                "description": "Checks order status via external API",
                 "actionParameters": {
                   "triggerPrompt": "When caller provides order number",
                   "triggerMessage": "Let me check that order status",
@@ -2838,13 +2830,13 @@
                     "status"
                   ]
                 },
-                "executedAt": "2024-01-15T10:37:20.000Z"
+                "executedAt": "2024-01-15T10:37:20.000Z",
+                "triggerReceivedAt": "2024-01-15T10:37:05.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439024",
                 "actionType": "IN_CALL_DATA_EXTRACTION",
                 "actionName": "Extract Email During Call",
-                "description": "Extracts customer email during the call",
                 "actionParameters": {
                   "contactFieldId": "507f1f77bcf86cd799439025",
                   "description": "Customer's email address",
@@ -2854,13 +2846,13 @@
                   ],
                   "overwriteExistingValue": true
                 },
-                "executedAt": "2024-01-15T10:31:45.000Z"
+                "executedAt": "2024-01-15T10:31:45.000Z",
+                "triggerReceivedAt": "2024-01-15T10:31:30.000Z"
               },
               {
                 "actionId": "507f1f77bcf86cd799439026",
                 "actionType": "KNOWLEDGE_BASE",
                 "actionName": "Query Product Info",
-                "description": "Queries knowledge base for product information",
                 "actionParameters": {
                   "triggerPrompt": "When caller asks about pricing",
                   "triggerMessage": "Let me look that up for you",
@@ -2874,7 +2866,8 @@
                     }
                   ]
                 },
-                "executedAt": "2024-01-15T10:38:10.000Z"
+                "executedAt": "2024-01-15T10:38:10.000Z",
+                "triggerReceivedAt": "2024-01-15T10:37:55.000Z"
               }
             ],
             "type": "array",
@@ -2994,7 +2987,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "CALL_TRANSFER"
           },
@@ -3026,6 +3020,9 @@
               },
               {
                 "$ref": "#/components/schemas/CustomActionParameters"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseParameters"
               }
             ],
             "examples": {
@@ -3105,6 +3102,13 @@
                     "status"
                   ]
                 }
+              },
+              "knowledgeBase": {
+                "summary": "Knowledge Base Action",
+                "value": {
+                  "triggerPrompt": "When caller asks about pricing",
+                  "knowledgeBaseId": "507f1f77bcf86cd799439011"
+                }
               }
             }
           }
@@ -3135,7 +3139,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "CALL_TRANSFER"
           },
@@ -3167,6 +3172,9 @@
               },
               {
                 "$ref": "#/components/schemas/CustomActionParameters"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseParameters"
               }
             ],
             "examples": {
@@ -3232,7 +3240,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "CALL_TRANSFER"
           },
@@ -3264,6 +3273,9 @@
               },
               {
                 "$ref": "#/components/schemas/CustomActionParameters"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseParameters"
               }
             ],
             "examples": {
@@ -3343,6 +3355,13 @@
                     "status"
                   ]
                 }
+              },
+              "knowledgeBase": {
+                "summary": "Knowledge Base Action",
+                "value": {
+                  "triggerPrompt": "When caller asks about pricing",
+                  "knowledgeBaseId": "507f1f77bcf86cd799439011"
+                }
               }
             }
           }
@@ -3373,7 +3392,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "CALL_TRANSFER"
           },
@@ -3405,6 +3425,9 @@
               },
               {
                 "$ref": "#/components/schemas/CustomActionParameters"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseParameters"
               }
             ],
             "examples": {
@@ -3465,7 +3488,8 @@
               "WORKFLOW_TRIGGER",
               "SMS",
               "APPOINTMENT_BOOKING",
-              "CUSTOM_ACTION"
+              "CUSTOM_ACTION",
+              "KNOWLEDGE_BASE"
             ],
             "example": "CALL_TRANSFER"
           },
@@ -3497,6 +3521,9 @@
               },
               {
                 "$ref": "#/components/schemas/CustomActionParameters"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseParameters"
               }
             ],
             "examples": {

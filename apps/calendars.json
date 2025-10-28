@@ -3198,6 +3198,11 @@
             "description": "Assigned User Id",
             "example": "0007BWpSzSwfiuSl0tR2"
           },
+          "description": {
+            "type": "string",
+            "description": "Appointment Description",
+            "example": "Booking a call to discuss the project"
+          },
           "address": {
             "type": "string",
             "description": "Appointment Address",
@@ -3396,6 +3401,11 @@
             "description": "Assigned User Id",
             "example": "0007BWpSzSwfiuSl0tR2"
           },
+          "description": {
+            "type": "string",
+            "description": "Appointment Description",
+            "example": "Booking a call to discuss the project"
+          },
           "address": {
             "type": "string",
             "description": "Appointment Address",
@@ -3523,6 +3533,11 @@
             "type": "string",
             "description": "Notes",
             "example": "Some dummy note"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "example": "Some dummy description"
           },
           "isRecurring": {
             "type": "boolean",
