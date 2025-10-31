@@ -1,0 +1,2677 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/conversation-ai/agents/{agentId}/actions": {
+      "post": {
+        "operationId": "create-action",
+        "summary": "Attach Action to Agent",
+        "description": "Creates and attach a new action for an AI agent. Actions define specific tasks or behaviors that the agent can perform, such as booking appointments, sending follow-ups, or collecting information.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateActionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createActionResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      }
+    },
+    "/conversation-ai/agents/{agentId}/actions/list": {
+      "get": {
+        "operationId": "list-actions",
+        "summary": "List Actions for an Agent",
+        "description": "List for actions for an agent",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fetchActionsForEmployeeResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      }
+    },
+    "/conversation-ai/agents/{agentId}/actions/{actionId}": {
+      "get": {
+        "operationId": "get-action-by-id",
+        "summary": "Get Action by ID",
+        "description": "Retrieves detailed information about a specific action using its unique identifier. Returns the action configuration, associated agents, and performance metrics.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "description": "The unique identifier of the action ID Attached to the agent",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fetchActionDetailsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      },
+      "put": {
+        "operationId": "update-action",
+        "summary": "Update Action",
+        "description": "Updates an existing action's configuration. This includes modifying the action name, description, trigger conditions, and behavior settings.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "description": "The unique identifier of the action ID Attached to the agent",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateActionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateActionResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      },
+      "delete": {
+        "operationId": "delete-action",
+        "summary": "Remove Action from Agent",
+        "description": "Permanently deletes an action. This will remove the action from all associated agents and cannot be undone.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "description": "The unique identifier of the action ID Attached to the agent",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteActionResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      }
+    },
+    "/conversation-ai/agents/{agentId}/followup-settings": {
+      "patch": {
+        "operationId": "update-followup-settings",
+        "summary": "Update Followup Settings",
+        "description": "Update the followup settings for an action",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFollowupSettingsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateActionResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      }
+    },
+    "/conversation-ai/agents": {
+      "post": {
+        "operationId": "create-agent",
+        "summary": "Create an Agent",
+        "description": "Creates a new AI agent for the location. The agent will be created with the specified configuration including name, role, actions, and behavior settings.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmployeeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Agents"
+        ]
+      }
+    },
+    "/conversation-ai/agents/search": {
+      "get": {
+        "operationId": "search-agent",
+        "summary": "Search Agents",
+        "description": "Searches for AI agents based on various criteria including name, status, and configuration. Supports advanced filtering and full-text search capabilities.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "startAfter",
+            "required": false,
+            "in": "query",
+            "description": "Start after is the agent id to start after, Serving as skip, send empty when first page",
+            "schema": {
+              "example": "Exampleee123",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Records per page",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "query to search on agent name, must be provided in lowercase",
+            "schema": {
+              "example": "booking",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchEmployeeResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Agents"
+        ]
+      }
+    },
+    "/conversation-ai/agents/{agentId}": {
+      "put": {
+        "operationId": "update-agent",
+        "summary": "Update Agent",
+        "description": "Updates an existing AI agent's configuration. All fields in the agent configuration can be updated including name, status, actions, and behavior settings.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "description": "Conversations AI agent id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmployeeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Agents"
+        ]
+      },
+      "get": {
+        "operationId": "get-agent",
+        "summary": "Get Agent",
+        "description": "Retrieves a specific AI agent by its ID. Returns the complete agent configuration including name, status, actions, and settings.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "description": "Conversations AI agent id",
+            "schema": {
+              "example": "EmployeeId123",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Agents"
+        ]
+      },
+      "delete": {
+        "operationId": "delete-agent",
+        "summary": "Delete Agent",
+        "description": "Deletes an AI agent permanently. This action cannot be undone. All associated configurations and conversation history will be removed.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "description": "Conversations AI agent id",
+            "schema": {
+              "example": "EmployeeId123",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteEmployeeResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Agents"
+        ]
+      }
+    },
+    "/conversation-ai/generations": {
+      "get": {
+        "operationId": "get-generation-details",
+        "summary": "Get the generation details",
+        "description": "Retrieves detailed information about AI responses including the System Prompt, Conversation history, Knowledge base, website, FAQ chunks, and Rich Text chunks.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "query",
+            "description": "Message Id",
+            "schema": {
+              "example": "messageId123",
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "conversation",
+              "enum": [
+                "conversation",
+                "workflow"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FetchAIResponseDetailsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              "conversation-ai.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Generations"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Conversation AI API",
+    "description": "Documentation for AI Employees API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "AI-Employees",
+      "description": "Documentation for AI Employees API"
+    },
+    {
+      "name": "Actions",
+      "description": "Documentation for AI Employees API"
+    },
+    {
+      "name": "Agents",
+      "description": "Documentation for AI Employees API"
+    },
+    {
+      "name": "Generations",
+      "description": "Documentation for AI Employees API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "triggerWorkflowDto": {
+        "type": "object",
+        "properties": {
+          "workflowIds": {
+            "example": [
+              "workflow123",
+              "workflow456"
+            ],
+            "description": "Array of workflow IDs to trigger",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "triggerCondition": {
+            "type": "string",
+            "example": "When user requests appointment",
+            "description": "Condition that triggers the workflow"
+          },
+          "triggerMessage": {
+            "type": "string",
+            "example": "Workflow triggered successfully",
+            "description": "Optional message to send when triggering the workflow"
+          }
+        },
+        "required": [
+          "workflowIds",
+          "triggerCondition"
+        ]
+      },
+      "updateContactFieldDto": {
+        "type": "object",
+        "properties": {
+          "contactFieldId": {
+            "type": "string",
+            "example": "123",
+            "description": "ID of the contact field in Contacts Table"
+          },
+          "description": {
+            "type": "string",
+            "example": "Business Name",
+            "description": "Description of the contact field in Contacts Table"
+          },
+          "contactUpdateExamples": {
+            "example": [
+              "Example 1"
+            ],
+            "default": [],
+            "description": "Contact update examples in Contacts Table. Not required when using standard fields, Monetory or Date Custom fields.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "contactFieldId",
+          "description"
+        ]
+      },
+      "appointmentBookingDto": {
+        "type": "object",
+        "properties": {
+          "actionId": {
+            "type": "string",
+            "example": "action123",
+            "description": "Optional action ID reference"
+          },
+          "calendarId": {
+            "type": "string",
+            "example": "calendar123",
+            "description": "Calendar ID for appointment booking"
+          },
+          "onlySendLink": {
+            "type": "boolean",
+            "example": false,
+            "description": "If true, only sends the appointment link without booking"
+          },
+          "triggerWorkflow": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether to trigger a workflow after booking (cannot be true when onlySendLink is true)"
+          },
+          "workflowIds": {
+            "example": [
+              "workflow123"
+            ],
+            "description": "Workflow IDs to trigger after booking (required when triggerWorkflow is true)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sleepAfterBooking": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether to put the agent to sleep after booking (cannot be true when onlySendLink is true)"
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "days",
+              "hours",
+              "minutes"
+            ],
+            "example": "hours",
+            "description": "Unit for sleep time (required when sleepAfterBooking is true)"
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 24,
+            "description": "Sleep duration (required when sleepAfterBooking is true)"
+          },
+          "transferBot": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether to transfer to another agent after booking (cannot be true when onlySendLink is true)"
+          },
+          "transferAgent": {
+            "type": "string",
+            "example": "employee456",
+            "description": "Agent ID to transfer to (required when transferBot is true)"
+          },
+          "rescheduleEnabled": {
+            "type": "boolean",
+            "default": false,
+            "example": true,
+            "description": "Whether to allow appointment rescheduling (cannot be true when onlySendLink is true)"
+          },
+          "cancelEnabled": {
+            "type": "boolean",
+            "default": false,
+            "example": true,
+            "description": "Whether to allow appointment cancellation (cannot be true when onlySendLink is true)"
+          }
+        },
+        "required": [
+          "calendarId",
+          "onlySendLink",
+          "triggerWorkflow",
+          "sleepAfterBooking",
+          "transferBot",
+          "rescheduleEnabled",
+          "cancelEnabled"
+        ]
+      },
+      "stopBotDto": {
+        "type": "object",
+        "properties": {
+          "stopBotDetectionType": {
+            "type": "string",
+            "enum": [
+              "Goodbye",
+              "Custom"
+            ],
+            "example": "Custom",
+            "description": "Type of stop bot detection - Goodbye or Custom"
+          },
+          "stopBotTriggerCondition": {
+            "type": "string",
+            "example": "When the user says they no longer need assistance or want to end the conversation",
+            "description": "Condition that triggers stopping the bot"
+          },
+          "reactivateEnabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the bot can be reactivated after being stopped"
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "days",
+              "hours",
+              "minutes"
+            ],
+            "example": "hours",
+            "description": "Time unit for reactivation delay (required when reactivateEnabled is true)"
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 24,
+            "description": "Time duration before reactivation (required when reactivateEnabled is true)"
+          },
+          "enabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether this action is enabled for the agent"
+          },
+          "stopBotExamples": {
+            "example": [
+              "goodbye",
+              "thank you",
+              "no more questions"
+            ],
+            "description": "Example phrases that trigger stop bot action (minimum 2 required)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "finalMessage": {
+            "type": "string",
+            "example": "Thank you for contacting us. Have a great day!",
+            "description": "Final message sent when stopping the bot"
+          },
+          "tags": {
+            "example": [
+              "resolved",
+              "no-response"
+            ],
+            "description": "Tags to apply when stopping the bot",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "stopBotDetectionType",
+          "stopBotTriggerCondition",
+          "reactivateEnabled",
+          "enabled",
+          "stopBotExamples",
+          "finalMessage"
+        ]
+      },
+      "humanHandOverDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether human handover action is enabled"
+          },
+          "triggerCondition": {
+            "type": "string",
+            "example": "When the user requests to speak with a human agent or expresses frustration",
+            "description": "Condition that triggers human handover"
+          },
+          "examples": {
+            "example": [
+              "speak to human",
+              "talk to agent",
+              "need help from person"
+            ],
+            "description": "Example phrases that trigger human handover (required when handoverType is custom or contactRequest)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assignToUserId": {
+            "type": "string",
+            "example": "user123",
+            "description": "ID of the user to assign the conversation to"
+          },
+          "skipAssignToUser": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether to skip assigning to a specific user"
+          },
+          "createTask": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether to create a task when handing over"
+          },
+          "reactivateEnabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the agent can be reactivated after handover"
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "days",
+              "hours",
+              "minutes"
+            ],
+            "example": "hours",
+            "description": "Time unit for reactivation delay (required when reactivateEnabled is true)"
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 24,
+            "description": "Time duration before reactivation (required when reactivateEnabled is true)"
+          },
+          "finalMessage": {
+            "type": "string",
+            "example": "I am transferring you to a human agent who will assist you shortly.",
+            "description": "Final message sent when handing over to human"
+          },
+          "tags": {
+            "example": [
+              "escalated",
+              "human-requested"
+            ],
+            "description": "Tags to apply during handover",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "handoverType": {
+            "type": "string",
+            "enum": [
+              "contactRequest",
+              "lackOfInformation",
+              "failedToResolveIssue",
+              "custom"
+            ],
+            "example": "contactRequest",
+            "description": "Type of human handover detection"
+          }
+        },
+        "required": [
+          "enabled",
+          "triggerCondition",
+          "reactivateEnabled",
+          "finalMessage",
+          "handoverType"
+        ]
+      },
+      "FollowupSequence": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "Unique identifier for this followup step"
+          },
+          "followupTimeUnit": {
+            "type": "string",
+            "enum": [
+              "days",
+              "hours",
+              "minutes"
+            ],
+            "example": "hours",
+            "description": "Time unit for followup delay"
+          },
+          "followupTime": {
+            "type": "number",
+            "example": 2,
+            "description": "Time duration before followup (max: 60 minutes, 24 hours, or 180 days depending on unit)"
+          },
+          "aiEnabledMessage": {
+            "type": "boolean",
+            "example": true,
+            "default": true,
+            "description": "Whether to use AI to generate the followup message"
+          },
+          "triggerWorkflow": {
+            "type": "boolean",
+            "example": false,
+            "default": false,
+            "description": "Whether to trigger a workflow during this followup"
+          },
+          "customMessage": {
+            "type": "string",
+            "example": "Hi! Just following up on our previous conversation. Do you have any questions?",
+            "description": "Custom message to send (when aiEnabledMessage is false)"
+          },
+          "workflowId": {
+            "type": "string",
+            "example": "workflow789",
+            "description": "Workflow ID to trigger (when triggerWorkflow is true)"
+          },
+          "contactRequested": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether contact was requested in this followup"
+          }
+        },
+        "required": [
+          "id",
+          "followupTimeUnit",
+          "followupTime"
+        ]
+      },
+      "Interval": {
+        "type": "object",
+        "properties": {
+          "startHour": {
+            "type": "number",
+            "example": 9,
+            "description": "Start hour (24-hour format)"
+          },
+          "startMinute": {
+            "type": "number",
+            "example": 0,
+            "description": "Start minute"
+          },
+          "endHour": {
+            "type": "number",
+            "example": 17,
+            "description": "End hour (24-hour format)"
+          },
+          "endMinute": {
+            "type": "number",
+            "example": 30,
+            "description": "End minute"
+          }
+        },
+        "required": [
+          "startHour",
+          "startMinute",
+          "endHour",
+          "endMinute"
+        ]
+      },
+      "WorkingHours": {
+        "type": "object",
+        "properties": {
+          "dayOfTheWeek": {
+            "type": "number",
+            "example": 1,
+            "description": "Day of the week (0=Sunday, 1=Monday, etc.)"
+          },
+          "intervals": {
+            "description": "Time intervals for this day",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Interval"
+            }
+          }
+        },
+        "required": [
+          "dayOfTheWeek"
+        ]
+      },
+      "FollowupSettings": {
+        "type": "object",
+        "properties": {
+          "dynamicChannelSwitching": {
+            "type": "boolean",
+            "example": true,
+            "default": true,
+            "description": "Whether to dynamically switch channels for followups"
+          },
+          "followUpHours": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether to respect working hours for followups"
+          },
+          "workingHours": {
+            "description": "Working hours configuration for followups",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkingHours"
+            }
+          },
+          "timezoneToUse": {
+            "type": "string",
+            "enum": [
+              "contact",
+              "business"
+            ],
+            "description": "Timezone to use for followups, contact or location"
+          }
+        },
+        "required": [
+          "dynamicChannelSwitching"
+        ]
+      },
+      "advancedFollowupDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether advanced followup is enabled"
+          },
+          "scenarioId": {
+            "type": "string",
+            "example": "contactIsBusy",
+            "enum": [
+              "contactStoppedReplying",
+              "contactIsBusy",
+              "contactRequested"
+            ],
+            "description": "ID of the followup scenario"
+          },
+          "followupSequence": {
+            "description": "Sequence of followup actions to perform",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FollowupSequence"
+            }
+          },
+          "followupSettings": {
+            "description": "Additional settings for followup behavior",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FollowupSettings"
+              }
+            ]
+          }
+        },
+        "required": [
+          "enabled",
+          "scenarioId",
+          "followupSequence"
+        ]
+      },
+      "transferBotDto": {
+        "type": "object",
+        "properties": {
+          "transferBotType": {
+            "type": "string",
+            "enum": [
+              "Default",
+              "Custom"
+            ],
+            "example": "Custom",
+            "description": "Type of transfer - Default or Custom"
+          },
+          "transferToBot": {
+            "type": "string",
+            "example": "employee789",
+            "description": "ID of the bot/agent to transfer to"
+          },
+          "enabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether this transfer action is enabled"
+          },
+          "transferBotTriggerCondition": {
+            "type": "string",
+            "example": "When the user asks to speak with sales or needs pricing information",
+            "description": "Condition that triggers the transfer (required for Custom type)"
+          },
+          "transferBotExamples": {
+            "example": [
+              "talk to sales",
+              "pricing information",
+              "speak to specialist"
+            ],
+            "description": "Example phrases that trigger transfer (required for Custom type, minimum 2)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "transferBotType",
+          "transferToBot",
+          "enabled"
+        ]
+      },
+      "CreateActionDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "triggerWorkflow",
+            "enum": [
+              "triggerWorkflow",
+              "updateContactField",
+              "appointmentBooking",
+              "stopBot",
+              "humanHandOver",
+              "advancedFollowup",
+              "transferBot"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "example": "Trigger a Workflow"
+          },
+          "details": {
+            "description": "Action-specific details. The structure depends on the action type. For TRIGGER_WORKFLOW use triggerWorkflowDto, for UPDATE_CONTACT_FIELD use updateContactFieldDto, for APPOINTMENT_BOOKING use appointmentBookingDto, for STOP_BOT use stopBotDto, for HUMAN_HAND_OVER use humanHandOverDto, for ADVANCED_FOLLOWUP use advancedFollowupDto, and for TRANSFER_BOT use transferBotDto.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/triggerWorkflowDto"
+              },
+              {
+                "$ref": "#/components/schemas/updateContactFieldDto"
+              },
+              {
+                "$ref": "#/components/schemas/appointmentBookingDto"
+              },
+              {
+                "$ref": "#/components/schemas/stopBotDto"
+              },
+              {
+                "$ref": "#/components/schemas/humanHandOverDto"
+              },
+              {
+                "$ref": "#/components/schemas/advancedFollowupDto"
+              },
+              {
+                "$ref": "#/components/schemas/transferBotDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "name",
+          "details"
+        ]
+      },
+      "ActionDataDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "actionId123",
+            "description": "Unique identifier for the action"
+          },
+          "name": {
+            "type": "string",
+            "example": "Trigger Workflow",
+            "description": "Name of the action"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "triggerWorkflow",
+              "updateContactField",
+              "appointmentBooking",
+              "stopBot",
+              "humanHandOver",
+              "advancedFollowup",
+              "transferBot"
+            ],
+            "example": "triggerWorkflow",
+            "description": "Type of the action"
+          },
+          "agentId": {
+            "type": "string",
+            "example": "agentId123",
+            "description": "Agent ID where the action belongs"
+          },
+          "details": {
+            "description": "Action-specific details. The structure depends on the action type. For TRIGGER_WORKFLOW use triggerWorkflowDto, for UPDATE_CONTACT_FIELD use updateContactFieldDto, for APPOINTMENT_BOOKING use appointmentBookingDto, for STOP_BOT use stopBotDto, for HUMAN_HAND_OVER use humanHandOverDto, for ADVANCED_FOLLOWUP use advancedFollowupDto, and for TRANSFER_BOT use transferBotDto.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/triggerWorkflowDto"
+              },
+              {
+                "$ref": "#/components/schemas/updateContactFieldDto"
+              },
+              {
+                "$ref": "#/components/schemas/appointmentBookingDto"
+              },
+              {
+                "$ref": "#/components/schemas/stopBotDto"
+              },
+              {
+                "$ref": "#/components/schemas/humanHandOverDto"
+              },
+              {
+                "$ref": "#/components/schemas/advancedFollowupDto"
+              },
+              {
+                "$ref": "#/components/schemas/transferBotDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "details"
+        ]
+      },
+      "createActionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Created action details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ActionDataDTO"
+              }
+            ]
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success status of the request"
+          }
+        },
+        "required": [
+          "data",
+          "success"
+        ]
+      },
+      "fetchActionsForEmployeeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Grouped actions by type",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActionDataDTO"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success status of the request"
+          }
+        },
+        "required": [
+          "data",
+          "success"
+        ]
+      },
+      "fetchActionDetailsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Action details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ActionDataDTO"
+              }
+            ]
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success status of the request"
+          }
+        },
+        "required": [
+          "data",
+          "success"
+        ]
+      },
+      "updateActionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Updated action details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ActionDataDTO"
+              }
+            ]
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success status of the request"
+          }
+        },
+        "required": [
+          "data",
+          "success"
+        ]
+      },
+      "DeleteActionDataDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "actionId123",
+            "description": "ID of the deleted action"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "deleteActionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Deleted action information",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeleteActionDataDTO"
+              }
+            ]
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success status of the request"
+          }
+        },
+        "required": [
+          "data",
+          "success"
+        ]
+      },
+      "UpdateFollowupSettingsDTO": {
+        "type": "object",
+        "properties": {
+          "actionIds": {
+            "example": [
+              "edxcfghbnjkimd"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followupSettings": {
+            "$ref": "#/components/schemas/FollowupSettings"
+          }
+        },
+        "required": [
+          "actionIds",
+          "followupSettings"
+        ]
+      },
+      "CreateEmployeeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "Name of the agent."
+          },
+          "businessName": {
+            "type": "string",
+            "example": "Tech Corp",
+            "description": "Name of the business the agent represents."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "off",
+              "suggestive",
+              "auto-pilot"
+            ],
+            "example": "auto-pilot",
+            "default": "off",
+            "description": "Mode of operation - OFF, SUGGESTIVE, or AUTO_PILOT"
+          },
+          "channels": {
+            "type": "array",
+            "example": [
+              "SMS",
+              "Live_Chat",
+              "WhatsApp"
+            ],
+            "description": "Communication channels the agent can operate on",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IG",
+                "FB",
+                "SMS",
+                "WebChat",
+                "WhatsApp",
+                "Live_Chat"
+              ]
+            }
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Indicates if this agent is a primary agent."
+          },
+          "waitTime": {
+            "type": "number",
+            "example": 2,
+            "default": 2,
+            "description": "Wait time before agent responds (max 5 for minutes, 300 for seconds)"
+          },
+          "waitTimeUnit": {
+            "type": "string",
+            "enum": [
+              "minutes",
+              "seconds"
+            ],
+            "example": "seconds",
+            "default": "seconds",
+            "description": "Unit for wait time - SECONDS or MINUTES"
+          },
+          "sleepEnabled": {
+            "type": "boolean",
+            "example": false,
+            "default": false,
+            "description": "Indicates if sleep functionality is enabled."
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 2,
+            "default": 2,
+            "description": "Duration of sleep period (required if sleepEnabled is true). (max 2880 for minutes, 172800 for seconds, 48 for hours)"
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "hours",
+              "minutes",
+              "seconds"
+            ],
+            "example": "hours",
+            "default": "hours",
+            "description": "Unit of sleep time - HOURS, MINUTES, or SECONDS (required if sleepEnabled is true)"
+          },
+          "personality": {
+            "type": "string",
+            "example": "Friendly and helpful",
+            "description": "Personality traits of the agent."
+          },
+          "goal": {
+            "type": "string",
+            "example": "Assist customers with inquiries.",
+            "description": "The goal of the agent."
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Provide  customer service.",
+            "description": "Instructions for the agent."
+          },
+          "autoPilotMaxMessages": {
+            "type": "number",
+            "example": 25,
+            "default": 25,
+            "description": "Maximum number of messages in auto-pilot mode before requiring human intervention. (max: 25, min: 1)"
+          },
+          "knowledgeBaseIds": {
+            "description": "Array of knowledge base IDs associated with this agent.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "respondToImages": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Allow agent to respond to images"
+          },
+          "respondToAudio": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Allow agent to respond to audio"
+          }
+        },
+        "required": [
+          "name",
+          "personality",
+          "goal",
+          "instructions"
+        ]
+      },
+      "ActionsIdDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "actionId123",
+            "description": "Unique identifier for the action."
+          },
+          "type": {
+            "type": "string",
+            "example": "triggerWorkflow",
+            "description": "type of action.",
+            "enum": [
+              "triggerWorkflow",
+              "updateContactField",
+              "appointmentBooking",
+              "stopBot",
+              "humanHandOver",
+              "advancedFollowup",
+              "transferBot"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "EmployeeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "emp_123",
+            "description": "Unique identifier for the agent."
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "Name of the agent."
+          },
+          "businessName": {
+            "type": "string",
+            "example": "Tech Corp",
+            "description": "Name of the business the agent represents."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "off",
+              "suggestive",
+              "auto-pilot"
+            ],
+            "example": "auto-pilot",
+            "description": "Current operating mode of the agent."
+          },
+          "channels": {
+            "type": "array",
+            "example": [
+              "SMS",
+              "Live_Chat"
+            ],
+            "description": "Communication channels the agent operates on.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IG",
+                "FB",
+                "SMS",
+                "WebChat",
+                "WhatsApp",
+                "Live_Chat"
+              ]
+            }
+          },
+          "waitTime": {
+            "type": "number",
+            "example": 30,
+            "description": "Wait time before agent responds."
+          },
+          "waitTimeUnit": {
+            "type": "string",
+            "enum": [
+              "minutes",
+              "seconds"
+            ],
+            "example": "seconds",
+            "description": "Unit for wait time."
+          },
+          "sleepEnabled": {
+            "type": "boolean",
+            "example": false,
+            "description": "Indicates if sleep functionality is enabled."
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 2,
+            "description": "Duration of sleep period."
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "hours",
+              "minutes",
+              "seconds"
+            ],
+            "example": "hours",
+            "description": "Unit of sleep time."
+          },
+          "actions": {
+            "description": "List of actions associated with this agent.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActionsIdDto"
+            }
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "example": false,
+            "description": "Indicates if this agent is a primary agent."
+          },
+          "autoPilotMaxMessages": {
+            "type": "number",
+            "example": 25,
+            "description": "Maximum number of messages in auto-pilot mode before requiring human intervention."
+          },
+          "goal": {
+            "type": "string",
+            "example": "Assist customers with inquiries",
+            "description": "The goal of the agent."
+          },
+          "personality": {
+            "type": "string",
+            "example": "Friendly and helpful",
+            "description": "Personality traits of the agent."
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Provide excellent customer service",
+            "description": "Instructions for the agent."
+          },
+          "knowledgeBaseIds": {
+            "example": [
+              "kb_123",
+              "kb_456"
+            ],
+            "description": "Array of knowledge base IDs associated with this agent.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "mode",
+          "channels",
+          "waitTime",
+          "waitTimeUnit",
+          "sleepEnabled",
+          "actions",
+          "isPrimary",
+          "autoPilotMaxMessages"
+        ]
+      },
+      "EmployeeListItemDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "emp_123",
+            "description": "Unique identifier for the agent."
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "Name of the agent."
+          },
+          "businessName": {
+            "type": "string",
+            "example": "Tech Corp",
+            "description": "Name of the business the agent represents."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "off",
+              "suggestive",
+              "auto-pilot"
+            ],
+            "example": "auto-pilot",
+            "description": "Current operating mode of the agent."
+          },
+          "channels": {
+            "example": [
+              "SMS",
+              "LIVE_CHAT"
+            ],
+            "description": "Communication channels the agent operates on.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "waitTime": {
+            "type": "number",
+            "example": 30,
+            "description": "Wait time before agent responds."
+          },
+          "waitTimeUnit": {
+            "type": "string",
+            "enum": [
+              "minutes",
+              "seconds"
+            ],
+            "example": "seconds",
+            "description": "Unit for wait time."
+          },
+          "sleepEnabled": {
+            "type": "boolean",
+            "example": false,
+            "description": "Indicates if sleep functionality is enabled."
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 2,
+            "description": "Duration of sleep period."
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "hours",
+              "minutes",
+              "seconds"
+            ],
+            "example": "hours",
+            "description": "Unit of sleep time."
+          },
+          "actions": {
+            "example": [
+              {
+                "id": "action_123",
+                "type": "triggerWorkflow"
+              }
+            ],
+            "description": "List of actions associated with this agent.",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "example": false,
+            "description": "Indicates if this agent is a primary agent. (First agent created for a location is primary by default)"
+          },
+          "autoPilotMaxMessages": {
+            "type": "number",
+            "example": 25,
+            "description": "Maximum number of messages in auto-pilot mode before requiring human intervention."
+          },
+          "goal": {
+            "type": "object",
+            "example": {
+              "prompt": "Assist customers",
+              "type": "custom",
+              "actionId": null
+            },
+            "description": "Goal configuration for the agent."
+          },
+          "knowledgeBaseIds": {
+            "example": [
+              "kb_123",
+              "kb_456"
+            ],
+            "description": "Array of knowledge base IDs associated with this agent.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z",
+            "description": "Timestamp when the agent was created."
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z",
+            "description": "Timestamp when the agent was last updated."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "mode",
+          "channels",
+          "waitTime",
+          "waitTimeUnit",
+          "sleepEnabled",
+          "actions",
+          "isPrimary",
+          "autoPilotMaxMessages",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SearchEmployeeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "agents": {
+            "description": "List of agents matching the search criteria.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeListItemDTO"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "example": 100,
+            "description": "Total number of agents in the location (unfiltered count)."
+          },
+          "count": {
+            "type": "number",
+            "example": 25,
+            "description": "Number of agents in the current response (filtered/paginated count)."
+          }
+        },
+        "required": [
+          "agents",
+          "totalCount",
+          "count"
+        ]
+      },
+      "UpdateEmployeeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "Name of the agent."
+          },
+          "businessName": {
+            "type": "string",
+            "example": "Tech Corp",
+            "description": "Name of the business the agent represents."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "off",
+              "suggestive",
+              "auto-pilot"
+            ],
+            "description": "Mode of operation for the agent, required if primary is enabled."
+          },
+          "channels": {
+            "type": "array",
+            "description": "Channels the agent can use.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IG",
+                "FB",
+                "SMS",
+                "WebChat",
+                "WhatsApp",
+                "Live_Chat"
+              ]
+            }
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "example": true,
+            "description": "Indicates if this agent is a primary agent."
+          },
+          "waitTime": {
+            "type": "number",
+            "example": 30,
+            "description": "Wait time before agent responds (max 5 for minutes, 300 for seconds)."
+          },
+          "waitTimeUnit": {
+            "type": "string",
+            "enum": [
+              "minutes",
+              "seconds"
+            ],
+            "example": "seconds",
+            "description": "Unit for wait time - SECONDS or MINUTES"
+          },
+          "sleepEnabled": {
+            "type": "boolean",
+            "example": false,
+            "description": "Indicates if sleep functionality is enabled."
+          },
+          "sleepTime": {
+            "type": "number",
+            "example": 10,
+            "description": "Sleep time in the specified unit, required if sleepEnabled is true. (max 2880 for minutes, 172800 for seconds, 48 for hours)"
+          },
+          "sleepTimeUnit": {
+            "type": "string",
+            "enum": [
+              "hours",
+              "minutes",
+              "seconds"
+            ],
+            "description": "Unit of sleep time, required if sleepEnabled is true.",
+            "default": "hours"
+          },
+          "personality": {
+            "type": "string",
+            "example": "You re an AI assistant and you are friendly and helpful",
+            "description": "Personality traits of the agent."
+          },
+          "goal": {
+            "type": "string",
+            "example": "You are an AI assistant and you are helping customers with inquiries.",
+            "description": "The goal of the agent."
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Provide excellent customer service.",
+            "description": "Instructions for the agent."
+          },
+          "autoPilotMaxMessages": {
+            "type": "number",
+            "default": 10
+          },
+          "knowledgeBaseIds": {
+            "description": "Array of knowledge base IDs associated with this agent.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "respondToImages": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Allow agent to respond to images"
+          },
+          "respondToAudio": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Allow agent to respond to audio"
+          }
+        },
+        "required": [
+          "autoPilotMaxMessages"
+        ]
+      },
+      "DeleteEmployeeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Indicates if the agent was deleted successfully."
+          },
+          "id": {
+            "type": "string",
+            "example": "emp_123",
+            "description": "Unique identifier of the deleted agent."
+          }
+        },
+        "required": [
+          "success",
+          "id"
+        ]
+      },
+      "FetchAIResponseDetailsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "The complete prompt used for the AI response.",
+            "example": "Personality:\nFriendly and professional,\n\nIntent:\nAssist customers with inquiries\n\nAdditional Information:\nHandle basic support queries"
+          },
+          "intent": {
+            "type": "string",
+            "description": "The intent/goal extracted from location prompt.",
+            "example": "Assist customers with product inquiries and support"
+          },
+          "responseMessage": {
+            "type": "string",
+            "description": "The response message generated by the AI.",
+            "example": "Hello! I understand you're interested in our products. How can I assist you today?"
+          },
+          "faqs": {
+            "type": "array",
+            "description": "FAQ chunks used in generating the response from fine-tuned data.",
+            "example": [
+              {
+                "id": "chunk_123",
+                "content": "Our return policy allows returns within 30 days of purchase.",
+                "title": "Return Policy FAQ"
+              }
+            ]
+          },
+          "website": {
+            "type": "array",
+            "description": "Website content chunks used in generating the response.",
+            "example": [
+              {
+                "id": "chunk_456",
+                "content": "We offer free shipping on orders over $50.",
+                "url": "https://example.com/shipping"
+              }
+            ]
+          },
+          "agentId": {
+            "type": "string",
+            "description": "ID of the employee/agent that generated the response.",
+            "example": "emp_123"
+          },
+          "input": {
+            "type": "string",
+            "description": "The original input message that triggered this response.",
+            "example": "What is your return policy?"
+          },
+          "actionLogs": {
+            "type": "array",
+            "description": "List of actions taken during this interaction.",
+            "example": [
+              {
+                "contactUpdateAction": [
+                  {
+                    "fieldId": "field_123",
+                    "value": "John Doe"
+                  }
+                ]
+              }
+            ]
+          },
+          "history": {
+            "type": "array",
+            "description": "Conversation history leading up to this response.",
+            "example": [
+              {
+                "role": "user",
+                "content": "Hi, I have a question about returns"
+              },
+              {
+                "role": "assistant",
+                "content": "I'll be happy to help you with information about our return policy."
+              }
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "description": "Mode of operation during this interaction.",
+            "example": "auto-pilot"
+          }
+        },
+        "required": [
+          "prompt",
+          "responseMessage",
+          "actionLogs",
+          "history"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Conversation AI",
+    "tags": [
+      "AI-Employees",
+      "Actions",
+      "Agents",
+      "Generations"
+    ]
+  }
+}
