@@ -143,7 +143,7 @@ const PRODUCT_CHANNELS = {
   "calendars": { em: "Ankit Jain", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.CALENDARS },
   "workflows": { em: "Baibhab", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.WORKFLOWS },
   "ad-publishing": { em: "Harsh Tomar", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.AD_PUBLISHING },
-  "users": { em: "Baibhab", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.USERS },
+  "users": { em: "Raj Chandra", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.USERS },
 
   // PLATFORM_SUB_TEAM
   "voice": { em: "Shivendra", team: TEAM.PLATFORM, sub_team: PLATFORM_SUB_TEAM.SERVICES },
@@ -204,7 +204,8 @@ const MANAGER_TO_CLICKUP_USER_ID = {
   "Upamanyu Sarangi": "57190023",
   "Vatsal Mehta": "50232305",
   "Vinamra Sareen": "88930302",
-  "Yogesh": "7310064"
+  "Yogesh": "7310064",
+  "Raj Chandra": "72611602"
 };
 
 // Helper function to retry failed API calls
@@ -546,7 +547,8 @@ const SLACK_USER_IDS = {
   "gaurav kanted": "U02SJKP0CGN",
   "dhairya singh raghav": "U04B3MR44JZ",
   "ajay dev": "U02CSM62TJ5",
-  "rashmi pant": "U071W6XRQ00"
+  "rashmi pant": "U071W6XRQ00",
+  "raj chandra": "U068TRZT89X"
 };
 
 // Get Slack user ID by name
