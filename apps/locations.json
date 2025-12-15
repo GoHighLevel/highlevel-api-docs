@@ -2733,7 +2733,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Successful update response",
             "content": {
               "application/json": {
