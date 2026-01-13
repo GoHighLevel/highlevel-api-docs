@@ -82,6 +82,7 @@ body:
         - marketplace
         - marketplace-modules
         - membership
+        - notifications
         - onboarding
         - opportunities
         - payment-products

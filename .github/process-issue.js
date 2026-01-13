@@ -144,6 +144,7 @@ const PRODUCT_CHANNELS = {
   "workflows": { em: "Baibhab", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.WORKFLOWS },
   "ad-publishing": { em: "Harsh Tomar", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.AD_PUBLISHING },
   "users": { em: "Raj Chandra", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.USERS },
+  "notifications": { em: "Raj Chandra", team: TEAM.AUTOMATIONS, sub_team: AUTOMATIONS_SUB_TEAM.USERS },
 
   // PLATFORM_SUB_TEAM
   "voice": { em: "Shivendra", team: TEAM.PLATFORM, sub_team: PLATFORM_SUB_TEAM.SERVICES },
