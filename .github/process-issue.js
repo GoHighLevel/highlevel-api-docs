@@ -1,4 +1,5 @@
 const axios = require('axios');
+const googleSheetsService = require('./google-sheets-service.js');
 
 // Configuration constants
 const CLICKUP_LIST_ID = "901002929528";
@@ -240,24 +241,42 @@ function getDefaultProduct() {
   };
 }
 
-// Determine product info from issue title and body
-function determineProductInfo(title, body) {
+// Determine product info from issue title and body with Google Sheets integration
+async function determineProductInfo(title, body) {
   if (!title) throw new Error("Issue title is required");
   
   // Extract Product Area field
   const productArea = extractProductArea(body);
   
-  if (productArea && PRODUCT_CHANNELS[productArea.toLowerCase()]) {
-    const productInfo = {
-      product: productArea.toLowerCase(),
-      ...PRODUCT_CHANNELS[productArea.toLowerCase()]
-    };
-    
-          if (!productInfo.team || !productInfo.sub_team) {
-        return getDefaultProduct();
+  if (productArea) {
+    try {
+      // First try to get product info from Google Sheets
+      const googleSheetsInfo = await googleSheetsService.getProductInfo(productArea);
+      if (googleSheetsInfo) {
+        console.log(`Found product info from Google Sheets for: ${productArea}`);
+        return {
+          product: productArea.toLowerCase(),
+          ...googleSheetsInfo,
+          sub_team: productArea.toLowerCase() // Use product area as sub_team for compatibility
+        };
       }
-    
-    return productInfo;
+      
+      // Fallback to existing PRODUCT_CHANNELS mapping
+      if (PRODUCT_CHANNELS[productArea.toLowerCase()]) {
+        const productInfo = {
+          product: productArea.toLowerCase(),
+          ...PRODUCT_CHANNELS[productArea.toLowerCase()]
+        };
+        
+        if (!productInfo.team || !productInfo.sub_team) {
+          return getDefaultProduct();
+        }
+        
+        return productInfo;
+      }
+    } catch (error) {
+      console.error('Error fetching from Google Sheets, using fallback:', error);
+    }
   }
   
   // Fallback to searching in title if Product Area is not found
@@ -269,9 +288,9 @@ function determineProductInfo(title, body) {
         ...PRODUCT_CHANNELS[product]
       };
       
-              if (!productInfo.team || !productInfo.sub_team) {
-          return getDefaultProduct();
-        }
+      if (!productInfo.team || !productInfo.sub_team) {
+        return getDefaultProduct();
+      }
       
       return productInfo;
     }
@@ -613,7 +632,7 @@ async function processIssue(github, context, core) {
     }
 
     // Process the issue
-    const productInfo = determineProductInfo(issueData.title, issueData.body);
+    const productInfo = await determineProductInfo(issueData.title, issueData.body);
     const apiIssueTypeValue = determineApiIssueType(issueData.labels);
     const dueDateMs = calculateDueDate(issueData.labels, apiIssueTypeValue);
     const dueDateStr = new Date(dueDateMs).toISOString().split('T')[0];
