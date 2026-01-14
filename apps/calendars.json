@@ -1770,6 +1770,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "noteId",
+            "required": true,
+            "in": "path",
+            "description": "Note ID",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1847,6 +1856,15 @@
             "required": true,
             "in": "path",
             "description": "Appointment ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noteId",
+            "required": true,
+            "in": "path",
+            "description": "Note ID",
             "schema": {
               "type": "string"
             }
