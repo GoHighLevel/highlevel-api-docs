@@ -2,7 +2,7 @@
 
 Welcome to the official public repository for **GoHighLevel API V2 Docs**! 🚀
 
-This repository contains the source documentation for the [GoHighLevel API V2](https://marketplace.gohighlevel.com/docs/oauth/Overview/index.html) , designed to help developers integrate with the HighLevel platform easily and effectively.
+This repository contains the source documentation for the [GoHighLevel API V2](https://marketplace.gohighlevel.com/docs) , designed to help developers integrate with the HighLevel platform easily and effectively.
 
 ## 📚 What You'll Find Here
 - Structured and detailed references for the HighLevel V2 API endpoints.
