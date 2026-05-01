@@ -275,8 +275,28 @@
             "name": "locationId",
             "required": true,
             "in": "query",
-            "example": "5DP4iH6HLkQsiKESj6rh",
             "schema": {
+              "example": "5DP4iH6HLkQsiKESj6rh",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "100",
+              "example": "100",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "0",
+              "example": "10",
               "type": "string"
             }
           }

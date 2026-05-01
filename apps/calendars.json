@@ -2782,6 +2782,654 @@
         ]
       }
     },
+    "/calendars/schedules/search": {
+      "get": {
+        "operationId": "getAllSchedules",
+        "summary": "List user availability schedule",
+        "description": "Retrieve user availability schedules based on various filters including location, calendar, and user. Supports pagination.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location ID to filter schedules by",
+            "schema": {
+              "example": "IkqiJlXJ7o9h61tCHHod",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "query",
+            "description": "User ID to filter schedules by specific user",
+            "schema": {
+              "example": "IkqiJlXJ7o9h61tCHHod",
+              "type": "string"
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": false,
+            "in": "query",
+            "description": "Calendar ID for filtering schedules by specific calendar",
+            "schema": {
+              "example": "WvVX9LpvlBO6K506xLbp",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "Number of items to skip for pagination",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of items to return (max 500)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "default": 50,
+              "example": 50,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schedules retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllSchedulesResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/calendars/schedules/{id}": {
+      "get": {
+        "operationId": "getScheduleById",
+        "summary": "Get user availability schedule",
+        "description": "Retrieve a specific schedule by its unique identifier. Returns detailed information including rules, timezone, and associated calendars/users.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the schedule",
+            "schema": {
+              "example": "IkqiJlXJ7o9h61tCHHod",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schedule found and retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schedule with the specified ID was not found"
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "updateSchedule",
+        "summary": "Update user availability schedule",
+        "description": "Modify an existing schedule by updating its rules, timezone, and name All fields are optional - only provided fields will be updated.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the schedule to update",
+            "schema": {
+              "example": "sch123def456ghi789",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScheduleDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Schedule updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schedule with the specified ID was not found"
+          },
+          "422": {
+            "description": "Validation errors in schedule rules or conflicting data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteSchedule",
+        "summary": "Delete user availability schedule",
+        "description": "Permanently remove a schedule and all its associated rules. This action cannot be undone.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the schedule to delete",
+            "schema": {
+              "example": "sch123def456ghi789",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schedule deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Whether the deletion was successful",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schedule with the specified ID was not found"
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/calendars/schedules": {
+      "post": {
+        "operationId": "createSchedule",
+        "summary": "Create user availability schedule",
+        "description": "Create new schedule with specified rules, timezone, location, user and calendar associations.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScheduleDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Schedule created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation errors in schedule rules or conflicting data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/calendars/schedules/{id}/associations/{calendarId}": {
+      "put": {
+        "operationId": "add-calendar-to-schedule",
+        "summary": "Apply user availability schedule to a calendar",
+        "description": "Associates a calendar with the given schedule by adding the calendarId to a schedule",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the schedule",
+            "schema": {
+              "example": "IkqiJlXJ7o9h61tCHHod",
+              "type": "string"
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the team calendar to add to the schedule",
+            "schema": {
+              "example": "WvVX9LpvlBO6K506xLbp",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Calendar successfully added to schedule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Schedule and calendar must belong to the same location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schedule or calendar not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove-calendar-from-schedule",
+        "summary": "Remove user availability schedule from a calendar",
+        "description": "Removes the association between a team calendar and the given schedule by removing the calendarId from the schedule",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the schedule",
+            "schema": {
+              "example": "IkqiJlXJ7o9h61tCHHod",
+              "type": "string"
+            }
+          },
+          {
+            "name": "calendarId",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the calendar to remove from the schedule",
+            "schema": {
+              "example": "WvVX9LpvlBO6K506xLbp",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Calendar successfully removed from schedule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Schedule and calendar must belong to the same location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schedule or calendar not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Availability"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "calendars.write"
+            ]
+          }
+        ]
+      }
+    },
     "/calendars/": {
       "get": {
         "operationId": "get-calendars",
@@ -2977,6 +3625,10 @@
     },
     {
       "name": "Calendar Notifications",
+      "description": "Documentation for Calendars API"
+    },
+    {
+      "name": "Availability",
       "description": "Documentation for Calendars API"
     }
   ],
@@ -5423,7 +6075,8 @@
               "guest",
               "assignedUser",
               "emails",
-              "phoneNumbers"
+              "phoneNumbers",
+              "business"
             ]
           },
           "additionalEmailIds": {
@@ -5545,7 +6198,8 @@
               "guest",
               "assignedUser",
               "emails",
-              "phoneNumbers"
+              "phoneNumbers",
+              "business"
             ]
           },
           "channel": {
@@ -5636,7 +6290,12 @@
             }
           },
           "selectedUsers": {
-            "description": "selected user for in-App notification",
+            "description": "Selected users for in-App and business email notifications. Supports user IDs and special keyword \"sub_account_admin\"",
+            "example": [
+              "userId1",
+              "userId2",
+              "sub_account_admin"
+            ],
             "type": "array",
             "items": {
               "type": "string"
@@ -5672,7 +6331,8 @@
               "guest",
               "assignedUser",
               "emails",
-              "phoneNumbers"
+              "phoneNumbers",
+              "business"
             ]
           },
           "additionalEmailIds": {
@@ -5698,7 +6358,12 @@
             }
           },
           "selectedUsers": {
-            "description": "selected user for in-App notification",
+            "description": "Selected users for in-App and business email notifications. Supports user IDs and special keyword \"sub_account_admin\"",
+            "example": [
+              "userId1",
+              "userId2",
+              "sub_account_admin"
+            ],
             "type": "array",
             "items": {
               "type": "string"
@@ -5799,6 +6464,276 @@
         "required": [
           "message"
         ]
+      },
+      "ScheduleIntervalDTO": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "Start time in HH:MM format (24-hour format)",
+            "example": "09:00",
+            "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$"
+          },
+          "to": {
+            "type": "string",
+            "description": "End time in HH:MM format (24-hour format)",
+            "example": "17:00",
+            "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ]
+      },
+      "ScheduleRuleDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "wday",
+              "date"
+            ],
+            "description": "Type of schedule rule - weekday (recurring) or date (specific date)",
+            "example": "wday"
+          },
+          "intervals": {
+            "description": "Time intervals for the rule (e.g., 9 AM to 5 PM)",
+            "example": [
+              {
+                "from": "09:00",
+                "to": "17:00"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleIntervalDTO"
+            }
+          },
+          "date": {
+            "type": "string",
+            "description": "Specific date in YYYY-MM-DD format (only for date-type rules)",
+            "example": "2023-04-15",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "day": {
+            "type": "string",
+            "enum": [
+              "sunday",
+              "monday",
+              "tuesday",
+              "wednesday",
+              "thursday",
+              "friday",
+              "saturday"
+            ],
+            "description": "Day of week (only for weekday-type rules)",
+            "example": "monday"
+          }
+        },
+        "required": [
+          "type",
+          "intervals"
+        ]
+      },
+      "ScheduleObjectResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the schedule",
+            "example": "IkqiJlXJ7o9h61tCHHod"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name for the schedule",
+            "example": "Business Hours Schedule"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID where this schedule applies",
+            "example": "IkqiJlXJ7o9h61tCHHod"
+          },
+          "rules": {
+            "description": "Schedule rules defining when the schedule is active",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleRuleDTO"
+            }
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone for the schedule (IANA timezone identifier)",
+            "example": "America/New_York"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "ISO date string when the schedule was created",
+            "example": "2023-01-15T10:30:00.000Z"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "ISO date string when the schedule was last updated",
+            "example": "2023-01-20T14:45:00.000Z"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID associated with the schedule",
+            "example": "IkqiJlXJ7o9h61tCHHod"
+          },
+          "calendarIds": {
+            "description": "Calendar IDs associated with the schedule",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the schedule has been deleted",
+            "example": false
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "locationId",
+          "rules",
+          "timezone",
+          "dateAdded",
+          "dateUpdated",
+          "userId",
+          "deleted"
+        ]
+      },
+      "GetAllSchedulesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "schedules": {
+            "description": "Array of schedules",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleObjectResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "schedules"
+        ]
+      },
+      "ScheduleResponseDTO": {
+        "type": "object",
+        "properties": {
+          "schedule": {
+            "description": "Schedule",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleObjectResponseDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "schedule"
+        ]
+      },
+      "CreateScheduleDTO": {
+        "type": "object",
+        "properties": {
+          "rules": {
+            "description": "Schedule rules defining when the schedule is active",
+            "example": [
+              {
+                "type": "wday",
+                "day": "monday",
+                "intervals": [
+                  {
+                    "from": "09:00",
+                    "to": "17:00"
+                  }
+                ]
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleRuleDTO"
+            }
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone for the schedule (IANA timezone identifier)",
+            "example": "America/New_York",
+            "pattern": "^[A-Za-z_]+/[A-Za-z_]+$"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID where this schedule applies",
+            "example": "IkqiJlXJ7o9h61tCHHod"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name for the schedule",
+            "example": "Business Hours Schedule"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID associated with the schedule",
+            "example": "IkqiJlXJ7o9h61tCHHod"
+          },
+          "calendarIds": {
+            "description": "Calendar IDs associated with the schedule",
+            "example": [
+              "WvVX9LpvlBO6K506xLbp",
+              "XyZ8MnQrStUvWxYzAbCdEf"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "timezone",
+          "locationId",
+          "name",
+          "userId"
+        ]
+      },
+      "UpdateScheduleDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable name for the schedule",
+            "example": "Updated Business Hours"
+          },
+          "rules": {
+            "description": "Updated schedule rules defining when the schedule is active",
+            "example": [
+              {
+                "type": "wday",
+                "day": "monday",
+                "intervals": [
+                  {
+                    "from": "08:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleRuleDTO"
+            }
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Updated timezone for the schedule (IANA timezone identifier)",
+            "example": "America/Los_Angeles",
+            "pattern": "^[A-Za-z_]+/[A-Za-z_]+$"
+          }
+        }
       }
     }
   },
@@ -5810,7 +6745,8 @@
       "Calendar Events",
       "Appointment Notes",
       "Calendar Resources: Rooms & Equipments",
-      "Calendar Notifications"
+      "Calendar Notifications",
+      "Availability"
     ]
   }
 }

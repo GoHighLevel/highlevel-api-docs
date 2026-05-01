@@ -1,0 +1,2608 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/knowledge-bases/faqs": {
+      "get": {
+        "operationId": "list",
+        "summary": "Get all FAQs by knowledge base with pagination support",
+        "description": "Retrieves FAQs for a knowledge base. Supports pagination using limit and lastFaqId parameters.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "knowledgeBaseId",
+            "required": true,
+            "in": "query",
+            "description": "knowledge base ID as string",
+            "schema": {
+              "example": "710KoEzy793Fxubft0bc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location ID as string",
+            "schema": {
+              "example": "qDZpF8GH3qvgJTmKCoL",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Limit the number of FAQs returned",
+            "schema": {
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "lastFaqId",
+            "required": false,
+            "in": "query",
+            "description": "Last FAQ ID for pagination (cursor-based)",
+            "schema": {
+              "example": "3rzeElC1FOVY91veVBkp",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "FAQs retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListFaqsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Faqs"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create",
+        "summary": "Create a new FAQ inside knowledge base",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFaqDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "FAQ created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateFaqResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Faqs"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/faqs/{id}": {
+      "put": {
+        "operationId": "update",
+        "summary": "Update an existing knowledge base FAQ",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "faq ID as string",
+            "schema": {
+              "example": "710KoEzy793Fxubft0bc",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFaqBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "FAQ updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateFaqResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Faqs"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete",
+        "summary": "Delete an existing knowledge base FAQ",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "faq ID as string",
+            "schema": {
+              "example": "710KoEzy793Fxubft0bc",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "FAQ deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteFaqResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Faqs"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/crawler": {
+      "get": {
+        "operationId": "getAllWebsiteUrlsDataByKnowledgeBase",
+        "summary": "Get all trained page links by knowledge base",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "knowledgeBaseId",
+            "required": true,
+            "in": "query",
+            "description": "knowledge base ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageLength",
+            "required": false,
+            "in": "query",
+            "description": "Records per page",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "query to filter on url links",
+            "schema": {
+              "example": "www.example.com/",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trained page links retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllUrlsByKnowledgeBaseResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Web Crawler"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "discoverWebsite",
+        "summary": "Start crawling and discover pages for training",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscoverWebsiteRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Crawling and discovery started successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoverWebsiteResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Web Crawler"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteTrainedUrlsForKnowledgeBase",
+        "summary": "Delete trained pages",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWebsiteUrlRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Selected pages deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteWebsiteUrlResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Web Crawler"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/crawler/status": {
+      "get": {
+        "operationId": "getCrawlingStatusForLatestOperation",
+        "summary": "Get crawling status for the latest operation",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "operationId",
+            "required": true,
+            "in": "query",
+            "description": "operation id as string",
+            "schema": {
+              "example": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "knowledgeBaseId",
+            "required": true,
+            "in": "query",
+            "description": "knowledge base id",
+            "schema": {
+              "example": "jjkkxftgvbhjmn,",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation status fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrawlingStatusResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Web Crawler"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/crawler/train": {
+      "post": {
+        "operationId": "trainDiscoveredUrls",
+        "summary": "Train discovered website pages and ingest into the knowledge base",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrainDiscoveredUrlsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pages trained successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainDiscoveredUrlsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Web Crawler"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/{knowledgeBaseId}": {
+      "get": {
+        "operationId": "getKnowledgeBaseById",
+        "summary": "Get knowledge base by ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "knowledgeBaseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Knowledge base by ID retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetKnowledgeBaseByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Knowledge Base"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteKnowledgeBase",
+        "summary": "Delete a knowledge base",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "knowledgeBaseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Knowledge base deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteKnowledgeBaseResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Knowledge Base"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/{id}": {
+      "put": {
+        "operationId": "updateKnowledgeBase",
+        "summary": "Update a knowledge base",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateKnowledgeBaseDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Knowledge base updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateKnowledgeBaseResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Knowledge Base"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/knowledge-bases/": {
+      "get": {
+        "operationId": "listAllKnowledgeBasesPaginated",
+        "summary": "Get all knowledge bases for a location by location Id (paginated)",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "search query for knowledge base name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of knowledge bases to return",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "lastKnowledgeBaseId",
+            "required": false,
+            "in": "query",
+            "description": "ID of the last knowledge base from the previous page (for pagination)",
+            "schema": {
+              "example": "ZwTB8S0yo0FIBY6OPZTD",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated knowledge bases retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllKnowledgeBasesPaginatedResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Knowledge Base"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createKnowledgeBase",
+        "summary": "Create a new knowledge base (max 15 knowledge bases per location)",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer 9c48df2694a849b6089f9d0d3513efe"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKnowledgeBaseDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Knowledge base created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateKnowledgeBaseResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Knowledge Base"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Knowledge Base API",
+    "description": "Documentation for Knowledge Base API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Knowledge Base",
+      "description": "Documentation for Knowledge Base API"
+    },
+    {
+      "name": "Web Crawler",
+      "description": "Documentation for Knowledge Base API"
+    },
+    {
+      "name": "Faqs",
+      "description": "Documentation for Knowledge Base API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "BadRequestDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        }
+      },
+      "UnauthorizedDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid token: access token is invalid"
+          },
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "UnprocessableDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 422
+          },
+          "message": {
+            "example": [
+              "Unprocessable Entity"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "error": {
+            "type": "string",
+            "example": "Unprocessable Entity"
+          }
+        }
+      },
+      "InternalServerErrorDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 500
+          },
+          "message": {
+            "type": "string",
+            "example": "Internal Server Error"
+          }
+        }
+      },
+      "FaqResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "FAQ ID as string",
+            "example": "3rzeElC1FOVY91veVBkp"
+          },
+          "question": {
+            "type": "string",
+            "description": "FAQ question",
+            "example": "What is 1+2?"
+          },
+          "questionLowerCase": {
+            "type": "string",
+            "description": "FAQ question in lowercase",
+            "example": "what is 1+2?"
+          },
+          "answer": {
+            "type": "string",
+            "description": "FAQ answer",
+            "example": "3"
+          },
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "Knowledge base ID",
+            "example": "I1rITlYLJofFosIqC4Np"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "qIyivCmsuEOSnyoFYEej"
+          },
+          "trainedUrlId": {
+            "type": "string",
+            "description": "Trained URL ID",
+            "example": "688e6b6d8a1887e6d94d1475"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the FAQ is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date when FAQ was created",
+            "example": "2025-08-02T19:47:57.243Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date when FAQ was last updated",
+            "example": "2025-08-02T19:47:57.243Z"
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "questionLowerCase",
+          "answer",
+          "knowledgeBaseId",
+          "locationId",
+          "trainedUrlId",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListFaqsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "description": "Total count of all FAQs in the knowledge base",
+            "example": 150
+          },
+          "faqs": {
+            "description": "Array of FAQ objects",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FaqResponseDTO"
+            }
+          },
+          "lastFaqId": {
+            "type": "string",
+            "description": "Last FAQ ID for pagination (use as lastFaqId in next request)",
+            "example": "3rzeElC1FOVY91veVBkp"
+          },
+          "hasMore": {
+            "type": "boolean",
+            "description": "Whether there are more FAQs available",
+            "example": true
+          }
+        },
+        "required": [
+          "count",
+          "faqs"
+        ]
+      },
+      "AddFaqDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "location ID as string",
+            "example": "HqDZpF8GH3qvgJTmKCoL"
+          },
+          "question": {
+            "type": "string",
+            "description": "faq question as a string",
+            "example": "What is the capital of France?"
+          },
+          "answer": {
+            "type": "string",
+            "description": "faq answer as a string",
+            "example": "The capital of France is Paris."
+          },
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "knowledge base ID as string",
+            "example": "710KoEzy793Fxubft0bc"
+          }
+        },
+        "required": [
+          "locationId",
+          "question",
+          "answer",
+          "knowledgeBaseId"
+        ]
+      },
+      "CreateFaqResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the operation",
+            "example": true
+          },
+          "faq": {
+            "description": "Created FAQ details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FaqResponseDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "faq"
+        ]
+      },
+      "UpdateFaqBodyDTO": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "faq question as a string",
+            "example": "What is the capital of France?"
+          },
+          "answer": {
+            "type": "string",
+            "description": "faq answer as a string",
+            "example": "The capital of France is Paris."
+          }
+        },
+        "required": [
+          "question",
+          "answer"
+        ]
+      },
+      "UpdateFaqResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the update operation",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "DeleteFaqResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the delete operation",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "CrawledUrlDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the URL",
+            "example": "688c73a25275c513f5f3a7de"
+          },
+          "url": {
+            "type": "string",
+            "description": "The actual URL that was crawled",
+            "example": "https://developer.mozilla.org/en-US/blog"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the webpage",
+            "example": "MDN Blog"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current processing status of the URL",
+            "example": "Successful",
+            "enum": [
+              "Pending",
+              "Processing",
+              "Successful",
+              "Failed",
+              "Existing",
+              "Restricted",
+              "Cancelled",
+              "Aborted",
+              "Training"
+            ]
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID associated with this URL",
+            "example": "qIyivCmsuEOSnyoFYEej"
+          },
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "Knowledge base ID this URL belongs to",
+            "example": "Arc9QRauPKkSuMJO8D0m"
+          },
+          "content": {
+            "type": "string",
+            "description": "URL to the stored content file",
+            "example": "https://storage.googleapis.com/crm-conversations-ai-staging/conversationAI/2025/8/1/locations/qIyivCmsuEOSnyoFYEej/688c739c88c89f21ad30f63e-4IseusbZ3vDXMT8WNw9M.txt"
+          },
+          "contentEditedByUser": {
+            "type": "boolean",
+            "description": "Whether the content was edited by user",
+            "example": false
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2025-08-01T07:58:29.858Z"
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "title",
+          "status",
+          "locationId",
+          "knowledgeBaseId",
+          "content",
+          "contentEditedByUser",
+          "updatedAt"
+        ]
+      },
+      "GetAllUrlsByKnowledgeBaseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "description": "Total count of URLs in the knowledge base",
+            "example": 64
+          },
+          "urls": {
+            "description": "Array of crawled URLs with their details",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CrawledUrlDTO"
+            }
+          }
+        },
+        "required": [
+          "count",
+          "urls"
+        ]
+      },
+      "ErrorDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "stack": {
+            "type": "string",
+            "description": "Error stack trace",
+            "example": "HttpException: Failed to fetch HTML content\n    at getHtml (/app/dist/apps/conversations-ai/crm-conversations-ai-discover-worker.js:2531:15)"
+          },
+          "response": {
+            "type": "string",
+            "description": "Error response message",
+            "example": "Failed to fetch HTML content"
+          },
+          "status": {
+            "type": "number",
+            "description": "HTTP status code",
+            "example": 500
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options (nullable)",
+            "example": null
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Failed to fetch HTML content"
+          },
+          "name": {
+            "type": "string",
+            "description": "Error name/type",
+            "example": "HttpException"
+          }
+        },
+        "required": [
+          "stack",
+          "response",
+          "status",
+          "message",
+          "name"
+        ]
+      },
+      "CrawlingRecordDTO": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL being crawled",
+            "example": "https://developer.mozilla.org/en-US/blog/rss.xml"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique record identifier",
+            "example": "688e41118a188704914d13c0"
+          },
+          "title": {
+            "type": "string",
+            "description": "Page title (for successful/pending records)",
+            "example": "JavaScript Temporal is coming | MDN Blog"
+          },
+          "error": {
+            "description": "Error details (for failed records)",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetailsDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "url",
+          "id"
+        ]
+      },
+      "CrawlingAggregateDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Status grouping identifier",
+            "example": "Failed",
+            "enum": [
+              "Pending",
+              "Processing",
+              "Successful",
+              "Failed",
+              "Existing",
+              "Restricted",
+              "Cancelled",
+              "Aborted",
+              "Training"
+            ]
+          },
+          "records": {
+            "description": "Array of records for this status",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CrawlingRecordDTO"
+            }
+          }
+        },
+        "required": [
+          "_id",
+          "records"
+        ]
+      },
+      "OperationDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "discoveredUrlsCount": {
+            "type": "number",
+            "description": "Number of URLs discovered",
+            "example": 66
+          },
+          "trainedUrlsCount": {
+            "type": "number",
+            "description": "Number of URLs successfully trained",
+            "example": 0
+          },
+          "_id": {
+            "type": "string",
+            "description": "Operation unique identifier",
+            "example": "688e410c8a18870ecf4d13bb"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Associated location ID",
+            "example": "nnAzVJqSv6PJ1p6zrhvC"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current operation status",
+            "example": "Pending",
+            "enum": [
+              "Pending",
+              "Processing",
+              "Successful",
+              "Failed",
+              "Existing",
+              "Restricted",
+              "Cancelled",
+              "Aborted",
+              "Training"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "description": "Base URL being crawled",
+            "example": "https://developer.mozilla.org/en-US/blog/"
+          },
+          "mode": {
+            "type": "string",
+            "description": "Crawling mode used",
+            "example": "Path",
+            "enum": [
+              "Exact",
+              "Path",
+              "Domain"
+            ]
+          },
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "Knowledge base ID",
+            "example": "CCNPhKqSCkTOG8O7dtbq"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Operation creation timestamp",
+            "example": "2025-08-02T16:47:08.182Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2025-08-02T16:48:43.635Z"
+          },
+          "__v": {
+            "type": "number",
+            "description": "Version field",
+            "example": 0
+          },
+          "robotsFileData": {
+            "type": "string",
+            "description": "Robots.txt file content",
+            "example": "User-agent: *\nSitemap: https://developer.mozilla.org/sitemap.xml\nDisallow: /api/"
+          }
+        },
+        "required": [
+          "discoveredUrlsCount",
+          "trainedUrlsCount",
+          "_id",
+          "locationId",
+          "status",
+          "url",
+          "mode",
+          "knowledgeBaseId",
+          "createdAt",
+          "updatedAt",
+          "__v"
+        ]
+      },
+      "CrawlingStatusDataDTO": {
+        "type": "object",
+        "properties": {
+          "aggregate": {
+            "description": "Aggregated crawling results by status",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CrawlingAggregateDTO"
+            }
+          },
+          "operationDetails": {
+            "description": "Detailed operation information",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OperationDetailsDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "aggregate",
+          "operationDetails"
+        ]
+      },
+      "CrawlingStatusResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful",
+            "example": true
+          },
+          "data": {
+            "description": "Detailed crawling status data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CrawlingStatusDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "data"
+        ]
+      },
+      "DiscoverWebsiteRequestDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "url": {
+            "type": "string",
+            "description": "Website URL as string",
+            "example": "https://kubernetes.io/tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "option": {
+            "type": "string",
+            "description": "Mode as string",
+            "example": "Exact",
+            "enum": [
+              "Exact",
+              "Path",
+              "Domain"
+            ]
+          },
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "knowledge base ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          }
+        },
+        "required": [
+          "locationId",
+          "url",
+          "option",
+          "knowledgeBaseId"
+        ]
+      },
+      "DiscoverWebsiteDataDTO": {
+        "type": "object",
+        "properties": {
+          "operationId": {
+            "type": "string",
+            "description": "Operation ID for tracking the discovery process",
+            "example": "688e410c8a18870ecf4d13bb"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the website discovery operation",
+            "example": "Processing",
+            "enum": [
+              "Pending",
+              "Processing",
+              "Successful",
+              "Failed",
+              "Existing",
+              "Restricted",
+              "Cancelled",
+              "Aborted",
+              "Training"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL being discovered/crawled",
+            "example": "https://developer.mozilla.org/en-US/blog/"
+          }
+        },
+        "required": [
+          "operationId",
+          "status",
+          "url"
+        ]
+      },
+      "DiscoverWebsiteResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful",
+            "example": true
+          },
+          "data": {
+            "description": "Data containing operation details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DiscoverWebsiteDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "data"
+        ]
+      },
+      "TrainDiscoveredUrlsDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "urlIds": {
+            "description": "List of Object ids of the discovered urls",
+            "example": [
+              "688b640bcb02d498102a13ec",
+              "688b640bcb02d498102a13ea"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "knowledge base id",
+            "example": "jjkkxftgvbhjmn,"
+          },
+          "operationId": {
+            "type": "string",
+            "description": "operation id as string",
+            "example": "688b640bcb02d498102a13f0,"
+          }
+        },
+        "required": [
+          "locationId",
+          "urlIds",
+          "knowledgeBaseId",
+          "operationId"
+        ]
+      },
+      "TrainDiscoveredUrlsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "DeleteWebsiteUrlRequestDTO": {
+        "type": "object",
+        "properties": {
+          "knowledgeBaseId": {
+            "type": "string",
+            "description": "knowledge base ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "location ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "urlIds": {
+            "description": "List of trained urls ids ( fetched from the Get all trained page links by knowledge base endpoint)",
+            "example": "[tDtDnQdgm2LXpyiqYvZ6]",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "knowledgeBaseId",
+          "locationId",
+          "urlIds"
+        ]
+      },
+      "DeleteWebsiteUrlResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "KnowledgeBaseListItemDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Knowledge base ID",
+            "example": "ZwTB8S0yo0FIBY6OPZTD"
+          },
+          "name": {
+            "type": "string",
+            "description": "Knowledge base name",
+            "example": "bot training kb"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date when knowledge base was created",
+            "example": "2025-08-02T20:26:57.057Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt"
+        ]
+      },
+      "GetAllKnowledgeBasesPaginatedDataDTO": {
+        "type": "object",
+        "properties": {
+          "knowledgeBases": {
+            "description": "Array of knowledge bases",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeBaseListItemDTO"
+            }
+          },
+          "activeCount": {
+            "type": "number",
+            "description": "Total count of all active knowledge bases",
+            "example": 16
+          },
+          "hasMore": {
+            "type": "boolean",
+            "description": "Whether there are more knowledge bases available",
+            "example": true
+          },
+          "lastKnowledgeBaseId": {
+            "type": "string",
+            "description": "ID of the last knowledge base in this page (use for next page request)",
+            "example": "ZwTB8S0yo0FIBY6OPZTD"
+          }
+        },
+        "required": [
+          "knowledgeBases",
+          "activeCount",
+          "hasMore"
+        ]
+      },
+      "GetAllKnowledgeBasesPaginatedResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the operation",
+            "example": true
+          },
+          "data": {
+            "description": "Paginated knowledge bases data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetAllKnowledgeBasesPaginatedDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "data"
+        ]
+      },
+      "KnowledgeBaseMetadataDTO": {
+        "type": "object",
+        "properties": {
+          "faqs": {
+            "type": "number",
+            "description": "Number of FAQs in the knowledge base",
+            "example": 2
+          },
+          "urls": {
+            "type": "number",
+            "description": "Number of URLs in the knowledge base",
+            "example": 64
+          },
+          "richText": {
+            "type": "number",
+            "description": "Number of rich text documents in the knowledge base",
+            "example": 0
+          },
+          "files": {
+            "type": "number",
+            "description": "Number of files in the knowledge base",
+            "example": 0
+          },
+          "webSearches": {
+            "type": "number",
+            "description": "Number of web searche configs in the knowledge base",
+            "example": 0
+          },
+          "tables": {
+            "type": "number",
+            "description": "Number of tables in the knowledge base",
+            "example": 0
+          }
+        },
+        "required": [
+          "faqs",
+          "urls",
+          "richText",
+          "files",
+          "webSearches",
+          "tables"
+        ]
+      },
+      "GetKnowledgeBaseByIdDataDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Knowledge base ID",
+            "example": "Arc9QRauPKkSuMJO8D0m"
+          },
+          "name": {
+            "type": "string",
+            "description": "Knowledge base name",
+            "example": "KB for Bot Training"
+          },
+          "nameLowerCase": {
+            "type": "string",
+            "description": "Knowledge base name in lowercase",
+            "example": "kb for bot training"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "qIyivCmsuEOSnyoFYEej"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the knowledge base is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date when knowledge base was created",
+            "example": "2025-08-01T07:50:41.244Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date when knowledge base was last updated",
+            "example": "2025-08-01T10:05:58.694Z"
+          },
+          "kbMetadata": {
+            "description": "Knowledge base metadata with content counts",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseMetadataDTO"
+              }
+            ]
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "Whether the knowledge base is default or not",
+            "example": false
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "nameLowerCase",
+          "locationId",
+          "deleted",
+          "createdAt",
+          "updatedAt",
+          "kbMetadata"
+        ]
+      },
+      "GetKnowledgeBaseByIdResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the operation",
+            "example": true
+          },
+          "data": {
+            "description": "Knowledge base details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetKnowledgeBaseByIdDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "data"
+        ]
+      },
+      "CreateKnowledgeBaseDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "locationId"
+        ]
+      },
+      "KnowledgeBaseDataDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Knowledge base ID",
+            "example": "ZwTB8S0yo0FIBY6OPZTD"
+          },
+          "name": {
+            "type": "string",
+            "description": "Knowledge base name",
+            "example": "KB for Bot Training"
+          },
+          "nameLowerCase": {
+            "type": "string",
+            "description": "Knowledge base name in lowercase",
+            "example": "kb for bot training"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "qIyivCmsuEOSnyoFYEej"
+          },
+          "kbMetadata": {
+            "type": "object",
+            "description": "Knowledge base metadata",
+            "example": {}
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the knowledge base is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date when knowledge base was created",
+            "example": "2025-08-02T20:26:57.057Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date when knowledge base was last updated",
+            "example": "2025-08-02T20:26:57.057Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "nameLowerCase",
+          "locationId",
+          "kbMetadata",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateKnowledgeBaseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the operation",
+            "example": true
+          },
+          "data": {
+            "description": "Created knowledge base details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgeBaseDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "data"
+        ]
+      },
+      "UpdateKnowledgeBaseDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "field to update the name of the knowledge base"
+          },
+          "description": {
+            "type": "string",
+            "description": "field to update the description of the knowledge base"
+          }
+        }
+      },
+      "UpdateKnowledgeBaseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "DeleteKnowledgeBaseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Knowledge Base",
+    "tags": ["Knowledge Base", "Faqs", "Web Crawler"]
+  }
+}

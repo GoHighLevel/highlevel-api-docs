@@ -1,6 +1,151 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/opportunities/lost-reason": {
+      "get": {
+        "operationId": "get-lost-reason",
+        "summary": "Get lost reason",
+        "description": "Get lost reason",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "lost reason name",
+            "schema": {
+              "example": "lost reason",
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleted",
+            "required": false,
+            "in": "query",
+            "description": "deleted",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "search query",
+            "schema": {
+              "example": "dentist",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "skip",
+            "schema": {
+              "default": 0,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "limit",
+            "schema": {
+              "default": 100,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "getCount",
+            "required": false,
+            "in": "query",
+            "description": "get count",
+            "schema": {
+              "example": "field",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LostReasonsResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Lost reason"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      }
+    },
     "/opportunities/search": {
       "get": {
         "operationId": "search-opportunity",
@@ -194,8 +339,8 @@
             "required": false,
             "in": "query",
             "description": "get Tasks in contact",
-            "example": false,
             "schema": {
+              "example": false,
               "type": "boolean"
             }
           },
@@ -204,8 +349,8 @@
             "required": false,
             "in": "query",
             "description": "get Notes in contact",
-            "example": false,
             "schema": {
+              "example": false,
               "type": "boolean"
             }
           },
@@ -215,6 +360,7 @@
             "in": "query",
             "description": "get Calender event in contact",
             "schema": {
+              "example": false,
               "type": "boolean"
             }
           }
@@ -226,6 +372,91 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SearchSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "search-opportunities-advanced",
+        "summary": "Search Opportunities",
+        "description": "Search Opportunities based on combinations of advanced filters. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-424216/7bf11bc9b94f80f",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-424216/7bf11bc9b94f80f",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpportunitySearchBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostSearchSuccessfulResponseDto"
                 }
               }
             }
@@ -295,8 +526,8 @@
             "name": "locationId",
             "required": true,
             "in": "query",
-            "example": "ve9EPM428h8vShlRW1KT",
             "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
               "type": "string"
             }
           }
@@ -368,8 +599,8 @@
             "required": true,
             "in": "path",
             "description": "Opportunity Id",
-            "example": "yWQobCRIhRguQtD2llvk",
             "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
               "type": "string"
             }
           }
@@ -449,8 +680,8 @@
             "required": true,
             "in": "path",
             "description": "Opportunity Id",
-            "example": "yWQobCRIhRguQtD2llvk",
             "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
               "type": "string"
             }
           }
@@ -530,8 +761,8 @@
             "required": true,
             "in": "path",
             "description": "Opportunity Id",
-            "example": "yWQobCRIhRguQtD2llvk",
             "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
               "type": "string"
             }
           }
@@ -623,8 +854,8 @@
             "required": true,
             "in": "path",
             "description": "Opportunity Id",
-            "example": "yWQobCRIhRguQtD2llvk",
             "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
               "type": "string"
             }
           }
@@ -799,8 +1030,8 @@
             "required": true,
             "in": "path",
             "description": "Opportunity Id",
-            "example": "sx6wyHhbFdRXh302Lunr",
             "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
               "type": "string"
             }
           }
@@ -871,7 +1102,7 @@
       "delete": {
         "operationId": "remove-followers-opportunity",
         "summary": "Remove Followers",
-        "description": "Remove Followers",
+        "description": "Allows removal of one or all followers from an opportunity.",
         "parameters": [
           {
             "name": "Version",
@@ -890,9 +1121,18 @@
             "required": true,
             "in": "path",
             "description": "Opportunity Id",
-            "example": "sx6wyHhbFdRXh302Lunr",
             "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
               "type": "string"
+            }
+          },
+          {
+            "name": "isRemoveAllFollowers",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": false,
+              "type": "boolean"
             }
           }
         ],
@@ -908,7 +1148,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Followers successfully removed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1072,6 +1312,10 @@
       "description": "Documentation for Opportunities API"
     },
     {
+      "name": "Lost reason",
+      "description": "Documentation for Opportunities API"
+    },
+    {
       "name": "Followers",
       "description": "Documentation for Opportunities API"
     }
@@ -1114,9 +1358,64 @@
         "in": "header",
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
         "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
       }
     },
     "schemas": {
+      "LostReasonResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "lost reason id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "lost reason name",
+            "example": "lost reason"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "location id",
+            "example": "location_id"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "updated at",
+            "example": "2023-06-19T12:04:22.488Z"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "created at",
+            "example": "2023-06-19T12:04:22.488Z"
+          }
+        }
+      },
+      "LostReasonsResponseSchema": {
+        "type": "object",
+        "properties": {
+          "lostReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LostReasonResponseSchema"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 100
+          }
+        }
+      },
       "SearchOpportunitiesContactResponseSchema": {
         "type": "object",
         "properties": {
@@ -1257,20 +1556,24 @@
           "notes": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "array"
             }
           },
           "tasks": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "array"
             }
           },
           "calendarEvents": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "array"
             }
+          },
+          "lostReasonId": {
+            "type": "string",
+            "example": "zT46WSCPbudrq4zhWMk6"
           },
           "customFields": {
             "type": "array",
@@ -1283,6 +1586,9 @@
             "items": {
               "type": "array"
             }
+          },
+          "externalObjectId": {
+            "type": "string"
           }
         }
       },
@@ -1336,6 +1642,86 @@
           }
         }
       },
+      "AdditionalDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "notes": {
+            "type": "boolean"
+          },
+          "tasks": {
+            "type": "boolean"
+          },
+          "calendarEvents": {
+            "type": "boolean"
+          },
+          "unReadConversations": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "notes",
+          "tasks",
+          "calendarEvents",
+          "unReadConversations"
+        ]
+      },
+      "OpportunitySearchBodyDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "i2SpAtBVHSVea1sL6oah"
+          },
+          "query": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "page": {
+            "type": "number"
+          },
+          "searchAfter": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalDetails": {
+            "$ref": "#/components/schemas/AdditionalDetailsDTO"
+          }
+        },
+        "required": [
+          "locationId",
+          "query",
+          "limit",
+          "page",
+          "searchAfter",
+          "additionalDetails"
+        ]
+      },
+      "PostSearchSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "opportunities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchOpportunitiesResponseSchema"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "aggregations": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "total"
+        ]
+      },
       "PipelinesResponseSchema": {
         "type": "object",
         "properties": {
@@ -1364,6 +1750,15 @@
           "locationId": {
             "type": "string",
             "example": "dsjddjkndadqaja"
+          },
+          "colorRenderMode": {
+            "type": "string",
+            "enum": [
+              "dot",
+              "bg-tint",
+              "none"
+            ],
+            "description": "How pipeline/stage colors are rendered"
           }
         }
       },
@@ -1407,6 +1802,11 @@
               "abandoned",
               "all"
             ]
+          },
+          "lostReasonId": {
+            "type": "string",
+            "description": "lost reason Id",
+            "example": "CLu7BaljjqrEjBGKTNNe"
           }
         },
         "required": [
@@ -1602,6 +2002,11 @@
       "UpsertOpportunityDto": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "opportunityId",
+            "example": "yWQobCRIhRguQtD2llvk"
+          },
           "pipelineId": {
             "type": "string",
             "description": "pipeline Id",
@@ -1612,10 +2017,27 @@
             "description": "locationId",
             "example": "CLu7BaljjqrEjBGKTNNe"
           },
-          "contactId": {
-            "type": "string",
+          "followers": {
             "description": "contactId",
-            "example": "LiKJ2vnRg5ETM8Z19K7"
+            "example": "LiKJ2vnRg5ETM8Z19K7",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isRemoveAllFollowers": {
+            "type": "boolean",
+            "description": "isRemoveAllFollowers",
+            "example": true
+          },
+          "followersActionType": {
+            "type": "string",
+            "description": "followers action type",
+            "enum": [
+              "add",
+              "remove"
+            ],
+            "example": "add"
           },
           "name": {
             "type": "string",
@@ -1637,18 +2059,25 @@
             "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10"
           },
           "monetaryValue": {
-            "type": "number",
+            "type": "object",
             "example": 220
           },
           "assignedTo": {
             "type": "string",
             "example": "082goXVW3lIExEQPOnd3"
+          },
+          "lostReasonId": {
+            "type": "string",
+            "description": "lost reason Id",
+            "example": "CLu7BaljjqrEjBGKTNNe"
           }
         },
         "required": [
           "pipelineId",
           "locationId",
-          "contactId"
+          "followers",
+          "isRemoveAllFollowers",
+          "followersActionType"
         ]
       },
       "UpsertOpportunitySuccessfulResponseDto": {
@@ -1746,6 +2175,7 @@
       "Pipelines",
       "Export",
       "Pipiline Search",
+      "Lost reason",
       "Followers"
     ]
   }

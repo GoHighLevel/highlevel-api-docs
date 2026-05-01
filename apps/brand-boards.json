@@ -1,0 +1,995 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/brand-boards/{locationId}": {
+      "get": {
+        "operationId": "getBrandBoardsByLocation",
+        "summary": "Get Brand Boards",
+        "description": "Retrieves all Brand Boards for a specific location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of brand boards to return",
+            "schema": {
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of brand boards to skip for pagination",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term to filter brand boards by name",
+            "schema": {
+              "default": "",
+              "example": "brandboard",
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleted",
+            "required": false,
+            "in": "query",
+            "description": "Include deleted brand boards in results",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-07-28"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardsByLocationSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": ["brand-boards/design-kit.readonly"]
+          }
+        ],
+        "tags": ["Brand Boards"]
+      }
+    },
+    "/brand-boards/{locationId}/{id}": {
+      "get": {
+        "operationId": "getBrandBoardById",
+        "summary": "Get Brand Board",
+        "description": "Retrieves a specific Brand Board by its ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand board exists",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Brand board ID to update, retrieve, or delete",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-07-28"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": ["brand-boards/design-kit.readonly"]
+          }
+        ],
+        "tags": ["Brand Boards"]
+      },
+      "patch": {
+        "operationId": "updateBrandBoard",
+        "summary": "Update a Brand Board",
+        "description": "Updates an existing Brand Board",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand board exists",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Brand board ID to update, retrieve, or delete",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-07-28"]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBrandBoardBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": ["brand-boards/design-kit.write"]
+          }
+        ],
+        "tags": ["Brand Boards"]
+      },
+      "delete": {
+        "operationId": "deleteBrandBoard",
+        "summary": "Delete a Brand Board",
+        "description": "Deletes a Brand Board",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand board exists",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Brand board ID to update, retrieve, or delete",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-07-28"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": ["brand-boards/design-kit.write"]
+          }
+        ],
+        "tags": ["Brand Boards"]
+      }
+    },
+    "/brand-boards/": {
+      "post": {
+        "operationId": "createBrandBoard",
+        "summary": "Create a new brand board",
+        "description": "Creates a new brand board with logos, colors, and fonts",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["2021-07-28"]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBrandBoardParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": ["brand-boards/design-kit.write"]
+          }
+        ],
+        "tags": ["Brand Boards"]
+      }
+    }
+  },
+  "info": {
+    "title": "Brand Boards API",
+    "description": "Documentation for Brand Boards API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Brand Boards",
+      "description": "Documentation for Brand Boards API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "Logo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the logo",
+            "example": "logo_abc123"
+          },
+          "url": {
+            "type": "string",
+            "description": "Public URL of the logo image. Used for uploading to the brand board folder in media library",
+            "example": "https://storage.googleapis.com/bucket/logos/my-logo.png"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the logo (e.g., Primary, Secondary)",
+            "example": "Primary Logo"
+          },
+          "path": {
+            "type": "string",
+            "description": "Storage path of the logo in the media library",
+            "example": "/locations/ve9EPM428h8vShlRW1KT/logos/my-logo.png"
+          }
+        },
+        "required": ["id", "url", "label", "path"]
+      },
+      "Color": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the color",
+            "example": "color_xyz789"
+          },
+          "hexa": {
+            "type": "string",
+            "description": "Color in HEXA format (with alpha)",
+            "example": "#FF5733FF"
+          },
+          "rgba": {
+            "type": "string",
+            "description": "Color in RGBA format",
+            "example": "rgba(255, 87, 51, 1)"
+          },
+          "hex": {
+            "type": "string",
+            "description": "Color in HEX format",
+            "example": "#FF5733"
+          },
+          "rgb": {
+            "type": "string",
+            "description": "Color in RGB format",
+            "example": "rgb(255, 87, 51)"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the color",
+            "example": "Brand Orange"
+          }
+        },
+        "required": ["id", "hexa", "rgba", "hex", "rgb", "label"]
+      },
+      "Font": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the font",
+            "example": "font_def456"
+          },
+          "font": {
+            "type": "string",
+            "description": "Font family name",
+            "example": "Montserrat"
+          },
+          "fallback": {
+            "type": "string",
+            "description": "Fallback font family",
+            "example": "sans-serif"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the font",
+            "example": "Heading Font"
+          }
+        },
+        "required": ["id", "font", "fallback", "label"]
+      },
+      "CreateBrandBoardParam": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID where the brand board will be created",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the brand board",
+            "example": "My Brand Board"
+          },
+          "logos": {
+            "description": "Array of logos for the brand board",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Logo"
+            }
+          },
+          "colors": {
+            "description": "Array of colors for the brand board",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          "fonts": {
+            "description": "Array of fonts for the brand board",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Font"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Set as the default brand board for this location",
+            "example": true
+          },
+          "brandBoardId": {
+            "type": "string",
+            "description": "Source brand board ID to copy from (creates a new brand board based on this template)",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent folder ID in media library for organizing brand boards",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "type": {
+            "type": "string",
+            "description": "Source type indicating how the brand board was created",
+            "enum": ["template", "blank", "snapshot"],
+            "example": "blank"
+          }
+        },
+        "required": ["locationId", "name"]
+      },
+      "MetaData": {
+        "type": "object",
+        "properties": {
+          "updatedBy": {
+            "type": "string",
+            "description": "User ID who last updated the brand board",
+            "example": "user_abc123"
+          },
+          "lastAction": {
+            "type": "string",
+            "description": "Last action performed on the brand board",
+            "example": "UPDATE"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source brand board ID if created from a template",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "sourceType": {
+            "type": "string",
+            "description": "How the brand board was created",
+            "example": "blank",
+            "enum": ["template", "blank", "snapshot"]
+          }
+        }
+      },
+      "GetBrandBoardSuccessDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Brand board ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand board name",
+            "example": "My Brand Board"
+          },
+          "logos": {
+            "description": "Array of logos",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Logo"
+            }
+          },
+          "colors": {
+            "description": "Array of brand colors",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          "fonts": {
+            "description": "Array of brand fonts",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Font"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Whether this is the default brand board for the location",
+            "example": false
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the brand board has been soft deleted",
+            "example": false
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent folder ID in media library",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "folderId": {
+            "type": "string",
+            "description": "Media library folder ID for this brand board",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Original brand board ID if cloned from snapshot",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "meta": {
+            "description": "Metadata about the brand board",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          }
+        },
+        "required": ["_id", "locationId", "name", "default", "deleted"]
+      },
+      "InvalidLocationDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "example": "The token does not have access to this location"
+          }
+        }
+      },
+      "BrandBoardListItemDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Brand board ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand board name",
+            "example": "My Brand Board"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Whether this is the default brand board for the location",
+            "example": false
+          },
+          "meta": {
+            "description": "Metadata about the brand board",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            ]
+          }
+        },
+        "required": ["_id", "name", "updatedAt"]
+      },
+      "GetBrandBoardsByLocationSuccessDTO": {
+        "type": "object",
+        "properties": {
+          "brandBoards": {
+            "description": "Array of brand boards for the location",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BrandBoardListItemDTO"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "Total number of brand boards matching the query",
+            "example": 42
+          }
+        },
+        "required": ["brandBoards", "totalCount"]
+      },
+      "NotFoundDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Not Found"
+          },
+          "error": {
+            "type": "string",
+            "example": "The requested resource was not found"
+          }
+        }
+      },
+      "UpdateBrandBoardBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the brand board",
+            "example": "My Brandboard 2"
+          },
+          "logos": {
+            "description": "Array of logos for the brand board",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Logo"
+            }
+          },
+          "colors": {
+            "description": "Array of colors for the brand board",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          "fonts": {
+            "description": "Array of fonts for the brand board",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Font"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Set as the default brand board for this location",
+            "example": true
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent folder ID in media library (reserved for future use)",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Brand Boards",
+    "tags": ["Brand Boards"]
+  }
+}

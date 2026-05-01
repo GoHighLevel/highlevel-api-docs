@@ -1,0 +1,2085 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/agent-studio/agent": {
+      "post": {
+        "operationId": "createAgent",
+        "summary": "Create Agent",
+        "description": "Creates a new agent with staging version. The agent will be created with an initial staging version that can later be promoted to production. ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "api"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePublicAgentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Agent created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePublicAgentResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "getAgents",
+        "summary": "List Agents",
+        "description": "Lists all active agents for the specified location. locationId is required parameter to ensure optimal performance. Supports pagination using limit and offset. Optionally filter by isPublished=true to return only agents with a published production version.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          {
+            "name": "isPublished",
+            "required": false,
+            "in": "query",
+            "description": "Optional filter to return only agents with a published production version",
+            "schema": {
+              "type": "string"
+            },
+            "example": "true"
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "20"
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "0"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "api"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agents retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPublishedAgentsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - locationId is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/agent/versions/{versionId}": {
+      "patch": {
+        "operationId": "updateAgentVersion",
+        "summary": "Update Agent",
+        "description": "Updates a specific agent version by versionId. Supports updating nodes, edges, variables, and configuration. ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "versionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "example": "v1a2b3c4d5e6f7g8h9i0"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "api"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePublicAgentVersionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Version updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePublicAgentResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Version not found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/agent/{agentId}": {
+      "patch": {
+        "operationId": "updateAgentMetadata",
+        "summary": "Update Agent Metadata",
+        "description": "Updates agent metadata such as name, description, and status. ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "api"
+            }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePublicAgentMetadataDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent metadata updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePublicAgentResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteAgent",
+        "summary": "Delete Agent",
+        "description": "Deletes an agent and all its versions. ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "api"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePublicAgentResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "getAgentById",
+        "summary": "Get Agent",
+        "description": "Gets a specific agent by its ID for the specified location with all its versions. Returns complete agent metadata and all non-deleted versions (draft, staging, production). locationId is required parameter. The agent must have active status.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+              "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "api"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAgentByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - locationId is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found or not available"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/agent/versions/{versionId}/publish": {
+      "post": {
+        "operationId": "promoteAndPublish",
+        "summary": "Promote to Production",
+        "description": "Promotes a draft version to production.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "versionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "example": "v1a2b3c4d5e6f7g8h9i0"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "api"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromoteAndPublishDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Version promoted and published successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromoteAndPublishResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Only draft versions can be promoted"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Version not found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/agent/{agentId}/execute": {
+      "post": {
+        "operationId": "executeAgent",
+        "summary": "Execute Agent",
+        "description": "Executes the specified agent and returns a non-streaming JSON response with the complete agent output. The agent must be in active status and belong to the specified location. locationId is required in the request body. \n\n**Session Management:**\n- For the first message in a new session, do not include the `executionId` in the request payload.\n- The API will return an `executionId` along with the agent response, which uniquely identifies this conversation session.\n- To continue the conversation within the same session, include the `executionId` from the previous response in subsequent requests. This allows the agent to maintain conversation context and history across multiple interactions.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+              "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "api"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutePublicAgentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutePublicAgentResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Agent is not active or invalid request - locationId is required"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User does not have required scopes to execute this agent"
+          },
+          "404": {
+            "description": "Agent not found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/public-api/agents": {
+      "get": {
+        "operationId": "getAgents-deprecated",
+        "summary": "List Agents (Deprecated)",
+        "description": "**Deprecated endpoint - use GET /agent instead.**\n\nLists all active agents that have a published production version for the specified location. locationId is required parameter. Supports pagination using limit and offset.",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "20"
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "0"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "api"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agents retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPublishedAgentsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - locationId is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/public-api/agents/{agentId}": {
+      "get": {
+        "operationId": "getAgentById-deprecated",
+        "summary": "Get Agent (Deprecated)",
+        "description": "**Deprecated endpoint - use GET /agent/:agentId instead.**\n\nGets a specific agent by its ID for the specified location with all its versions. locationId is required parameter. The agent must have active status.",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "api"
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAgentByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - locationId is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found or not available"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/agent-studio/public-api/agents/{agentId}/execute": {
+      "post": {
+        "operationId": "executeAgent-deprecated",
+        "summary": "Execute Agent (Deprecated)",
+        "description": "**Deprecated endpoint - use POST /agent/:agentId/execute instead.**\n\nExecutes the specified agent and returns a non-streaming JSON response with the complete agent output. The agent must be in active status and belong to the specified location. locationId is required in the request body. \n\n**Session Management:**\n- For the first message in a new session, do not include the `executionId` in the request payload.\n- The API will return an `executionId` along with the agent response, which uniquely identifies this conversation session.\n- To continue the conversation within the same session, include the `executionId` from the previous response in subsequent requests.",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-04-15"
+              ]
+            }
+          },
+          {
+            "name": "agentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          },
+          {
+            "name": "source",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+              "example": "api"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutePublicAgentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutePublicAgentResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Agent is not active or invalid request - locationId is required"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User does not have required scopes to execute this agent"
+          },
+          "404": {
+            "description": "Agent not found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Agents"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "agent-studio.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Agent Studio APIs",
+    "description": "Documentation for Agent Studio APIs",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Agents",
+      "description": "Documentation for Agent Studio APIs"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "InternalServerErrorDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 500
+          },
+          "message": {
+            "type": "string",
+            "example": "Internal Server Error"
+          }
+        }
+      },
+      "CreatePublicAgentDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the agent",
+            "example": "Customer Support Agent"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the agent",
+            "example": "AI agent specialized in handling customer inquiries and support tickets"
+          },
+          "agencyId": {
+            "type": "string",
+            "description": "Agency ID",
+            "example": "gjL2sFNXJfJYa3d2OYSN"
+          },
+          "authorId": {
+            "type": "string",
+            "description": "Author ID",
+            "example": "usr_abc123def456"
+          },
+          "authorName": {
+            "type": "string",
+            "description": "Author name",
+            "example": "John Doe"
+          },
+          "authorEmail": {
+            "type": "string",
+            "description": "Author email",
+            "example": "john@example.com"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the agent",
+            "enum": [
+              "active",
+              "inactive",
+              "archived"
+            ],
+            "example": "active"
+          },
+          "version": {
+            "type": "object",
+            "description": "Version data for the agent including nodes, edges, and configuration",
+            "example": {
+              "versionName": "Version 1",
+              "description": "Initial version",
+              "nodes": [],
+              "edges": [],
+              "uiNodes": [],
+              "uiEdges": [],
+              "globalVariables": [],
+              "inputVariables": [],
+              "runtimeVariables": [],
+              "scopes": []
+            }
+          },
+          "nodes": {
+            "description": "Nodes array (deprecated, prefer using version.nodes)",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "edges": {
+            "description": "Edges array (deprecated, prefer using version.edges)",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "locationId",
+          "status",
+          "version"
+        ]
+      },
+      "CreatePublicAgentResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Agent created successfully with staging version."
+          },
+          "agent": {
+            "type": "object",
+            "description": "Created agent data with metadata",
+            "example": {
+              "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+              "name": "Customer Support Agent",
+              "description": "AI agent specialized in handling customer inquiries and support tickets",
+              "locationId": "C2QujeCh8ZnC7al2InWR",
+              "agencyId": "gjL2sFNXJfJYa3d2OYSN",
+              "status": "active",
+              "authorId": "usr_abc123def456",
+              "folderId": "C2QujeCh8ZnC7al2InWR",
+              "folderName": null,
+              "createdAt": "2024-02-27T10:30:00.000Z",
+              "updatedAt": "2024-02-27T10:30:00.000Z"
+            }
+          },
+          "versions": {
+            "type": "array",
+            "description": "Created versions array (initial staging version)",
+            "example": [
+              {
+                "versionId": "v1a2b3c4d5e6f7g8h9i0",
+                "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+                "versionName": "Customer Support Agent v1",
+                "state": "staging",
+                "isPublished": false,
+                "version": 1,
+                "createdAt": "2024-02-27T10:30:00.000Z"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "agent",
+          "versions"
+        ]
+      },
+      "UpdatePublicAgentVersionDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID for authorization",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "versionName": {
+            "type": "string",
+            "description": "Version name",
+            "example": "Customer Support Agent v2"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the version",
+            "example": "Updated version with improved customer handling logic"
+          },
+          "nodes": {
+            "description": "Complete array of nodes for the agent workflow. Provide all nodes including unchanged ones.",
+            "example": [
+              {
+                "nodeId": "node_1",
+                "nodeName": "Start",
+                "type": "start",
+                "isStartNode": true
+              },
+              {
+                "nodeId": "node_2",
+                "nodeName": "LLM Node",
+                "type": "llm",
+                "nodeConfig": {
+                  "prompt": "How can I help you?",
+                  "llmProvider": "openai",
+                  "llmModel": "gpt-4"
+                }
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "edges": {
+            "description": "Complete array of edges connecting the nodes. Provide all edges including unchanged ones.",
+            "example": [
+              {
+                "startNode": "node_1",
+                "endNode": "node_2"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "globalVariables": {
+            "description": "Global variables accessible throughout the agent workflow",
+            "example": [
+              {
+                "key": "apiKey",
+            "type": "string",
+                "value": "your-api-key"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "inputVariables": {
+            "description": "Input variables required from user at execution time",
+            "example": [
+              {
+                "key": "customerName",
+                "type": "string",
+                "description": "Customer name for personalization"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "runtimeVariables": {
+            "description": "Runtime variables generated during agent execution",
+            "example": [
+              {
+                "key": "sessionId",
+                "type": "string",
+                "description": "Current session identifier"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "globalConfig": {
+            "type": "object",
+            "description": "Global configuration including prompts and settings",
+            "example": {
+              "globalPrompt": {
+                "currentPrompt": "You are a helpful customer support assistant.",
+                "history": []
+              }
+            }
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID performing the update",
+            "example": "usr_abc123def456"
+          },
+          "userName": {
+            "type": "string",
+            "description": "User name performing the update",
+            "example": "John Doe"
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "UpdatePublicAgentResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Agent updated successfully"
+          },
+          "data": {
+            "type": "object",
+            "description": "Updated agent or version data",
+            "example": {
+              "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+              "versionId": "v1a2b3c4d5e6f7g8h9i0",
+              "name": "Updated Customer Support Agent",
+              "description": "Updated AI agent with enhanced customer support capabilities",
+              "status": "active",
+              "updatedAt": "2024-02-27T11:45:00.000Z"
+            }
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "data"
+        ]
+      },
+      "UpdatePublicAgentMetadataDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID for authorization (cannot be updated)",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the agent",
+            "example": "Updated Customer Support Agent"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the agent",
+            "example": "Updated AI agent with enhanced customer support capabilities"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the agent",
+            "example": "active",
+            "enum": [
+              "active",
+              "inactive",
+              "archived"
+            ]
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "DeletePublicAgentResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Agent deleted successfully"
+          },
+          "agentId": {
+            "type": "string",
+            "description": "Deleted agent ID",
+            "example": "p1q2r3s4t5u6v7w8x9y0z1a2"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ]
+      },
+      "PromoteAndPublishDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID for authorization",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID performing the promotion action",
+            "example": "usr_abc123def456"
+          },
+          "userName": {
+            "type": "string",
+            "description": "User name performing the promotion action",
+            "example": "John Doe"
+          },
+          "userEmail": {
+            "type": "string",
+            "description": "User email performing the promotion action",
+            "example": "john.doe@example.com"
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "PromoteAndPublishResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Draft published to production successfully. New draft version created for future edits."
+          },
+          "data": {
+            "type": "object",
+            "description": "Result data with production and new draft version details",
+            "example": {
+              "productionVersion": {
+                "versionId": "v1a2b3c4d5e6f7g8h9i0",
+                "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+                "versionName": "Customer Support Agent v2",
+                "state": "prod",
+                "isPublished": true,
+                "version": 2,
+                "publishedAt": "2024-02-27T12:00:00.000Z",
+                "publishedBy": "usr_abc123def456",
+                "publishedByName": "John Doe",
+                "publishedByEmail": "john.doe@example.com"
+              },
+              "newDraftVersion": {
+                "versionId": "v2b3c4d5e6f7g8h9i0j1",
+                "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+                "versionName": "Customer Support Agent v3",
+                "state": "draft",
+                "isPublished": false,
+                "version": 3,
+                "createdAt": "2024-02-27T12:00:00.000Z"
+              }
+            }
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "data"
+        ]
+      },
+      "GetPublishedAgentsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Agents retrieved successfully"
+          },
+          "agents": {
+            "type": "array",
+            "description": "List of agents with metadata",
+            "example": [
+              {
+                "agentId": "p1q2r3s4t5u6v7w8x9y0z1a2",
+                "name": "Marketing Assistant",
+                "description": "AI agent specialized in marketing strategy and content creation",
+                "locationId": "C2QujeCh8ZnC7al2InWR",
+                "status": "active",
+                "createdAt": "2024-01-15T10:30:00.000Z",
+                "updatedAt": "2024-02-20T14:45:00.000Z"
+              },
+              {
+                "agentId": "b3c4d5e6f7g8h9i0j1k2l3m4",
+                "name": "Customer Support Bot",
+                "description": "AI agent for handling customer inquiries and support tickets",
+                "locationId": "C2QujeCh8ZnC7al2InWR",
+                "status": "active",
+                "createdAt": "2024-01-10T09:15:00.000Z",
+                "updatedAt": "2024-02-18T16:20:00.000Z"
+              }
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "agentId": {
+                  "type": "string",
+                  "description": "Agent ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Agent name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Agent description"
+                },
+                "locationId": {
+                  "type": "string",
+                  "description": "Location ID"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Agent status (always \"active\")"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Creation timestamp"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Last update timestamp"
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "description": "Pagination metadata",
+            "example": {
+              "total": 25,
+              "limit": 20,
+              "offset": 0,
+              "hasMore": true
+            },
+            "properties": {
+              "total": {
+                "type": "number",
+                "description": "Total number of agents"
+              },
+              "limit": {
+                "type": "number",
+                "description": "Number of agents per page"
+              },
+              "offset": {
+                "type": "number",
+                "description": "Starting position"
+              },
+              "hasMore": {
+                "type": "boolean",
+                "description": "Whether more agents exist"
+              }
+            }
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "agents",
+          "pagination"
+        ]
+      },
+      "GetAgentByIdResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Agent retrieved successfully"
+          },
+          "agent": {
+            "type": "object",
+            "description": "Agent metadata with all active versions",
+            "example": {
+              "id": "d6a6792d-0d50-4e8f-9c3b-ecd8096d0bdd",
+              "agentId": "AgfS2JXWsSN8aXb5c4d2",
+              "name": "Customer Support Agent",
+              "description": "AI agent for customer support",
+              "agencyId": "5DP4iH6HLkQsiKESj6rh",
+              "locationId": "C2QujeCh8ZnC7al2InWR",
+              "productSlug": "agent_studio",
+              "productId": "agent_studio",
+              "authorId": "usr_123",
+              "status": "active",
+              "folderId": "vEoIigWSAw1BQA9DEchD",
+              "folderName": "Default Agents",
+              "createdAt": "2026-03-06T10:37:01.013Z",
+              "updatedAt": "2026-03-06T10:37:01.014Z",
+              "deleted": false,
+              "productionVersion": {
+                "versionId": "Ver1K8sSF2nC7al5InWz",
+                "versionName": "Content Creation Agent v1",
+                "isPublished": true,
+                "inputVariables": [],
+                "updatedAt": "2026-03-02T06:53:40.570Z"
+              },
+              "versions": [
+                {
+                  "id": "3f9d9ab7-5ca4-4e64-8472-eab9e77a0fe3",
+                  "versionId": "Ver1K8sSF2nC7al5InWz",
+                  "agentId": "AgfS2JXWsSN8aXb5c4d2",
+                  "agencyId": "5DP4iH6HLkQsiKESj6rh",
+                  "locationId": "C2QujeCh8ZnC7al2InWR",
+                  "versionName": "v1",
+                  "description": "AI agent for customer support",
+                  "state": "staging",
+                  "isPublished": false,
+                  "scopes": [],
+                  "nodes": [],
+                  "edges": [],
+                  "uiNodes": [],
+                  "uiEdges": [],
+                  "globalVariables": [],
+                  "inputVariables": [],
+                  "runtimeVariables": [],
+                  "viewport": {
+                    "x": 0,
+                    "y": 0,
+                    "zoom": 1
+                  },
+                  "globalConfig": {},
+                  "createdAt": "2026-03-06T10:37:01.079Z",
+                  "updatedAt": "2026-03-06T10:37:01.079Z",
+                  "deleted": false,
+                  "storedInBucket": true,
+                  "bucketFilePath": "agent-definitions/5DP4iH6HLkQsiKESj6rh/vEoIigWSAw1BQA9DEchD/d6a6792d-0d50-4e8f-9c3b-ecd8096d0bdd/3f9d9ab7-5ca4-4e64-8472-eab9e77a0fe3.json"
+                }
+              ]
+            }
+          },
+          "traceId": {
+                "type": "string",
+            "description": "Request trace ID for debugging",
+            "example": "22dbda99-13d3-4b4d-a30e-c468334e2178"
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "agent"
+        ]
+      },
+      "PublicAttachmentSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of attachment",
+            "example": "image"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "URL of the image attachment",
+            "example": "https://example.com/image.png"
+          }
+        },
+        "required": [
+          "type",
+          "imageUrl"
+        ]
+      },
+      "ExecutePublicAgentDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Message to send to the agent",
+            "example": "How can you help me with my marketing?"
+          },
+          "executionId": {
+            "type": "string",
+            "description": "Unique session identifier that maintains conversational context across multiple interactions within the same agent session. Omit this field for the first message in a new session. Include the executionId returned from the previous response to maintain context in subsequent messages.",
+            "example": "a1b2c3d4e5f6g7h8i9j0k1l2"
+          },
+          "inputVariables": {
+            "type": "object",
+            "description": "Input variables to pass to the agent. These should match the input variables defined in the agent configuration.",
+            "example": {
+              "customerName": "John Doe",
+              "orderNumber": "ORD-12345"
+            }
+          },
+          "versionId": {
+            "type": "string",
+            "description": "Published version ID to execute. If not provided, the latest published production version will be used.",
+            "example": "b2b1c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d"
+          },
+          "attachments": {
+            "description": "Attachments for the message",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicAttachmentSchema"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID to associate with this execution. When provided, contact data will be hydrated and made available to the agent.",
+            "example": "cid_abc123def456"
+          }
+        },
+        "required": [
+          "message",
+          "locationId"
+        ]
+      },
+      "ExecutePublicAgentResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status",
+            "example": true
+          },
+          "executionId": {
+            "type": "string",
+            "description": "Unique session identifier that maintains conversational context across multiple interactions within the same agent session. Use this ID in subsequent requests to continue the conversation.",
+            "example": "a1b2c3d4e5f6g7h8i9j0k1l2"
+          },
+          "interactionId": {
+            "type": "string",
+            "description": "Unique identifier for a single interaction cycle, consisting of one user input and the corresponding agent response. Each message exchange generates a new interactionId.",
+            "example": "m9n8o7p6q5r4s3t2u1v0w9x8"
+          },
+          "response": {
+            "type": "string",
+            "description": "Agent response text",
+            "example": "I can help you with various tasks..."
+          },
+          "type": {
+            "type": "string",
+            "description": "Response type",
+            "example": "text"
+          },
+          "nextExpectedInput": {
+            "type": "string",
+            "description": "Expected input type for next interaction",
+            "example": "text"
+          },
+          "goalCompletion": {
+            "type": "boolean",
+            "description": "When end node is added in the graph, this will be true if the agent reached the end node in the graph",
+            "example": false
+          },
+          "executionStatus": {
+            "type": "string",
+            "description": "Execution status",
+            "example": "completed"
+          },
+          "flowSwitch": {
+            "type": "boolean",
+            "description": "Whether flow was switched",
+            "example": false
+          },
+          "attachments": {
+            "type": "array",
+            "description": "Response attachments",
+            "example": []
+          },
+          "generativeOutputs": {
+            "type": "array",
+            "description": "Generated outputs",
+            "example": []
+          }
+        },
+        "required": [
+          "success",
+          "executionId",
+          "interactionId",
+          "response",
+          "type",
+          "nextExpectedInput",
+          "goalCompletion",
+          "executionStatus",
+          "flowSwitch",
+          "attachments",
+          "generativeOutputs"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "AI Agent Studio",
+    "tags": ["Agents"]
+  }
+}

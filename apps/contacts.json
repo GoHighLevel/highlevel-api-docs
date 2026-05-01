@@ -1241,7 +1241,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NotesDTO"
+                "$ref": "#/components/schemas/UpdateNoteDTO"
               }
             }
           }
@@ -1406,20 +1406,6 @@
               "type": "string",
               "enum": [
                 "2021-07-28"
-              ]
-            }
-          },
-          {
-            "name": "type",
-            "required": true,
-            "in": "path",
-            "description": "Tags operation type",
-            "example": "add",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "add",
-                "remove"
               ]
             }
           }
@@ -2734,7 +2720,7 @@
       "get": {
         "operationId": "get-contacts",
         "summary": "Get Contacts",
-        "description": "Get Contacts\n\n **Note:** This API endpoint is deprecated. Please use the [Search Contacts](https://highlevel.stoplight.io/docs/integrations/dbe4f3a00a106-search-contacts) endpoint instead.",
+        "description": "Get Contacts\n\n **Note:** This API endpoint is deprecated. Please use the [Search Contacts](https://marketplace.gohighlevel.com/docs/ghl/contacts/search-contacts-advanced) endpoint instead.",
         "deprecated": true,
         "parameters": [
           {
@@ -2956,285 +2942,6 @@
       "SearchBodyV2DTO": {
         "type": "object",
         "properties": {}
-      },
-      "CustomFieldSchema": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "MgobCB14YMVKuE4Ka8p1"
-          },
-          "value": {
-            "type": "string",
-            "example": "name"
-          }
-        }
-      },
-      "DndSettingSchema": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "active",
-              "inactive",
-              "permanent"
-            ]
-          },
-          "message": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "status"
-        ]
-      },
-      "DndSettingsSchema": {
-        "type": "object",
-        "properties": {
-          "Call": {
-            "$ref": "#/components/schemas/DndSettingSchema"
-          },
-          "Email": {
-            "$ref": "#/components/schemas/DndSettingSchema"
-          },
-          "SMS": {
-            "$ref": "#/components/schemas/DndSettingSchema"
-          },
-          "WhatsApp": {
-            "$ref": "#/components/schemas/DndSettingSchema"
-          },
-          "GMB": {
-            "$ref": "#/components/schemas/DndSettingSchema"
-          },
-          "FB": {
-            "$ref": "#/components/schemas/DndSettingSchema"
-          }
-        }
-      },
-      "ContactOpportunity": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "1a2b3c4d5e6f7g8h9i0j"
-          },
-          "pipeline_id": {
-            "type": "string",
-            "example": "pipeline123"
-          },
-          "pipeline_stage_id": {
-            "type": "string",
-            "example": "stage456"
-          },
-          "monetary_value": {
-            "type": "number",
-            "example": 10000
-          },
-          "status": {
-            "type": "string",
-            "example": "open"
-          }
-        },
-        "required": [
-          "id",
-          "pipeline_id",
-          "pipeline_stage_id",
-          "monetary_value",
-          "status"
-        ]
-      },
-      "Contact": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "102goXVW3lIExEQPOnd3"
-          },
-          "phoneLabel": {
-            "type": "string",
-            "example": "Mobile"
-          },
-          "country": {
-            "type": "string",
-            "example": "United States"
-          },
-          "address": {
-            "type": "string",
-            "example": "123 Main Street"
-          },
-          "source": {
-            "type": "string",
-            "example": "Website"
-          },
-          "type": {
-            "type": "string",
-            "example": "lead"
-          },
-          "locationId": {
-            "type": "string",
-            "example": "502goXVW3lIExEQPOnd3"
-          },
-          "dnd": {
-            "type": "boolean",
-            "example": false
-          },
-          "state": {
-            "type": "string",
-            "example": "California"
-          },
-          "businessName": {
-            "type": "string",
-            "example": "Acme Corporation"
-          },
-          "customFields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomFieldSchema"
-            }
-          },
-          "tags": {
-            "example": [
-              "tag-1",
-              "tag-2"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "dateAdded": {
-            "type": "string",
-            "example": "2024-06-06T18:54:57.221Z"
-          },
-          "additionalEmails": {
-            "example": [
-              "john@example.com",
-              "jane@example.com"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "phone": {
-            "type": "string",
-            "example": "+123456789"
-          },
-          "companyName": {
-            "type": "string",
-            "example": "XYZ Corp"
-          },
-          "additionalPhones": {
-            "example": [
-              "123456789",
-              "987654321"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "dateUpdated": {
-            "type": "string",
-            "example": "2024-06-06T18:54:57.221Z"
-          },
-          "city": {
-            "type": "string",
-            "example": "New York"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "example": "1990-01-01"
-          },
-          "firstName": {
-            "type": "string",
-            "example": "john"
-          },
-          "lastName": {
-            "type": "string",
-            "example": "doe"
-          },
-          "firstNameLowerCase": {
-            "type": "string",
-            "example": "john"
-          },
-          "lastNameLowerCase": {
-            "type": "string",
-            "example": "doe"
-          },
-          "email": {
-            "type": "string",
-            "example": "john@example.com"
-          },
-          "assignedTo": {
-            "type": "string",
-            "example": "182goXVW3lIExEQPOnd3"
-          },
-          "followers": {
-            "example": [
-              "682goXVW3lIExEQPOnd3",
-              "582goXVW3lIExEQPOnd3"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "validEmail": {
-            "type": "boolean",
-            "example": true
-          },
-          "dndSettings": {
-            "$ref": "#/components/schemas/DndSettingsSchema"
-          },
-          "opportunities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ContactOpportunity"
-            }
-          },
-          "postalCode": {
-            "type": "string",
-            "example": "12345"
-          },
-          "businessId": {
-            "type": "string",
-            "example": "282goXVW3lIExEQPOnd3"
-          },
-          "searchAfter": {
-            "example": [
-              1234,
-              "102goXVW3lIExEQPOnd3"
-            ],
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "SearchContactSuccessResponseDto": {
-        "type": "object",
-        "properties": {
-          "contacts": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Contact"
-            }
-          },
-          "total": {
-            "type": "number",
-            "example": 120
-          }
-        },
-        "required": [
-          "contacts",
-          "total"
-        ]
       },
       "TaskSchema": {
         "type": "object",
@@ -3530,6 +3237,18 @@
           "contactId": {
             "type": "string",
             "example": "TUcmRxWrjqzJS8EjkxNK"
+          },
+          "title": {
+            "type": "string",
+            "example": "Follow-up summary"
+          },
+          "color": {
+            "type": "string",
+            "example": "#FFAA00"
+          },
+          "pinned": {
+            "type": "boolean",
+            "example": false
           }
         }
       },
@@ -3554,6 +3273,18 @@
           "body": {
             "type": "string",
             "example": "lorem ipsum"
+          },
+          "title": {
+            "type": "string",
+            "example": "Follow-up summary"
+          },
+          "color": {
+            "type": "string",
+            "example": "#FFAA00"
+          },
+          "pinned": {
+            "type": "boolean",
+            "example": false
           }
         },
         "required": [
@@ -3565,6 +3296,31 @@
         "properties": {
           "note": {
             "$ref": "#/components/schemas/GetNoteSchema"
+          }
+        }
+      },
+      "UpdateNoteDTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "GCs5KuzPqTls7vWclkEV"
+          },
+          "body": {
+            "type": "string",
+            "example": "lorem ipsum"
+          },
+          "title": {
+            "type": "string",
+            "example": "Follow-up summary"
+          },
+          "color": {
+            "type": "string",
+            "example": "#FFAA00"
+          },
+          "pinned": {
+            "type": "boolean",
+            "example": false
           }
         }
       },
@@ -3728,6 +3484,64 @@
           "ids"
         ]
       },
+      "DndSettingSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "permanent"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "DndSettingsSchema": {
+        "type": "object",
+        "properties": {
+          "Call": {
+            "$ref": "#/components/schemas/DndSettingSchema"
+          },
+          "Email": {
+            "$ref": "#/components/schemas/DndSettingSchema"
+          },
+          "SMS": {
+            "$ref": "#/components/schemas/DndSettingSchema"
+          },
+          "WhatsApp": {
+            "$ref": "#/components/schemas/DndSettingSchema"
+          },
+          "GMB": {
+            "$ref": "#/components/schemas/DndSettingSchema"
+          },
+          "FB": {
+            "$ref": "#/components/schemas/DndSettingSchema"
+          }
+        }
+      },
+      "CustomFieldSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "MgobCB14YMVKuE4Ka8p1"
+          },
+          "value": {
+            "type": "string",
+            "example": "name"
+          }
+        }
+      },
       "AttributionSource": {
         "type": "object",
         "properties": {
@@ -3849,7 +3663,7 @@
           },
           "timezone": {
             "type": "string",
-            "example": ""
+            "example": "Asia/Calcutta"
           },
           "companyName": {
             "type": "string",
@@ -3914,7 +3728,7 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "example": "1990-09-25T00:00:00.000Z"
+            "example": "Date format YYYY-MM-DD"
           },
           "dateAdded": {
             "type": "string",
@@ -4400,6 +4214,12 @@
             "type": "string",
             "example": "public api"
           },
+          "dateOfBirth": {
+            "type": "object",
+            "description": "The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY",
+            "example": "1990-09-25",
+            "nullable": true
+          },
           "country": {
             "type": "string",
             "example": "US"
@@ -4543,7 +4363,7 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "example": "1990-09-25T00:00:00.000Z"
+            "example": "Date format will be  YYYY-MM-DDTHH:mm:ss.sssZ and  Example 1990-09-25T00:00:00.000Z"
           },
           "birthMonth": {
             "type": "number",
@@ -4707,6 +4527,12 @@
             "example": "public api",
             "nullable": true
           },
+          "dateOfBirth": {
+            "type": "object",
+            "description": "The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY",
+            "example": "1990-09-25",
+            "nullable": true
+          },
           "country": {
             "type": "string",
             "example": "US"
@@ -4855,6 +4681,12 @@
             "type": "string",
             "example": "public api"
           },
+          "dateOfBirth": {
+            "type": "object",
+            "description": "The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY",
+            "example": "1990-09-25",
+            "nullable": true
+          },
           "country": {
             "type": "string",
             "example": "US"
@@ -4868,6 +4700,12 @@
             "type": "string",
             "example": "y0BeYjuRIlDwsDcOHOJo",
             "description": "User's Id"
+          },
+          "createNewIfDuplicateAllowed": {
+            "type": "boolean",
+            "description": "Controls whether to create a new contact or update an existing duplicate. **Scenario 1:** If this value is `true` and the location allows duplicate contacts, a new contact will be created immediately without checking for duplicates. **Scenario 2:** If this value is `true` but the location does not allow duplicate contacts, this field is ignored and the normal upsert behavior applies: the API will search for an existing duplicate contact, update it if found, or create a new contact if not found. **Scenario 3:** If this value is `false` or not provided, the normal upsert behavior applies regardless of the location's duplicate contact setting.",
+            "example": false,
+            "default": false
           }
         },
         "required": [

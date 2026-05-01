@@ -1906,6 +1906,105 @@
         ]
       }
     },
+    "/invoices/settings": {
+      "get": {
+        "operationId": "get-invoice-settings",
+        "summary": "Get Invoice Settings",
+        "description": "Get the invoice settings for the given location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInvoiceSettingsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Invoice"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "invoices.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "invoices.readonly"
+            ]
+          }
+        ]
+      }
+    },
     "/invoices/{invoiceId}": {
       "get": {
         "operationId": "get-invoice",
@@ -4395,6 +4494,14 @@
         "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
         "type": "http"
       },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
       "Agency-Access": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
@@ -4403,12 +4510,12 @@
         "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
         "type": "http"
       },
-      "Location-Access-Only": {
+      "Agency-Access-Only": {
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "name": "Authorization",
         "in": "header",
-        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "description": "Use the Access Token generated with user type as Agency.",
         "type": "http"
       }
     },
@@ -4678,6 +4785,7 @@
           }
         },
         "required": [
+          "intervalCount",
           "interval"
         ]
       },
@@ -4715,8 +4823,8 @@
           },
           "value": {
             "type": "number",
-            "example": "Max late fees to pay",
-            "description": "10"
+            "example": "10",
+            "description": "Max late fees to pay"
           }
         },
         "required": [
@@ -6888,6 +6996,9 @@
           },
           "cardId": {
             "type": "string"
+          },
+          "provider": {
+            "type": "object"
           }
         },
         "required": [
@@ -7763,6 +7874,719 @@
           }
         }
       },
+      "CustomNotificationItemDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Flag indicating if the notification is enabled or not"
+          },
+          "emailTemplate": {
+            "type": "string",
+            "description": "Template to be used for sending email"
+          },
+          "smsTemplate": {
+            "type": "string",
+            "description": "Template to be used for sending sms"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Name to be used while sending email",
+            "example": "Alex"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Email address to be used for sending email",
+            "example": "alex@example.com"
+          },
+          "emailSubject": {
+            "type": "string",
+            "description": "Subject of email which is sent out",
+            "example": "Thank you for purchasing"
+          },
+          "defaultEmailTemplateId": {
+            "type": "string",
+            "description": "Default email TemplateId to be used for sending via email",
+            "example": "dhwjqi2899012990w2u"
+          }
+        },
+        "required": [
+          "enabled",
+          "emailTemplate",
+          "smsTemplate"
+        ]
+      },
+      "CustomNotificationDto": {
+        "type": "object",
+        "properties": {
+          "customerSendInvoice": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamPaymentSuccess": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerPaymentSuccess": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamAutoPaymentSuccess": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerAutoPaymentSuccess": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamPaymentFailure": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerPaymentFailure": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamAutoPaymentFailure": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerAutoPaymentFailure": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerAutoPaymentInfo": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerAutoPaymentAmountChanged": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamAutoPaymentSkip": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamRecurringSendInvoiceFailed": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "customerSendEstimate": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamEstimateAccepted": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          },
+          "teamEstimateDeclined": {
+            "$ref": "#/components/schemas/CustomNotificationItemDto"
+          }
+        },
+        "required": [
+          "customerSendInvoice",
+          "teamPaymentSuccess",
+          "customerPaymentSuccess",
+          "teamAutoPaymentSuccess",
+          "customerAutoPaymentSuccess",
+          "teamPaymentFailure",
+          "customerPaymentFailure",
+          "teamAutoPaymentFailure",
+          "customerAutoPaymentFailure",
+          "customerAutoPaymentInfo",
+          "customerAutoPaymentAmountChanged",
+          "teamAutoPaymentSkip",
+          "teamRecurringSendInvoiceFailed",
+          "customerSendEstimate",
+          "teamEstimateAccepted",
+          "teamEstimateDeclined"
+        ]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "addressLine1": {
+            "type": "string"
+          },
+          "addressLine2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string",
+            "enum": [
+              "AF",
+              "AX",
+              "AL",
+              "DZ",
+              "AS",
+              "AD",
+              "AO",
+              "AI",
+              "AQ",
+              "AG",
+              "AR",
+              "AM",
+              "AW",
+              "AU",
+              "AT",
+              "AZ",
+              "BS",
+              "BH",
+              "BD",
+              "BB",
+              "BY",
+              "BE",
+              "BZ",
+              "BJ",
+              "BM",
+              "BT",
+              "BO",
+              "BA",
+              "BW",
+              "BV",
+              "BR",
+              "IO",
+              "BN",
+              "BG",
+              "BF",
+              "BI",
+              "KH",
+              "CM",
+              "CA",
+              "CV",
+              "KY",
+              "CF",
+              "TD",
+              "CL",
+              "CN",
+              "CX",
+              "CC",
+              "CO",
+              "KM",
+              "CG",
+              "CD",
+              "CK",
+              "CR",
+              "CI",
+              "HR",
+              "CU",
+              "CY",
+              "CZ",
+              "DK",
+              "DJ",
+              "DM",
+              "DO",
+              "EC",
+              "EG",
+              "SV",
+              "GQ",
+              "ER",
+              "EE",
+              "ET",
+              "FK",
+              "FO",
+              "FJ",
+              "FI",
+              "FR",
+              "GF",
+              "PF",
+              "TF",
+              "GA",
+              "GM",
+              "GE",
+              "DE",
+              "GH",
+              "GI",
+              "GR",
+              "GL",
+              "GD",
+              "GP",
+              "GU",
+              "GT",
+              "GG",
+              "GN",
+              "GW",
+              "GY",
+              "HT",
+              "HM",
+              "VA",
+              "HN",
+              "HK",
+              "HU",
+              "IS",
+              "IN",
+              "ID",
+              "IR",
+              "IQ",
+              "IE",
+              "IM",
+              "IL",
+              "IT",
+              "JM",
+              "JP",
+              "JE",
+              "JO",
+              "KZ",
+              "KE",
+              "KI",
+              "KP",
+              "KR",
+              "XK",
+              "KW",
+              "KG",
+              "LA",
+              "LV",
+              "LB",
+              "LS",
+              "LR",
+              "LY",
+              "LI",
+              "LT",
+              "LU",
+              "MO",
+              "MK",
+              "MG",
+              "MW",
+              "MY",
+              "MV",
+              "ML",
+              "MT",
+              "MH",
+              "MQ",
+              "MR",
+              "MU",
+              "YT",
+              "MX",
+              "FM",
+              "MD",
+              "MC",
+              "MN",
+              "ME",
+              "MS",
+              "MA",
+              "MZ",
+              "MM",
+              "NA",
+              "NR",
+              "NP",
+              "NL",
+              "AN",
+              "NC",
+              "NZ",
+              "NI",
+              "NE",
+              "NG",
+              "NU",
+              "NF",
+              "MP",
+              "NO",
+              "OM",
+              "PK",
+              "PW",
+              "PS",
+              "PA",
+              "PG",
+              "PY",
+              "PE",
+              "PH",
+              "PN",
+              "PL",
+              "PT",
+              "PR",
+              "QA",
+              "RE",
+              "RO",
+              "RU",
+              "RW",
+              "SH",
+              "KN",
+              "LC",
+              "MF",
+              "PM",
+              "VC",
+              "WS",
+              "SM",
+              "ST",
+              "SA",
+              "SN",
+              "RS",
+              "SC",
+              "SL",
+              "SG",
+              "SX",
+              "SK",
+              "SI",
+              "SB",
+              "SO",
+              "ZA",
+              "GS",
+              "ES",
+              "LK",
+              "SD",
+              "SR",
+              "SJ",
+              "SZ",
+              "SE",
+              "CH",
+              "SY",
+              "TW",
+              "TJ",
+              "TZ",
+              "TH",
+              "TL",
+              "TG",
+              "TK",
+              "TO",
+              "TT",
+              "TN",
+              "TR",
+              "TM",
+              "TC",
+              "TV",
+              "UG",
+              "GB",
+              "UA",
+              "AE",
+              "US",
+              "UM",
+              "UY",
+              "UZ",
+              "VU",
+              "VE",
+              "VN",
+              "VG",
+              "VI",
+              "WF",
+              "EH",
+              "YE",
+              "ZM",
+              "ZW"
+            ]
+          },
+          "postalCode": {
+            "type": "string"
+          }
+        }
+      },
+      "InvoiceSettingsBusinessDetailsDto": {
+        "type": "object",
+        "properties": {
+          "logoUrl": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "phoneNo": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "website": {
+            "type": "string"
+          },
+          "customValues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "InvoiceSettingsSenderConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "fromName": {
+            "type": "string",
+            "description": "Sender name to be used while sending email notification",
+            "example": "Alex"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Email id to be used while sending email notification",
+            "example": "alex@example.com"
+          }
+        }
+      },
+      "InvoiceProductSettingsDto": {
+        "type": "object",
+        "properties": {
+          "enableImportProductDescription": {
+            "type": "boolean",
+            "description": "Flag indicating if the product description import is enabled or not",
+            "example": true
+          },
+          "descriptionOptional": {
+            "type": "boolean",
+            "description": "Flag indicating if the product description is optional or not",
+            "example": true
+          }
+        }
+      },
+      "ReminderDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Flag indicating if the reminder is enabled or not",
+            "example": true
+          },
+          "emailTemplate": {
+            "type": "string",
+            "description": "Email template to be used for sending reminders",
+            "example": "default"
+          },
+          "smsTemplate": {
+            "type": "string",
+            "description": "SMS template to be used for sending reminders",
+            "example": "default"
+          },
+          "emailSubject": {
+            "type": "string",
+            "description": "Subject of the reminder",
+            "example": "Reminder"
+          },
+          "reminderId": {
+            "type": "string",
+            "description": "Unique identifier for the reminder",
+            "example": "9333e45f-a27d-4659-90e5-76c5ef06d094"
+          },
+          "reminderName": {
+            "type": "string",
+            "description": "Name of the reminder",
+            "example": "Special Reminder"
+          },
+          "reminderTime": {
+            "type": "string",
+            "description": "Time condition for the reminder",
+            "example": "before",
+            "enum": [
+              "before",
+              "after"
+            ]
+          },
+          "intervalType": {
+            "type": "string",
+            "description": "Interval type for the reminder",
+            "example": "daily",
+            "enum": [
+              "yearly",
+              "monthly",
+              "weekly",
+              "daily",
+              "hourly",
+              "minutely",
+              "secondly"
+            ]
+          },
+          "maxReminders": {
+            "type": "number",
+            "description": "Maximum number of reminders that can be sent",
+            "example": 3
+          },
+          "reminderInvoiceCondition": {
+            "type": "string",
+            "description": "Condition for sending the reminder",
+            "example": "invoice_sent",
+            "enum": [
+              "invoice_sent",
+              "invoice_overdue"
+            ]
+          },
+          "reminderNumber": {
+            "type": "number",
+            "description": "frequency gap of the reminder to exeucte",
+            "example": 10
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Business Hour Start Time",
+            "example": "9:00 AM"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "Business Hour End Time",
+            "example": "5:00 PM"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone at which reminder will be sent",
+            "example": "businessTZ"
+          }
+        },
+        "required": [
+          "enabled",
+          "emailTemplate",
+          "smsTemplate",
+          "emailSubject",
+          "reminderId",
+          "reminderName",
+          "reminderTime",
+          "intervalType",
+          "maxReminders",
+          "reminderInvoiceCondition",
+          "reminderNumber"
+        ]
+      },
+      "ReminderSettingsDto": {
+        "type": "object",
+        "properties": {
+          "defaultEmailTemplateId": {
+            "type": "string",
+            "description": "default template Id of reminder",
+            "example": "dhwjqi2899012990w2u"
+          },
+          "reminders": {
+            "description": "List of reminders",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReminderDto"
+            }
+          }
+        },
+        "required": [
+          "defaultEmailTemplateId",
+          "reminders"
+        ]
+      },
+      "GetInvoiceSettingsResponseDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Sub-Account Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Alt Type",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "termsNote": {
+            "type": "string",
+            "description": "Terms and conditions for invoices",
+            "example": "Payment is due within 30 days."
+          },
+          "estimatesTermsNote": {
+            "type": "string",
+            "description": "Terms and conditions for estimates",
+            "example": "This estimate is valid for 30 days."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title for invoices",
+            "example": "INVOICE",
+            "maxLength": 40
+          },
+          "estimatesTitle": {
+            "type": "string",
+            "description": "Title for estimates",
+            "example": "ESTIMATE",
+            "maxLength": 40
+          },
+          "invoiceNumberPrefix": {
+            "type": "string",
+            "description": "Prefix for invoice numbers",
+            "example": "INV-",
+            "maxLength": 10
+          },
+          "estimateNumberPrefix": {
+            "type": "string",
+            "description": "Prefix for estimate numbers",
+            "example": "EST-",
+            "maxLength": 10
+          },
+          "dueAfterXDays": {
+            "type": "number",
+            "description": "Number of days after which invoice is due",
+            "example": 30
+          },
+          "estimatesExpireAfterXDays": {
+            "type": "number",
+            "description": "Number of days after which estimate expires",
+            "example": 30
+          },
+          "minimumPercentagePartialPayment": {
+            "type": "number",
+            "description": "Minimum percentage for partial payment",
+            "example": 25
+          },
+          "customFields": {
+            "description": "Custom fields array",
+            "example": [
+              "6578278e879ad2646715baxc",
+              "6901e9fb77ac4d701ba0b996"
+            ],
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customNotification": {
+            "description": "Custom notification settings",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomNotificationDto"
+              }
+            ]
+          },
+          "businessDetails": {
+            "description": "Business details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceSettingsBusinessDetailsDto"
+              }
+            ]
+          },
+          "senderConfiguration": {
+            "description": "Sender configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceSettingsSenderConfigurationDto"
+              }
+            ]
+          },
+          "productSettings": {
+            "description": "Product settings",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceProductSettingsDto"
+              }
+            ]
+          },
+          "reminderSettings": {
+            "description": "Reminder settings",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReminderSettingsDto"
+              }
+            ]
+          },
+          "lateFeesConfiguration": {
+            "description": "Late fees configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LateFeesConfigurationDto"
+              }
+            ]
+          },
+          "tipsConfiguration": {
+            "description": "Tips configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TipsConfigurationDto"
+              }
+            ]
+          },
+          "paymentMethods": {
+            "description": "Payment methods configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodDto"
+              }
+            ]
+          }
+        }
+      },
       "CreateInvoiceDto": {
         "type": "object",
         "properties": {
@@ -8131,132 +8955,6 @@
       "ReminderExecutionDetailsList": {
         "type": "object",
         "properties": {}
-      },
-      "ReminderDto": {
-        "type": "object",
-        "properties": {
-          "enabled": {
-            "type": "boolean",
-            "description": "Flag indicating if the reminder is enabled or not",
-            "example": true
-          },
-          "emailTemplate": {
-            "type": "string",
-            "description": "Email template to be used for sending reminders",
-            "example": "default"
-          },
-          "smsTemplate": {
-            "type": "string",
-            "description": "SMS template to be used for sending reminders",
-            "example": "default"
-          },
-          "emailSubject": {
-            "type": "string",
-            "description": "Subject of the reminder",
-            "example": "Reminder"
-          },
-          "reminderId": {
-            "type": "string",
-            "description": "Unique identifier for the reminder",
-            "example": "9333e45f-a27d-4659-90e5-76c5ef06d094"
-          },
-          "reminderName": {
-            "type": "string",
-            "description": "Name of the reminder",
-            "example": "Special Reminder"
-          },
-          "reminderTime": {
-            "type": "string",
-            "description": "Time condition for the reminder",
-            "example": "before",
-            "enum": [
-              "before",
-              "after"
-            ]
-          },
-          "intervalType": {
-            "type": "string",
-            "description": "Interval type for the reminder",
-            "example": "daily",
-            "enum": [
-              "yearly",
-              "monthly",
-              "weekly",
-              "daily",
-              "hourly",
-              "minutely",
-              "secondly"
-            ]
-          },
-          "maxReminders": {
-            "type": "number",
-            "description": "Maximum number of reminders that can be sent",
-            "example": 3
-          },
-          "reminderInvoiceCondition": {
-            "type": "string",
-            "description": "Condition for sending the reminder",
-            "example": "invoice_sent",
-            "enum": [
-              "invoice_sent",
-              "invoice_overdue"
-            ]
-          },
-          "reminderNumber": {
-            "type": "number",
-            "description": "frequency gap of the reminder to exeucte",
-            "example": 10
-          },
-          "startTime": {
-            "type": "string",
-            "description": "Business Hour Start Time",
-            "example": "9:00 AM"
-          },
-          "endTime": {
-            "type": "string",
-            "description": "Business Hour End Time",
-            "example": "5:00 PM"
-          },
-          "timezone": {
-            "type": "string",
-            "description": "Timezone at which reminder will be sent",
-            "example": "businessTZ"
-          }
-        },
-        "required": [
-          "enabled",
-          "emailTemplate",
-          "smsTemplate",
-          "emailSubject",
-          "reminderId",
-          "reminderName",
-          "reminderTime",
-          "intervalType",
-          "maxReminders",
-          "reminderInvoiceCondition",
-          "reminderNumber"
-        ]
-      },
-      "ReminderSettingsDto": {
-        "type": "object",
-        "properties": {
-          "defaultEmailTemplateId": {
-            "type": "string",
-            "description": "default template Id of reminder",
-            "example": "dhwjqi2899012990w2u"
-          },
-          "reminders": {
-            "description": "List of reminders",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ReminderDto"
-            }
-          }
-        },
-        "required": [
-          "defaultEmailTemplateId",
-          "reminders"
-        ]
       },
       "RemindersConfigurationDto": {
         "type": "object",
@@ -9241,21 +9939,6 @@
           "updatedAt"
         ]
       },
-      "InvoiceSettingsSenderConfigurationDto": {
-        "type": "object",
-        "properties": {
-          "fromName": {
-            "type": "string",
-            "description": "Sender name to be used while sending invoice",
-            "example": "Alex"
-          },
-          "fromEmail": {
-            "type": "string",
-            "description": "Email id to be used while sending out invoices",
-            "example": "alex@example.com"
-          }
-        }
-      },
       "SendInvoiceDto": {
         "type": "object",
         "properties": {
@@ -9448,6 +10131,94 @@
           "invoiceId"
         ]
       },
+      "EstimateLineItemDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Invoice Item Name",
+            "example": "ABC Product"
+          },
+          "description": {
+            "type": "string",
+            "description": "Invoice descriptions",
+            "example": "ABC Corp."
+          },
+          "productId": {
+            "type": "string",
+            "description": "Product Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "priceId": {
+            "type": "string",
+            "description": "Price Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency",
+            "example": "USD"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Product amount",
+            "example": 999
+          },
+          "qty": {
+            "type": "number",
+            "description": "Product Quantity",
+            "example": 1
+          },
+          "taxes": {
+            "description": "Tax",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemTaxDto"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category id for calculating automatic tax",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "isSetupFeeItem": {
+            "type": "boolean",
+            "description": "Setupfee item, only created when 1st invoice of recurring schedule is generated"
+          },
+          "type": {
+            "type": "string",
+            "description": "Price type of the item",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "taxInclusive": {
+            "type": "boolean",
+            "description": "true if item amount is tax inclusive",
+            "example": true,
+            "default": false
+          },
+          "attachments": {
+            "description": "Attachments for the line item",
+            "example": [
+              "https://example.com/file1.jpg",
+              "https://example.com/file2.png"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "currency",
+          "amount",
+          "qty"
+        ]
+      },
       "SendEstimateDto": {
         "type": "object",
         "properties": {
@@ -9635,7 +10406,7 @@
             "description": "An array of items for the estimate.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/InvoiceItemDto"
+              "$ref": "#/components/schemas/EstimateLineItemDto"
             }
           },
           "liveMode": {
@@ -10192,7 +10963,7 @@
             "description": "An array of items for the estimate.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/InvoiceItemDto"
+              "$ref": "#/components/schemas/EstimateLineItemDto"
             }
           },
           "liveMode": {

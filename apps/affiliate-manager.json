@@ -1,0 +1,1461 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/affiliate-manager/{locationId}/affiliates": {
+      "get": {
+        "operationId": "list-affiliates",
+        "summary": "List Affiliates",
+        "description": "Retrieve the list of affiliates for a location.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ],
+              "example": "2021-07-28"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "John",
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": false,
+              "example": true,
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "63d376de11be1d26d38f7369",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 0,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of records to return. Maximum allowed value is 100.",
+            "schema": {
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "fromDate",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2023-10-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "toDate",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2023-10-01",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAffiliatesResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Affiliates"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "affiliate-manager.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/affiliate-manager/{locationId}/affiliates/{affiliateId}": {
+      "get": {
+        "operationId": "get-affiliate",
+        "summary": "Get Affiliate",
+        "description": "Retrieve a single affiliate by id for a location.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ],
+              "example": "2021-07-28"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "affiliateId",
+            "required": true,
+            "in": "path",
+            "description": "Affiliate Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAffiliateResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Affiliates"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "affiliate-manager.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/affiliate-manager/{locationId}/payouts": {
+      "get": {
+        "operationId": "list-payouts",
+        "summary": "List Payouts",
+        "description": "Retrieve the list of payouts for a location.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ],
+              "example": "2021-07-28"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Payout status",
+            "schema": {
+              "example": "pending",
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "query",
+            "schema": {
+              "example": "john",
+              "type": "string"
+            }
+          },
+          {
+            "name": "affiliateId",
+            "required": false,
+            "in": "query",
+            "description": "Affiliate Id",
+            "schema": {
+              "example": "65df04201e428a0c5ebb6572",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": false,
+            "in": "query",
+            "description": "Campaign Id",
+            "schema": {
+              "example": "65df04201e428a0c5ebb6573",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 0,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "start",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2022-12-01T00:00:00.000Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2022-12-31T23:59:59.999Z",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPayoutListResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payouts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "affiliate-manager.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/affiliate-manager/{locationId}/commissions": {
+      "get": {
+        "operationId": "list-commissions",
+        "summary": "List Commissions",
+        "description": "Retrieve the list of commissions for a location.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ],
+              "example": "2021-07-28"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": false,
+            "in": "query",
+            "description": "Campaign Id",
+            "schema": {
+              "example": "6385d230f6d19db03eef6fb2",
+              "type": "string"
+            }
+          },
+          {
+            "name": "affiliateId",
+            "required": false,
+            "in": "query",
+            "description": "Affiliate Id",
+            "schema": {
+              "example": "6385d230f6d19db03eef6fb2",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Status",
+            "schema": {
+              "example": "pending",
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Query",
+            "schema": {
+              "example": "affiliate@gmail.com",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 0,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of records to return. Maximum allowed value is 100.",
+            "schema": {
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "fromDate",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2023-10-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "toDate",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2023-10-01",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCommissionListResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Commissions"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "affiliate-manager.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Affiliate Manager API",
+    "description": "Documentation for Affiliate Manager API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "affiliate-manager",
+      "description": "Documentation for Affiliate Manager API"
+    },
+    {
+      "name": "Affiliates",
+      "description": "Documentation for Affiliate Manager API"
+    },
+    {
+      "name": "Payouts",
+      "description": "Documentation for Affiliate Manager API"
+    },
+    {
+      "name": "Commissions",
+      "description": "Documentation for Affiliate Manager API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "OAuthAffiliateListItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Affiliate id",
+            "example": "63d147176c5bbc30e9e091a4"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Affiliate first name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Affiliate last name",
+            "example": "Doe"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Affiliate phone number",
+            "example": "+1 888 888-8888"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the affiliate is deleted",
+            "example": false
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the affiliate is active",
+            "example": true
+          },
+          "address": {
+            "type": "string",
+            "description": "Affiliate address",
+            "example": "123 Main St"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "Affiliate avatar URL",
+            "example": "https://example.com/avatar.png"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "createdBy": {
+            "type": "object",
+            "description": "Created by audit info"
+          },
+          "facebookUrl": {
+            "type": "string",
+            "description": "Facebook URL",
+            "example": "https://facebook.com/johndoe"
+          },
+          "instagramUrl": {
+            "type": "string",
+            "description": "Instagram URL",
+            "example": "https://instagram.com/johndoe"
+          },
+          "linkedInUrl": {
+            "type": "string",
+            "description": "LinkedIn URL",
+            "example": "https://linkedin.com/in/johndoe"
+          },
+          "twitterUrl": {
+            "type": "string",
+            "description": "Twitter URL",
+            "example": "https://twitter.com/johndoe"
+          },
+          "youtubeUrl": {
+            "type": "string",
+            "description": "YouTube URL",
+            "example": "https://youtube.com/channel"
+          },
+          "websiteUrl": {
+            "type": "string",
+            "description": "Website URL",
+            "example": "https://example.com"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact id associated with the affiliate",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "campaignIds": {
+            "description": "Campaign ids",
+            "example": [
+              "650173614761b33c46d33b19"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vatId": {
+            "type": "string",
+            "description": "VAT ID",
+            "example": "VAT123"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated at timestamp",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "w8Form": {
+            "type": "string",
+            "description": "W8 form URL"
+          },
+          "w9Form": {
+            "type": "string",
+            "description": "W9 form URL"
+          },
+          "lastUpdatedBy": {
+            "type": "object",
+            "description": "Last updated by audit info"
+          },
+          "email": {
+            "type": "string",
+            "description": "Affiliate email",
+            "example": "john.doe@example.com"
+          },
+          "revenue": {
+            "type": "number",
+            "description": "Affiliate revenue",
+            "example": 1250.5
+          },
+          "customer": {
+            "type": "number",
+            "description": "Customer count",
+            "example": 15
+          },
+          "lead": {
+            "type": "number",
+            "description": "Lead count",
+            "example": 5
+          },
+          "droppedCustomer": {
+            "type": "number",
+            "description": "Dropped customer count",
+            "example": 2
+          },
+          "clickCount": {
+            "type": "number",
+            "description": "Click count",
+            "example": 100
+          },
+          "paid": {
+            "type": "number",
+            "description": "Paid amount",
+            "example": 500
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "USD"
+          },
+          "owned": {
+            "type": "number",
+            "description": "Owned amount",
+            "example": 750
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "email"
+        ]
+      },
+      "AffiliateListMetaResponseDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "description": "Total affiliates matching the applied filters",
+            "example": 42
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "ListAffiliatesResponseDto": {
+        "type": "object",
+        "properties": {
+          "affiliates": {
+            "description": "Affiliate list",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OAuthAffiliateListItemResponseDto"
+            }
+          },
+          "meta": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AffiliateListMetaResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "affiliates",
+          "meta"
+        ]
+      },
+      "GetAffiliateResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Affiliate id",
+            "example": "63d147176c5bbc30e9e091a4"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Affiliate first name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Affiliate last name",
+            "example": "Doe"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Affiliate phone number",
+            "example": "+1 888 888-8888"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the affiliate is deleted",
+            "example": false
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the affiliate is active",
+            "example": true
+          },
+          "address": {
+            "type": "string",
+            "description": "Affiliate address",
+            "example": "123 Main St"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "Affiliate avatar URL",
+            "example": "https://example.com/avatar.png"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "createdBy": {
+            "type": "object",
+            "description": "Created by audit info"
+          },
+          "facebookUrl": {
+            "type": "string",
+            "description": "Facebook URL",
+            "example": "https://facebook.com/johndoe"
+          },
+          "instagramUrl": {
+            "type": "string",
+            "description": "Instagram URL",
+            "example": "https://instagram.com/johndoe"
+          },
+          "linkedInUrl": {
+            "type": "string",
+            "description": "LinkedIn URL",
+            "example": "https://linkedin.com/in/johndoe"
+          },
+          "twitterUrl": {
+            "type": "string",
+            "description": "Twitter URL",
+            "example": "https://twitter.com/johndoe"
+          },
+          "youtubeUrl": {
+            "type": "string",
+            "description": "YouTube URL",
+            "example": "https://youtube.com/channel"
+          },
+          "websiteUrl": {
+            "type": "string",
+            "description": "Website URL",
+            "example": "https://example.com"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact id associated with the affiliate",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "campaignIds": {
+            "description": "Campaign ids",
+            "example": [
+              "650173614761b33c46d33b19"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vatId": {
+            "type": "string",
+            "description": "VAT ID",
+            "example": "VAT123"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated at timestamp",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "w8Form": {
+            "type": "string",
+            "description": "W8 form URL"
+          },
+          "w9Form": {
+            "type": "string",
+            "description": "W9 form URL"
+          },
+          "lastUpdatedBy": {
+            "type": "object",
+            "description": "Last updated by audit info"
+          },
+          "email": {
+            "type": "string",
+            "description": "Affiliate email",
+            "example": "john.doe@example.com"
+          },
+          "revenue": {
+            "type": "number",
+            "description": "Affiliate revenue",
+            "example": 1250.5
+          },
+          "customer": {
+            "type": "number",
+            "description": "Customer count",
+            "example": 15
+          },
+          "lead": {
+            "type": "number",
+            "description": "Lead count",
+            "example": 5
+          },
+          "droppedCustomer": {
+            "type": "number",
+            "description": "Dropped customer count",
+            "example": 2
+          },
+          "clickCount": {
+            "type": "number",
+            "description": "Click count",
+            "example": 100
+          },
+          "paid": {
+            "type": "number",
+            "description": "Paid amount",
+            "example": 500
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "USD"
+          },
+          "owned": {
+            "type": "number",
+            "description": "Owned amount",
+            "example": 750
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "email"
+        ]
+      },
+      "PayoutListItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Payout id",
+            "example": "65df04201e428a0c5ebb6571"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "affiliateId": {
+            "type": "string",
+            "description": "Affiliate id",
+            "example": "65df04201e428a0c5ebb6572"
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign id",
+            "example": "65df04201e428a0c5ebb6573"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Payout currency",
+            "example": "USD"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payout amount",
+            "example": 150
+          },
+          "status": {
+            "type": "string",
+            "description": "Payout status",
+            "example": "pending"
+          },
+          "payoutMonth": {
+            "type": "string",
+            "description": "Payout month",
+            "example": "2024-06-01T00:00:00.000Z"
+          },
+          "dueAt": {
+            "type": "string",
+            "description": "Payout due date",
+            "example": "2024-06-30T00:00:00.000Z"
+          },
+          "paidAt": {
+            "type": "string",
+            "description": "Payout paid date",
+            "example": "2024-06-30T00:00:00.000Z"
+          },
+          "paidMeta": {
+            "type": "object",
+            "description": "Payout metadata"
+          },
+          "paidMethod": {
+            "type": "string",
+            "description": "Payout paid method",
+            "example": "manual"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Alternate id",
+            "example": "alt_123"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the payout is deleted",
+            "example": false
+          },
+          "isMigrated": {
+            "type": "boolean",
+            "description": "Whether the payout is migrated",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated at timestamp",
+            "example": "2024-06-17T00:00:00.000Z"
+          },
+          "campaign": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Summer Promo"
+          },
+          "affiliateName": {
+            "type": "string",
+            "description": "Affiliate display name",
+            "example": "John Doe"
+          },
+          "affiliateEmail": {
+            "type": "string",
+            "description": "Affiliate email",
+            "example": "john.doe@example.com"
+          },
+          "payoutMethod": {
+            "type": "string",
+            "description": "Primary payout method",
+            "example": "paypal"
+          },
+          "affiliate": {
+            "description": "Affiliate details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OAuthAffiliateListItemResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "affiliateId",
+          "currency",
+          "amount"
+        ]
+      },
+      "PayoutListMetaResponseDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "description": "Total payouts matching the filters",
+            "example": 42
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "GetPayoutListResponseDto": {
+        "type": "object",
+        "properties": {
+          "payouts": {
+            "description": "Payout list",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PayoutListItemResponseDto"
+            }
+          },
+          "meta": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PayoutListMetaResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "payouts"
+        ]
+      },
+      "CommissionCustomerResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Customer id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Customer first name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Customer last name",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Customer email",
+            "example": "john@example.com"
+          },
+          "type": {
+            "type": "string",
+            "description": "Customer type",
+            "example": "customer"
+          }
+        }
+      },
+      "CommissionCampaignResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Summer Promo"
+          },
+          "liveMode": {
+            "type": "boolean",
+            "description": "Whether the campaign is in live mode",
+            "example": true
+          }
+        }
+      },
+      "CommissionAffiliateResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Affiliate id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "name": {
+            "type": "string",
+            "description": "Affiliate display name",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Affiliate email",
+            "example": "affiliate@example.com"
+          }
+        }
+      },
+      "CommissionListItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Commission id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "productId": {
+            "type": "string",
+            "description": "Product id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product name",
+            "example": "Basic Plan"
+          },
+          "qty": {
+            "type": "number",
+            "description": "Quantity",
+            "example": 1
+          },
+          "productCommission": {
+            "type": "number",
+            "description": "Product commission amount",
+            "example": 25
+          },
+          "commissionAmount": {
+            "type": "number",
+            "description": "Commission amount",
+            "example": 25
+          },
+          "amount": {
+            "type": "number",
+            "description": "Base amount",
+            "example": 100
+          },
+          "unitDiscount": {
+            "type": "number",
+            "description": "Unit discount",
+            "example": 5
+          },
+          "campaignName": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Summer Promo"
+          },
+          "commission": {
+            "type": "number",
+            "description": "Commission percentage or value",
+            "example": 25
+          },
+          "commissionType": {
+            "type": "string",
+            "description": "Commission type",
+            "example": "percentage"
+          },
+          "transactionAt": {
+            "type": "string",
+            "description": "Transaction time",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Transaction id",
+            "example": "txn_123"
+          },
+          "affiliateId": {
+            "type": "string",
+            "description": "Affiliate id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "payoutId": {
+            "type": "string",
+            "description": "Payout id",
+            "example": "6385d230f6d19db03eef6fb2"
+          },
+          "status": {
+            "type": "string",
+            "description": "Commission status",
+            "example": "pending"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency",
+            "example": "USD"
+          },
+          "isTrial": {
+            "type": "boolean",
+            "description": "Whether the item is a trial commission",
+            "example": false
+          },
+          "customer": {
+            "description": "Customer details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CommissionCustomerResponseDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at",
+            "example": "2024-06-16T00:00:00.000Z"
+          },
+          "eventId": {
+            "type": "string",
+            "description": "Event id",
+            "example": "evt_123"
+          },
+          "campaign": {
+            "description": "Campaign details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CommissionCampaignResponseDto"
+              }
+            ]
+          },
+          "affiliate": {
+            "description": "Affiliate details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CommissionAffiliateResponseDto"
+              }
+            ]
+          },
+          "dueAt": {
+            "type": "string",
+            "description": "Due date",
+            "example": "2024-06-30T00:00:00.000Z"
+          },
+          "liveMode": {
+            "type": "boolean",
+            "description": "Whether the commission is in live mode",
+            "example": true
+          },
+          "tier": {
+            "type": "number",
+            "description": "Commission tier",
+            "example": 1
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "CommissionListMetaResponseDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "description": "Total commissions matching the filters",
+            "example": 42
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "GetCommissionListResponseDto": {
+        "type": "object",
+        "properties": {
+          "commissions": {
+            "description": "Commission list",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommissionListItemResponseDto"
+            }
+          },
+          "meta": {
+            "description": "Pagination metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CommissionListMetaResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "commissions"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Affiliate Manager",
+    "tags": [
+      "affiliate-manager",
+      "Affiliates",
+      "Payouts",
+      "Commissions"
+    ]
+  }
+}
