@@ -5,7 +5,7 @@
       "get": {
         "operationId": "fetch-media-content",
         "summary": "Get List of Files/ Folders",
-        "description": "Fetches list of files and folders from the media library",
+        "description": "Fetches list of files and folders from the media storage",
         "parameters": [
           {
             "name": "Version",
@@ -143,7 +143,7 @@
     "/medias/upload-file": {
       "post": {
         "operationId": "upload-media-content",
-        "summary": "Upload File into Media Library",
+        "summary": "Upload File into Media Storage",
         "description": "If hosted is set to true then fileUrl is required. Else file is required. If adding a file, maximum allowed is 25 MB",
         "parameters": [
           {
@@ -213,7 +213,7 @@
       "delete": {
         "operationId": "delete-media-content",
         "summary": "Delete File or Folder",
-        "description": "Deletes specific file or folder from the media library",
+        "description": "Deletes specific file or folder from the media storage",
         "parameters": [
           {
             "name": "Version",
@@ -337,7 +337,7 @@
       "post": {
         "operationId": "create-media-folder",
         "summary": "Create Folder",
-        "description": "Creates a new folder in the media library",
+        "description": "Creates a new folder in the media storage",
         "parameters": [
           {
             "name": "Version",
@@ -498,7 +498,7 @@
     }
   },
   "info": {
-    "title": "Media Library API",
+    "title": "Media Storage API",
     "description": "Documentation for Files API",
     "version": "1.0",
     "contact": {}
@@ -880,7 +880,7 @@
     }
   },
   "x-tagGroups": {
-    "name": "Media Library",
+    "name": "Media Storage",
     "tags": [
       "Medias"
     ]

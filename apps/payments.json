@@ -105,8 +105,8 @@
             "required": true,
             "in": "query",
             "description": "location Id / company Id based on altType",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -115,8 +115,8 @@
             "required": true,
             "in": "query",
             "description": "Alt Type",
-            "example": "location",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -127,10 +127,10 @@
             "name": "limit",
             "required": false,
             "in": "query",
-            "example": 20,
             "description": "The maximum number of items to be included in a single page of results",
             "schema": {
               "default": 0,
+              "example": 20,
               "type": "number"
             }
           },
@@ -138,10 +138,10 @@
             "name": "offset",
             "required": false,
             "in": "query",
-            "example": 0,
             "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
             "schema": {
               "default": 0,
+              "example": 0,
               "type": "number"
             }
           }
@@ -222,9 +222,9 @@
             "name": "locationId",
             "required": false,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "LocationId is the id of the sub-account.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -232,19 +232,9 @@
             "name": "altId",
             "required": true,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "AltId is the unique identifier e.g: location id.",
             "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "altType",
-            "required": true,
-            "in": "query",
-            "example": "location",
-            "description": "AltType is the type of identifier.",
-            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -252,9 +242,25 @@
             "name": "status",
             "required": false,
             "in": "query",
-            "example": "completed",
             "description": "Order status.",
             "schema": {
+              "example": "completed",
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentStatus",
+            "required": false,
+            "in": "query",
+            "description": "Payment Status of the Order",
+            "schema": {
+              "example": "unpaid",
+              "enum": [
+                "paid",
+                "unpaid",
+                "refunded",
+                "partially_paid"
+              ],
               "type": "string"
             }
           },
@@ -262,9 +268,9 @@
             "name": "paymentMode",
             "required": false,
             "in": "query",
-            "example": "live",
             "description": "Mode of payment.",
             "schema": {
+              "example": "live",
               "type": "string"
             }
           },
@@ -272,9 +278,9 @@
             "name": "startAt",
             "required": false,
             "in": "query",
-            "example": "2024-02-01",
             "description": "Starting interval of orders.",
             "schema": {
+              "example": "2024-02-01",
               "type": "string"
             }
           },
@@ -282,9 +288,9 @@
             "name": "endAt",
             "required": false,
             "in": "query",
-            "example": "2024-02-13",
             "description": "Closing interval of orders.",
             "schema": {
+              "example": "2024-02-13",
               "type": "string"
             }
           },
@@ -292,9 +298,9 @@
             "name": "search",
             "required": false,
             "in": "query",
-            "example": "Awesome order",
             "description": "The name of the order for searching.",
             "schema": {
+              "example": "Awesome order",
               "type": "string"
             }
           },
@@ -302,9 +308,9 @@
             "name": "contactId",
             "required": false,
             "in": "query",
-            "example": "XPLSw2SVagl12LMDeTmQ",
             "description": "Contact id for filtering of orders.",
             "schema": {
+              "example": "XPLSw2SVagl12LMDeTmQ",
               "type": "string"
             }
           },
@@ -312,9 +318,19 @@
             "name": "funnelProductIds",
             "required": false,
             "in": "query",
-            "example": "61dd0c7dc077f712a5f787ff,61d6afc9d39ac5e35965c017",
             "description": "Funnel product ids separated by comma.",
             "schema": {
+              "example": "61dd0c7dc077f712a5f787ff,61d6afc9d39ac5e35965c017",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceId",
+            "required": false,
+            "in": "query",
+            "description": "Source id",
+            "schema": {
+              "example": "61dd0c7dc077f712a5f787ff",
               "type": "string"
             }
           },
@@ -322,10 +338,10 @@
             "name": "limit",
             "required": false,
             "in": "query",
-            "example": 20,
             "description": "The maximum number of items to be included in a single page of results",
             "schema": {
               "default": 10,
+              "example": 20,
               "type": "number"
             }
           },
@@ -333,10 +349,10 @@
             "name": "offset",
             "required": false,
             "in": "query",
-            "example": 0,
             "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
             "schema": {
               "default": 0,
+              "example": 0,
               "type": "number"
             }
           }
@@ -418,8 +434,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the order that needs to be returned",
-            "example": "653f5e0cde5a1314e62a837c",
             "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
               "type": "string"
             }
           },
@@ -427,9 +443,9 @@
             "name": "locationId",
             "required": false,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "LocationId is the id of the sub-account.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -437,9 +453,9 @@
             "name": "altId",
             "required": true,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "AltId is the unique identifier e.g: location id.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           }
@@ -520,7 +536,7 @@
             "name": "orderId",
             "required": true,
             "in": "path",
-            "description": "MongoDB Order ID",
+            "description": "Order ID",
             "schema": {
               "example": "5e2d4c8e0e8b4e001c1c4f5d",
               "type": "string"
@@ -591,80 +607,6 @@
         ]
       }
     },
-    "/payments/orders/migrate-order-ps": {
-      "post": {
-        "operationId": "post-migrate-order-payment-status",
-        "summary": "migration Endpoint for Order Payment Status",
-        "description": "Process to migrate all the older orders and based on the statuses introduce the payment statuses as well",
-        "parameters": [
-          {
-            "name": "Version",
-            "in": "header",
-            "description": "API Version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "2021-07-28"
-              ]
-            }
-          },
-          {
-            "name": "locationId",
-            "required": false,
-            "in": "query",
-            "description": "LocationId is the id of the sub-account.",
-            "schema": {
-              "example": "3SwdhCu3svxI8AKsPJt6",
-              "type": "string"
-            }
-          },
-          {
-            "name": "altId",
-            "required": true,
-            "in": "query",
-            "description": "AltId is the unique identifier e.g: location id.",
-            "schema": {
-              "example": "3SwdhCu3svxI8AKsPJt6",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": ""
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Orders"
-        ],
-        "security": [
-          {
-            "Location-Access": []
-          }
-        ]
-      }
-    },
     "/payments/orders/{orderId}/fulfillments": {
       "post": {
         "operationId": "create-order-fulfillment",
@@ -688,8 +630,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the order that needs to be returned",
-            "example": "653f5e0cde5a1314e62a837c",
             "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
               "type": "string"
             }
           }
@@ -779,8 +721,8 @@
             "required": true,
             "in": "query",
             "description": "Location Id or Agency Id",
-            "example": "6578278e879ad2646715ba9c",
             "schema": {
+              "example": "6578278e879ad2646715ba9c",
               "type": "string"
             }
           },
@@ -800,8 +742,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the order that needs to be returned",
-            "example": "653f5e0cde5a1314e62a837c",
             "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
               "type": "string"
             }
           }
@@ -977,9 +919,9 @@
             "name": "locationId",
             "required": false,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "LocationId is the id of the sub-account.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -987,9 +929,9 @@
             "name": "altId",
             "required": true,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "AltId is the unique identifier e.g: location id.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -997,9 +939,9 @@
             "name": "altType",
             "required": true,
             "in": "query",
-            "example": "location",
             "description": "AltType is the type of identifier.",
             "schema": {
+              "example": "location",
               "type": "string"
             }
           },
@@ -1007,9 +949,9 @@
             "name": "paymentMode",
             "required": false,
             "in": "query",
-            "example": "live",
             "description": "Mode of payment.",
             "schema": {
+              "example": "live",
               "type": "string"
             }
           },
@@ -1017,9 +959,9 @@
             "name": "startAt",
             "required": false,
             "in": "query",
-            "example": "2024-02-01",
             "description": "Starting interval of transactions.",
             "schema": {
+              "example": "2024-02-01",
               "type": "string"
             }
           },
@@ -1027,9 +969,9 @@
             "name": "endAt",
             "required": false,
             "in": "query",
-            "example": "2024-02-13",
             "description": "Closing interval of transactions.",
             "schema": {
+              "example": "2024-02-13",
               "type": "string"
             }
           },
@@ -1037,9 +979,9 @@
             "name": "entitySourceType",
             "required": false,
             "in": "query",
-            "example": "funnel",
             "description": "Source of the transactions.",
             "schema": {
+              "example": "funnel",
               "type": "string"
             }
           },
@@ -1047,9 +989,9 @@
             "name": "entitySourceSubType",
             "required": false,
             "in": "query",
-            "example": "two_step_order_form",
             "description": "Source sub-type of the transactions.",
             "schema": {
+              "example": "two_step_order_form",
               "type": "string"
             }
           },
@@ -1057,9 +999,9 @@
             "name": "search",
             "required": false,
             "in": "query",
-            "example": "Awesome transaction",
             "description": "The name of the transaction for searching.",
             "schema": {
+              "example": "Awesome transaction",
               "type": "string"
             }
           },
@@ -1067,9 +1009,9 @@
             "name": "subscriptionId",
             "required": false,
             "in": "query",
-            "example": "sub_1KGcXDCScnf89tZoVkoEMCEL",
             "description": "Subscription id for filtering of transactions.",
             "schema": {
+              "example": "sub_1KGcXDCScnf89tZoVkoEMCEL",
               "type": "string"
             }
           },
@@ -1077,9 +1019,9 @@
             "name": "entityId",
             "required": false,
             "in": "query",
-            "example": "61dd0fe9c077f73e67f78803",
             "description": "Entity id for filtering of transactions.",
             "schema": {
+              "example": "61dd0fe9c077f73e67f78803",
               "type": "string"
             }
           },
@@ -1087,9 +1029,9 @@
             "name": "contactId",
             "required": false,
             "in": "query",
-            "example": "XPLSw2SVagl12LMDeTmQ",
             "description": "Contact id for filtering of transactions.",
             "schema": {
+              "example": "XPLSw2SVagl12LMDeTmQ",
               "type": "string"
             }
           },
@@ -1097,10 +1039,10 @@
             "name": "limit",
             "required": false,
             "in": "query",
-            "example": 20,
             "description": "The maximum number of items to be included in a single page of results",
             "schema": {
               "default": 10,
+              "example": 20,
               "type": "number"
             }
           },
@@ -1108,10 +1050,10 @@
             "name": "offset",
             "required": false,
             "in": "query",
-            "example": 0,
             "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
             "schema": {
               "default": 0,
+              "example": 0,
               "type": "number"
             }
           }
@@ -1193,8 +1135,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the transaction that needs to be returned",
-            "example": "61dd0feac077f72010f78804",
             "schema": {
+              "example": "61dd0feac077f72010f78804",
               "type": "string"
             }
           },
@@ -1202,9 +1144,9 @@
             "name": "locationId",
             "required": false,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "LocationId is the id of the sub-account.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -1212,9 +1154,9 @@
             "name": "altId",
             "required": true,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "AltId is the unique identifier e.g: location id.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -1222,9 +1164,9 @@
             "name": "altType",
             "required": true,
             "in": "query",
-            "example": "location",
             "description": "AltType is the type of identifier.",
             "schema": {
+              "example": "location",
               "type": "string"
             }
           }
@@ -1305,9 +1247,9 @@
             "name": "altId",
             "required": true,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "AltId is the unique identifier e.g: location id.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -1315,9 +1257,9 @@
             "name": "altType",
             "required": true,
             "in": "query",
-            "example": "location",
             "description": "AltType is the type of identifier.",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -1328,9 +1270,9 @@
             "name": "entityId",
             "required": false,
             "in": "query",
-            "example": "61dd0fe9c077f73e67f78803",
             "description": "Entity id for filtering of subscriptions.",
             "schema": {
+              "example": "61dd0fe9c077f73e67f78803",
               "type": "string"
             }
           },
@@ -1338,9 +1280,9 @@
             "name": "paymentMode",
             "required": false,
             "in": "query",
-            "example": "live",
             "description": "Mode of payment.",
             "schema": {
+              "example": "live",
               "type": "string"
             }
           },
@@ -1348,9 +1290,9 @@
             "name": "startAt",
             "required": false,
             "in": "query",
-            "example": "2024-02-01",
             "description": "Starting interval of subscriptions.",
             "schema": {
+              "example": "2024-02-01",
               "type": "string"
             }
           },
@@ -1358,9 +1300,9 @@
             "name": "endAt",
             "required": false,
             "in": "query",
-            "example": "2024-02-13",
             "description": "Closing interval of subscriptions.",
             "schema": {
+              "example": "2024-02-13",
               "type": "string"
             }
           },
@@ -1368,9 +1310,9 @@
             "name": "entitySourceType",
             "required": false,
             "in": "query",
-            "example": "funnel",
             "description": "Source of the subscriptions.",
             "schema": {
+              "example": "funnel",
               "type": "string"
             }
           },
@@ -1378,9 +1320,9 @@
             "name": "search",
             "required": false,
             "in": "query",
-            "example": "Awesome subscription",
             "description": "The name of the subscription for searching.",
             "schema": {
+              "example": "Awesome subscription",
               "type": "string"
             }
           },
@@ -1389,8 +1331,8 @@
             "required": false,
             "in": "query",
             "description": "Contact ID for the subscription",
-            "example": "AmuzcoPBpgKeccNsFlib",
             "schema": {
+              "example": "AmuzcoPBpgKeccNsFlib",
               "type": "string"
             }
           },
@@ -1398,9 +1340,9 @@
             "name": "id",
             "required": false,
             "in": "query",
-            "example": "64bf78af39118e4011926cba",
             "description": "Subscription id for filtering of subscriptions.",
             "schema": {
+              "example": "64bf78af39118e4011926cba",
               "type": "string"
             }
           },
@@ -1408,10 +1350,10 @@
             "name": "limit",
             "required": false,
             "in": "query",
-            "example": 20,
             "description": "The maximum number of items to be included in a single page of results",
             "schema": {
               "default": 10,
+              "example": 20,
               "type": "number"
             }
           },
@@ -1419,11 +1361,21 @@
             "name": "offset",
             "required": false,
             "in": "query",
-            "example": 0,
             "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
             "schema": {
               "default": 0,
+              "example": 0,
               "type": "number"
+            }
+          },
+          {
+            "name": "getPaymentsCollectedCount",
+            "required": false,
+            "in": "query",
+            "description": "Get the total payments collected for the subscription.",
+            "schema": {
+              "example": "true",
+              "type": "boolean"
             }
           }
         ],
@@ -1504,8 +1456,8 @@
             "required": true,
             "in": "path",
             "description": "ID of the subscription that needs to be returned",
-            "example": "6322e9c9e39fc14ab3ed7042",
             "schema": {
+              "example": "6322e9c9e39fc14ab3ed7042",
               "type": "string"
             }
           },
@@ -1513,9 +1465,9 @@
             "name": "altId",
             "required": true,
             "in": "query",
-            "example": "3SwdhCu3svxI8AKsPJt6",
             "description": "AltId is the unique identifier e.g: location id.",
             "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
               "type": "string"
             }
           },
@@ -1523,9 +1475,9 @@
             "name": "altType",
             "required": true,
             "in": "query",
-            "example": "location",
             "description": "AltType is the type of identifier.",
             "schema": {
+              "example": "location",
               "enum": [
                 "location"
               ],
@@ -2012,8 +1964,8 @@
             "required": true,
             "in": "query",
             "description": "Location id",
-            "example": "Lk3nlfk4lxlelVEwcW",
             "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
               "type": "string"
             }
           }
@@ -2103,8 +2055,8 @@
             "required": true,
             "in": "query",
             "description": "Location id",
-            "example": "Lk3nlfk4lxlelVEwcW",
             "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
               "type": "string"
             }
           }
@@ -2186,8 +2138,8 @@
             "required": true,
             "in": "query",
             "description": "Location id",
-            "example": "Lk3nlfk4lxlelVEwcW",
             "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
               "type": "string"
             }
           }
@@ -2267,8 +2219,8 @@
             "required": true,
             "in": "query",
             "description": "Location id",
-            "example": "Lk3nlfk4lxlelVEwcW",
             "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
               "type": "string"
             }
           }
@@ -2360,8 +2312,8 @@
             "required": true,
             "in": "query",
             "description": "Location id",
-            "example": "Lk3nlfk4lxlelVEwcW",
             "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
               "type": "string"
             }
           }
@@ -2555,10 +2507,6 @@
     },
     {
       "name": "Custom Provider",
-      "description": "Documentation for payments API"
-    },
-    {
-      "name": "Payment Service V1",
       "description": "Documentation for payments API"
     }
   ],
@@ -2948,6 +2896,11 @@
             "type": "number",
             "example": "1",
             "description": "Total recurring time products in an order."
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the order."
           }
         },
         "required": [
@@ -3190,6 +3143,11 @@
             "type": "object",
             "description": "Provider name for automatic tax calculation",
             "example": "taxjar"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the order."
           }
         },
         "required": [
@@ -3446,53 +3404,6 @@
           "options"
         ]
       },
-      "ProductMediaDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "The unique identifier for the media.",
-            "example": "fzrgusiuu0m"
-          },
-          "title": {
-            "type": "string",
-            "description": "The title of the media file.",
-            "example": "1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png"
-          },
-          "url": {
-            "type": "string",
-            "description": "The URL where the media file is stored.",
-            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png"
-          },
-          "type": {
-            "type": "string",
-            "description": "The type of the media file (e.g., image, video will be supporting soon).",
-            "example": "image",
-            "enum": [
-              "image",
-              "video"
-            ]
-          },
-          "isFeatured": {
-            "type": "boolean",
-            "description": "Indicates whether the media is featured.",
-            "example": true
-          },
-          "priceIds": {
-            "description": "Mongo ObjectIds of the prices for which the media is assigned",
-            "example": "6578278e879ad2646715ba9c",
-            "type": "array",
-            "items": {
-              "type": "array"
-            }
-          }
-        },
-        "required": [
-          "id",
-          "url",
-          "type"
-        ]
-      },
       "ProductLabelDto": {
         "type": "object",
         "properties": {
@@ -3516,21 +3427,6 @@
           "title"
         ]
       },
-      "ProductSEODto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "SEO title of the product which will be displayed in the preview",
-            "example": "Apple iPhone 14"
-          },
-          "description": {
-            "type": "string",
-            "description": "SEO Description for the product which will be displayed in the preview",
-            "example": "New iPhone with all new features"
-          }
-        }
-      },
       "DefaultProductResponseDto": {
         "type": "object",
         "properties": {
@@ -3549,13 +3445,6 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ProductVariantDto"
-            }
-          },
-          "medias": {
-            "description": "An array of medias for the product.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProductMediaDto"
             }
           },
           "locationId": {
@@ -3577,11 +3466,6 @@
             "type": "boolean",
             "description": "Indicates whether the product is available in-store.",
             "example": true
-          },
-          "userId": {
-            "type": "string",
-            "description": "The unique identifier for the user who created the product.",
-            "example": "6YAtzfzpmHAdj0e8GkKp"
           },
           "createdAt": {
             "format": "date-time",
@@ -3637,12 +3521,6 @@
             "description": "Tax category ID for Automatic taxes calculation.",
             "example": "65d71377c326ea78e1c47df5"
           },
-          "isLabelEnabled": {
-            "type": "boolean",
-            "description": "A boolean representing whether a product label is enabled or not",
-            "example": true,
-            "default": false
-          },
           "label": {
             "description": "The Product label details",
             "allOf": [
@@ -3655,14 +3533,6 @@
             "type": "string",
             "description": "The slug of the product by which the product will be navigated",
             "example": "washing-machine"
-          },
-          "seo": {
-            "description": "The SEO information for the product requested",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ProductSEODto"
-              }
-            ]
           }
         },
         "required": [
@@ -4128,6 +3998,11 @@
             "type": "string",
             "description": "The charged timestamp of the transaction.",
             "example": "2023-11-20T10:27:36.515Z"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the transaction."
           }
         },
         "required": [
@@ -4314,6 +4189,11 @@
             "type": "string",
             "example": "XPLSw2SVagl12LMDeTmQ",
             "description": "ID of the contact that was merged from."
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the transaction."
           }
         },
         "required": [
@@ -4446,6 +4326,11 @@
             "type": "string",
             "description": "The update timestamp of the subscription.",
             "example": "2023-11-20T10:23:36.515Z"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the subscription."
           }
         },
         "required": [
@@ -4735,6 +4620,11 @@
             "type": "string",
             "description": "Trace id of the subscription.",
             "example": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the subscription."
           }
         },
         "required": [
@@ -5776,8 +5666,7 @@
       "Transactions",
       "Subscriptions",
       "Coupons",
-      "Custom Provider",
-      "Payment Service V1"
+      "Custom Provider"
     ]
   }
 }

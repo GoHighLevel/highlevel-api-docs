@@ -134,6 +134,341 @@
         ]
       }
     },
+    "/phone-system/numbers/location/{locationId}/available": {
+      "get": {
+        "operationId": "available-numbers",
+        "summary": "List available phone numbers",
+        "description": "Search for available phone numbers to purchase for a specific location. Supports filtering by number pattern, type, and capabilities.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "The unique identifier of the location",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "ISO 3166-1 alpha-2 country code for which to search available numbers",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "US"
+          },
+          {
+            "name": "numberTypes",
+            "in": "query",
+            "description": "Comma-separated list of phone number types to search for (e.g. local, tollFree, mobile)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "local,tollFree"
+          },
+          {
+            "name": "firstPart",
+            "in": "query",
+            "description": "Filter numbers that begin with this digit pattern",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "830"
+          },
+          {
+            "name": "lastPart",
+            "in": "query",
+            "description": "Filter numbers that end with this digit pattern",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "825"
+          },
+          {
+            "name": "anywhere",
+            "in": "query",
+            "description": "Filter numbers that contain this digit pattern anywhere",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "825"
+          },
+          {
+            "name": "smsEnabled",
+            "in": "query",
+            "description": "Filter for numbers with SMS capability",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "example": true
+          },
+          {
+            "name": "mmsEnabled",
+            "in": "query",
+            "description": "Filter for numbers with MMS capability",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "example": true
+          },
+          {
+            "name": "voiceEnabled",
+            "in": "query",
+            "description": "Filter for numbers with voice capability",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "example": true
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of available phone numbers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailableNumbersResponseDto"
+                },
+                "examples": {
+                  "successful-response": {
+                    "summary": "Successful response with available numbers",
+                    "value": {
+                      "fingerprintId": "1773314252953",
+                      "numbers": [
+                        {
+                          "phoneNumber": "+18705871861",
+                          "friendlyName": "(870) 587-1861",
+                          "lata": "528",
+                          "locality": "Wynne",
+                          "rateCenter": "WYNNE",
+                          "latitude": "35.241800",
+                          "longitude": "-90.846000",
+                          "region": "AR",
+                          "postalCode": "72396",
+                          "isoCountry": "US",
+                          "addressRequirements": "none",
+                          "beta": false,
+                          "capabilities": {
+                            "MMS": true,
+                            "SMS": true,
+                            "voice": true
+                          },
+                          "price": {
+                            "number_type": "local",
+                            "price": 1.15,
+                            "price_unit": "USD"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "countryCode is required"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "phonenumbers.read"
+            ]
+          }
+        ],
+        "tags": [
+          "Phone Numbers"
+        ]
+      }
+    },
+    "/phone-system/numbers/location/{locationId}/purchase": {
+      "post": {
+        "operationId": "purchase-phone-number",
+        "summary": "Purchase a phone number",
+        "description": "Purchase a phone number for a specific location.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "The unique identifier of the location",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurchasePhoneNumberBodyDto"
+              },
+              "examples": {
+                "purchase-local-number": {
+                  "summary": "Purchase a local US number",
+                  "value": {
+                    "phoneNumber": "+18305551234",
+                    "countryCode": "US",
+                    "numberType": "local"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Phone number successfully purchased. Returns the updated Twilio account state for the location.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TwilioAccountResponseDto"
+                },
+                "examples": {
+                  "successful-response": {
+                    "summary": "Successful purchase response",
+                    "value": {
+                      "id": "8xMPW85D2z5jgcTa5L1p",
+                      "account_sid": "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      "under_ghl_account": true,
+                      "validate_sms": true,
+                      "location_id": "aa4PBpxnPc9bs4LSdiW7",
+                      "migration_numbers": [],
+                      "assigned_to_numbers": {},
+                      "numbers": {
+                        "+18705871861": "conversation"
+                      },
+                      "number_name": {
+                        "+18705871861": "My Number"
+                      },
+                      "new_account_sid": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters or number unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Phone number is no longer available"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - An unexpected error occurred while purchasing the phone number"
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "phonenumbers.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Phone Numbers"
+        ]
+      }
+    },
     "/phone-system/numbers/location/{locationId}": {
       "get": {
         "operationId": "active-numbers",
@@ -477,6 +812,290 @@
       }
     },
     "schemas": {
+      "AvailableNumbersResponseDto": {
+        "type": "object",
+        "properties": {
+          "fingerprintId": {
+            "type": "string",
+            "description": "Unique fingerprint ID for this search result, required when purchasing one of the returned numbers",
+            "example": "1773314252953"
+          },
+          "numbers": {
+            "type": "array",
+            "description": "List of available phone numbers matching the search criteria",
+            "items": {
+              "$ref": "#/components/schemas/AvailablePhoneNumberDto"
+            }
+          }
+        },
+        "required": ["fingerprintId", "numbers"]
+      },
+      "AvailablePhoneNumberDto": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "E.164 formatted phone number",
+            "example": "+18705871861"
+          },
+          "friendlyName": {
+            "type": "string",
+            "description": "Human-readable formatted phone number",
+            "example": "(870) 587-1861"
+          },
+          "isoCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code",
+            "example": "US"
+          },
+          "lata": {
+            "type": "string",
+            "description": "Local Access and Transport Area code",
+            "example": "528",
+            "nullable": true
+          },
+          "locality": {
+            "type": "string",
+            "description": "City or locality of the number",
+            "example": "Wynne",
+            "nullable": true
+          },
+          "rateCenter": {
+            "type": "string",
+            "description": "Rate center of the number",
+            "example": "WYNNE",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "string",
+            "description": "Latitude coordinate of the number's location",
+            "example": "35.241800",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "string",
+            "description": "Longitude coordinate of the number's location",
+            "example": "-90.846000",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "description": "State or region abbreviation",
+            "example": "AR",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal code of the number",
+            "example": "72396",
+            "nullable": true
+          },
+          "addressRequirements": {
+            "type": "string",
+            "description": "Address requirements for purchasing this number",
+            "example": "none",
+            "enum": ["none", "any", "local", "foreign"]
+          },
+          "beta": {
+            "type": "boolean",
+            "description": "Whether this is a beta number",
+            "example": false
+          },
+          "capabilities": {
+            "type": "object",
+            "description": "Communication capabilities supported by this number",
+            "properties": {
+              "MMS": {
+                "type": "boolean",
+                "example": true
+              },
+              "SMS": {
+                "type": "boolean",
+                "example": true
+              },
+              "voice": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "price": {
+            "type": "object",
+            "description": "Pricing information for this number",
+            "properties": {
+              "number_type": {
+                "type": "string",
+                "description": "Type of number for billing purposes",
+                "example": "local"
+              },
+              "price": {
+                "type": "number",
+                "description": "Monthly price for this number",
+                "example": 1.15
+              },
+              "price_unit": {
+                "type": "string",
+                "description": "Currency unit for the price",
+                "example": "USD"
+              }
+            }
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "friendlyName",
+          "isoCountry",
+          "addressRequirements",
+          "beta",
+          "capabilities"
+        ]
+      },
+      "TwilioAccountResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the Twilio account record",
+            "example": "8xMPW85D2z5jgcTa5L1p"
+          },
+          "account_sid": {
+            "type": "string",
+            "description": "Twilio Account SID",
+            "example": "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          },
+          "under_ghl_account": {
+            "type": "boolean",
+            "description": "Whether this location is under a GHL-managed Twilio account",
+            "example": true
+          },
+          "validate_sms": {
+            "type": "boolean",
+            "description": "Whether SMS validation is enabled",
+            "example": true
+          },
+          "location_id": {
+            "type": "string",
+            "description": "The location ID this Twilio account belongs to",
+            "example": "aa4PBpxnPc9bs4LSdiW7"
+          },
+          "migration_status": {
+            "type": "string",
+            "description": "Current migration status of the account",
+            "example": "completed",
+            "nullable": true
+          },
+          "migration_numbers": {
+            "type": "array",
+            "description": "List of numbers being migrated",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          },
+          "assigned_to_numbers": {
+            "type": "object",
+            "description": "Map of phone numbers to assigned user IDs",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {}
+          },
+          "numbers": {
+            "type": "object",
+            "description": "Map of phone numbers to their service type (e.g. 'conversation')",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "+18705871861": "conversation"
+            }
+          },
+          "number_name": {
+            "type": "object",
+            "description": "Map of phone numbers to their friendly names",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "+18705871861": "My Number"
+            }
+          },
+          "new_account_sid": {
+            "type": "string",
+            "description": "New account SID if the account has been migrated to new credentials",
+            "example": "",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "account_sid",
+          "under_ghl_account",
+          "validate_sms",
+          "location_id",
+          "numbers"
+        ]
+      },
+      "PurchasePhoneNumberBodyDto": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number to purchase",
+            "example": "+18305551234"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code of the number",
+            "example": "US"
+          },
+          "numberType": {
+            "type": "string",
+            "description": "Type of phone number",
+            "example": "local",
+            "enum": ["local", "tollFree", "mobile"]
+          },
+          "addressSid": {
+            "type": "string",
+            "description": "Twilio address SID for compliance",
+            "example": "AD1234567890abcdef1234567890abcde",
+            "nullable": true
+          },
+          "bundleSid": {
+            "type": "string",
+            "description": "Twilio bundle SID for regulatory compliance",
+            "example": "BU1234567890abcdef1234567890abcde",
+            "nullable": true
+          },
+          "locality": {
+            "type": "string",
+            "description": "Locality where the number is being purchased",
+            "example": "San Antonio",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "description": "Region where the number is being purchased",
+            "example": "TX",
+            "nullable": true
+          },
+          "fingerprintId": {
+            "type": "string",
+            "description": "Unique request ID for idempotency (fingerprint of the purchase request)",
+            "example": "fp_abc123def456",
+            "nullable": true
+          },
+          "skipLocationKYC": {
+            "type": "boolean",
+            "description": "Skip location-level KYC verification if agency-level compliance has already been verified",
+            "example": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ]
+      },
       "DetailedPhoneNumberDto": {
         "type": "object",
         "properties": {
