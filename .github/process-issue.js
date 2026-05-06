@@ -127,14 +127,14 @@ const PRODUCT_CHANNELS = {
   "media-library": { em: "Ajay Dev", team: TEAM.LEADGEN, sub_team: LEADGEN_SUB_TEAM.MEDIA_LIBRARY },
 
   // CRM_SUB_TEAM
-  "contacts": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
-  "conversations": { em: "Baibhab", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
+  "contacts": { em: "Sudhanshoo Mishra", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
+  "conversations": { em: "Varun Garg", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS },
   "marketplace": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.MARKETPLACE },
   "conversations-ai": { em: "Dhairya Singh Raghav", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONVERSATIONS_AI },
   "voice-ai": { em: "Rashmi Pant", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.VOICE_AI },
-  "bulk-actions": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.BULK_ACTIONS },
-  "custom-objects": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
-  "opportunities": { em: "Yogesh", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.OPPORTUNITIES },
+  "bulk-actions": { em: "Virendra Sharma", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.BULK_ACTIONS },
+  "custom-objects": { em: "Ansh Nagrath", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.CONTACTS },
+  "opportunities": { em: "Virendra Sharma", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.OPPORTUNITIES },
   "integrations": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.INTEGRATIONS },
   "marketplace-modules": { em: "Gaurav Kanted", team: TEAM.CRM, sub_team: CRM_SUB_TEAM.MARKETPLACE_MODULES },
 
@@ -196,17 +196,20 @@ const MANAGER_TO_CLICKUP_USER_ID = {
   "Neha": "61231059",
   "Nikita": "95078996",
   "Pranoy Sarkar": "16804265",
+  "Raj Chandra": "72611602",
   "Rashmi Pant": "88924959",
   "Ravi": "61368010",
   "Sai Allu": "88952037",
   "Sayeed": "7836399",
   "Shivendra": "94952187",
+  "Sudhanshoo Mishra": "100834767",
   "Sunil": "57188581",
   "Upamanyu Sarangi": "57190023",
+  "Varun Garg": "100860008",
   "Vatsal Mehta": "50232305",
   "Vinamra Sareen": "88930302",
-  "Yogesh": "7310064",
-  "Raj Chandra": "72611602"
+  "Virendra Sharma": "88829129",
+  "Ansh Nagrath": "55400173"
 };
 
 // Helper function to retry failed API calls
@@ -543,13 +546,16 @@ const SLACK_USER_IDS = {
   "harsh tomar": "U062ZJXAN0Y", // Harsh Tomar (HighLevel)
   "shivendra": "U085SE1QYSY", // Shivendra Soni
   "arvind": "U081TQ2QNJC", // Arvind Jain
-  "yogesh": "U02G2LV4FE0",
   "vara": "U07CV4GADAB",
   "gaurav kanted": "U02SJKP0CGN",
   "dhairya singh raghav": "U04B3MR44JZ",
   "ajay dev": "U02CSM62TJ5",
   "rashmi pant": "U071W6XRQ00",
-  "raj chandra": "U068TRZT89X"
+  "raj chandra": "U068TRZT89X",
+  "varun garg": "U09JQTN3YHM",
+  "sudhanshoo mishra": "U09E7FY1943",
+  "Virendra Sharma": "U06A9K71XUH",
+  "Ansh Nagrath": "U03JCJN4A5Q"
 };
 
 // Get Slack user ID by name
