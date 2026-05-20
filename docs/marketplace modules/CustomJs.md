@@ -2,46 +2,46 @@
 
 ## Wrapper functions
 
-HighLevel provides functions to render contextual data & some utilities that can help developers customize experience for the user.
+HighLevel provides functions to render contextual data & some utilities that can help developers customize experience for the user. These are available via the global `AppUtils` object.
 
-### 1. Local Storage and Cookies Management:
+### 1. Local Storage and Cookies Management
 
 This feature provides utility methods to interact with localStorage and cookies efficiently.
 
 **Local Storage Wrapper:**
 
-- Store data with a maximum size of 5KB per entry.
-- The wrapper automatically prefixes keys to prevent key collisions with `custom_`.
+- Store data with a maximum size of **5000 bytes** per entry.
+- The wrapper automatically prefixes keys with `custom_` to prevent key collisions. **Do not manually prefix your keys with `custom_`.**
 - Stored data is automatically cleaned up when the Vue instance is destroyed.
 
 _Usage:_
 
-```shell
-await  AppUtils.Storage.setData(key,  value); //  Store  data
-await  AppUtils.Storage.getData(key); //  Retrieve  data
+```javascript
+await AppUtils.Storage.setData(key, value); // Store data
+const data = await AppUtils.Storage.getData(key); // Retrieve data. Returns null if not found.
 ```
-
-<br/>
 
 **Cookies Wrapper:**
 
-- Store data with a maximum size of 5KB per entry.
-- Set cookies with optional expiration (maximum of 2 days from the time of creation).
-- The wrapper automatically prefixes keys to prevent key collisions with `custom_`.
+- Store data with a maximum size of **5000 bytes** per entry.
+- Set cookies with optional expiration (maximum of 48 hours). If no expiry is provided, it defaults to 48 hours.
+- The wrapper automatically prefixes keys with `custom_` to prevent key collisions. **Do not manually prefix your keys with `custom_`.**
 
 _Usage:_
 
-```shell
-await AppUtils.Storage.setCookie(key, value, expiryInHours)
-//or
-await AppUtils.Storage.setCookie(key, value) // Store data in a cookie
+```javascript
+// expiryInHours can be a number (e.g., 1, 0.5 for 30 mins)
+await AppUtils.Storage.setCookie(key, value, expiryInHours);
 
-await AppUtils.Storage.getCookie(key) // Retrieve cookie value
+// Default expiry is 48 hours
+await AppUtils.Storage.setCookie(key, value);
+
+const cookieValue = await AppUtils.Storage.getCookie(key); // Retrieve cookie value. Returns null if not found.
 ```
 
-<hr/>
+---
 
-### 2. Custom Events:
+### 2. Custom Events
 
 You can listen to custom application events for specific lifecycle hooks or activities.
 
@@ -52,63 +52,84 @@ You can listen to custom application events for specific lifecycle hooks or acti
 
 _Usage:_
 
-```shell
-window.addEventListener('routeLoaded',callback)
-window.addEventListener('routeChangeEvent',callback)
+```javascript
+window.addEventListener('routeLoaded', callback);
+window.addEventListener('routeChangeEvent', callback);
 ```
 
-<hr>
+---
 
-### 3. Routing Methods:
+### 3. Routing Methods
 
 Custom scripts can now control routing within the application via exposed methods.
 
 **Methods:**
 
-- **getCurrentRoute()**: Get the current route info.
-- **navigate(options:INavigationOptions)**: Allows you to navigate to a different route via name or path.
+- **getCurrentRoute()**: Get the current route info. Returns `fullPath`, `name`, `params`, `path`, and `query`.
+- **navigate(options: INavigationOptions)**: Allows you to navigate to a different route via name or path.
+  - If using `name`, it must be a valid agency or location route name.
+  - If using `path`, it must match an existing route regex.
 
-```js
- interface INavigationOptions{
-  name?: string
-  path?: string
-  params?: Record<string,  string>
-  query?: Record<string,  string>
-  replace?: boolean
-  append?: boolean
+```typescript
+interface INavigationOptions {
+  name?: string;
+  path?: string;
+  params?: Record<string, string>;
+  query?: Record<string, string>;
+  replace?: boolean;
+  append?: boolean;
 }
 ```
 
 _Usage:_
 
-```shell
-await AppUtils.RouteHelper.navigate({name: 'integrations-settings-v2'}); // Navigate to integrations page on current location
+```javascript
+// Navigate to specific route by name
+try {
+  await AppUtils.RouteHelper.navigate({ name: 'integrations-settings-v2' });
+} catch (error) {
+  console.error('Navigation failed:', error);
+}
 
-const path = '/integration'
-await AppUtils.RouteHelper.navigate({path}) // Navigates to marketplace apps page
+// Navigate to specific path
+const path = '/integration';
+try {
+  await AppUtils.RouteHelper.navigate({ path }); 
+} catch (error) {
+  console.error('Navigation failed:', error);
+}
 
-const currentRoute = await AppUtils.RouteHelper.getCurrentRoute();
-console.log(currentRoute); // Logs current route information {fullPath, name, params, path, query}
+// Get current route information
+const currentRoute = AppUtils.RouteHelper.getCurrentRoute();
+console.log(currentRoute); 
+// Output example: { fullPath: "/...", name: "...", params: {...}, path: "/...", query: {...} }
 ```
 
-<hr>
+---
 
-### 4. Utility Methods:
+### 4. Utility Methods
 
 A set of utility methods is now available to provide essential contextual data for custom scripts.
 
 **Methods:**
 
-- User Info: `getCurrentUser()` – Retrieves current user's information.
-- Current Location: `getCurrentLocation()` – Retrieves data about the user's current location.
-- Company Info: `getCompany()` – Retrieves information about the current company.
+- **User Info**: `getCurrentUser()` – Retrieves current user's information.
+- **Current Location**: `getCurrentLocation()` – Retrieves data about the user's current location. Returns an empty object `{}` if the user is not in a location context.
+- **Company Info**: `getCompany()` – Retrieves information about the current company.
 
 _Usage:_
 
-```shell
-const userInfo = await AppUtils.Utilities.getCurrentUser();//{id, name, firstName, lastName, email, type, role}
+```javascript
+// Get User Info
+const userInfo = await AppUtils.Utilities.getCurrentUser();
+// Returns: { id, name, firstName, lastName, email, type, role }
 
-const currentLocation = await AppUtils.Utilities.getCurrentLocation();//{id, name, address: {address, city, country}}
+// Get Location Info
+const currentLocation = await AppUtils.Utilities.getCurrentLocation();
+// Returns: { id, name, address: { address, city, country } }
+// OR {} if not in a location
 
-const companyInfo = AppUtils.Utilities.getCompany();//{id, name}
+// Get Company Info
+const companyInfo = await AppUtils.Utilities.getCompany();
+// Returns: { id, name }
 ```
