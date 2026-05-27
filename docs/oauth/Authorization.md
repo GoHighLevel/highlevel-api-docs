@@ -27,7 +27,7 @@ To generate the Authorization Page URL for an app, replace the `client_id`, `red
 1. For standard Auth URL flow:
 
 ```
-https://marketplace.gohighlevel.com/oauth/chooselocation?
+https://marketplace.gohighlevel.com/v2/oauth/chooselocation?
 response_type=code&
 redirect_uri=https://myapp.com/oauth/callback/gohighlevel&
 client_id=CLIENT_ID&
@@ -37,7 +37,7 @@ scope=conversations/message.readonly conversations/message.write
 2. For White-labeled Auth URL flow:
 
 ```
-https://marketplace.leadconnectorhq.com/oauth/chooselocation?
+https://marketplace.leadconnectorhq.com/v2/oauth/chooselocation?
 response_type=code&
 redirect_uri=https://myapp.com/oauth/callback/gohighlevel&
 client_id=CLIENT_ID&
