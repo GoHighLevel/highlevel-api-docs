@@ -1,0 +1,851 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/phone-system/number-pools": {
+      "get": {
+        "operationId": "getNumberPoolList",
+        "summary": "List number pools",
+        "description": "Returns number pools for the location. Requires locationId as a query parameter.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location ID to scope the number pool list",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of number pools for the location."
+          }
+        },
+        "tags": [
+          "lc-phone"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "numberpools.read"
+            ]
+          }
+        ]
+      }
+    },
+    "/phone-system/numbers/location/{locationId}/available": {
+      "get": {
+        "operationId": "listAvailableNumbersForACountry",
+        "summary": "List available phone numbers",
+        "description": "Search Twilio inventory for purchasable phone numbers in a country for the given location.",
+        "parameters": [
+          {
+            "name": "firstPart",
+            "required": true,
+            "in": "query",
+            "description": "firstPart is the beginning of the phone number",
+            "schema": {
+              "type": "string",
+              "example": "830"
+            }
+          },
+          {
+            "name": "lastPart",
+            "required": true,
+            "in": "query",
+            "description": "lastPart is the ending of the phone number",
+            "schema": {
+              "type": "string",
+              "example": "825"
+            }
+          },
+          {
+            "name": "anywhere",
+            "required": true,
+            "in": "query",
+            "description": "anywhere are the numbers required anywhere in phone number",
+            "schema": {
+              "type": "string",
+              "example": "825"
+            }
+          },
+          {
+            "name": "numberTypes",
+            "required": true,
+            "in": "query",
+            "description": "comma separated types of phone number required",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": "tollFree,mobile,local"
+            }
+          },
+          {
+            "name": "smsEnabled",
+            "required": true,
+            "in": "query",
+            "description": "requested phone numbers should have sms functionality",
+            "schema": {
+              "type": "boolean",
+              "example": "true"
+            }
+          },
+          {
+            "name": "mmsEnabled",
+            "required": true,
+            "in": "query",
+            "description": "requested phone numbers should have mms functionality",
+            "schema": {
+              "type": "boolean",
+              "example": "true"
+            }
+          },
+          {
+            "name": "voiceEnabled",
+            "required": true,
+            "in": "query",
+            "description": "requested phone numbers should have voice functionality",
+            "schema": {
+              "type": "boolean",
+              "example": "true"
+            }
+          },
+          {
+            "name": "countryCode",
+            "required": true,
+            "in": "query",
+            "description": "country for which the phone numbers are being requested",
+            "schema": {
+              "type": "string",
+              "example": "US"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID as string",
+            "schema": {
+              "type": "string",
+              "example": "tDtDnQdgm2LXpyiqYvZ6"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Available phone numbers matching the search criteria."
+          }
+        },
+        "tags": [
+          "lc-phone"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "phonenumbers.read"
+            ]
+          }
+        ]
+      }
+    },
+    "/phone-system/numbers/location/{locationId}/purchase": {
+      "post": {
+        "operationId": "purchase-number-for-location",
+        "x-version-added": "v3",
+        "summary": "Purchase number for location",
+        "description": "Purchase number for location. With `version: v3`, the HTTP 201 body is the standard success envelope (`status`, `data`, `message`, `statusCode`). The v3 purchase fields live under `data`: `number`, `locationId`, `id`, and `underLcAccount` (renamed from under_ghl_account).",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID as string",
+            "schema": {
+              "type": "string",
+              "example": "tDtDnQdgm2LXpyiqYvZ6"
+            }
+          },
+          {
+            "name": "version",
+            "in": "header",
+            "description": "Send `v3` to use the v3 response contract (AIP). This is the supported version value for these endpoints.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurchasePhoneNumberBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success envelope; v3 purchase details are in `data` (slim shape: number, locationId, id, underLcAccount).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseNumberForLocationV3Http201ResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "lc-phone"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "phonenumbers.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/phone-system/numbers/location/{locationId}": {
+      "get": {
+        "operationId": "active-numbers",
+        "x-version-added": "v3",
+        "summary": "List active numbers",
+        "description": "List active numbers. With `version: v3`, the HTTP 200 body is the standard success envelope (`status`, `data`, `message`, `statusCode`). The v3 list payload is under `data`; `isUnderGhl` is renamed to `isUnderLc` per AIP naming convention.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID as string",
+            "schema": {
+              "type": "string",
+              "example": "tDtDnQdgm2LXpyiqYvZ6"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "How many resources to return in each list page. The default is 50, and the maximum is 1000.",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000,
+              "type": "number",
+              "example": 50
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "The page index. The default is 0.",
+            "schema": {
+              "minimum": 0,
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "name": "searchFilter",
+            "required": false,
+            "in": "query",
+            "description": "Number search Filter",
+            "schema": {
+              "type": "string",
+              "example": "+91"
+            }
+          },
+          {
+            "name": "skipNumberPool",
+            "required": false,
+            "in": "query",
+            "description": "When true, exclude numbers assigned to number pools from the list.",
+            "schema": {
+              "default": true,
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "name": "includeRcsSenderIds",
+            "required": false,
+            "in": "query",
+            "description": "Include RCS Sender IDs",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "name": "version",
+            "in": "header",
+            "description": "Send `v3` to use the v3 response contract (AIP). This is the supported version value for these endpoints.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope; v3 list details are in `data` (including `isUnderLc` instead of legacy `isUnderGhl`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListNumbersV3Http200ResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "lc-phone"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "phonenumbers.read"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "LC Phone API v3",
+    "description": "API Service for LC Phone - version v3",
+    "version": "v3",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "lc-phone",
+      "description": "API Service for LC Phone"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "PurchasePhoneNumberBodyDto": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "phoneNumber to purchase",
+            "example": "830236932"
+          },
+          "addressSid": {
+            "type": "string",
+            "description": "addressSid twilio address id",
+            "example": "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "bundleSid": {
+            "type": "string",
+            "description": "bundleSid twilio bundle id",
+            "example": "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "country for which the phone numbers are being requested",
+            "example": "US"
+          },
+          "numberType": {
+            "type": "object",
+            "description": "type of phone number to be purchased",
+            "example": "local"
+          },
+          "paymentIntentId": {
+            "type": "string",
+            "description": "stripe payment intent id",
+            "example": "pi_3Oxxxxxxxxxxxxxxxxxxxx"
+          },
+          "stripeAccountId": {
+            "type": "string",
+            "description": "stripe account id",
+            "example": "acct_1Oxxxxxxxxxxxxxxxx"
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "description": "stripe registered payment method id",
+            "example": "pm_1Oxxxxxxxxxxxxxxxx"
+          },
+          "locality": {
+            "type": "string",
+            "description": "locality of the user in which number is being purchased",
+            "example": "Austin"
+          },
+          "region": {
+            "type": "string",
+            "description": "region of the user in which number is being purchased",
+            "example": "TX"
+          },
+          "fingerprintId": {
+            "type": "string",
+            "description": "fingerprintId is request id which is unique for every purchase number request",
+            "example": "purchase-req-abc-123"
+          },
+          "skipLocationKYC": {
+            "type": "boolean",
+            "description": "Skip location-level KYC verification if agency-level compliance has already been verified",
+            "example": false
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "addressSid",
+          "bundleSid",
+          "countryCode",
+          "numberType",
+          "paymentIntentId",
+          "stripeAccountId",
+          "paymentMethodId",
+          "locality",
+          "region",
+          "fingerprintId",
+          "skipLocationKYC"
+        ]
+      },
+      "PurchaseNumberForLocationV3ResponseDto": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string",
+            "description": "E.164 phone number that was purchased (from the request body)",
+            "example": "+17745678902"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location that owns the Twilio / numbers account",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "id": {
+            "type": "string",
+            "description": "Twilio account document identifier",
+            "example": "twilio-account-123"
+          },
+          "underLcAccount": {
+            "type": "boolean",
+            "description": "Whether the account is managed under LC. Renamed from under_ghl_account in the legacy document.",
+            "example": false
+          }
+        },
+        "required": [
+          "number",
+          "locationId",
+          "id",
+          "underLcAccount"
+        ]
+      },
+      "PurchaseNumberForLocationV3Http201ResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Outcome indicator from the shared success helper.",
+            "example": "success",
+            "enum": [
+              "success"
+            ]
+          },
+          "data": {
+            "description": "V3 purchase payload: purchased number, location, Twilio account id, and underLcAccount.",
+            "example": {
+              "number": "+17745678902",
+              "locationId": "tDtDnQdgm2LXpyiqYvZ6",
+              "id": "twilio-account-123",
+              "underLcAccount": false
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PurchaseNumberForLocationV3ResponseDto"
+              }
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable success message.",
+            "example": "Number purchase successful"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status echoed in the response body.",
+            "example": 201
+          }
+        },
+        "required": [
+          "status",
+          "data",
+          "message",
+          "statusCode"
+        ]
+      },
+      "NumberCapabilitiesDto": {
+        "type": "object",
+        "properties": {
+          "voice": {
+            "type": "boolean",
+            "description": "Whether the number supports voice calls",
+            "example": true
+          },
+          "sms": {
+            "type": "boolean",
+            "description": "Whether the number supports SMS",
+            "example": true
+          },
+          "mms": {
+            "type": "boolean",
+            "description": "Whether the number supports MMS",
+            "example": true
+          },
+          "fax": {
+            "type": "boolean",
+            "description": "Whether the number supports fax",
+            "example": false
+          }
+        }
+      },
+      "ListNumberItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number in E.164 format",
+            "example": "+17745678902"
+          },
+          "friendlyName": {
+            "type": "string",
+            "description": "Human-friendly label for the number",
+            "example": "Main line"
+          },
+          "sid": {
+            "type": "string",
+            "description": "Provider number identifier",
+            "example": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "ISO country code for the number",
+            "example": "US"
+          },
+          "capabilities": {
+            "description": "Phone number capabilities",
+            "example": {
+              "voice": true,
+              "sms": true,
+              "mms": true,
+              "fax": false
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NumberCapabilitiesDto"
+              }
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "Phone number type",
+            "example": "local"
+          },
+          "isDefaultNumber": {
+            "type": "boolean",
+            "description": "Whether this is the default outbound number",
+            "example": true
+          },
+          "linkedUser": {
+            "type": "string",
+            "description": "Linked user ID if the number is assigned",
+            "example": "user-123",
+            "nullable": true
+          },
+          "linkedRingAllUsers": {
+            "description": "Ring-all user IDs linked to the number",
+            "example": [
+              "user-123",
+              "user-456"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inboundCallService": {
+            "type": "object",
+            "description": "Inbound call service metadata",
+            "additionalProperties": true,
+            "example": {
+              "type": "ivr",
+              "value": "flow-123"
+            }
+          },
+          "forwardingNumber": {
+            "type": "string",
+            "description": "Forwarding number in E.164 format",
+            "example": "+17745678903"
+          },
+          "isGroupConversationEnabled": {
+            "type": "boolean",
+            "description": "Whether group conversations are enabled",
+            "example": true
+          },
+          "addressSid": {
+            "type": "string",
+            "description": "Address SID used for regulated number purchases",
+            "example": "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "bundleSid": {
+            "type": "string",
+            "description": "Bundle SID used for regulated number purchases",
+            "example": "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "dateAdded": {
+            "type": "object",
+            "description": "Date the number was added",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "dateUpdated": {
+            "type": "object",
+            "description": "Date the number was last updated",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "dateCreated": {
+            "type": "object",
+            "description": "Legacy created-at field returned by some providers",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Provider origin for the number",
+            "example": "twilio"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ]
+      },
+      "RcsSenderIdResponseDto": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string",
+            "description": "RCS sender ID",
+            "example": "rcs-sender-id"
+          },
+          "numberType": {
+            "type": "string",
+            "description": "Entry type",
+            "example": "rcsSenderId"
+          },
+          "friendlyName": {
+            "type": "string",
+            "description": "Human-friendly label for the sender ID",
+            "example": "Brand Sender"
+          },
+          "rcsMeta": {
+            "type": "object",
+            "description": "RCS sender metadata",
+            "additionalProperties": true,
+            "example": {
+              "brandId": "brand-123"
+            }
+          }
+        },
+        "required": [
+          "number",
+          "numberType"
+        ]
+      },
+      "ListNumbersV3ResponseDto": {
+        "type": "object",
+        "properties": {
+          "numbers": {
+            "description": "Active numbers available for the location",
+            "example": [
+              {
+                "phoneNumber": "+17745678902",
+                "friendlyName": "Main line",
+                "sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "countryCode": "US",
+                "capabilities": {
+                  "voice": true,
+                  "sms": true,
+                  "mms": true,
+                  "fax": false
+                },
+                "type": "local",
+                "isDefaultNumber": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListNumberItemResponseDto"
+            }
+          },
+          "isUnderLc": {
+            "type": "boolean",
+            "description": "Whether the account is managed under LC. Renamed from isUnderGhl.",
+            "example": true
+          },
+          "pageSize": {
+            "type": "number",
+            "description": "The page size requested",
+            "example": 50
+          },
+          "page": {
+            "type": "number",
+            "description": "The zero-based page index requested",
+            "example": 0
+          },
+          "accountStatus": {
+            "type": "string",
+            "description": "Twilio account status for the location",
+            "example": "active"
+          },
+          "rcsSenderIds": {
+            "description": "Optional RCS sender IDs returned with the number list",
+            "example": [
+              {
+                "number": "rcs-sender-id",
+                "numberType": "rcsSenderId",
+                "friendlyName": "Brand Sender",
+                "rcsMeta": {
+                  "brandId": "brand-123"
+                }
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RcsSenderIdResponseDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of active numbers when available",
+            "example": 2
+          }
+        },
+        "required": [
+          "numbers"
+        ]
+      },
+      "ListNumbersV3Http200ResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Outcome indicator from the shared success helper.",
+            "example": "success",
+            "enum": [
+              "success"
+            ]
+          },
+          "data": {
+            "description": "V3 list payload: numbers, pagination fields, isUnderLc (renamed from isUnderGhl), etc.",
+            "example": {
+              "numbers": [
+                {
+                  "phoneNumber": "+17745678902",
+                  "friendlyName": "Main line",
+                  "countryCode": "US"
+                }
+              ],
+              "isUnderLc": true,
+              "pageSize": 50,
+              "page": 0,
+              "accountStatus": "active",
+              "total": 1
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ListNumbersV3ResponseDto"
+              }
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable success message.",
+            "example": "OK"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status echoed in the response body.",
+            "example": 200
+          }
+        },
+        "required": [
+          "status",
+          "data",
+          "message",
+          "statusCode"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "LC Phone",
+    "tags": [
+      "lc-phone"
+    ]
+  }
+}

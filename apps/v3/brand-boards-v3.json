@@ -1,0 +1,2580 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/brand-boards/locations/{locationId}/brand-voices": {
+      "get": {
+        "operationId": "list-brand-voices",
+        "x-version-added": "v3",
+        "summary": "List Brand Voices",
+        "description": "Get list of brand voices for a location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "oHJiAh0wDG3BzmzACVD6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of brand voices to return. Defaults to 10, minimum is 1, maximum is 20",
+            "schema": {
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of brand voices to skip for pagination. Defaults to 0, minimum is 0",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search text for brand voice name",
+            "schema": {
+              "example": "My Brand Voice",
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleted",
+            "required": false,
+            "in": "query",
+            "description": "Whether to return deleted brand voices. Defaults to false",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListBrandVoicesPublicV1ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brand Voices"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-brand-voice",
+        "x-version-added": "v3",
+        "summary": "Create Brand Voice",
+        "description": "Create a brand voice for a location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "oHJiAh0wDG3BzmzACVD6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBrandVoicePublicV1BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBrandVoicePublicV1ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brand Voices"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/brand-boards/locations/{locationId}/brand-voices/{brandVoiceId}": {
+      "get": {
+        "operationId": "get-brand-voice",
+        "x-version-added": "v3",
+        "summary": "Get Brand Voice",
+        "description": "Get a brand voice by ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "oHJiAh0wDG3BzmzACVD6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "brandVoiceId",
+            "required": true,
+            "in": "path",
+            "description": "Brand voice ID",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandVoicePublicV1ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brand Voices"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "update-brand-voice",
+        "x-version-added": "v3",
+        "summary": "Update Brand Voice",
+        "description": "Update a brand voice by ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "oHJiAh0wDG3BzmzACVD6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "brandVoiceId",
+            "required": true,
+            "in": "path",
+            "description": "Brand voice ID",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBrandVoicePublicV1BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateBrandVoicePublicV1ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brand Voices"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-brand-voice",
+        "x-version-added": "v3",
+        "summary": "Delete Brand Voice",
+        "description": "Delete a brand voice by ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "oHJiAh0wDG3BzmzACVD6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "brandVoiceId",
+            "required": true,
+            "in": "path",
+            "description": "Brand voice ID",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteBrandVoicePublicV1ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brand Voices"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/brand-boards/locations/{locationId}/brand-voices/{brandVoiceId}/default": {
+      "post": {
+        "operationId": "set-default-brand-voice",
+        "x-version-added": "v3",
+        "summary": "Set Default Brand Voice",
+        "description": "Set a brand voice as the default for a location. The previous default will be unset.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "oHJiAh0wDG3BzmzACVD6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "brandVoiceId",
+            "required": true,
+            "in": "path",
+            "description": "Brand voice ID",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetDefaultBrandVoicePublicV1ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brand Voices"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/brand-boards/{locationId}": {
+      "get": {
+        "operationId": "getBrandBoardsByLocation",
+        "summary": "Get Brand Boards",
+        "description": "Retrieves all Brand Boards for a specific location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand boards exist",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of brand boards to return",
+            "schema": {
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of brand boards to skip for pagination",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term to filter brand boards by name",
+            "schema": {
+              "default": "",
+              "example": "brandboard",
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleted",
+            "required": false,
+            "in": "query",
+            "description": "Include deleted brand boards in results",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardsByLocationSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "brand-boards/design-kit.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Brand Boards"
+        ]
+      }
+    },
+    "/brand-boards/{locationId}/{id}": {
+      "get": {
+        "operationId": "getBrandBoardById",
+        "summary": "Get Brand Board",
+        "description": "Retrieves a specific Brand Board by its ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand board exists",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Brand board ID to update, retrieve, or delete",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "brand-boards/design-kit.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Brand Boards"
+        ]
+      },
+      "patch": {
+        "operationId": "updateBrandBoard",
+        "summary": "Update a Brand Board",
+        "description": "Updates an existing Brand Board",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand board exists",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Brand board ID to update, retrieve, or delete",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBrandBoardBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "brand-boards/design-kit.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Brand Boards"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteBrandBoard",
+        "summary": "Delete a Brand Board",
+        "description": "Deletes a Brand Board",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID where the brand board exists",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Brand board ID to update, retrieve, or delete",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "brand-boards/design-kit.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Brand Boards"
+        ]
+      }
+    },
+    "/brand-boards/": {
+      "post": {
+        "operationId": "createBrandBoard",
+        "summary": "Create a new brand board",
+        "description": "Creates a new brand board with logos, colors, and fonts",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBrandBoardParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBrandBoardSuccessDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "brand-boards/design-kit.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Brand Boards"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Brand Boards API v3",
+    "description": "Documentation for Brand Boards API\n\n## API Version v3\n\nAll APIs available via `/v3` route prefix with AIP-compliant responses.",
+    "version": "v3",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Brand Boards",
+      "description": "Documentation for Brand Boards API"
+    },
+    {
+      "name": "Brand Voices",
+      "description": "Documentation for Brand Boards API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com",
+      "description": "Brand Boards API v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "BrandVoicePublicV1Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Brand voice ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand voice name",
+            "example": "My Brand Voice"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "Whether this is the default brand voice",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "isDefault",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListBrandVoicesPublicV1ResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "List of brand voices",
+            "example": [
+              {
+                "id": "507f1f77bcf86cd799439011",
+                "name": "My Brand Voice",
+                "isDefault": false,
+                "createdAt": "2024-01-05T12:00:00.000Z",
+                "updatedAt": "2024-01-05T12:00:00.000Z"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BrandVoicePublicV1Dto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of brand voices",
+            "example": 25
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "InvalidLocationDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code for invalid location access",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message describing the location access failure",
+            "example": "The token does not have access to this location"
+          }
+        }
+      },
+      "NotFoundDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code for not found",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message describing the not found failure",
+            "example": "Not Found"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error type identifier",
+            "example": "The requested resource was not found"
+          }
+        }
+      },
+      "BrandVoiceAnswersDto": {
+        "type": "object",
+        "properties": {
+          "brandName": {
+            "type": "string",
+            "description": "Brand Name",
+            "example": "Acme Inc"
+          },
+          "toneOfVoice": {
+            "type": "string",
+            "description": "Tone of Voice",
+            "example": "Professional and friendly"
+          },
+          "targetAudience": {
+            "type": "string",
+            "description": "Target Audience",
+            "example": "Small business owners"
+          },
+          "customerPainPoints": {
+            "type": "string",
+            "description": "Customer Pain Points",
+            "example": "Difficulty with time management"
+          },
+          "businessType": {
+            "type": "string",
+            "description": "Business Type",
+            "example": "Software Development"
+          },
+          "companyWebsite": {
+            "type": "string",
+            "description": "Company Website",
+            "example": "https://example.com"
+          },
+          "companyEmail": {
+            "type": "string",
+            "description": "Company Email",
+            "example": "contact@example.com"
+          },
+          "companyAddress": {
+            "type": "string",
+            "description": "Company Address",
+            "example": "123 Main St, Anytown, CA"
+          },
+          "phone": {
+            "type": "object",
+            "description": "Phone Information",
+            "example": {
+              "phoneNumber": "5551234567",
+              "countryCode": "US"
+            }
+          },
+          "businessHours": {
+            "type": "string",
+            "description": "Business Hours",
+            "example": "Mon-Fri 9am-5pm"
+          },
+          "brandPromise": {
+            "type": "string",
+            "description": "Brand Promise",
+            "example": "We deliver on time, every time"
+          },
+          "brandValues": {
+            "type": "string",
+            "description": "Brand Values",
+            "example": "Integrity, Excellence, Innovation"
+          },
+          "brandPurpose": {
+            "type": "string",
+            "description": "Brand Purpose",
+            "example": "To empower small businesses with technology"
+          },
+          "competitiveAdvantage": {
+            "type": "string",
+            "description": "Competitive Advantage",
+            "example": "Proprietary AI technology"
+          },
+          "risksOfInaction": {
+            "type": "string",
+            "description": "Risks of Inaction",
+            "example": "Falling behind competitors"
+          },
+          "uniqueSellingProposition": {
+            "type": "string",
+            "description": "Unique Selling Proposition",
+            "example": "The only solution that integrates with all major platforms"
+          },
+          "callToAction": {
+            "type": "string",
+            "description": "Call to Action",
+            "example": "Schedule a demo today"
+          }
+        },
+        "required": [
+          "brandName",
+          "toneOfVoice",
+          "targetAudience",
+          "customerPainPoints"
+        ]
+      },
+      "CreateBrandVoicePublicV1BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "example": "My Brand Voice"
+          },
+          "type": {
+            "type": "string",
+            "description": "Creation type. \"manual\" creates with provided custom answers, \"url\" generates answers from a website, \"description\" generates answers from a text description",
+            "enum": [
+              "manual",
+              "url",
+              "description"
+            ],
+            "example": "manual"
+          },
+          "url": {
+            "type": "string",
+            "description": "Website URL to generate brand voice from. Required when type is \"url\"",
+            "example": "https://example.com"
+          },
+          "description": {
+            "type": "string",
+            "description": "Company description to generate brand voice from. Required when type is \"description\", optional when type is \"url\"",
+            "example": "We are a tech company focused on innovative solutions for small businesses"
+          },
+          "answers": {
+            "description": "Brand voice answers. Required when type is \"manual\"",
+            "example": {
+              "brandName": "Acme Inc",
+              "toneOfVoice": "Professional and friendly",
+              "targetAudience": "Small business owners",
+              "customerPainPoints": "Difficulty with time management"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BrandVoiceAnswersDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "BrandVoiceAnswersPublicV1Dto": {
+        "type": "object",
+        "properties": {
+          "brandName": {
+            "type": "string",
+            "description": "Brand Name",
+            "example": "Acme Inc"
+          },
+          "toneOfVoice": {
+            "type": "string",
+            "description": "Tone of Voice",
+            "example": "Professional and friendly"
+          },
+          "targetAudience": {
+            "type": "string",
+            "description": "Target Audience",
+            "example": "Small business owners"
+          },
+          "customerPainPoints": {
+            "type": "string",
+            "description": "Customer Pain Points",
+            "example": "Difficulty with time management"
+          },
+          "businessType": {
+            "type": "string",
+            "description": "Business Type",
+            "example": "Software Development"
+          },
+          "companyWebsite": {
+            "type": "string",
+            "description": "Company Website",
+            "example": "https://example.com"
+          },
+          "companyEmail": {
+            "type": "string",
+            "description": "Company Email",
+            "example": "contact@example.com"
+          },
+          "companyAddress": {
+            "type": "string",
+            "description": "Company Address",
+            "example": "123 Main St, Anytown, CA"
+          },
+          "phone": {
+            "type": "object",
+            "description": "Phone Information",
+            "example": {
+              "phoneNumber": "5551234567",
+              "countryCode": "US"
+            }
+          },
+          "businessHours": {
+            "type": "string",
+            "description": "Business Hours",
+            "example": "Mon-Fri 9am-5pm"
+          },
+          "brandPromise": {
+            "type": "string",
+            "description": "Brand Promise",
+            "example": "We deliver on time, every time"
+          },
+          "brandValues": {
+            "type": "string",
+            "description": "Brand Values",
+            "example": "Integrity, Excellence, Innovation"
+          },
+          "brandPurpose": {
+            "type": "string",
+            "description": "Brand Purpose",
+            "example": "To empower small businesses with technology"
+          },
+          "competitiveAdvantage": {
+            "type": "string",
+            "description": "Competitive Advantage",
+            "example": "Proprietary AI technology"
+          },
+          "risksOfInaction": {
+            "type": "string",
+            "description": "Risks of Inaction",
+            "example": "Falling behind competitors"
+          },
+          "uniqueSellingProposition": {
+            "type": "string",
+            "description": "Unique Selling Proposition",
+            "example": "The only solution that integrates with all major platforms"
+          },
+          "callToAction": {
+            "type": "string",
+            "description": "Call to Action",
+            "example": "Schedule a demo today"
+          }
+        }
+      },
+      "CreateBrandVoicePublicV1ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Brand voice ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand voice name",
+            "example": "My Brand Voice"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "Whether this is the default brand voice",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "oHJiAh0wDG3BzmzACVD6"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the brand voice has been soft deleted",
+            "example": false
+          },
+          "answers": {
+            "description": "Brand voice answers",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BrandVoiceAnswersPublicV1Dto"
+              }
+            ]
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "isDefault",
+          "createdAt",
+          "updatedAt",
+          "locationId",
+          "deleted"
+        ]
+      },
+      "GetBrandVoicePublicV1ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Brand voice ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand voice name",
+            "example": "My Brand Voice"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "Whether this is the default brand voice",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "oHJiAh0wDG3BzmzACVD6"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the brand voice has been soft deleted",
+            "example": false
+          },
+          "answers": {
+            "description": "Brand voice answers",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BrandVoiceAnswersPublicV1Dto"
+              }
+            ]
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "isDefault",
+          "createdAt",
+          "updatedAt",
+          "locationId",
+          "deleted"
+        ]
+      },
+      "UpdateBrandVoiceAnswersDto": {
+        "type": "object",
+        "properties": {
+          "brandName": {
+            "type": "string",
+            "description": "Brand Name",
+            "example": "Acme Inc"
+          },
+          "toneOfVoice": {
+            "type": "string",
+            "description": "Tone of Voice",
+            "example": "Professional and friendly"
+          },
+          "targetAudience": {
+            "type": "string",
+            "description": "Target Audience",
+            "example": "Small business owners"
+          },
+          "customerPainPoints": {
+            "type": "string",
+            "description": "Customer Pain Points",
+            "example": "Difficulty with time management"
+          },
+          "businessType": {
+            "type": "string",
+            "description": "Business Type",
+            "example": "Software Development"
+          },
+          "companyWebsite": {
+            "type": "string",
+            "description": "Company Website",
+            "example": "https://example.com"
+          },
+          "companyEmail": {
+            "type": "string",
+            "description": "Company Email",
+            "example": "contact@example.com"
+          },
+          "companyAddress": {
+            "type": "string",
+            "description": "Company Address",
+            "example": "123 Main St, Anytown, CA"
+          },
+          "phone": {
+            "type": "object",
+            "description": "Phone Information",
+            "example": {
+              "phoneNumber": "5551234567",
+              "countryCode": "US"
+            }
+          },
+          "businessHours": {
+            "type": "string",
+            "description": "Business Hours",
+            "example": "Mon-Fri 9am-5pm"
+          },
+          "brandPromise": {
+            "type": "string",
+            "description": "Brand Promise",
+            "example": "We deliver on time, every time"
+          },
+          "brandValues": {
+            "type": "string",
+            "description": "Brand Values",
+            "example": "Integrity, Excellence, Innovation"
+          },
+          "brandPurpose": {
+            "type": "string",
+            "description": "Brand Purpose",
+            "example": "To empower small businesses with technology"
+          },
+          "competitiveAdvantage": {
+            "type": "string",
+            "description": "Competitive Advantage",
+            "example": "Proprietary AI technology"
+          },
+          "risksOfInaction": {
+            "type": "string",
+            "description": "Risks of Inaction",
+            "example": "Falling behind competitors"
+          },
+          "uniqueSellingProposition": {
+            "type": "string",
+            "description": "Unique Selling Proposition",
+            "example": "The only solution that integrates with all major platforms"
+          },
+          "callToAction": {
+            "type": "string",
+            "description": "Call to Action",
+            "example": "Schedule a demo today"
+          }
+        }
+      },
+      "UpdateBrandVoicePublicV1BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "example": "My Brand Voice"
+          },
+          "answers": {
+            "description": "Updated answers",
+            "example": {
+              "brandName": "Brand Name",
+              "toneOfVoice": "Friendly"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UpdateBrandVoiceAnswersDto"
+              }
+            ]
+          }
+        }
+      },
+      "UpdateBrandVoicePublicV1ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Brand voice ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand voice name",
+            "example": "My Brand Voice"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "Whether this is the default brand voice",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "oHJiAh0wDG3BzmzACVD6"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the brand voice has been soft deleted",
+            "example": false
+          },
+          "answers": {
+            "description": "Brand voice answers",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BrandVoiceAnswersPublicV1Dto"
+              }
+            ]
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "isDefault",
+          "createdAt",
+          "updatedAt",
+          "locationId",
+          "deleted"
+        ]
+      },
+      "DeleteBrandVoicePublicV1ResponseDto": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the brand voice is deleted",
+            "example": true
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "deleted"
+        ]
+      },
+      "SetDefaultBrandVoicePublicV1ResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the operation was successful",
+            "example": true
+          },
+          "brandVoiceId": {
+            "type": "string",
+            "description": "Brand voice ID that was set as default",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "success",
+          "brandVoiceId"
+        ]
+      },
+      "Logo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the logo",
+            "example": "logo_abc123"
+          },
+          "url": {
+            "type": "string",
+            "description": "Public URL of the logo image. Used for uploading to the brand board folder in media library",
+            "example": "https://storage.googleapis.com/bucket/logos/my-logo.png"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the logo (e.g., Primary, Secondary)",
+            "example": "Primary Logo"
+          },
+          "path": {
+            "type": "string",
+            "description": "Storage path of the logo in the media library",
+            "example": "/locations/ve9EPM428h8vShlRW1KT/logos/my-logo.png"
+          }
+        },
+        "required": [
+          "url",
+          "label",
+          "path"
+        ]
+      },
+      "Color": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the color",
+            "example": "color_xyz789"
+          },
+          "hexa": {
+            "type": "string",
+            "description": "Color in 8-digit hexadecimal notation with alpha channel",
+            "example": "#FF5733FF"
+          },
+          "rgba": {
+            "type": "string",
+            "description": "Color with red, green, blue, and alpha channel values",
+            "example": "rgba(255, 87, 51, 1)"
+          },
+          "hex": {
+            "type": "string",
+            "description": "Color in HEX format",
+            "example": "#FF5733"
+          },
+          "rgb": {
+            "type": "string",
+            "description": "Color in RGB format",
+            "example": "rgb(255, 87, 51)"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the color",
+            "example": "Brand Orange"
+          }
+        },
+        "required": [
+          "hexa",
+          "rgba",
+          "hex",
+          "rgb",
+          "label"
+        ]
+      },
+      "Font": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the font",
+            "example": "font_def456"
+          },
+          "font": {
+            "type": "string",
+            "description": "Font family name",
+            "example": "Montserrat"
+          },
+          "fallback": {
+            "type": "string",
+            "description": "Fallback font family",
+            "example": "sans-serif"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the font",
+            "example": "Heading Font"
+          }
+        },
+        "required": [
+          "font",
+          "fallback",
+          "label"
+        ]
+      },
+      "CreateBrandBoardParam": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID where the brand board will be created",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the brand board",
+            "example": "My Brand Board"
+          },
+          "logos": {
+            "description": "Array of logos for the brand board",
+            "example": [
+              {
+                "url": "https://storage.googleapis.com/bucket/logos/my-logo.png",
+                "label": "Primary Logo",
+                "path": "/locations/ve9EPM428h8vShlRW1KT/logos/my-logo.png"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Logo"
+            }
+          },
+          "colors": {
+            "description": "Array of colors for the brand board",
+            "example": [
+              {
+                "hexa": "#FF5733FF",
+                "rgba": "rgba(255, 87, 51, 1)",
+                "hex": "#FF5733",
+                "rgb": "rgb(255, 87, 51)",
+                "label": "Brand Orange"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          "fonts": {
+            "description": "Array of fonts for the brand board",
+            "example": [
+              {
+                "font": "Montserrat",
+                "fallback": "sans-serif",
+                "label": "Heading Font"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Font"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Set as the default brand board for this location",
+            "example": true
+          },
+          "brandBoardId": {
+            "type": "string",
+            "description": "Source brand board ID to copy from (creates a new brand board based on this template)",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent folder ID in media library for organizing brand boards",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "type": {
+            "type": "string",
+            "description": "Source type indicating how the brand board was created",
+            "enum": [
+              "template",
+              "blank",
+              "snapshot",
+              "url"
+            ],
+            "example": "blank"
+          },
+          "url": {
+            "type": "string",
+            "description": "Website URL to extract design kit from (colors, fonts, logos)",
+            "example": "https://example.com"
+          }
+        },
+        "required": [
+          "locationId",
+          "name"
+        ]
+      },
+      "MetaData": {
+        "type": "object",
+        "properties": {
+          "updatedBy": {
+            "type": "string",
+            "description": "User ID who last updated the brand board",
+            "example": "user_abc123"
+          },
+          "lastAction": {
+            "type": "string",
+            "description": "Last action performed on the brand board",
+            "example": "UPDATE"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source brand board ID if created from a template",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "sourceType": {
+            "type": "string",
+            "description": "How the brand board was created",
+            "example": "blank",
+            "enum": [
+              "template",
+              "blank",
+              "snapshot",
+              "url"
+            ]
+          }
+        }
+      },
+      "MissingAssets": {
+        "type": "object",
+        "properties": {
+          "logos": {
+            "description": "Logo labels that used fallbacks",
+            "example": [
+              "Footer"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fonts": {
+            "description": "Font labels that used defaults",
+            "example": [
+              "Arial"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "colors": {
+            "description": "Color labels that used defaults",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "logos",
+          "fonts",
+          "colors"
+        ]
+      },
+      "GetBrandBoardSuccessDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Brand board ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand board name",
+            "example": "My Brand Board"
+          },
+          "logos": {
+            "description": "Array of logos",
+            "example": [
+              {
+                "url": "https://storage.googleapis.com/bucket/logos/my-logo.png",
+                "label": "Primary Logo",
+                "path": "/locations/ve9EPM428h8vShlRW1KT/logos/my-logo.png"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Logo"
+            }
+          },
+          "colors": {
+            "description": "Array of brand colors",
+            "example": [
+              {
+                "hexa": "#FF5733FF",
+                "rgba": "rgba(255, 87, 51, 1)",
+                "hex": "#FF5733",
+                "rgb": "rgb(255, 87, 51)",
+                "label": "Brand Orange"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          "fonts": {
+            "description": "Array of brand fonts",
+            "example": [
+              {
+                "font": "Montserrat",
+                "fallback": "sans-serif",
+                "label": "Heading Font"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Font"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Whether this is the default brand board for the location",
+            "example": false
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the brand board has been soft deleted",
+            "example": false
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent folder ID in media library",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "folderId": {
+            "type": "string",
+            "description": "Media library folder ID for this brand board",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Original brand board ID if cloned from snapshot",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "meta": {
+            "description": "Metadata about the brand board",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            ]
+          },
+          "missingAssets": {
+            "description": "Assets that used fallbacks/defaults (only returned when creating from URL)",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MissingAssets"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "name",
+          "default",
+          "deleted"
+        ]
+      },
+      "BrandBoardListItemDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Brand board ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Brand board name",
+            "example": "My Brand Board"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-05T12:00:00.000Z"
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Whether this is the default brand board for the location",
+            "example": false
+          },
+          "meta": {
+            "description": "Metadata about the brand board",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            ]
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "updatedAt"
+        ]
+      },
+      "GetBrandBoardsByLocationSuccessDTO": {
+        "type": "object",
+        "properties": {
+          "brandBoards": {
+            "description": "Array of brand boards for the location",
+            "example": [
+              {
+                "_id": "507f1f77bcf86cd799439011",
+                "name": "My Brand Board",
+                "updatedAt": "2024-01-05T12:00:00.000Z",
+                "default": true,
+                "meta": {
+                  "updatedBy": "user_abc123",
+                  "lastAction": "UPDATE",
+                  "sourceType": "blank"
+                }
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BrandBoardListItemDTO"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "Total number of brand boards matching the query",
+            "example": 42
+          }
+        },
+        "required": [
+          "brandBoards",
+          "totalCount"
+        ]
+      },
+      "UpdateBrandBoardBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the brand board",
+            "example": "My Brandboard 2"
+          },
+          "logos": {
+            "description": "Array of logos for the brand board",
+            "example": [
+              {
+                "url": "https://storage.googleapis.com/bucket/logos/my-logo.png",
+                "label": "Primary Logo",
+                "path": "/locations/ve9EPM428h8vShlRW1KT/logos/my-logo.png"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Logo"
+            }
+          },
+          "colors": {
+            "description": "Array of colors for the brand board",
+            "example": [
+              {
+                "hexa": "#FF5733FF",
+                "rgba": "rgba(255, 87, 51, 1)",
+                "hex": "#FF5733",
+                "rgb": "rgb(255, 87, 51)",
+                "label": "Brand Orange"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          "fonts": {
+            "description": "Array of fonts for the brand board",
+            "example": [
+              {
+                "font": "Montserrat",
+                "fallback": "sans-serif",
+                "label": "Heading Font"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Font"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Set as the default brand board for this location",
+            "example": true
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent folder ID in media library (reserved for future use)",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Brand Boards",
+    "tags": [
+      "Brand Boards",
+      "Brand Voices"
+    ]
+  }
+}

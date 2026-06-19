@@ -1,0 +1,1838 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/chat-widget/list": {
+      "get": {
+        "operationId": "listChatWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "The location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "example": 10,
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "example": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "chatType",
+            "required": false,
+            "in": "query",
+            "description": "The type of chat widget. Supports normal ChatType values, plus the virtual umbrella \"webChat\" (maps to facebookChat/emailChat/instagramChat/waChat).",
+            "schema": {
+              "example": "emailChat",
+              "enum": [
+                "liveChat",
+                "waChat",
+                "emailChat",
+                "allInOneChat",
+                "voiceAiChat",
+                "facebookChat",
+                "instagramChat",
+                "webChat"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "excludeChatType",
+            "required": false,
+            "in": "query",
+            "description": "The type of chat widget",
+            "schema": {
+              "example": "voiceAiChat",
+              "enum": [
+                "liveChat",
+                "waChat",
+                "emailChat",
+                "allInOneChat",
+                "voiceAiChat",
+                "facebookChat",
+                "instagramChat"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "voiceAiAgentId",
+            "required": false,
+            "in": "query",
+            "description": "The voice AI agent ID",
+            "schema": {
+              "example": "66597c9a41106ba6eb4eac3c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "allInOneChatTypes",
+            "required": false,
+            "in": "query",
+            "description": "All-in-one chat type to filter by. Only applies when chatType is \"allInOneChat\". Supports normal ChatType values plus the virtual umbrella \"webChat\" (maps to facebookChat/emailChat/instagramChat/waChat).",
+            "schema": {
+              "example": "emailChat",
+              "enum": [
+                "liveChat",
+                "waChat",
+                "emailChat",
+                "allInOneChat",
+                "voiceAiChat",
+                "facebookChat",
+                "instagramChat",
+                "webChat"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "List Chat Widgets",
+        "description": "Returns chat widgets for the sub-account with pagination and optional filters."
+      }
+    },
+    "/chat-widget/data/{locationId}/{id}": {
+      "get": {
+        "operationId": "getChatWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The chat widget ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "The location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Get Chat Widget",
+        "description": "Returns a single chat widget by ID."
+      },
+      "put": {
+        "operationId": "updateChatWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The chat widget ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "The location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWidgetDTO"
+              },
+              "example": {
+                "name": "Renamed Chat Widget"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Update Chat Widget",
+        "description": "Full update of a chat widget resource."
+      },
+      "patch": {
+        "operationId": "patchChatWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The chat widget ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "The location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWidgetDTO"
+              },
+              "example": {
+                "settings": {
+                  "chatType": "emailChat"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Patch Chat Widget",
+        "description": "Partial update of a chat widget resource."
+      }
+    },
+    "/chat-widget/public/config/{id}": {
+      "get": {
+        "operationId": "getWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The chat widget ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "2",
+              "example": "3",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Get Widget Config",
+        "description": "Returns widget configuration by ID."
+      }
+    },
+    "/chat-widget/{locationId}/{id}": {
+      "delete": {
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The chat widget ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "The location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRWsss",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Delete Chat Widget",
+        "description": "Soft-deletes a chat widget. If it was the default, another widget may be promoted."
+      }
+    },
+    "/chat-widget/clone": {
+      "post": {
+        "operationId": "cloneChatWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloneChatWidgetDTO"
+              },
+              "example": {
+                "locationId": "oHJiAh0wDG3BzmzACVD6",
+                "chatWidgetId": "ve9EPM428h8vShlRWsss"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Clone Chat Widget",
+        "description": "Creates a copy of an existing chat widget in the same sub-account."
+      }
+    },
+    "/chat-widget/": {
+      "post": {
+        "operationId": "createChatWidget",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWidgetDTO"
+              },
+              "examples": {
+                "basicCreate": {
+                  "summary": "Create a chat widget (minimum required fields)",
+                  "value": {
+                    "version": 2,
+                    "chatType": "emailChat",
+                    "name": "Chat Widget 1",
+                    "locationId": "oHJiAh0wDG3BzmzACVD6"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "chat-widget.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Chat Widget"
+        ],
+        "summary": "Create Chat Widget",
+        "description": "Creates a new chat widget for the given sub-account."
+      }
+    }
+  },
+  "info": {
+    "title": "Chat Widget API",
+    "description": "Documentation for Chat Widget API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Chat Widget",
+      "description": "Documentation for Chat Widget API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "AcknowledgementDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "example": "check",
+            "description": "Icon"
+          },
+          "placeholderColor": {
+            "type": "string",
+            "example": "#000",
+            "description": "Placeholder color"
+          },
+          "liveChatIcon": {
+            "type": "string",
+            "example": "check",
+            "description": "Icon for live chat"
+          },
+          "liveChatPlaceholderColor": {
+            "type": "string",
+            "example": "#000",
+            "description": "Placeholder color for live chat"
+          }
+        }
+      },
+      "WidgetSettingsThemeCustomColorDTO": {
+        "type": "object",
+        "properties": {
+          "chatBubbleColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Chat Bubble Color"
+          },
+          "backgroundColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Background Color"
+          },
+          "headerColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Header Color"
+          },
+          "buttonColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Button Color"
+          },
+          "avatarBackgroundColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Avatar Background Color"
+          },
+          "avatarBorderColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Avatar Border Color"
+          },
+          "senderMessageColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Sender Message Color"
+          },
+          "receivedMessageColor": {
+            "type": "string",
+            "example": "#fffff",
+            "description": "Received Message Color"
+          }
+        }
+      },
+      "WidgetSettingsThemeDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "theme1",
+            "description": "Theme Name"
+          },
+          "colors": {
+            "description": "Custom Color Options",
+            "example": {
+              "name": "theme1",
+              "chatBubbleColor": "#4285F4"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WidgetSettingsThemeCustomColorDTO"
+              }
+            ]
+          }
+        }
+      },
+      "WidgetSettingsCustomizationSizeDTO": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "number",
+            "example": 360,
+            "description": "Width"
+          },
+          "height": {
+            "type": "number",
+            "example": 360,
+            "description": "Height"
+          }
+        }
+      },
+      "WidgetSettingsCustomizationDTO": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": "string",
+            "example": "left",
+            "description": "Position"
+          },
+          "sizes": {
+            "description": "Typography Color Options",
+            "example": {
+              "width": 360,
+              "height": 600
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WidgetSettingsCustomizationSizeDTO"
+              }
+            ]
+          }
+        }
+      },
+      "RedirectDTO": {
+        "type": "object",
+        "properties": {
+          "redirectAction": {
+            "type": "boolean",
+            "description": "Redirect Action",
+            "example": false
+          },
+          "redirectWebsite": {
+            "type": "string",
+            "description": "Redirect Website",
+            "example": "www.gohighlevel.com"
+          },
+          "redirectText": {
+            "type": "string",
+            "description": "Redirect Text",
+            "example": "Click here"
+          }
+        }
+      },
+      "BusinessOfficeHoursDTO": {
+        "type": "object",
+        "properties": {
+          "enableBusinessHours": {
+            "type": "boolean",
+            "description": "Enable Business Hours",
+            "example": false
+          },
+          "openHours": {
+            "description": "Open hours schedule",
+            "example": [
+              {
+                "day": "monday",
+                "openHour": "09:00",
+                "closeHour": "17:00"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Time Zone",
+            "example": "UTC"
+          },
+          "outsideOfficeHoursWelcomeMsg": {
+            "type": "string",
+            "description": "Time Zone",
+            "example": "Asia/Calcutta"
+          }
+        }
+      },
+      "FBPageDTO": {
+        "type": "object",
+        "properties": {
+          "facebookPageId": {
+            "type": "string",
+            "description": "Facebook Page ID",
+            "example": "1234567890"
+          },
+          "facebookPageName": {
+            "type": "string",
+            "description": "Facebook Page Name",
+            "example": "Facebook Page Name"
+          }
+        }
+      },
+      "InstagramPageDTO": {
+        "type": "object",
+        "properties": {
+          "facebookPageId": {
+            "type": "string",
+            "description": "Facebook Page ID",
+            "example": "1234567890"
+          },
+          "facebookPageName": {
+            "type": "string",
+            "description": "Facebook Page Name",
+            "example": "Facebook Page Name"
+          },
+          "instagramPageId": {
+            "type": "string",
+            "description": "Instagram Page ID",
+            "example": "1234567890"
+          },
+          "instagramUsername": {
+            "type": "string",
+            "description": "Instagram UserName",
+            "example": "Instagram UserName"
+          }
+        }
+      },
+      "A2PComplianceDTO": {
+        "type": "object",
+        "properties": {
+          "enableA2PCompliance": {
+            "type": "boolean",
+            "description": "Enable A2P Compliance",
+            "example": true
+          },
+          "a2pOptInForm1": {
+            "type": "string",
+            "description": "A2P Opt In Form 1",
+            "example": "I agree to receive marketing communications from [business name]"
+          },
+          "a2pOptInForm1ShowCheckbox": {
+            "type": "boolean",
+            "description": "Show checkbox for A2P Opt In Form 1",
+            "example": true
+          },
+          "a2pOptInForm1PreChecked": {
+            "type": "boolean",
+            "description": "Pre-checked state for A2P Opt In Form 1 checkbox",
+            "example": false
+          },
+          "isA2POptInForm2": {
+            "type": "boolean",
+            "description": "Is A2P Opt In Form 2",
+            "example": true
+          },
+          "a2pOptInForm2": {
+            "type": "string",
+            "description": "A2P Opt In Form 2",
+            "example": "I agree to receive marketing communications from [business name]"
+          },
+          "a2pOptInForm2ShowCheckbox": {
+            "type": "boolean",
+            "description": "Show checkbox for A2P Opt In Form 2",
+            "example": true
+          },
+          "a2pOptInForm2PreChecked": {
+            "type": "boolean",
+            "description": "Pre-checked state for A2P Opt In Form 2 checkbox",
+            "example": false
+          },
+          "privacyPolicyLink": {
+            "type": "string",
+            "description": "Privacy Policy Link",
+            "example": "https://example.com/privacy-policy"
+          },
+          "termsOfServiceLink": {
+            "type": "string",
+            "description": "Terms of Service",
+            "example": "https://example.com/terms-of-service"
+          },
+          "isA2POptInForm1": {
+            "type": "boolean",
+            "description": "Is A2P Opt In Form 1 enabled",
+            "example": true
+          },
+          "messageType": {
+            "type": "string",
+            "description": "Message Type",
+            "example": "A2P"
+          }
+        }
+      },
+      "AdvanceSettingsDTO": {
+        "type": "object",
+        "properties": {
+          "brandingTitle": {
+            "type": "string",
+            "description": "Branding Title",
+            "example": "Agency"
+          },
+          "redirect": {
+            "description": "Redirect Object",
+            "example": {
+              "redirectAction": false,
+              "redirectWebsite": "https://example.com"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RedirectDTO"
+              }
+            ]
+          },
+          "enableContactForm": {
+            "type": "boolean",
+            "description": "Boolean for showing contact form at start",
+            "example": true
+          },
+          "defaultConsentCheck": {
+            "type": "boolean",
+            "description": "By default consent check for contact form",
+            "example": true
+          },
+          "businessOfficeHours": {
+            "description": "Business Office Hours",
+            "example": {
+              "enableBusinessHours": false,
+              "timezone": "UTC"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BusinessOfficeHoursDTO"
+              }
+            ]
+          },
+          "contactFormOptions": {
+            "description": "Contact form field configuration",
+            "example": [
+              {
+                "label": "Email",
+                "value": "email",
+                "dataType": "STANDARD_FIELD",
+                "required": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "allInOneChatTypes": {
+            "description": "Chat types included in the all-in-one widget",
+            "example": [
+              "liveChat",
+              "waChat"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "liveChat",
+                "waChat",
+                "emailChat",
+                "allInOneChat",
+                "voiceAiChat",
+                "facebookChat",
+                "instagramChat",
+                "webChat"
+              ]
+            }
+          },
+          "allInOneInitialMsg": {
+            "type": "string",
+            "description": "All In One Initial Msg",
+            "example": "Choose a chat option to get started."
+          },
+          "contactFormIntroMessage": {
+            "type": "string",
+            "description": "Contact Form Intro Message",
+            "example": "Please share contact details"
+          },
+          "contactFormSystemMessage": {
+            "type": "string",
+            "description": "Contact Form System Message",
+            "example": "Please share contact details"
+          },
+          "prefilledMessageText": {
+            "type": "string",
+            "description": "Prefilled Message Text",
+            "example": "I want to know more"
+          },
+          "voiceAiAgent": {
+            "type": "object",
+            "description": "Voice AI Agent",
+            "example": {}
+          },
+          "fbPage": {
+            "description": "Facebook Page",
+            "example": {
+              "facebookPageId": "1234567890",
+              "facebookPageName": "My Page"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FBPageDTO"
+              }
+            ]
+          },
+          "instagramPage": {
+            "description": "Instagram Page",
+            "example": {
+              "instagramPageId": "1234567890",
+              "instagramUsername": "mypage"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InstagramPageDTO"
+              }
+            ]
+          },
+          "playNotificationSound": {
+            "type": "boolean",
+            "description": "Play Notification Sound",
+            "example": false
+          },
+          "voiceAiSendActionText": {
+            "type": "string",
+            "description": "Voice Ai Send Action Text",
+            "example": "Call Now"
+          },
+          "aTwoPCompliance": {
+            "description": "A2P Compliance",
+            "example": {
+              "enableA2PCompliance": true,
+              "marketingComplianceMessage": "This is a marketing compliance message",
+              "isA2POptInForm2": true,
+              "a2pComplianceMessage": "This is a A2P compliance message",
+              "privacyPolicyLink": "https://example.com/privacy-policy",
+              "termsOfServiceLink": "https://example.com/terms-of-service"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/A2PComplianceDTO"
+              }
+            ]
+          }
+        }
+      },
+      "WidgetSettingsDTO": {
+        "type": "object",
+        "properties": {
+          "acknowledgementDetails": {
+            "description": "Acknowledgement Details",
+            "example": {
+              "icon": "check",
+              "placeholderColor": "#000"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AcknowledgementDetailsDTO"
+              }
+            ]
+          },
+          "agencyName": {
+            "type": "string",
+            "description": "Name of the agency",
+            "example": "Example Agency"
+          },
+          "agencyWebsite": {
+            "type": "string",
+            "description": "Website URL of the agency",
+            "example": "https://example.com"
+          },
+          "allowAvatarImage": {
+            "type": "boolean",
+            "description": "Allow avatar image",
+            "example": true
+          },
+          "autoCountryCode": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to automatically detect country code",
+            "example": true
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "Country code",
+            "example": "US"
+          },
+          "chatType": {
+            "type": "string",
+            "description": "Chat Type",
+            "example": "emailChat"
+          },
+          "promptType": {
+            "type": "string",
+            "description": "Prompt Type",
+            "example": "avatar"
+          },
+          "chatIcon": {
+            "type": "string",
+            "description": "Message Chat Circle",
+            "example": "messageChatCircle"
+          },
+          "enableRevisitMessage": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to enable a revisit message",
+            "example": true
+          },
+          "heading": {
+            "type": "string",
+            "description": "Heading text",
+            "example": "Welcome to Our Website"
+          },
+          "legalMsg": {
+            "type": "string",
+            "description": "Legal message",
+            "example": "By using this website, you agree to our terms and conditions."
+          },
+          "liveChatAckMsg": {
+            "type": "string",
+            "description": "Message acknowledging a live chat",
+            "example": "Thank you for reaching out. How may I assist you today?"
+          },
+          "liveChatEndedMsg": {
+            "type": "string",
+            "description": "Message indicating the end of a live chat",
+            "example": "Thank you for chatting with us. Have a great day!"
+          },
+          "liveChatFeedbackMsg": {
+            "type": "string",
+            "description": "Message asking for feedback after a live chat",
+            "example": "We would appreciate your feedback. Please rate your experience."
+          },
+          "liveChatFeedbackNote": {
+            "type": "string",
+            "description": "Note regarding live chat feedback",
+            "example": "Your feedback helps us improve our services."
+          },
+          "liveChatIntroMsg": {
+            "type": "string",
+            "description": "Introduction message for a live chat",
+            "example": "Hello! Welcome to our live chat support. How can I assist you today?"
+          },
+          "liveChatUserInactiveMsg": {
+            "type": "string",
+            "description": "Message for inactive users during a live chat",
+            "example": "Are you still there? Please let us know if you need assistance."
+          },
+          "liveChatUserInactiveTime": {
+            "type": "string",
+            "description": "Time for considering a user inactive during a live chat",
+            "example": "5 minutes"
+          },
+          "liveChatVisitorInactiveMsg": {
+            "type": "string",
+            "description": "Message for inactive visitors during a live chat",
+            "example": "Looks like you stepped away. Feel free to return whenever you need help."
+          },
+          "liveChatVisitorInactiveTime": {
+            "type": "string",
+            "description": "Time for considering a visitor inactive during a live chat",
+            "example": "10 minutes"
+          },
+          "locale": {
+            "type": "string",
+            "description": "Locale setting",
+            "example": "en_US"
+          },
+          "promptAvatar": {
+            "type": "string",
+            "description": "Avatar for prompts",
+            "example": "avatar.jpg"
+          },
+          "promptAvatarAltText": {
+            "type": "string",
+            "description": "Prompt Avatar Alt Text",
+            "example": "company logo"
+          },
+          "isPromptAvatarImageOptimize": {
+            "type": "boolean",
+            "description": "Avatar Image Optimization",
+            "example": false
+          },
+          "promptMsg": {
+            "type": "string",
+            "description": "Prompt message",
+            "example": "Need assistance? Feel free to ask us anything!"
+          },
+          "revisitPromptMsg": {
+            "type": "string",
+            "description": "Message for revisiting prompts",
+            "example": "Welcome back! How can we help you today?"
+          },
+          "sendActionText": {
+            "type": "string",
+            "description": "Text for send action",
+            "example": "Send"
+          },
+          "showAgencyBranding": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to show agency branding",
+            "example": true
+          },
+          "showConsentCheckbox": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to show a consent checkbox",
+            "example": true
+          },
+          "showLiveChatWelcomeMsg": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to show a welcome message for live chat",
+            "example": true
+          },
+          "showPrompt": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to show prompts",
+            "example": true
+          },
+          "subHeading": {
+            "type": "string",
+            "description": "Subheading text",
+            "example": "We are here to help you!"
+          },
+          "successMsg": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Your message has been sent successfully."
+          },
+          "supportContact": {
+            "type": "string",
+            "description": "Contact information for support",
+            "example": "support@example.com"
+          },
+          "thankYouMsg": {
+            "type": "string",
+            "description": "Thank you message",
+            "example": "Thank you for visiting our website!"
+          },
+          "theme": {
+            "description": "Theme",
+            "example": {
+              "name": "theme1"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WidgetSettingsThemeDTO"
+              }
+            ]
+          },
+          "useEmailField": {
+            "type": "boolean",
+            "description": "Boolean indicating whether to use an email field",
+            "example": true
+          },
+          "waNumber": {
+            "type": "string",
+            "description": "WhatsApp number",
+            "example": "+1234567890"
+          },
+          "widgetPrimaryColor": {
+            "type": "string",
+            "description": "Primary color for the widget",
+            "example": "#4285F4"
+          },
+          "representativeAssignedMessage": {
+            "type": "string",
+            "description": "Representative Assigned Message",
+            "example": "#4285F4"
+          },
+          "dimensions": {
+            "description": "Customizations",
+            "example": {
+              "position": "right"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WidgetSettingsCustomizationDTO"
+              }
+            ]
+          },
+          "advanceSettings": {
+            "description": "Advance Settings",
+            "example": {
+              "enableContactForm": true
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AdvanceSettingsDTO"
+              }
+            ]
+          },
+          "locationCountryCode": {
+            "type": "string",
+            "description": "Location Country Code",
+            "example": "US"
+          },
+          "widgetId": {
+            "type": "string",
+            "description": "Widget Id",
+            "example": "92929283937922"
+          },
+          "widgetPlacement": {
+            "type": "string",
+            "description": "Widget Placement",
+            "example": "embedded"
+          }
+        },
+        "required": [
+          "chatType",
+          "chatIcon"
+        ]
+      },
+      "CreateWidgetDTO": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "number",
+            "description": "Version",
+            "example": 2
+          },
+          "chatType": {
+            "type": "string",
+            "description": "Chat type",
+            "example": "emailChat",
+            "enum": [
+              "liveChat",
+              "emailChat"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "example": "Chat Widget 1"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "oHJiAh0wDG3BzmzACVD6"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Deleted",
+            "example": false
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Default",
+            "example": false
+          },
+          "settings": {
+            "description": "Settings",
+            "example": {
+              "chatType": "emailChat"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WidgetSettingsDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "version",
+          "chatType",
+          "name",
+          "locationId"
+        ]
+      },
+      "UpdateWidgetDTO": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "number",
+            "description": "Version",
+            "example": 2
+          },
+          "chatType": {
+            "type": "string",
+            "description": "Chat type",
+            "example": "emailChat",
+            "enum": [
+              "liveChat",
+              "emailChat"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "example": "Chat Widget 1"
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Default",
+            "example": false
+          },
+          "settings": {
+            "description": "Settings",
+            "example": {
+              "chatType": "emailChat"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WidgetSettingsDTO"
+              }
+            ]
+          }
+        }
+      },
+      "CloneChatWidgetDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "locationId",
+            "example": "oHJiAh0wDG3BzmzACVD6"
+          },
+          "chatWidgetId": {
+            "type": "string",
+            "description": "chat widget ID",
+            "example": "oHJiAh0wDG3BzmzACVD6"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name for the cloned widget",
+            "example": "Chat Widget 1 (copy)"
+          }
+        },
+        "required": [
+          "locationId",
+          "chatWidgetId"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Chat Widget",
+    "tags": [
+      "Chat Widget"
+    ]
+  }
+}

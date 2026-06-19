@@ -1,0 +1,2513 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/opportunities/lost-reason": {
+      "get": {
+        "operationId": "get-lost-reason",
+        "summary": "Get lost reason",
+        "description": "Get lost reason",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Identifier of the location (sub-account)",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "lost reason name",
+            "schema": {
+              "example": "lost reason",
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleted",
+            "required": false,
+            "in": "query",
+            "description": "deleted",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "search query",
+            "schema": {
+              "example": "dentist",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "skip",
+            "schema": {
+              "default": 0,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "limit",
+            "schema": {
+              "default": 100,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "getCount",
+            "required": false,
+            "in": "query",
+            "description": "get count",
+            "schema": {
+              "example": "field",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LostReasonsResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Lost reason"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/search": {
+      "get": {
+        "operationId": "search-opportunity",
+        "x-version-added": "v3",
+        "summary": "Search Opportunity",
+        "description": "Search Opportunity",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "description": "Search query (max 75 characters)",
+            "schema": {
+              "example": "john@deo.com",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by opportunity status",
+            "schema": {
+              "example": "open",
+              "enum": [
+                "open",
+                "won",
+                "lost",
+                "abandoned",
+                "all"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": false,
+            "in": "query",
+            "description": "Campaign Id",
+            "schema": {
+              "example": "Y2I9XM7aO1hncuSOlc9L",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "123akv4LFn6C9frZoy3e",
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort order for results (e.g. added_asc, added_desc, name_asc, name_desc)",
+            "schema": {
+              "example": "added_asc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "in": "query",
+            "description": "End date",
+            "schema": {
+              "example": "mm-dd-yyyy",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startAfter",
+            "required": false,
+            "in": "query",
+            "description": "Start After",
+            "schema": {
+              "example": "1628008053263",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startAfterId",
+            "required": false,
+            "in": "query",
+            "description": "Start After Id",
+            "schema": {
+              "example": "UIaE1WjAwWKdlyD7osQI",
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "required": false,
+            "in": "query",
+            "description": "Start date",
+            "schema": {
+              "example": "mm-dd-yyyy",
+              "type": "string"
+            }
+          },
+          {
+            "name": "country",
+            "required": false,
+            "in": "query",
+            "description": "Filter by country code (ISO 3166-1 alpha-2)",
+            "schema": {
+              "example": "US",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Limit Per Page records count. will allow maximum up to 100 and default will be 20",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "getTasks",
+            "required": false,
+            "in": "query",
+            "description": "get Tasks in contact",
+            "schema": {
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "getNotes",
+            "required": false,
+            "in": "query",
+            "description": "get Notes in contact",
+            "schema": {
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "getCalendarEvents",
+            "required": false,
+            "in": "query",
+            "description": "get Calender event in contact",
+            "schema": {
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "i2SpAtBVHSVea1sL6oah",
+              "type": "string"
+            }
+          },
+          {
+            "name": "pipelineId",
+            "required": false,
+            "in": "query",
+            "description": "Pipeline Id",
+            "schema": {
+              "example": "bCkKGpDsyPP4peuKowkG",
+              "type": "string"
+            }
+          },
+          {
+            "name": "pipelineStageId",
+            "required": false,
+            "in": "query",
+            "description": "Stage Id",
+            "schema": {
+              "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10",
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Contact Id",
+            "schema": {
+              "example": "WFwVrSSjZ2CNHbZThQX2",
+              "type": "string"
+            }
+          },
+          {
+            "name": "assignedTo",
+            "required": false,
+            "in": "query",
+            "description": "Filter by assigned user identifier",
+            "schema": {
+              "example": "082goXVW3lIExEQPOnd3",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "search-opportunities-advanced",
+        "summary": "Search Opportunities",
+        "description": "Search Opportunities based on combinations of advanced filters. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-424216/7bf11bc9b94f80f",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-424216/7bf11bc9b94f80f",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpportunitySearchBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostSearchSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/pipelines": {
+      "get": {
+        "operationId": "get-pipelines",
+        "summary": "Get Pipelines",
+        "description": "Get Pipelines",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Identifier of the location (sub-account) to retrieve pipelines for",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPipelinesSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Pipelines"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/{id}": {
+      "get": {
+        "operationId": "get-opportunity",
+        "summary": "Get Opportunity",
+        "description": "Get Opportunity",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostOpportunitySuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Opportunities"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.readonly"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-opportunity",
+        "summary": "Delete Opportunity",
+        "description": "Delete Opportunity",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUpdateOpportunitySuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Opportunities"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-opportunity",
+        "x-version-added": "v3",
+        "summary": "Update Opportunity",
+        "description": "Update Opportunity",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOpportunityDtoV3"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostOpportunitySuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Opportunities"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/{id}/status": {
+      "put": {
+        "operationId": "update-opportunity-status",
+        "summary": "Update Opportunity Status",
+        "description": "Update Opportunity Status",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "yWQobCRIhRguQtD2llvk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUpdateOpportunitySuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Opportunities"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/upsert": {
+      "post": {
+        "operationId": "Upsert-opportunity",
+        "summary": "Upsert Opportunity",
+        "description": "Upsert Opportunity",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertOpportunityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpsertOpportunitySuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Opportunities"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/{id}/followers": {
+      "post": {
+        "operationId": "add-followers-opportunity",
+        "summary": "Add Followers",
+        "description": "Add Followers",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowersDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAddFollowersSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Followers"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove-followers-opportunity",
+        "summary": "Remove Followers",
+        "description": "Allows removal of one or all followers from an opportunity.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Opportunity Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "isRemoveAllFollowers",
+            "required": false,
+            "in": "query",
+            "description": "Set to true to remove all followers from the opportunity",
+            "schema": {
+              "example": false,
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowersDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Followers successfully removed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteFollowersSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Followers"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/opportunities/": {
+      "post": {
+        "operationId": "create-opportunity",
+        "x-version-added": "v3",
+        "summary": "Create Opportunity",
+        "description": "Create Opportunity",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDtoV3"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostOpportunitySuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Opportunities"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "opportunities.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Opportunities API v3",
+    "description": "Documentation for Opportunities API\n\n## API Version v3\n\nAll APIs available via `/v3` route prefix with AIP-compliant responses.",
+    "version": "v3",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Opportunities",
+      "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Search",
+      "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Pipelines",
+      "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Export",
+      "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Pipiline Search",
+      "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Lost reason",
+      "description": "Documentation for Opportunities API"
+    },
+    {
+      "name": "Followers",
+      "description": "Documentation for Opportunities API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com",
+      "description": "Opportunities API v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "LostReasonResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "lost reason id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "lost reason name",
+            "example": "lost reason"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "location id",
+            "example": "location_id"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "updated at",
+            "example": "2023-06-19T12:04:22.488Z"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "created at",
+            "example": "2023-06-19T12:04:22.488Z"
+          }
+        }
+      },
+      "LostReasonsResponseSchema": {
+        "type": "object",
+        "properties": {
+          "lostReasons": {
+            "description": "List of lost reasons for the location",
+            "example": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LostReasonResponseSchema"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of lost reasons matching the query",
+            "example": 100
+          }
+        }
+      },
+      "SearchOpportunitiesContactResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the contact",
+            "example": "byMEV0NQinDhq8ZfiOi2"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the contact",
+            "example": "John Deo"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name associated with the contact",
+            "example": "Tesla Inc"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact",
+            "example": "john@deo.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact",
+            "example": "+1202-555-0107"
+          },
+          "tags": {
+            "description": "Tags associated with the contact",
+            "example": [
+              "lead",
+              "vip"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CustomFieldResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the custom field",
+            "example": "MgobCB14YMVKuE4Ka8p1"
+          },
+          "fieldValue": {
+            "description": "The value of the custom field",
+            "example": "custom field value",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "fieldValue"
+        ]
+      },
+      "SearchOpportunitiesResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the opportunity",
+            "example": "yWQobCRIhRguQtD2llvk"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the opportunity",
+            "example": "testing"
+          },
+          "monetaryValue": {
+            "type": "number",
+            "description": "Monetary value of the opportunity",
+            "example": 500
+          },
+          "pipelineId": {
+            "type": "string",
+            "description": "Identifier of the pipeline the opportunity belongs to",
+            "example": "VDm7RPYC2GLUvdpKmBfC"
+          },
+          "pipelineStageId": {
+            "type": "string",
+            "description": "Identifier of the pipeline stage the opportunity is in",
+            "example": "e93ba61a-53b3-45e7-985a-c7732dbcdb69"
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Identifier of the user the opportunity is assigned to",
+            "example": "zT46WSCPbudrq4zhWMk6"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the opportunity",
+            "example": "open"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the opportunity",
+            "example": ""
+          },
+          "lastStatusChangeAt": {
+            "type": "string",
+            "description": "ISO 8601 timestamp of the last status change",
+            "example": "2021-08-03T04:55:17.355Z"
+          },
+          "lastStageChangeAt": {
+            "type": "string",
+            "description": "ISO 8601 timestamp of the last stage change",
+            "example": "2021-08-03T04:55:17.355Z"
+          },
+          "lastActionDate": {
+            "type": "string",
+            "description": "ISO 8601 timestamp of the last action on the opportunity",
+            "example": "2021-08-03T04:55:17.355Z"
+          },
+          "indexVersion": {
+            "type": "string",
+            "description": "Index version of the opportunity record",
+            "example": 1
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the opportunity was created",
+            "example": "2021-08-03T04:55:17.355Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the opportunity was last updated",
+            "example": "2021-08-03T04:55:17.355Z"
+          },
+          "forecastExpectedCloseDate": {
+            "type": "string",
+            "description": "Expected close date for the forecast (YYYY-MM-DD)",
+            "example": "2026-05-20"
+          },
+          "forecastOriginalCloseDate": {
+            "type": "string",
+            "description": "Original forecast close date before any slippage (YYYY-MM-DD)",
+            "example": "2026-05-01"
+          },
+          "forecastSlippageCount": {
+            "type": "number",
+            "description": "Number of times the close date has slipped",
+            "example": 2
+          },
+          "forecastDaysSlipped": {
+            "type": "number",
+            "description": "Total days the close date has slipped",
+            "example": 19
+          },
+          "forecastLastSlippedAt": {
+            "type": "string",
+            "description": "ISO 8601 timestamp of the last close-date slip",
+            "example": "2026-05-22T10:30:00.000Z"
+          },
+          "forecastProbability": {
+            "type": "number",
+            "description": "Forecast win probability percentage (0–100)",
+            "example": 20
+          },
+          "effectiveProbability": {
+            "type": "number",
+            "description": "Effective win probability after stage and forecast adjustments (0–100)",
+            "example": 40
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Identifier of the contact linked to the opportunity",
+            "example": "zT46WSCPbudrq4zhWMk6"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Identifier of the location (sub-account) the opportunity belongs to",
+            "example": "zT46WSCPbudrq4zhW"
+          },
+          "contact": {
+            "description": "Contact details associated with the opportunity",
+            "example": {},
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchOpportunitiesContactResponseSchema"
+              }
+            ]
+          },
+          "notes": {
+            "description": "Notes attached to the opportunity",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "tasks": {
+            "description": "Tasks attached to the opportunity",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "calendarEvents": {
+            "description": "Calendar events attached to the opportunity",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "lostReasonId": {
+            "type": "string",
+            "description": "Identifier of the lost reason if the opportunity was marked lost",
+            "example": "zT46WSCPbudrq4zhWMk6"
+          },
+          "customFields": {
+            "description": "Custom fields associated with the opportunity",
+            "example": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomFieldResponseSchema"
+            }
+          },
+          "followers": {
+            "description": "User IDs following this opportunity",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "externalObjectId": {
+            "type": "string",
+            "description": "External object identifier for integrations",
+            "example": "ext_obj_12345"
+          }
+        }
+      },
+      "SearchMetaResponseSchema": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "description": "Total number of opportunities matching the query",
+            "example": 1
+          },
+          "nextPageUrl": {
+            "type": "string",
+            "description": "URL to retrieve the next page of results",
+            "example": "http://localhost:5066/opportunities/search?q=&location_id=ve9EPM428h8vShlRW1KT&pipeline_id=&pipeline_stage_id=&status=&assigned_to+=&campaignId=&id=&order=&endDate=&startAfter=1625203104328&startAfterId=yWQobCRIhRguQtD2llvk&date=&limit=1&country=&page=1"
+          },
+          "startAfterId": {
+            "type": "string",
+            "description": "Cursor id to use for pagination (startAfterId param)",
+            "example": "yWQobCRIhRguQtD2llvk"
+          },
+          "startAfter": {
+            "type": "number",
+            "description": "Cursor timestamp to use for pagination (startAfter param)",
+            "example": 1625203104328
+          },
+          "currentPage": {
+            "type": "number",
+            "description": "Current page number",
+            "example": 2
+          },
+          "nextPage": {
+            "type": "number",
+            "description": "Next page number",
+            "example": 3
+          },
+          "prevPage": {
+            "type": "number",
+            "description": "Previous page number",
+            "example": 1
+          }
+        }
+      },
+      "SearchSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "opportunities": {
+            "description": "List of opportunities matching the search criteria",
+            "example": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchOpportunitiesResponseSchema"
+            }
+          },
+          "meta": {
+            "description": "Pagination metadata for the result set",
+            "example": {},
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchMetaResponseSchema"
+              }
+            ]
+          },
+          "aggregations": {
+            "type": "object",
+            "description": "Aggregation results keyed by aggregation name",
+            "example": {}
+          }
+        }
+      },
+      "AdditionalDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "notes": {
+            "type": "boolean",
+            "description": "Include notes in the response",
+            "example": false
+          },
+          "tasks": {
+            "type": "boolean",
+            "description": "Include tasks in the response",
+            "example": false
+          },
+          "calendarEvents": {
+            "type": "boolean",
+            "description": "Include calendar events in the response",
+            "example": false
+          },
+          "unReadConversations": {
+            "type": "boolean",
+            "description": "Include unread conversations count in the response",
+            "example": false
+          }
+        },
+        "required": [
+          "notes",
+          "tasks",
+          "calendarEvents",
+          "unReadConversations"
+        ]
+      },
+      "OpportunitySearchBodyDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "i2SpAtBVHSVea1sL6oah"
+          },
+          "query": {
+            "type": "string",
+            "description": "Full-text search query string (max 75 characters)",
+            "example": "john@deo.com"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of results to return per page",
+            "example": 20
+          },
+          "page": {
+            "type": "number",
+            "description": "Page number (0-indexed)",
+            "example": 0
+          },
+          "searchAfter": {
+            "description": "Search-after cursor values for deep pagination",
+            "example": [
+              1625203104328,
+              "yWQobCRIhRguQtD2llvk"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalDetails": {
+            "description": "Flags to include additional related entities in the response",
+            "example": {
+              "notes": false,
+              "tasks": false,
+              "calendarEvents": false
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AdditionalDetailsDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "locationId",
+          "query",
+          "limit",
+          "page",
+          "searchAfter",
+          "additionalDetails"
+        ]
+      },
+      "StageAggregationResponseDto": {
+        "type": "object",
+        "properties": {
+          "pipelineStageId": {
+            "type": "string",
+            "description": "Identifier of the pipeline stage being aggregated",
+            "example": "e93ba61a-53b3-45e7-985a-c7732dbcdb69"
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "Total number of opportunities in this stage",
+            "example": 12
+          },
+          "totalValue": {
+            "type": "number",
+            "description": "Total monetary value of all opportunities in this stage",
+            "example": 24500
+          },
+          "weightedValue": {
+            "type": "number",
+            "description": "Probability-weighted total value of opportunities in this stage",
+            "example": 14700
+          },
+          "openValue": {
+            "type": "number",
+            "description": "Total value of open opportunities in this stage",
+            "example": 18000
+          },
+          "openWeightedValue": {
+            "type": "number",
+            "description": "Probability-weighted value of open opportunities in this stage",
+            "example": 10800
+          },
+          "wonValue": {
+            "type": "number",
+            "description": "Total value of won opportunities in this stage",
+            "example": 6500
+          }
+        },
+        "required": [
+          "pipelineStageId",
+          "totalCount",
+          "totalValue",
+          "weightedValue",
+          "openValue",
+          "openWeightedValue",
+          "wonValue"
+        ]
+      },
+      "PostSearchSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "opportunities": {
+            "description": "List of opportunities matching the search criteria",
+            "example": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchOpportunitiesResponseSchema"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of opportunities matching the query",
+            "example": 100
+          },
+          "stageAggregations": {
+            "description": "Per-stage totals when pipeline filter is present",
+            "example": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageAggregationResponseDto"
+            }
+          },
+          "aggregations": {
+            "type": "object",
+            "description": "Aggregation results keyed by aggregation name",
+            "example": {}
+          }
+        },
+        "required": [
+          "total"
+        ]
+      },
+      "PipelinesResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the pipeline",
+            "example": "aWdODOBVOlH1RUFKWQke"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the pipeline",
+            "example": "new pipeline"
+          },
+          "stages": {
+            "description": "Stages belonging to this pipeline",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "showInFunnel": {
+            "type": "boolean",
+            "description": "Whether the pipeline is shown in the funnel view",
+            "example": false
+          },
+          "showInPieChart": {
+            "type": "boolean",
+            "description": "Whether the pipeline is shown in the pie chart view",
+            "example": true
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Identifier of the location (sub-account) this pipeline belongs to",
+            "example": "dsjddjkndadqaja"
+          },
+          "useOpportunityProbability": {
+            "type": "boolean",
+            "description": "Whether stage-level win probability is enabled for this pipeline",
+            "example": true
+          },
+          "colorRenderMode": {
+            "type": "string",
+            "enum": [
+              "dot",
+              "bg-tint",
+              "none"
+            ],
+            "description": "How pipeline/stage colors are rendered",
+            "example": "dot"
+          }
+        }
+      },
+      "GetPipelinesSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "pipelines": {
+            "description": "List of pipelines for the location",
+            "example": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PipelinesResponseSchema"
+            }
+          }
+        }
+      },
+      "GetPostOpportunitySuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "opportunity": {
+            "description": "The created or retrieved opportunity object",
+            "example": {},
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchOpportunitiesResponseSchema"
+              }
+            ]
+          }
+        }
+      },
+      "DeleteUpdateOpportunitySuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeded": {
+            "type": "boolean",
+            "deprecated": true,
+            "description": "Indicates whether the operation was successful. Deprecated — use `success` instead.",
+            "example": true
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the operation was successful",
+            "example": true
+          }
+        }
+      },
+      "UpdateStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "New status for the opportunity",
+            "enum": [
+              "open",
+              "won",
+              "lost",
+              "abandoned",
+              "all"
+            ],
+            "example": "open"
+          },
+          "lostReasonId": {
+            "type": "string",
+            "description": "lost reason Id",
+            "example": "CLu7BaljjqrEjBGKTNNe"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "customFieldsInputStringSchemaV3": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6dvNaf7VhkQ9snc5vnjJ",
+            "description": "Pass either `id` or `key` of custom field"
+          },
+          "key": {
+            "type": "string",
+            "example": "my_custom_field",
+            "description": "Pass either `id` or `key` of custom field"
+          },
+          "fieldValue": {
+            "type": "string",
+            "description": "Value of the custom field",
+            "example": "9039160788"
+          }
+        }
+      },
+      "customFieldsInputArraySchemaV3": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "description": "Value of the custom field",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "customFieldsInputObjectSchemaV3": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "object",
+            "description": "Value of the custom field",
+            "example": {
+              "url": "https://example.com/file.pdf",
+              "size": 1024
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CreateDtoV3": {
+        "type": "object",
+        "properties": {
+          "pipelineId": {
+            "type": "string",
+            "description": "pipeline Id",
+            "example": "VDm7RPYC2GLUvdpKmBfC"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Identifier of the location (sub-account)",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the opportunity",
+            "example": "First Opps"
+          },
+          "pipelineStageId": {
+            "type": "string",
+            "description": "Identifier of the pipeline stage",
+            "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the opportunity",
+            "enum": [
+              "open",
+              "won",
+              "lost",
+              "abandoned",
+              "all"
+            ],
+            "example": "open"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Identifier of the contact linked to the opportunity",
+            "example": "mTkSCb1UBjb5tk4OvB69"
+          },
+          "monetaryValue": {
+            "type": "number",
+            "description": "Monetary value of the opportunity",
+            "example": 220
+          },
+          "forecastExpectedCloseDate": {
+            "type": "string",
+            "description": "Expected close date. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, or ISO 8601",
+            "example": "2026-04-23"
+          },
+          "forecastProbability": {
+            "type": "number",
+            "description": "Forecast probability",
+            "example": 20
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Identifier of the user the opportunity is assigned to",
+            "example": "082goXVW3lIExEQPOnd3"
+          },
+          "customFields": {
+            "type": "array",
+            "description": "Add custom fields to opportunities.",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "fieldValue": "9039160788"
+              }
+            ],
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/customFieldsInputStringSchemaV3"
+                },
+                {
+                  "$ref": "#/components/schemas/customFieldsInputArraySchemaV3"
+                },
+                {
+                  "$ref": "#/components/schemas/customFieldsInputObjectSchemaV3"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "pipelineId",
+          "locationId",
+          "name",
+          "status",
+          "contactId"
+        ]
+      },
+      "UpdateOpportunityDtoV3": {
+        "type": "object",
+        "properties": {
+          "pipelineId": {
+            "type": "string",
+            "description": "pipeline Id",
+            "example": "bCkKGpDsyPP4peuKowkG"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the opportunity",
+            "example": "First Opps"
+          },
+          "pipelineStageId": {
+            "type": "string",
+            "description": "Identifier of the pipeline stage",
+            "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the opportunity",
+            "enum": [
+              "open",
+              "won",
+              "lost",
+              "abandoned",
+              "all"
+            ],
+            "example": "open"
+          },
+          "monetaryValue": {
+            "type": "number",
+            "description": "Monetary value of the opportunity",
+            "example": 220
+          },
+          "forecastExpectedCloseDate": {
+            "type": "string",
+            "description": "Expected close date. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, or ISO 8601",
+            "example": "2026-04-23"
+          },
+          "forecastProbability": {
+            "type": "number",
+            "description": "Forecast probability",
+            "example": 20
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Identifier of the user the opportunity is assigned to",
+            "example": "082goXVW3lIExEQPOnd3"
+          },
+          "customFields": {
+            "type": "array",
+            "description": "Update custom fields to opportunities.",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "fieldValue": "9039160788"
+              }
+            ],
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/customFieldsInputStringSchemaV3"
+                },
+                {
+                  "$ref": "#/components/schemas/customFieldsInputArraySchemaV3"
+                },
+                {
+                  "$ref": "#/components/schemas/customFieldsInputObjectSchemaV3"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "UpsertOpportunityDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "opportunityId",
+            "example": "yWQobCRIhRguQtD2llvk"
+          },
+          "pipelineId": {
+            "type": "string",
+            "description": "pipeline Id",
+            "example": "bCkKGpDsyPP4peuKowkG"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "locationId",
+            "example": "CLu7BaljjqrEjBGKTNNe"
+          },
+          "followers": {
+            "description": "contactId",
+            "example": "LiKJ2vnRg5ETM8Z19K7",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isRemoveAllFollowers": {
+            "type": "boolean",
+            "description": "isRemoveAllFollowers",
+            "example": true
+          },
+          "followersActionType": {
+            "type": "string",
+            "description": "followers action type",
+            "enum": [
+              "add",
+              "remove"
+            ],
+            "example": "add"
+          },
+          "name": {
+            "type": "string",
+            "description": "name",
+            "example": "opportunity name"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the opportunity",
+            "enum": [
+              "open",
+              "won",
+              "lost",
+              "abandoned",
+              "all"
+            ],
+            "example": "open"
+          },
+          "pipelineStageId": {
+            "type": "string",
+            "description": "Identifier of the pipeline stage",
+            "example": "7915dedc-8f18-44d5-8bc3-77c04e994a10"
+          },
+          "monetaryValue": {
+            "type": "object",
+            "description": "Monetary value of the opportunity",
+            "example": 220
+          },
+          "forecastExpectedCloseDate": {
+            "type": "string",
+            "description": "Expected close date. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, or ISO 8601",
+            "example": "2026-04-23"
+          },
+          "forecastProbability": {
+            "type": "number",
+            "description": "Forecast probability",
+            "example": 20
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Identifier of the user the opportunity is assigned to",
+            "example": "082goXVW3lIExEQPOnd3"
+          },
+          "lostReasonId": {
+            "type": "string",
+            "description": "lost reason Id",
+            "example": "CLu7BaljjqrEjBGKTNNe"
+          }
+        },
+        "required": [
+          "pipelineId",
+          "locationId",
+          "followers",
+          "isRemoveAllFollowers",
+          "followersActionType"
+        ]
+      },
+      "UpsertOpportunitySuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "opportunity": {
+            "type": "object",
+            "description": "Updated / New Opportunity",
+            "example": {}
+          },
+          "new": {
+            "type": "boolean",
+            "description": "Indicates whether the opportunity was newly created (true) or updated (false)",
+            "example": true
+          }
+        },
+        "required": [
+          "opportunity",
+          "new"
+        ]
+      },
+      "FollowersDTO": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "description": "Array of user IDs to add or remove as followers (max 10)",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "followers"
+        ]
+      },
+      "CreateAddFollowersSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "description": "Current list of all follower user IDs after the operation",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302LLss"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followersAdded": {
+            "description": "User IDs that were successfully added as followers",
+            "example": [
+              "Mx6wyHhbFdRXh302Luer",
+              "Ka6wyHhbFdRXh302LLsAm"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeleteFollowersSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "description": "Current list of all follower user IDs after the operation",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302LLss"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followersRemoved": {
+            "description": "User IDs that were successfully removed as followers",
+            "example": [
+              "Mx6wyHhbFdRXh302Luer",
+              "Ka6wyHhbFdRXh302LLsAm"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Opportunities",
+    "tags": [
+      "Opportunities",
+      "Search",
+      "Pipelines",
+      "Export",
+      "Pipiline Search",
+      "Lost reason",
+      "Followers"
+    ]
+  }
+}

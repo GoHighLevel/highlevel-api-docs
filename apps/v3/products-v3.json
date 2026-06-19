@@ -1,0 +1,6082 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/products/bulk-update": {
+      "post": {
+        "operationId": "bulkUpdate",
+        "summary": "Bulk Update Products",
+        "description": "API to bulk update products (price, availability, collections, delete)",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Products updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUpdateResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/bulk-update/edit": {
+      "post": {
+        "operationId": "bulkEdit",
+        "summary": "Bulk Edit Products and Prices",
+        "description": "API to bulk edit products and their associated prices (max 30 entities)",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkEditRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Products and prices updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkEditResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ]
+      }
+    },
+    "/products/{productId}/price": {
+      "post": {
+        "operationId": "create-price-for-product",
+        "summary": "Create Price for a Product",
+        "description": "The \"Create Price for a Product\" API allows adding a new price associated with a specific product to the system. Use this endpoint to create a price with the specified details for a particular product. Ensure that the required information is provided in the request payload.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the product that needs to be used",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePriceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePriceResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-prices-for-product",
+        "summary": "List Prices for a Product",
+        "description": "The \"List Prices for a Product\" API allows retrieving a paginated list of prices associated with a specific product. Customize your results by filtering prices or paginate through the list using the provided query parameters.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the product that needs to be used",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 0,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "The unique identifier for the location.",
+            "schema": {
+              "example": "3SwdhCsvxI8Au3KsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "ids",
+            "required": false,
+            "in": "query",
+            "description": "To filter the response only with the given price ids, Please provide with comma separated",
+            "schema": {
+              "example": "6241712be68f7a98102ba272,632027d51f7876cd3020213d",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListPricesResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/inventory": {
+      "get": {
+        "operationId": "get-list-inventory",
+        "summary": "List Inventory",
+        "description": "The \"List Inventory API allows the user to retrieve a paginated list of inventory items. Use this endpoint to fetch details for multiple items in the inventory based on the provided query parameters.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 0,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search string for Variant Search",
+            "schema": {
+              "example": "Product Name",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInventoryResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "update-inventory",
+        "summary": "Update Inventory",
+        "description": "The Update Inventory API allows the user to bulk update the inventory for multiple items. Use this endpoint to update the available quantity and out-of-stock purchase settings for multiple items in the inventory.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInventoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateInventoryResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/{productId}/price/{priceId}": {
+      "get": {
+        "operationId": "get-price-by-id-for-product",
+        "summary": "Get Price by ID for a Product",
+        "description": "The \"Get Price by ID for a Product\" API allows retrieving information for a specific price associated with a particular product using its unique identifier. Use this endpoint to fetch details for a single price based on the provided price ID and product ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the product that needs to be used",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the price that needs to be returned",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPriceResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-price-by-id-for-product",
+        "summary": "Update Price by ID for a Product",
+        "description": "The \"Update Price by ID for a Product\" API allows modifying information for a specific price associated with a particular product using its unique identifier. Use this endpoint to update details for a single price based on the provided price ID and product ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the product that needs to be used",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the price that needs to be returned",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePriceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePriceResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-price-by-id-for-product",
+        "summary": "Delete Price by ID for a Product",
+        "description": "The \"Delete Price by ID for a Product\" API allows deleting a specific price associated with a particular product using its unique identifier. Use this endpoint to remove a price from the system.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the product that needs to be used",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the price that needs to be returned",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePriceResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/prices.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products/prices.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/store/{storeId}/stats": {
+      "get": {
+        "operationId": "get-product-store-stats",
+        "summary": "Fetch Product Store Stats",
+        "description": "API to fetch the total number of products, included in the store, and excluded from the store and other stats",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "description": "Products related to the store",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "The name of the product for searching.",
+            "schema": {
+              "example": "Awesome product",
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionIds",
+            "required": false,
+            "in": "query",
+            "description": "Filter by product collection Ids. Supports comma separated values",
+            "schema": {
+              "example": "65c2789a812e52f9bd6ec577,65c2789a812e52de9a6ec576",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductStatsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Store"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/store/{storeId}": {
+      "post": {
+        "operationId": "update-store-status",
+        "summary": "Action to include/exclude the product in store",
+        "description": "API to update the status of products in a particular store",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "description": "Products related to the store",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductStoreDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProductStoreResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Store"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/store/{storeId}/priority": {
+      "post": {
+        "operationId": "update-display-priority",
+        "summary": "Update product display priorities in store",
+        "description": "API to set the display priority of products in a store",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "description": "Products related to the store",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDisplayPriorityBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated display priorities"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Store"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/products/collections": {
+      "get": {
+        "operationId": "get-product-collection",
+        "summary": "Fetch Product Collections",
+        "description": "Internal API to fetch the Product Collections",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 10,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "The type of alt. For now it is only LOCATION",
+            "schema": {
+              "example": "LOCATION",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionIds",
+            "required": false,
+            "in": "query",
+            "description": "Ids of the collections separated by comma(,) for search purposes",
+            "schema": {
+              "example": "65d71377c326ea78e1c47df5,65d71377c326ea78e1c47d34",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Query to search collection based on names",
+            "schema": {
+              "example": "Best Sellers",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListCollectionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/collection.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-product-collection",
+        "summary": "Create Product Collection",
+        "description": "Create a new Product Collection for a specific location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductCollectionsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCollectionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/collection.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/collections/{collectionId}": {
+      "get": {
+        "operationId": "get-product-collection-id",
+        "summary": "Get Details about individual product collection",
+        "description": "Get Details about individual product collection",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "collectionId",
+            "required": true,
+            "in": "path",
+            "description": "Collection Id",
+            "schema": {
+              "example": "65d71377c326ea78e1c47df5",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "3SwdhCsvxI8Au3KsPJt6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultCollectionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/collection.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-product-collection",
+        "summary": "Update Product Collection",
+        "description": "Update a specific product collection with Id :collectionId",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "collectionId",
+            "required": true,
+            "in": "path",
+            "description": "MongoId of the collection",
+            "schema": {
+              "example": "65d71377c326ea78e1c47df5",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductCollectionsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProductCollectionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/collection.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-product-collection",
+        "summary": "Delete Product Collection",
+        "description": "Delete specific product collection with Id :collectionId",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "collectionId",
+            "required": true,
+            "in": "path",
+            "description": "MongoId of the collection",
+            "schema": {
+              "example": "65d71377c326ea78e1c47df5",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "The type of alt. For now it is only LOCATION",
+            "schema": {
+              "example": "LOCATION",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteProductCollectionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products/collection.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/reviews": {
+      "get": {
+        "operationId": "get-product-reviews",
+        "summary": "Fetch Product Reviews",
+        "description": "API to fetch the Product Reviews",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 0,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortField",
+            "required": false,
+            "in": "query",
+            "description": "The field upon which the sort should be applied",
+            "schema": {
+              "example": "rating",
+              "enum": [
+                "createdAt",
+                "rating"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "The order of sort which should be applied for the sortField",
+            "schema": {
+              "example": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "rating",
+            "required": false,
+            "in": "query",
+            "description": "Key to filter the ratings ",
+            "schema": {
+              "example": 4,
+              "type": "number"
+            }
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "in": "query",
+            "description": "The start date for filtering reviews",
+            "schema": {
+              "example": "2023-01-01T00:00:00Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "in": "query",
+            "description": "The end date for filtering reviews",
+            "schema": {
+              "example": "2023-12-31T23:59:59Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated list of product IDs",
+            "schema": {
+              "example": "60d21b4667d0d8992e610c88,60d21b4667d0d8992e610c89,60d21b4667d0d8992e610c8a",
+              "type": "string"
+            }
+          },
+          {
+            "name": "storeId",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated list of store IDs",
+            "schema": {
+              "example": "60d21b4667d0d8992e610c85,60d21b4667d0d8992e610c86,60d21b4667d0d8992e610c87",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListProductReviewsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reviews"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/reviews/count": {
+      "get": {
+        "operationId": "get-reviews-count",
+        "summary": "Fetch Review Count as per status",
+        "description": "API to fetch the Review Count as per status",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "rating",
+            "required": false,
+            "in": "query",
+            "description": "Key to filter the ratings ",
+            "schema": {
+              "example": 4,
+              "type": "number"
+            }
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "in": "query",
+            "description": "The start date for filtering reviews",
+            "schema": {
+              "example": "2023-01-01T00:00:00Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "in": "query",
+            "description": "The end date for filtering reviews",
+            "schema": {
+              "example": "2023-12-31T23:59:59Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated list of product IDs",
+            "schema": {
+              "example": "60d21b4667d0d8992e610c88,60d21b4667d0d8992e610c89,60d21b4667d0d8992e610c8a",
+              "type": "string"
+            }
+          },
+          {
+            "name": "storeId",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated list of store IDs",
+            "schema": {
+              "example": "60d21b4667d0d8992e610c85,60d21b4667d0d8992e610c86,60d21b4667d0d8992e610c87",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountReviewsByStatusResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reviews"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/reviews/{reviewId}": {
+      "put": {
+        "operationId": "update-product-review",
+        "summary": "Update Product Reviews",
+        "description": "Update status, reply, etc of a particular review",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "reviewId",
+            "required": true,
+            "in": "path",
+            "description": "Review Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductReviewDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProductReviewsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reviews"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-product-review",
+        "summary": "Delete Product Review",
+        "description": "Delete specific product review",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "reviewId",
+            "required": true,
+            "in": "path",
+            "description": "Review Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "query",
+            "description": "Product Id of the product",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteProductReviewResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reviews"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/reviews/bulk-update": {
+      "post": {
+        "operationId": "bulk-update-product-review",
+        "summary": "Update Product Reviews",
+        "description": "Update one or multiple product reviews: status, reply, etc.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductReviewsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProductReviewsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reviews"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "operationId": "get-product-by-id",
+        "summary": "Get Product by ID",
+        "description": "The \"Get Product by ID\" API allows to retrieve information for a specific product using its unique identifier. Use this endpoint to fetch details for a single product based on the provided product ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID or the slug of the product that needs to be returned",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sendWishlistStatus",
+            "required": false,
+            "in": "query",
+            "description": "Parameter which will decide whether to show the wishlisting status of products",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products.readonly"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-product-by-id",
+        "summary": "Delete Product by ID",
+        "description": "The \"Delete Product by ID\" API allows deleting a specific product using its unique identifier. Use this endpoint to remove a product from the system.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID or the slug of the product that needs to be returned",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sendWishlistStatus",
+            "required": false,
+            "in": "query",
+            "description": "Parameter which will decide whether to show the wishlisting status of products",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-product-by-id",
+        "summary": "Update Product by ID",
+        "description": "The \"Update Product by ID\" API allows modifying information for a specific product using its unique identifier. Use this endpoint to update details for a single product based on the provided product ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID or the slug of the product that needs to be returned",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/products/": {
+      "post": {
+        "operationId": "create-product",
+        "summary": "Create Product",
+        "description": "The \"Create Product\" API allows adding a new product to the system. Use this endpoint to create a product with the specified details. Ensure that the required information is provided in the request payload.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.write"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-invoices",
+        "summary": "List Products",
+        "description": "The \"List Products\" API allows to retrieve a paginated list of products. Customize your results by filtering products based on name or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve product information.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 0,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "LocationId is the id of the sub-account",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "The name of the product for searching.",
+            "schema": {
+              "example": "Awesome product",
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionIds",
+            "required": false,
+            "in": "query",
+            "description": "Filter by product category Ids. Supports comma separated values",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionSlug",
+            "required": false,
+            "in": "query",
+            "description": "The slug value of the collection by which the collection would be searched",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "required": false,
+            "in": "query",
+            "description": "Name of an entity whose data has to be fetched along with product. Possible entities are tax, stripe and paypal. If not mentioned, only ID will be returned in case of taxes",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "productIds",
+            "required": false,
+            "in": "query",
+            "description": "List of product ids to be fetched.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "storeId",
+            "required": false,
+            "in": "query",
+            "description": "fetch and project products based on the storeId",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "includedInStore",
+            "required": false,
+            "in": "query",
+            "description": "Separate products by which are included in the store and which are not",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "availableInStore",
+            "required": false,
+            "in": "query",
+            "description": "If the product is included in the online store",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "The order of sort which should be applied for the date",
+            "schema": {
+              "example": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListProductsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "products.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "products.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Products API",
+    "description": "Documentation for products API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Prices",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Store",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Collections",
+      "description": "Documentation for products API"
+    },
+    {
+      "name": "Reviews",
+      "description": "Documentation for products API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "BulkUpdateFilters": {
+        "type": "object",
+        "properties": {
+          "collectionIds": {
+            "description": "Filter by collection IDs",
+            "example": [
+              "5f8d0d55b54764421b7156c1",
+              "5f8d0d55b54764421b7156c2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "productType": {
+            "type": "string",
+            "description": "Filter by product type",
+            "example": "one-time"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Filter by availability status",
+            "example": true
+          },
+          "search": {
+            "type": "string",
+            "description": "Filter by search term",
+            "example": "blue t-shirt"
+          }
+        }
+      },
+      "PriceUpdateField": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "INCREASE_BY_AMOUNT",
+              "REDUCE_BY_AMOUNT",
+              "SET_NEW_PRICE",
+              "INCREASE_BY_PERCENTAGE",
+              "REDUCE_BY_PERCENTAGE"
+            ],
+            "description": "Type of price update",
+            "example": "INCREASE_BY_AMOUNT"
+          },
+          "value": {
+            "type": "number",
+            "example": 100,
+            "description": "Value to update (amount or percentage based on type)"
+          },
+          "roundToWhole": {
+            "type": "boolean",
+            "description": "Round to nearest whole number",
+            "example": true
+          }
+        },
+        "required": [
+          "type",
+          "value"
+        ]
+      },
+      "BulkUpdateDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "bulk-update-price",
+              "bulk-update-availability",
+              "bulk-update-product-collection",
+              "bulk-delete-products",
+              "bulk-update-currency"
+            ],
+            "description": "Type of bulk update operation",
+            "example": "bulk-update-price"
+          },
+          "productIds": {
+            "example": [
+              "5f8d0d55b54764421b7156c1"
+            ],
+            "description": "Array of product IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filters": {
+            "description": "Filters to apply when selectAll is true",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BulkUpdateFilters"
+              }
+            ]
+          },
+          "price": {
+            "description": "Price update configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PriceUpdateField"
+              }
+            ]
+          },
+          "compareAtPrice": {
+            "description": "Compare at price update configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PriceUpdateField"
+              }
+            ]
+          },
+          "availability": {
+            "type": "boolean",
+            "description": "New availability status"
+          },
+          "collectionIds": {
+            "description": "Array of collection IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "USD"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "type",
+          "productIds"
+        ]
+      },
+      "BulkUpdateResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "WeightOptionsDto": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Actual weight of the product",
+            "example": 10
+          },
+          "unit": {
+            "type": "string",
+            "description": "Weight unit of the product",
+            "example": "kg",
+            "enum": [
+              "kg",
+              "lb",
+              "g",
+              "oz"
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "unit"
+        ]
+      },
+      "PriceDimensionsDto": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "number",
+            "description": "Height of the price",
+            "example": 10
+          },
+          "width": {
+            "type": "number",
+            "description": "Width of the price",
+            "example": 10
+          },
+          "length": {
+            "type": "number",
+            "description": "Length of the price",
+            "example": 10
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the price dimensions",
+            "example": "cm",
+            "enum": [
+              "cm",
+              "in",
+              "m"
+            ]
+          }
+        },
+        "required": [
+          "height",
+          "width",
+          "length",
+          "unit"
+        ]
+      },
+      "ShippingOptionsDto": {
+        "type": "object",
+        "properties": {
+          "weight": {
+            "description": "Weight options of the product",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WeightOptionsDto"
+              }
+            ]
+          },
+          "dimensions": {
+            "description": "Dimensions of the product",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PriceDimensionsDto"
+              }
+            ]
+          }
+        }
+      },
+      "RecurringDto": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "type": "string",
+            "description": "The interval at which the recurring event occurs.",
+            "example": "day",
+            "enum": [
+              "day",
+              "month",
+              "week",
+              "year"
+            ]
+          },
+          "intervalCount": {
+            "type": "number",
+            "description": "The number of intervals between each occurrence of the event.",
+            "example": 1
+          }
+        },
+        "required": [
+          "interval",
+          "intervalCount"
+        ]
+      },
+      "BulkEditPriceDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Price ID",
+            "example": "64a1b2c3d4e5f67890123456"
+          },
+          "name": {
+            "type": "string",
+            "description": "Price name",
+            "example": "Standard Plan"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Price amount",
+            "example": 99.99
+          },
+          "currency": {
+            "type": "string",
+            "description": "Price currency",
+            "example": "USD"
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "Compare at price",
+            "example": 129.99
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available quantity",
+            "example": 100
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Track inventory",
+            "example": true
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Allow out of stock purchases",
+            "example": false
+          },
+          "sku": {
+            "type": "string",
+            "description": "SKU",
+            "example": "SKU-001"
+          },
+          "trialPeriod": {
+            "type": "number",
+            "description": "Trial period in days",
+            "example": 7
+          },
+          "totalCycles": {
+            "type": "number",
+            "description": "Total billing cycles",
+            "example": 12
+          },
+          "setupFee": {
+            "type": "number",
+            "description": "Setup fee",
+            "example": 25
+          },
+          "shippingOptions": {
+            "description": "Shipping options",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShippingOptionsDto"
+              }
+            ]
+          },
+          "recurring": {
+            "description": "Recurring details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "ProductSEODto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "SEO title",
+            "example": "Best Product - Buy Now"
+          },
+          "description": {
+            "type": "string",
+            "description": "SEO description",
+            "example": "This is the best product you can buy online with amazing features and great value"
+          }
+        }
+      },
+      "BulkEditProductDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Product ID",
+            "example": "64a1b2c3d4e5f67890123456"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name",
+            "example": "Premium Product"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description",
+            "example": "A high-quality premium product with excellent features and durability"
+          },
+          "image": {
+            "type": "string",
+            "description": "Product image",
+            "example": "https://example.com/product-image.jpg"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Product availability in store",
+            "example": true
+          },
+          "prices": {
+            "description": "Array of price variants for the product",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BulkEditPriceDto"
+            }
+          },
+          "collectionIds": {
+            "description": "Collection IDs",
+            "example": [
+              "64a1b2c3d4e5f67890123458",
+              "64a1b2c3d4e5f67890123459"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isLabelEnabled": {
+            "type": "boolean",
+            "description": "Enable product label",
+            "example": true
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "Enable taxes",
+            "example": true
+          },
+          "seo": {
+            "description": "SEO metadata for the product",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductSEODto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "Product URL slug",
+            "example": "premium-product"
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Automatic tax category ID",
+            "example": "64a1b2c3d4e5f67890123460"
+          },
+          "taxInclusive": {
+            "type": "boolean",
+            "description": "Tax inclusive pricing",
+            "example": false
+          },
+          "taxes": {
+            "description": "Product taxes",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "medias": {
+            "description": "Product media",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "label": {
+            "type": "object",
+            "description": "Product label"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "BulkEditRequestDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "products": {
+            "description": "Array of products to update. Note: The total count includes all prices within each product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BulkEditProductDto"
+            }
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "products"
+        ]
+      },
+      "BulkEditResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Products updated successfully",
+            "description": "Success message"
+          },
+          "status": {
+            "type": "boolean",
+            "example": true,
+            "description": "Operation status"
+          },
+          "updatedCount": {
+            "type": "number",
+            "example": 5,
+            "description": "Number of products updated"
+          }
+        },
+        "required": [
+          "message",
+          "status",
+          "updatedCount"
+        ]
+      },
+      "MembershipOfferDto": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Membership offer label",
+            "example": "top_50"
+          },
+          "value": {
+            "type": "string",
+            "description": "Membership offer label",
+            "example": "50"
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the membership offer.",
+            "example": "655b33aa2209e60b6adb87a7"
+          }
+        },
+        "required": [
+          "label",
+          "value",
+          "_id"
+        ]
+      },
+      "PriceMetaDto": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "The source of the price.",
+            "enum": [
+              "stripe",
+              "woocommerce",
+              "shopify"
+            ],
+            "example": "stripe"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "The id of the source of the price from where it is imported",
+            "example": "123"
+          },
+          "stripePriceId": {
+            "type": "string",
+            "description": "The Stripe price ID associated with the price.",
+            "example": "price_123"
+          },
+          "internalSource": {
+            "type": "string",
+            "description": "The internal source of the price.",
+            "enum": [
+              "agency_plan",
+              "funnel",
+              "membership",
+              "communities",
+              "gokollab",
+              "calendar"
+            ],
+            "example": "agency_plan"
+          }
+        },
+        "required": [
+          "source",
+          "stripePriceId",
+          "internalSource"
+        ]
+      },
+      "CreatePriceDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Price Name"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price.",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency of the price.",
+            "example": "USD"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price. ( min: 0 )",
+            "example": 99.99
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the price."
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "trialPeriod": {
+            "type": "number",
+            "description": "The trial period duration in days (if applicable).",
+            "example": 7
+          },
+          "totalCycles": {
+            "type": "number",
+            "description": "The total number of billing cycles for the price. ( min: 1 )",
+            "example": 12
+          },
+          "setupFee": {
+            "type": "number",
+            "description": "The setup fee for the price.",
+            "example": 10.99
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "option_id_1",
+              "option_id_2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare at price for the price.",
+            "example": 19.99
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier of the location associated with the price.",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier of the user who created the price.",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "meta": {
+            "description": "Additional metadata associated with the price.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PriceMetaDto"
+              }
+            ]
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Need to track inventory stock quantity",
+            "example": true
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          },
+          "sku": {
+            "type": "string",
+            "description": "The unique identifier of the SKU associated with the price",
+            "example": "sku_123"
+          },
+          "shippingOptions": {
+            "description": "Shipping options of the Price",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShippingOptionsDto"
+              }
+            ]
+          },
+          "isDigitalProduct": {
+            "type": "boolean",
+            "description": "Is the product a digital product",
+            "example": true
+          },
+          "digitalDelivery": {
+            "description": "Digital delivery options",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "currency",
+          "amount",
+          "locationId"
+        ]
+      },
+      "CreatePriceResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the price.",
+            "example": "655b33aa2209e60b6adb87a7"
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "h4z7u0im2q8",
+              "h3nst2ltsnn"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "product": {
+            "type": "string",
+            "description": "The unique identifier for the associated product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier for the user.",
+            "example": "6YAtzfzpmHAdj0e8GkKp"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Red / S"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price (e.g., one_time).",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code for the price.",
+            "example": "INR"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price.",
+            "example": 199999
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the price.",
+            "example": "2023-11-20T10:23:38.645Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the price.",
+            "example": "2024-01-23T09:57:04.852Z"
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare-at price for comparison purposes.",
+            "example": 2000000
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether inventory tracking is enabled.",
+            "example": null
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "type",
+          "currency",
+          "amount"
+        ]
+      },
+      "DefaultPriceResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the price.",
+            "example": "655b33aa2209e60b6adb87a7"
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "h4z7u0im2q8",
+              "h3nst2ltsnn"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "product": {
+            "type": "string",
+            "description": "The unique identifier for the associated product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier for the user.",
+            "example": "6YAtzfzpmHAdj0e8GkKp"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Red / S"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price (e.g., one_time).",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code for the price.",
+            "example": "INR"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price.",
+            "example": 199999
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the price.",
+            "example": "2023-11-20T10:23:38.645Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the price.",
+            "example": "2024-01-23T09:57:04.852Z"
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare-at price for comparison purposes.",
+            "example": 2000000
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether inventory tracking is enabled.",
+            "example": null
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "type",
+          "currency",
+          "amount"
+        ]
+      },
+      "ListPricesResponseDto": {
+        "type": "object",
+        "properties": {
+          "prices": {
+            "description": "An array of prices",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DefaultPriceResponseDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "default": "Total number of prices available",
+            "example": 10
+          }
+        },
+        "required": [
+          "prices",
+          "total"
+        ]
+      },
+      "InventoryItemDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the price",
+            "example": "6241712be68f7a98102ba272"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the price/variant",
+            "example": "Medium T-shirt"
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available quantity in inventory",
+            "example": 50
+          },
+          "sku": {
+            "type": "string",
+            "description": "SKU for the product variant",
+            "example": "TSHIRT-MED-001"
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Whether out of stock purchases are allowed",
+            "example": false
+          },
+          "product": {
+            "type": "string",
+            "description": "Product ID this price belongs to",
+            "example": "6241712be68f7a98102ba270"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2023-12-12T09:27:42.355Z"
+          },
+          "image": {
+            "type": "string",
+            "description": "Product image URL",
+            "example": "https://example.com/images/product.jpg"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product name",
+            "example": "T-shirt"
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "availableQuantity",
+          "sku",
+          "allowOutOfStockPurchases",
+          "product",
+          "updatedAt"
+        ]
+      },
+      "GetInventoryResponseDto": {
+        "type": "object",
+        "properties": {
+          "inventory": {
+            "description": "List of inventory items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InventoryItemDto"
+            }
+          },
+          "total": {
+            "type": "object",
+            "description": "Total count of inventory items",
+            "example": {
+              "total": 100
+            }
+          }
+        },
+        "required": [
+          "inventory",
+          "total"
+        ]
+      },
+      "UpdateInventoryItemDto": {
+        "type": "object",
+        "properties": {
+          "priceId": {
+            "type": "string",
+            "description": "The unique identifier for the price, in MongoDB ID format.",
+            "example": "5e9f8f8f8f8f8f8f8f8f8f8"
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "The available quantity of the item.",
+            "example": 10
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Whether to continue selling the item when out of stock.",
+            "example": false
+          }
+        },
+        "required": [
+          "priceId"
+        ]
+      },
+      "UpdateInventoryDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "items": {
+            "description": "Array of items to update in the inventory.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UpdateInventoryItemDto"
+            }
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "items"
+        ]
+      },
+      "UpdateInventoryResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "GetPriceResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the price.",
+            "example": "655b33aa2209e60b6adb87a7"
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "h4z7u0im2q8",
+              "h3nst2ltsnn"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "product": {
+            "type": "string",
+            "description": "The unique identifier for the associated product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier for the user.",
+            "example": "6YAtzfzpmHAdj0e8GkKp"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Red / S"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price (e.g., one_time).",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code for the price.",
+            "example": "INR"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price.",
+            "example": 199999
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the price.",
+            "example": "2023-11-20T10:23:38.645Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the price.",
+            "example": "2024-01-23T09:57:04.852Z"
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare-at price for comparison purposes.",
+            "example": 2000000
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether inventory tracking is enabled.",
+            "example": null
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "type",
+          "currency",
+          "amount"
+        ]
+      },
+      "UpdatePriceDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Price Name"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price.",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency of the price.",
+            "example": "USD"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price. ( min: 0 )",
+            "example": 99.99
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the price."
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "trialPeriod": {
+            "type": "number",
+            "description": "The trial period duration in days (if applicable).",
+            "example": 7
+          },
+          "totalCycles": {
+            "type": "number",
+            "description": "The total number of billing cycles for the price. ( min: 1 )",
+            "example": 12
+          },
+          "setupFee": {
+            "type": "number",
+            "description": "The setup fee for the price.",
+            "example": 10.99
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "option_id_1",
+              "option_id_2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare at price for the price.",
+            "example": 19.99
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier of the location associated with the price.",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier of the user who created the price.",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "meta": {
+            "description": "Additional metadata associated with the price.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PriceMetaDto"
+              }
+            ]
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Need to track inventory stock quantity",
+            "example": true
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          },
+          "sku": {
+            "type": "string",
+            "description": "The unique identifier of the SKU associated with the price",
+            "example": "sku_123"
+          },
+          "shippingOptions": {
+            "description": "Shipping options of the Price",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShippingOptionsDto"
+              }
+            ]
+          },
+          "isDigitalProduct": {
+            "type": "boolean",
+            "description": "Is the product a digital product",
+            "example": true
+          },
+          "digitalDelivery": {
+            "description": "Digital delivery options",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "currency",
+          "amount",
+          "locationId"
+        ]
+      },
+      "UpdatePriceResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the price.",
+            "example": "655b33aa2209e60b6adb87a7"
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "h4z7u0im2q8",
+              "h3nst2ltsnn"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "product": {
+            "type": "string",
+            "description": "The unique identifier for the associated product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier for the user.",
+            "example": "6YAtzfzpmHAdj0e8GkKp"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Red / S"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price (e.g., one_time).",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code for the price.",
+            "example": "INR"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price.",
+            "example": 199999
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the price.",
+            "example": "2023-11-20T10:23:38.645Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the price.",
+            "example": "2024-01-23T09:57:04.852Z"
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare-at price for comparison purposes.",
+            "example": 2000000
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether inventory tracking is enabled.",
+            "example": null
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "type",
+          "currency",
+          "amount"
+        ]
+      },
+      "DeletePriceResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "returns true if the price is successfully deleted",
+            "example": true
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "GetProductStatsResponseDto": {
+        "type": "object",
+        "properties": {
+          "totalProducts": {
+            "type": "number",
+            "description": "Total number of products",
+            "example": 100
+          },
+          "includedInStore": {
+            "type": "number",
+            "description": "Number of products included in the store",
+            "example": 80
+          },
+          "excludedFromStore": {
+            "type": "number",
+            "description": "Number of products excluded from the store",
+            "example": 20
+          }
+        },
+        "required": [
+          "totalProducts",
+          "includedInStore",
+          "excludedFromStore"
+        ]
+      },
+      "UpdateProductStoreDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "action": {
+            "type": "string",
+            "description": "Action to include or exclude the product from the store",
+            "example": "include",
+            "enum": [
+              "include",
+              "exclude"
+            ]
+          },
+          "productIds": {
+            "description": "Array of product IDs",
+            "example": [
+              "productId1",
+              "productId2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "action",
+          "productIds"
+        ]
+      },
+      "UpdateProductStoreResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "UpdateDisplayPriorityBodyDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "products": {
+            "description": "Array of products with their display priorities",
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "products"
+        ]
+      },
+      "ListCollectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of Collections",
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number",
+            "description": "The total count of the collections present, which is useful to calculate the pagination"
+          }
+        },
+        "required": [
+          "data",
+          "total"
+        ]
+      },
+      "ProductCategories": {
+        "type": "object",
+        "properties": {}
+      },
+      "DefaultCollectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Collection Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductCategories"
+              }
+            ]
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Status of the operation",
+            "example": true
+          }
+        },
+        "required": [
+          "data",
+          "status"
+        ]
+      },
+      "CollectionSEODto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title which will be displayed as an SEO format",
+            "example": "Best Sellers"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description which would be displayed in preview purposes",
+            "example": "Collections where all the best products are available"
+          }
+        }
+      },
+      "CreateProductCollectionsDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "description": "The type of alt. For now it is only LOCATION",
+            "enum": [
+              "location"
+            ],
+            "example": "LOCATION"
+          },
+          "collectionId": {
+            "type": "string",
+            "description": "Unique Identifier of the Product Collection, Mongo Id",
+            "example": "66057f9d28536eae584ec047"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the Product Collection",
+            "example": "Best Sellers"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Slug of the Product Collection which helps in navigation",
+            "example": "best-sellers"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL of the image that is going to be displayed as the collection Thumbnail",
+            "example": "http://example.com/watermark.png"
+          },
+          "seo": {
+            "description": "The metadata information which will be displayed in SEO previews",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollectionSEODto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name",
+          "slug"
+        ]
+      },
+      "CollectionSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the collection",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location Id to which the collection is associated",
+            "example": "Z4Bxl8J4SaPEPLq9IQ8g"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the collection",
+            "example": "Best Sellers"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Slug of the collection with which navigation is established. Special Characters and spacing is not allowed and should be unique",
+            "example": "best-sellers"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL of the image that is going to be displayed as the collection Thumbnail",
+            "example": "http://example.com/watermark.png"
+          },
+          "seo": {
+            "description": "The information which will be displayed in SEO previews",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollectionSEODto"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date at which the collection was created",
+            "example": "2024-02-22T09:27:19.728Z"
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "name",
+          "slug",
+          "image",
+          "seo",
+          "createdAt"
+        ]
+      },
+      "CreateCollectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "created Collection",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollectionSchema"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "UpdateProductCollectionsDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "description": "The type of alt. For now it is only LOCATION",
+            "enum": [
+              "location"
+            ],
+            "example": "LOCATION"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the Product Collection",
+            "example": "Best Sellers"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Slug of the Product Collection which helps in navigation",
+            "example": "best-sellers"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL of the image that is going to be displayed as the collection Thumbnail",
+            "example": "http://example.com/watermark.png"
+          },
+          "seo": {
+            "description": "The metadata information which will be displayed in SEO previews",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollectionSEODto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "altId",
+          "altType"
+        ]
+      },
+      "UpdateProductCollectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "DeleteProductCollectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "ListProductReviewsResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of Collections",
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number",
+            "description": "The total count of the collections present, which is useful to calculate the pagination"
+          }
+        },
+        "required": [
+          "data",
+          "total"
+        ]
+      },
+      "CountReviewsByStatusResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of review status counts",
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "UserDetailsDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the customer",
+            "example": "John Doe",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the customer",
+            "example": "example@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone no of the customer",
+            "example": "+1-555-555-5555"
+          },
+          "isCustomer": {
+            "type": "boolean",
+            "description": "Is the person an admin or customer",
+            "example": true
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ]
+      },
+      "ProductReviewDto": {
+        "type": "object",
+        "properties": {
+          "headline": {
+            "type": "string",
+            "description": "Headline of the Review",
+            "example": "Amazing product with great quality",
+            "minLength": 0,
+            "maxLength": 200
+          },
+          "comment": {
+            "type": "string",
+            "description": "Detailed Review of the product",
+            "example": "This product exceeded my expectations in terms of quality and performance. Highly recommended!",
+            "minLength": 0,
+            "maxLength": 5000
+          },
+          "user": {
+            "description": "User who is giving the review/reply",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserDetailsDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "headline",
+          "comment",
+          "user"
+        ]
+      },
+      "UpdateProductReviewDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "productId": {
+            "type": "string",
+            "description": "Product Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the review",
+            "example": "approved"
+          },
+          "reply": {
+            "description": "Reply of the review",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductReviewDto"
+            }
+          },
+          "rating": {
+            "type": "number",
+            "description": "Rating of the product",
+            "example": "4.5"
+          },
+          "headline": {
+            "type": "string",
+            "description": "Headline of the Review",
+            "example": "Amazing product with great quality"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Detailed Review of the product",
+            "example": "The product is for sure a must and recommended buy"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "productId",
+          "status"
+        ]
+      },
+      "UpdateProductReviewsResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "UpdateProductReviewObjectDto": {
+        "type": "object",
+        "properties": {
+          "reviewId": {
+            "type": "string",
+            "description": "Review Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "productId": {
+            "type": "string",
+            "description": "Product Id",
+            "example": "6578278e879ad2646715ba9d"
+          },
+          "storeId": {
+            "type": "string",
+            "description": "Store Id",
+            "example": "a1b2c3d4e5f6g7h8i9j0k1l2"
+          }
+        },
+        "required": [
+          "reviewId",
+          "productId",
+          "storeId"
+        ]
+      },
+      "UpdateProductReviewsDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "reviews": {
+            "description": "Array of Product Reviews",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UpdateProductReviewObjectDto"
+            }
+          },
+          "status": {
+            "type": "object",
+            "description": "Status of the review",
+            "example": "approved"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "reviews",
+          "status"
+        ]
+      },
+      "DeleteProductReviewResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully created"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "ProductVariantOptionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the option.",
+            "example": "h4z7u0im2q8"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the option.",
+            "example": "XL"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "ProductVariantDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the variant.",
+            "example": "38s63qmxfr4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the variant.",
+            "example": "Size"
+          },
+          "options": {
+            "description": "An array of options for the variant.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantOptionDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "options"
+        ]
+      },
+      "ProductLabelDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The content for the product label.",
+            "example": "Featured"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2024-06-26T05:43:35.000Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2024-06-30T05:43:39.000Z"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "GetProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "description": {
+            "type": "string",
+            "description": "product description",
+            "example": "This is a really awesome product"
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "productType": {
+            "type": "string",
+            "description": "The type of the product (e.g., PHYSICAL).",
+            "example": "PHYSICAL"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the product.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the product.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "The field indicates whether taxes are enabled for the product or not.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "An array of ids of Taxes attached to the Product. If the expand query includes tax, the taxes will be of type `ProductTaxDto`. Please refer to the `ProductTaxDto` for additional details.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "label": {
+            "description": "The Product label details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the product by which the product will be navigated",
+            "example": "washing-machine"
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "name",
+          "productType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "DeleteProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "returns true if the product is successfully deleted",
+            "example": true
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "ProductMediaDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the media.",
+            "example": "fzrgusiuu0m"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the media file.",
+            "example": "1dd7dcd0-e71d-4cf7-a06b-6d47723d6a29.png"
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL where the media file is stored.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/sample.png"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the media file (e.g., image, video will be supporting soon).",
+            "example": "image",
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "isFeatured": {
+            "type": "boolean",
+            "description": "Indicates whether the media is featured.",
+            "example": true
+          },
+          "priceIds": {
+            "description": "Mongo ObjectIds of the prices for which the media is assigned",
+            "example": "6578278e879ad2646715ba9c",
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "type"
+        ]
+      },
+      "CreateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the product.",
+            "example": "Product description goes here."
+          },
+          "productType": {
+            "type": "string",
+            "enum": [
+              "DIGITAL",
+              "PHYSICAL",
+              "SERVICE",
+              "PHYSICAL/DIGITAL"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "medias": {
+            "description": "An array of medias for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductMediaDto"
+            }
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "Are there any taxes attached to the product. If this is true, taxes array cannot be empty.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "List of ids of Taxes attached to the Product. If taxes are passed, isTaxesEnabled should be true.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "isLabelEnabled": {
+            "type": "boolean",
+            "description": "Is the product label enabled. If this is true, label object cannot be empty.",
+            "example": true,
+            "default": false
+          },
+          "label": {
+            "description": "Details for Product Label",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug using which the product navigation will be handled",
+            "example": "awesome-product"
+          },
+          "seo": {
+            "description": "SEO data for the product that will be displayed in the preview",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductSEODto"
+              }
+            ]
+          },
+          "taxInclusive": {
+            "type": "boolean",
+            "description": "Whether the taxes should be included in the purchase price",
+            "example": true,
+            "default": false
+          }
+        },
+        "required": [
+          "name",
+          "locationId",
+          "productType"
+        ]
+      },
+      "CreateProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "description": {
+            "type": "string",
+            "description": "product description",
+            "example": "This is a really awesome product"
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "productType": {
+            "type": "string",
+            "description": "The type of the product (e.g., PHYSICAL).",
+            "example": "PHYSICAL"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the product.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the product.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "The field indicates whether taxes are enabled for the product or not.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "An array of ids of Taxes attached to the Product. If the expand query includes tax, the taxes will be of type `ProductTaxDto`. Please refer to the `ProductTaxDto` for additional details.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "label": {
+            "description": "The Product label details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the product by which the product will be navigated",
+            "example": "washing-machine"
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "name",
+          "productType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "UpdateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the product.",
+            "example": "Product description goes here."
+          },
+          "productType": {
+            "type": "string",
+            "enum": [
+              "DIGITAL",
+              "PHYSICAL",
+              "SERVICE",
+              "PHYSICAL/DIGITAL"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "medias": {
+            "description": "An array of medias for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductMediaDto"
+            }
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "Are there any taxes attached to the product. If this is true, taxes array cannot be empty.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "List of ids of Taxes attached to the Product. If taxes are passed, isTaxesEnabled should be true.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "isLabelEnabled": {
+            "type": "boolean",
+            "description": "Is the product label enabled. If this is true, label object cannot be empty.",
+            "example": true,
+            "default": false
+          },
+          "label": {
+            "description": "Details for Product Label",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug using which the product navigation will be handled",
+            "example": "awesome-product"
+          },
+          "seo": {
+            "description": "SEO data for the product that will be displayed in the preview",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductSEODto"
+              }
+            ]
+          },
+          "taxInclusive": {
+            "type": "boolean",
+            "description": "Whether the taxes should be included in the purchase price",
+            "example": true,
+            "default": false
+          },
+          "prices": {
+            "description": "The prices of the product",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "locationId",
+          "productType"
+        ]
+      },
+      "UpdateProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "description": {
+            "type": "string",
+            "description": "product description",
+            "example": "This is a really awesome product"
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "productType": {
+            "type": "string",
+            "description": "The type of the product (e.g., PHYSICAL).",
+            "example": "PHYSICAL"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the product.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the product.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "The field indicates whether taxes are enabled for the product or not.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "An array of ids of Taxes attached to the Product. If the expand query includes tax, the taxes will be of type `ProductTaxDto`. Please refer to the `ProductTaxDto` for additional details.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "label": {
+            "description": "The Product label details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the product by which the product will be navigated",
+            "example": "washing-machine"
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "name",
+          "productType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "DefaultProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "description": {
+            "type": "string",
+            "description": "product description",
+            "example": "This is a really awesome product"
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "productType": {
+            "type": "string",
+            "description": "The type of the product (e.g., PHYSICAL).",
+            "example": "PHYSICAL"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the product.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the product.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "The field indicates whether taxes are enabled for the product or not.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "An array of ids of Taxes attached to the Product. If the expand query includes tax, the taxes will be of type `ProductTaxDto`. Please refer to the `ProductTaxDto` for additional details.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "label": {
+            "description": "The Product label details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the product by which the product will be navigated",
+            "example": "washing-machine"
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "name",
+          "productType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListProductsStats": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "description": "Total number of products",
+            "example": 20
+          }
+        },
+        "required": [
+          "total"
+        ]
+      },
+      "ListProductsResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "description": "An array of products",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DefaultProductResponseDto"
+            }
+          },
+          "total": {
+            "description": "list products status",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListProductsStats"
+            }
+          }
+        },
+        "required": [
+          "products",
+          "total"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Products",
+    "tags": [
+      "Products",
+      "Prices",
+      "Store",
+      "Collections",
+      "Reviews"
+    ]
+  }
+}

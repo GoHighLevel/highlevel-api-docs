@@ -1,0 +1,468 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/companies/{companyId}": {
+      "get": {
+        "operationId": "get-company",
+        "summary": "Get Company",
+        "description": "Get Comapny",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCompanyByIdSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Companies"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "companies.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Companies API",
+    "description": "Documentation for Companies API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Companies",
+      "description": "Documentation for Companies API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "IOnboardingDto": {
+        "type": "object",
+        "properties": {
+          "pending": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "haveWebsite": {
+            "type": "boolean",
+            "example": ""
+          },
+          "websiteUrl": {
+            "type": "string",
+            "example": ""
+          },
+          "industryServed": {
+            "type": "string",
+            "example": ""
+          },
+          "customerCount": {
+            "type": "string",
+            "example": ""
+          },
+          "tools": {
+            "example": "",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "location": {
+            "type": "boolean",
+            "example": ""
+          },
+          "conversationDemo": {
+            "type": "boolean",
+            "example": ""
+          },
+          "locationId": {
+            "type": "string",
+            "example": ""
+          },
+          "snapshotId": {
+            "type": "string",
+            "example": ""
+          },
+          "planId": {
+            "type": "string",
+            "description": "Selected agency plan unique plan Id",
+            "example": "plan_EOi37NLV12u68i"
+          },
+          "affiliateSignup": {
+            "type": "boolean",
+            "description": "Set to true if it is from affiliate",
+            "example": true
+          },
+          "hasJoinedKickoffCall": {
+            "type": "boolean",
+            "description": "Set to true if user joined onboarding call",
+            "example": true
+          },
+          "kickoffActionTaken": {
+            "type": "boolean",
+            "description": "Set to true if user joined onboarding call",
+            "example": true
+          },
+          "hasJoinedImplementationCall": {
+            "type": "boolean",
+            "description": "Set to true if user joined implementation call",
+            "example": true
+          },
+          "version": {
+            "type": "string",
+            "description": "This helps in A/B tracking of onboarding flow",
+            "example": "1"
+          },
+          "metaData": {
+            "type": "object",
+            "description": "metaData for onboarding",
+            "example": true
+          }
+        },
+        "required": [
+          "pending"
+        ]
+      },
+      "GetCompanyByIdSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "seD4PfOuKoVMLkEZqohJ"
+          },
+          "name": {
+            "type": "string",
+            "example": "Tesla inc"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@deo.com"
+          },
+          "logoUrl": {
+            "type": "string",
+            "example": "https://firebasestorage.googleapis.com/v0/b/highlevel-staging.appspot.com/o/companyPhotos%2F5DP4iH6HLkQsiKESj6rh.gif?alt=media&token=2aec9720-59a7-46af-a187-d4a2774ee873"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1202-555-0107"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://www.tesla.com"
+          },
+          "domain": {
+            "type": "string",
+            "example": "https://app.myawesomedomain.com"
+          },
+          "spareDomain": {
+            "type": "string",
+            "example": "link.msgsndr.com"
+          },
+          "privacyPolicy": {
+            "type": "string",
+            "example": "https://app.gohighlevel.com/privacy_policy"
+          },
+          "termsConditions": {
+            "type": "string",
+            "example": "https://app.gohighlevel.com/terms-of-service"
+          },
+          "address": {
+            "type": "string",
+            "example": "3500 Deer Creek Road"
+          },
+          "city": {
+            "type": "string",
+            "example": "Palo Alto"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "94304"
+          },
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "US/Central"
+          },
+          "relationshipNumber": {
+            "type": "string",
+            "example": "x-xxx-xxx"
+          },
+          "subdomain": {
+            "type": "string",
+            "example": "https://app.myawesomedomain.com/subdomain"
+          },
+          "plan": {
+            "type": "number",
+            "example": 1
+          },
+          "currency": {
+            "type": "string",
+            "example": ""
+          },
+          "customerType": {
+            "type": "string",
+            "example": "agency"
+          },
+          "termsOfServiceVersion": {
+            "type": "string",
+            "example": "06/01/2022"
+          },
+          "termsOfServiceAcceptedBy": {
+            "type": "string",
+            "example": "SDfdf355Dfggdee"
+          },
+          "twilioTrialMode": {
+            "type": "boolean",
+            "example": true
+          },
+          "twilioFreeCredits": {
+            "type": "number",
+            "example": 100
+          },
+          "termsOfServiceAcceptedDate": {
+            "type": "string",
+            "example": ""
+          },
+          "privacyPolicyVersion": {
+            "type": "string",
+            "example": "06/01/2022"
+          },
+          "privacyPolicyAcceptedBy": {
+            "type": "string",
+            "example": "SDfdf355Dfggdee"
+          },
+          "privacyPolicyAcceptedDate": {
+            "type": "string",
+            "example": ""
+          },
+          "affiliatePolicyVersion": {
+            "type": "string",
+            "example": "06/01/2022"
+          },
+          "affiliatePolicyAcceptedBy": {
+            "type": "string",
+            "example": "SDfdf355Dfggdee"
+          },
+          "affiliatePolicyAcceptedDate": {
+            "type": "string",
+            "example": ""
+          },
+          "isReselling": {
+            "type": "boolean",
+            "example": true
+          },
+          "onboardingInfo": {
+            "example": "",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IOnboardingDto"
+              }
+            ]
+          },
+          "upgradeEnabledForClients": {
+            "type": "boolean",
+            "example": true,
+            "description": "Flag to set if upgrade plan is enabled"
+          },
+          "cancelEnabledForClients": {
+            "type": "boolean",
+            "example": true,
+            "description": "Flag to set if cancel plan is enabled"
+          },
+          "autoSuspendEnabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Flag to set if auto suspend is enabled"
+          },
+          "saasSettings": {
+            "type": "object",
+            "example": {
+              "agencyDashboardVisibleTo": "string",
+              "stripeConnectInitiatedBy": "string"
+            },
+            "description": "Saas Settings"
+          },
+          "stripeConnectId": {
+            "type": "string",
+            "example": ""
+          },
+          "enableDepreciatedFeatures": {
+            "type": "boolean",
+            "example": true
+          },
+          "premiumUpgraded": {
+            "type": "boolean",
+            "description": "If you want to enable / disable Priority Support for any agency. Default value is false.",
+            "example": false,
+            "default": false
+          },
+          "status": {
+            "type": "string",
+            "example": "active-trial"
+          },
+          "locationCount": {
+            "type": "number",
+            "example": 10
+          },
+          "disableEmailService": {
+            "type": "boolean",
+            "example": false
+          },
+          "referralId": {
+            "type": "string",
+            "example": "john-doe-21"
+          },
+          "isEnterpriseAccount": {
+            "type": "boolean",
+            "example": true
+          },
+          "businessNiche": {
+            "type": "string",
+            "example": "Accounting School",
+            "description": "The business niche in which the agency is operating"
+          },
+          "businessCategory": {
+            "type": "string",
+            "example": "Automotive",
+            "description": "Business category"
+          },
+          "businessAffinityGroup": {
+            "type": "string",
+            "example": "Vehicle Dealerships",
+            "description": "The affinity group of the agency"
+          },
+          "isSandboxAccount": {
+            "type": "boolean",
+            "example": true
+          },
+          "enableNewSubAccountDefaultData": {
+            "type": "boolean",
+            "example": false,
+            "description": "Flag to determine if new sub-accounts should use default data"
+          }
+        }
+      },
+      "GetCompanyByIdSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "$ref": "#/components/schemas/GetCompanyByIdSchema"
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Companies",
+    "tags": [
+      "Companies"
+    ]
+  }
+}

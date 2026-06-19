@@ -1,0 +1,1262 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/blogs/posts/url-slug-exists": {
+      "get": {
+        "operationId": "check-url-slug-exists",
+        "summary": "Check url slug",
+        "description": "The \"Check url slug\" API allows check the blog slug validation which is needed before publishing any blog post. Please use blogs/check-slug.readonly. you can find the POST ID from the post edit url.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "urlSlug",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postId",
+            "required": false,
+            "example": "66f429b8afdce84227a4610d",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UrlSlugCheckResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/check-slug.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/blogs/posts/{postId}": {
+      "put": {
+        "operationId": "update-blog-post",
+        "summary": "Update Blog Post",
+        "description": "The \"Update Blog Post\" API allows you update blog post for any given blog site. Please use blogs/post-update.write",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBlogPostParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlogPostUpdateResponseWrapperDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/post-update.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/blogs/posts": {
+      "post": {
+        "operationId": "create-blog-post",
+        "summary": "Create Blog Post",
+        "description": "The \"Create Blog Post\" API allows you create blog post for any given blog site. Please use blogs/post.write",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBlogPostParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlogPostCreateResponseWrapperDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/post.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/blogs/authors": {
+      "get": {
+        "operationId": "get-all-blog-authors-by-location",
+        "summary": "Get all authors",
+        "description": "The \"Get all authors\" Api return the blog authors for a given location ID. Please use \"blogs/author.readonly\" ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "description": "Number of authors to show in the listing",
+            "in": "query",
+            "example": 5,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "description": "Number of authors to skip in listing",
+            "in": "query",
+            "example": 0,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/author.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/blogs/categories": {
+      "get": {
+        "operationId": "get-all-categories-by-location",
+        "summary": "Get all categories",
+        "description": "The \"Get all categories\" Api return the blog categoies for a given location ID. Please use \"blogs/category.readonly\" ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "description": "Number of categories to show in the listing",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "description": "Number of categories to skip in listing",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriesResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/category.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/blogs/posts/all": {
+      "get": {
+        "operationId": "get-blog-post",
+        "summary": "Get Blog posts by Blog ID",
+        "description": "The \"Get Blog posts by Blog ID\" API allows you get blog posts for any given blog site using blog ID.Please use blogs/posts.readonly",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blogId",
+            "required": true,
+            "example": "66f429b8afdce84227a4610d",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "example": 4,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "example": 0,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "searchTerm",
+            "required": false,
+            "description": "search for any post by name",
+            "example": "ai news",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "example": "PUBLISHED",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "ALL",
+                "PUBLISHED",
+                "SCHEDULED",
+                "ARCHIVED",
+                "DRAFT"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlogPostGetResponseWrapperDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/posts.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/blogs/site/all": {
+      "get": {
+        "operationId": "get-blogs",
+        "summary": "Get Blogs by Location ID",
+        "description": "The \"Get Blogs by Location ID\" API allows you get blogs using Location ID.Please use blogs/list.readonly",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "example": 0,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "example": 4,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "searchTerm",
+            "required": false,
+            "description": "search for any post by name",
+            "example": "ai news",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlogGetResponseWrapperDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "blogs/list.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Blogs API",
+    "description": "Documentation for Blog public API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Blogs",
+      "description": "Documentation for Blogs"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "UrlSlugCheckResponseDTO": {
+        "type": "object",
+        "properties": {
+          "exists": {
+            "type": "boolean",
+            "description": "Indicates whether the url slug exists or not"
+          }
+        },
+        "required": [
+          "exists"
+        ]
+      },
+      "UpdateBlogPostParams": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "example": "Your blog title",
+            "type": "string"
+          },
+          "locationId": {
+            "example": "Location ID",
+            "type": "string"
+          },
+          "blogId": {
+            "example": "Blog ID",
+            "type": "string",
+            "description": "You can find the blog id from blog site dashboard link"
+          },
+          "imageUrl": {
+            "example": "Image URl",
+            "type": "string"
+          },
+          "description": {
+            "example": "A short description",
+            "type": "string"
+          },
+          "rawHTML": {
+            "example": "<h1>Your blog content</h1>",
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "example": "PUBLISHED",
+            "schema": {
+              "type": "string"
+            },
+            "enum": [
+              "DRAFT",
+              "PUBLISHED",
+              "SCHEDULED",
+              "ARCHIVED"
+            ]
+          },
+          "imageAltText": {
+            "example": "Alt text for your blog image",
+            "type": "string"
+          },
+          "categories": {
+            "example": [
+              "9c48df2694a849b6089f9d0d3513efe",
+              "6683abde331c041f32c07aee"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "This needs to be array of category ids, which you can get from the category get api call."
+          },
+          "tags": {
+            "example": [
+              "blog",
+              "seo"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "author": {
+            "example": "6683abde331c041f32c07aea",
+            "type": "string",
+            "description": "This needs to be author id, which you can get from the author get api call."
+          },
+          "urlSlug": {
+            "example": "any-blog-post-url",
+            "type": "string"
+          },
+          "wordCount": {
+            "example": 100,
+            "type": "number"
+          },
+          "canonicalLink": {
+            "example": "https://tryghl.blog/post/testing-unsplash",
+            "type": "string"
+          },
+          "publishedAt": {
+            "example": "2025-02-05T18:30:47.000Z",
+            "type": "string",
+            "description": "Provide ISO timestamp"
+          }
+        },
+        "required": [
+          "title",
+          "locationId",
+          "blogId",
+          "imageUrl",
+          "description",
+          "rawHTML",
+          "status",
+          "imageAltText",
+          "categories",
+          "author",
+          "urlSlug",
+          "publishedAt",
+          "wordCount"
+        ]
+      },
+      "BlogPostUpdateResponseWrapperDTO": {
+        "type": "object",
+        "properties": {
+          "updatedBlogPost": {
+            "type": "object",
+            "description": "Object containing response data of blog post update",
+            "$ref": "#/components/schemas/BlogPostResponseDTO"
+          }
+        },
+        "required": [
+          "updatedBlogPost"
+        ]
+      },
+      "CreateBlogPostParams": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "example": "Your blog title",
+            "type": "string"
+          },
+          "locationId": {
+            "example": "Location ID",
+            "type": "string"
+          },
+          "blogId": {
+            "example": "Blog ID",
+            "type": "string",
+            "description": "You can find the blog id from blog site dashboard link"
+          },
+          "imageUrl": {
+            "example": "Image URl",
+            "type": "string"
+          },
+          "description": {
+            "example": "A short description",
+            "type": "string"
+          },
+          "rawHTML": {
+            "example": "<h1>Your blog content</h1>",
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "example": "This can be PUBLISHED OR SCHEDULED OR ARCHIVED OR DRAFT",
+            "schema": {
+              "type": "string"
+            },
+            "enum": [
+              "DRAFT",
+              "PUBLISHED",
+              "SCHEDULED",
+              "ARCHIVED"
+            ]
+          },
+          "imageAltText": {
+            "example": "Alt text for your blog image",
+            "type": "string"
+          },
+          "categories": {
+            "example": [
+              "9c48df2694a849b6089f9d0d3513efe",
+              "6683abde331c041f32c07aee"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "This needs to be array of category ids, which you can get from the category get api call."
+          },
+          "tags": {
+            "example": [
+              "blog",
+              "seo"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "author": {
+            "example": "6683abde331c041f32c07aea",
+            "type": "string",
+            "description": "This needs to be author id, which you can get from the author get api call."
+          },
+          "urlSlug": {
+            "example": "any-blog-post-url",
+            "type": "string"
+          },
+          "canonicalLink": {
+            "example": "https://tryghl.blog/post/testing-unsplash",
+            "type": "string"
+          },
+          "publishedAt": {
+            "example": "2025-02-05T18:30:47.000Z",
+            "type": "string",
+            "description": "Provide ISO timestamp"
+          }
+        },
+        "required": [
+          "title",
+          "locationId",
+          "blogId",
+          "imageUrl",
+          "description",
+          "rawHTML",
+          "status",
+          "imageAltText",
+          "categories",
+          "author",
+          "urlSlug",
+          "publishedAt"
+        ]
+      },
+      "BlogPostCreateResponseWrapperDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "description": "Object containing response data of blog post create.",
+            "$ref": "#/components/schemas/BlogPostResponseDTO"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "AuthorsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "authors": {
+            "type": "array",
+            "description": "Array of authors",
+            "items": {
+              "$ref": "#/components/schemas/AuthorResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "authors"
+        ]
+      },
+      "AuthorResponseDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "lMOzIQZne5m6zQ528sT6"
+          },
+          "name": {
+            "type": "string",
+            "example": "HighLevel"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "lMOzIQZne5m6zQ528sT6"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2025-01-03T11:06:35.822Z"
+          },
+          "canonicalLink": {
+            "type": "string",
+            "example": "https://tryghl.blog/post/technology"
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "locationId",
+          "updatedAt",
+          "canonicalLink"
+        ]
+      },
+      "CategoriesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "type": "array",
+            "description": "Array of categories",
+            "items": {
+              "$ref": "#/components/schemas/CategoryResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "categories"
+        ]
+      },
+      "CategoryResponseDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "lMOzIQZne5m6zQ528sT6"
+          },
+          "label": {
+            "type": "string",
+            "example": "HighLevel"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "lMOzIQZne5m6zQ528sT6"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2025-01-03T11:06:35.822Z"
+          },
+          "canonicalLink": {
+            "type": "string",
+            "example": "https://tryghl.blog/doc/category/agency-growth"
+          },
+          "urlSlug": {
+            "type": "string",
+            "example": "agency-growth"
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "locationId",
+          "updatedAt",
+          "canonicalLink",
+          "urlSlug"
+        ]
+      },
+      "BlogGetResponseWrapperDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "Object containing response data of blog",
+            "items": {
+              "$ref": "#/components/schemas/BlogResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "BlogResponseDTO": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "lMOzIQZne5m6zQ528sT6",
+            "description": "Unique identifier of the blog"
+          },
+          "name": {
+            "type": "string",
+            "example": "My blog",
+            "description": "Name of the blog"
+          }
+        },
+        "required": [
+          "_id",
+          "name"
+        ]
+      },
+      "BlogPostGetResponseWrapperDTO": {
+        "type": "object",
+        "properties": {
+          "blogs": {
+            "type": "array",
+            "description": "Object containing response data of blog posts",
+            "items": {
+              "$ref": "#/components/schemas/BlogPostResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "blogs"
+        ]
+      },
+      "BlogPostResponseDTO": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "example": [
+              "659ecabc4a37969a2b7cc370",
+              "6683abde331c041f32c07aee"
+            ],
+            "description": "Array of category IDs associated with the blog post",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "example": [
+              "Apple",
+              "Banana"
+            ],
+            "description": "Array of tags associated with the blog post",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "archived": {
+            "type": "boolean",
+            "example": false,
+            "description": "Indicates whether the blog post is archived"
+          },
+          "_id": {
+            "type": "string",
+            "example": "66c381b38be80858b9af62b6",
+            "description": "Unique identifier of the blog post"
+          },
+          "title": {
+            "type": "string",
+            "example": "Banana is good source of energy",
+            "description": "Title of the blog post"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description",
+            "description": "Description of the blog post"
+          },
+          "imageUrl": {
+            "type": "string",
+            "example": "https://storage.googleapis.com/ghl-test/fACm0Ojm5oC70G3DcFmE/media/66b5aa3b1745b2713a8d033f.jpeg",
+            "description": "URL of the image associated with the blog post"
+          },
+          "status": {
+            "type": "string",
+            "example": "PUBLISHED",
+            "description": "Publication status of the blog post"
+          },
+          "imageAltText": {
+            "type": "string",
+            "example": "alt",
+            "description": "Alternative text for the blog post image"
+          },
+          "urlSlug": {
+            "type": "string",
+            "example": "banana-good-energy",
+            "description": "URL slug for the blog post"
+          },
+          "canonicalLink": {
+            "type": "string",
+            "example": "https://blog.chatgpts.agency/post/test-8384",
+            "description": "Canonical link of the blog post"
+          },
+          "author": {
+            "type": "string",
+            "example": "659ec9634a3796e4e47cc360",
+            "description": "Identifier of the author of the blog post"
+          },
+          "publishedAt": {
+            "type": "string",
+            "example": "2024-08-19T17:14:57.000Z",
+            "description": "Timestamp when the blog post was published"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2024-08-19T17:32:36.182Z",
+            "description": "Timestamp when the blog post was last updated"
+          }
+        },
+        "required": [
+          "categories",
+          "archived",
+          "_id",
+          "title",
+          "description",
+          "imageUrl",
+          "status",
+          "imageAltText",
+          "urlSlug",
+          "publishedAt",
+          "updatedAt"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Blogs",
+    "tags": [
+      "Blogs"
+    ]
+  }
+}

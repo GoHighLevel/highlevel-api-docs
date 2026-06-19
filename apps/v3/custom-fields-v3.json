@@ -1,0 +1,1103 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/custom-fields/{id}": {
+      "get": {
+        "operationId": "get-custom-field-by-id",
+        "summary": "Get Custom Field / Folder By Id",
+        "description": "<div>\n<p> Get Custom Field / Folder By Id.</p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-custom-field",
+        "summary": "Update Custom Field By Id",
+        "description": "<div>\n <p> Update Custom Field By Id </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomFieldsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-custom-field",
+        "summary": "Delete Custom Field By Id",
+        "description": "<div>\n <p> Delete Custom Field By Id </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFolderDeleteResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/custom-fields/object-key/{objectKey}": {
+      "get": {
+        "operationId": "get-custom-fields-by-object-key",
+        "summary": "Get Custom Fields By Object Key",
+        "description": "<div>\n <p> Get Custom Fields By Object Key </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "objectKey",
+            "required": true,
+            "in": "path",
+            "description": "key of the Object. Must include \"custom_objects.\" prefix for custom objects. Available on the Custom Objects details Page under settings",
+            "example": "custom_objects.pet",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "example": "Location Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/custom-fields/folder": {
+      "post": {
+        "operationId": "create-custom-field-folder",
+        "summary": "Create Custom Field Folder",
+        "description": "<div>\n <p> Create Custom Field Folder </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFolder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICustomFieldFolder"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/custom-fields/folder/{id}": {
+      "put": {
+        "operationId": "update-custom-field-folder",
+        "summary": "Update Custom Field Folder Name",
+        "description": "<div>\n <p> Create Custom Field Folder </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFolder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICustomFieldFolder"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-custom-field-folder",
+        "summary": "Delete Custom Field Folder",
+        "description": "<div>\n<p> Create Custom Field Folder </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFolderDeleteResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/custom-fields/": {
+      "post": {
+        "operationId": "create-custom-field",
+        "summary": "Create Custom Field",
+        "description": "<div>\n<p> Create Custom Field </p> \n </div> \n :::info\n Only supports Custom Objects and Company (Business) today. Will be extended to other Standard Objects in the future.\n :::",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomFieldsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Fields V2"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Custom Fields V2 API",
+    "description": "Custom fields are data points that allow you to capture and store specific information tailored to your business requirements. You can create fields across field types like text, numeric, selection options and special fields like date/time or signature",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "CUSTOM_FIELDS",
+      "description": "Custom fields are data points that allow you to capture and store specific information tailored to your business requirements. You can create fields across field types like text, numeric, selection options and special fields like date/time or signature"
+    },
+    {
+      "name": "Custom Fields V2",
+      "description": "Custom fields are data points that allow you to capture and store specific information tailored to your business requirements. You can create fields across field types like text, numeric, selection options and special fields like date/time or signature"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "OptionDTO": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key of the option (Included in Create and Response, excluded in Update)"
+          },
+          "label": {
+            "type": "string",
+            "description": "Value of the option"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL associated with the option (Optional, valid only for RADIO type)"
+          }
+        },
+        "required": [
+          "key",
+          "label"
+        ]
+      },
+      "ICustomField": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the field"
+          },
+          "placeholder": {
+            "type": "string",
+            "description": "Placeholder text for the field"
+          },
+          "showInForms": {
+            "type": "boolean",
+            "description": "Whether the field should be shown in forms"
+          },
+          "options": {
+            "description": "Options for the field (Optional, valid only for SINGLE_OPTIONS, MULTIPLE_OPTIONS, RADIO, CHECKBOX, TEXTBOX_LIST type)",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OptionDTO"
+            }
+          },
+          "acceptedFormats": {
+            "type": "string",
+            "enum": [
+              ".pdf",
+              ".docx",
+              ".doc",
+              ".jpg",
+              ".jpeg",
+              ".png",
+              ".gif",
+              ".csv",
+              ".xlsx",
+              ".xls",
+              "all"
+            ],
+            "description": "Allowed file formats for uploads. Options include: .pdf, .docx, .doc, .jpg, .jpeg, .png, .gif, .csv, .xlsx, .xls, all"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the object"
+          },
+          "objectKey": {
+            "type": "string",
+            "description": "The key for your custom / standard object. This key uniquely identifies the custom object. Example: \"custom_object.pet\" for a custom object related to pets.",
+            "example": "custom_object.pet"
+          },
+          "dataType": {
+            "type": "string",
+            "enum": [
+              "TEXT",
+              "LARGE_TEXT",
+              "NUMERICAL",
+              "PHONE",
+              "MONETORY",
+              "CHECKBOX",
+              "SINGLE_OPTIONS",
+              "MULTIPLE_OPTIONS",
+              "DATE",
+              "TEXTBOX_LIST",
+              "FILE_UPLOAD",
+              "RADIO"
+            ],
+            "description": "Type of field that you are trying to create"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder",
+            "example": "3v34PM428h8vShlRW1KT"
+          },
+          "fieldKey": {
+            "type": "string",
+            "description": "Field key. For Custom Object it's formatted as \"custom_object.{objectKey}.{fieldKey}\". \"custom_object\" is a fixed prefix, \"{objectKey}\" is your custom object's identifier, and \"{fieldName}\" is the unique field name within that object. Example: \"custom_object.pet.name\" for a \"name\" field in a \"pet\" custom object.",
+            "example": "custom_object.pet.name"
+          },
+          "allowCustomOption": {
+            "type": "boolean",
+            "description": "Determines if users can add a custom option value different from the predefined options in records for RADIO type fields. A custom value added in one record does not automatically become an option and will not appear as an option for other records.",
+            "example": true
+          },
+          "maxFileLimit": {
+            "type": "number",
+            "description": "Maximum file limit for uploads",
+            "example": 2
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date and time when the object was added",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date and time when the object was last updated",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "locationId",
+          "showInForms",
+          "id",
+          "objectKey",
+          "dataType",
+          "parentId",
+          "fieldKey",
+          "dateAdded",
+          "dateUpdated"
+        ]
+      },
+      "CustomFieldSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "$ref": "#/components/schemas/ICustomField"
+          }
+        }
+      },
+      "CustomFieldsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "description": "Custom Fields for the object.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICustomField"
+            }
+          },
+          "folders": {
+            "description": "Custom Fields folder for the object.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICustomField"
+            }
+          }
+        }
+      },
+      "CreateCustomFieldsDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the field"
+          },
+          "placeholder": {
+            "type": "string",
+            "description": "Placeholder text for the field"
+          },
+          "showInForms": {
+            "type": "boolean",
+            "description": "Whether the field should be shown in forms"
+          },
+          "options": {
+            "description": "Options for the field (Optional, valid only for SINGLE_OPTIONS, MULTIPLE_OPTIONS, RADIO, CHECKBOX, TEXTBOX_LIST type)",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OptionDTO"
+            }
+          },
+          "acceptedFormats": {
+            "type": "string",
+            "enum": [
+              ".pdf",
+              ".docx",
+              ".doc",
+              ".jpg",
+              ".jpeg",
+              ".png",
+              ".gif",
+              ".csv",
+              ".xlsx",
+              ".xls",
+              "all"
+            ],
+            "description": "Allowed file formats for uploads. Options include: .pdf, .docx, .doc, .jpg, .jpeg, .png, .gif, .csv, .xlsx, .xls, all"
+          },
+          "dataType": {
+            "type": "string",
+            "enum": [
+              "TEXT",
+              "LARGE_TEXT",
+              "NUMERICAL",
+              "PHONE",
+              "MONETORY",
+              "CHECKBOX",
+              "SINGLE_OPTIONS",
+              "MULTIPLE_OPTIONS",
+              "DATE",
+              "TEXTBOX_LIST",
+              "FILE_UPLOAD",
+              "RADIO",
+              "EMAIL"
+            ],
+            "description": "Type of field that you are trying to create"
+          },
+          "fieldKey": {
+            "type": "string",
+            "description": "Field key. For Custom Object it's formatted as \"custom_object.{objectKey}.{fieldKey}\". \"custom_object\" is a fixed prefix, \"{objectKey}\" is your custom object's identifier, and \"{fieldKey}\" is the unique field name within that object. Example: \"custom_object.pet.name\" for a \"name\" field in a \"pet\" custom object.",
+            "example": "custom_object.pet.name"
+          },
+          "objectKey": {
+            "type": "string",
+            "description": "The key for your custom object. This key uniquely identifies the custom object. Example: \"custom_object.pet\" for a custom object related to pets.",
+            "example": "custom_object.pet"
+          },
+          "maxFileLimit": {
+            "type": "number",
+            "description": "Maximum file limit for uploads. Applicable only for fields with a data type of FILE_UPLOAD.",
+            "example": 2
+          },
+          "allowCustomOption": {
+            "type": "boolean",
+            "description": "Determines if users can add a custom option value different from the predefined options in records for RADIO type fields. A custom value added in one record does not automatically become an option and will not appear as an option for other records.",
+            "example": true
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder"
+          }
+        },
+        "required": [
+          "locationId",
+          "showInForms",
+          "dataType",
+          "fieldKey",
+          "objectKey",
+          "parentId"
+        ]
+      },
+      "CreateFolder": {
+        "type": "object",
+        "properties": {
+          "objectKey": {
+            "type": "string",
+            "description": "The key for your custom object. This key uniquely identifies the custom object. Example: \"custom_object.pet\" for a custom object related to pets.",
+            "example": "custom_object.pet"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          }
+        },
+        "required": [
+          "objectKey",
+          "name",
+          "locationId"
+        ]
+      },
+      "ICustomFieldFolder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the object"
+          },
+          "objectKey": {
+            "type": "string",
+            "description": "The key for your custom object. This key uniquely identifies the custom object. Example: \"custom_object.pet\" for a custom object related to pets.",
+            "example": "custom_object.pet"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          }
+        },
+        "required": [
+          "id",
+          "objectKey",
+          "locationId",
+          "name"
+        ]
+      },
+      "UpdateFolder": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          }
+        },
+        "required": [
+          "name",
+          "locationId"
+        ]
+      },
+      "CustomFolderDeleteResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeded": {
+            "type": "boolean",
+            "example": true
+          },
+          "id": {
+            "type": "string",
+            "example": "3v34PM428h8vShlRW1KT"
+          },
+          "key": {
+            "type": "string",
+            "example": "custom_object.pet.name"
+          }
+        },
+        "required": [
+          "succeded",
+          "id",
+          "key"
+        ]
+      },
+      "UpdateCustomFieldsDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the field"
+          },
+          "placeholder": {
+            "type": "string",
+            "description": "Placeholder text for the field"
+          },
+          "showInForms": {
+            "type": "boolean",
+            "description": "Whether the field should be shown in forms"
+          },
+          "options": {
+            "description": "Options for the field. Important: Providing options will completely replace the existing options array. You must include all existing options alongside any new options you wish to add. Removal of options is not supported through this update. Applicable only for SINGLE_OPTIONS, MULTIPLE_OPTIONS, RADIO, CHECKBOX, TEXTBOX_LIST types.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OptionDTO"
+            }
+          },
+          "acceptedFormats": {
+            "type": "string",
+            "enum": [
+              ".pdf",
+              ".docx",
+              ".doc",
+              ".jpg",
+              ".jpeg",
+              ".png",
+              ".gif",
+              ".csv",
+              ".xlsx",
+              ".xls",
+              "all"
+            ],
+            "description": "Allowed file formats for uploads. Options include: .pdf, .docx, .doc, .jpg, .jpeg, .png, .gif, .csv, .xlsx, .xls, all"
+          },
+          "maxFileLimit": {
+            "type": "number",
+            "description": "Maximum file limit for uploads. Applicable only for fields with a data type of FILE_UPLOAD.",
+            "example": 2
+          }
+        },
+        "required": [
+          "locationId",
+          "showInForms"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Custom Fields V2",
+    "tags": [
+      "CUSTOM_FIELDS",
+      "Custom Fields V2"
+    ]
+  }
+}

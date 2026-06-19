@@ -1,0 +1,5584 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sub-Account (Formerly location) API",
+    "description": "Documentation for Sub-Account (Formerly location) API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Location",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Location Tags",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Custom Field",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Custom Value",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Template",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Tags Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Location Notes",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Location Tasks",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Recurring Tasks",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Location Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Custom Field Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Location Keys",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Labs",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Conversation Channel",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Sub-Account (Formerly Location)",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Tags",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Permissions",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Tasks Search",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "Timezone",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    },
+    {
+      "name": "ElasticSearch",
+      "description": "Documentation for Sub-Account (Formerly location) API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "SettingsSchema": {
+        "type": "object",
+        "properties": {
+          "allowDuplicateContact": {
+            "type": "boolean",
+            "example": false
+          },
+          "allowDuplicateOpportunity": {
+            "type": "boolean",
+            "example": false
+          },
+          "allowFacebookNameMerge": {
+            "type": "boolean",
+            "example": false
+          },
+          "disableContactTimezone": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "SocialSchema": {
+        "type": "object",
+        "properties": {
+          "facebookUrl": {
+            "type": "string",
+            "description": "Facebook URL",
+            "example": "https://www.facebook.com/"
+          },
+          "googlePlus": {
+            "type": "string",
+            "description": "Googleplus URL",
+            "example": "https://www.googleplus.com/"
+          },
+          "linkedIn": {
+            "type": "string",
+            "description": "LinkedIn URL",
+            "example": "https://www.linkedIn.com/"
+          },
+          "foursquare": {
+            "type": "string",
+            "description": "Foursquare URL",
+            "example": "https://www.foursquare.com/"
+          },
+          "twitter": {
+            "type": "string",
+            "description": "Twitter URL",
+            "example": "https://www.foutwitterrsquare.com/"
+          },
+          "yelp": {
+            "type": "string",
+            "description": "Yelp URL",
+            "example": "https://www.yelp.com/"
+          },
+          "instagram": {
+            "type": "string",
+            "description": "Instagram URL",
+            "example": "https://www.instagram.com/"
+          },
+          "youtube": {
+            "type": "string",
+            "description": "Instagram URL",
+            "example": "https://www.youtube.com/"
+          },
+          "pinterest": {
+            "type": "string",
+            "description": "Instagram URL",
+            "example": "https://www.pinterest.com/"
+          },
+          "blogRss": {
+            "type": "string",
+            "description": "Instagram URL",
+            "example": "https://www.blogRss.com/"
+          },
+          "googlePlacesId": {
+            "type": "string",
+            "description": "Google Business Places ID",
+            "example": "ChIJJGPdVbQTrjsRGUkefteUeFk"
+          }
+        }
+      },
+      "GetLocationSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mark Shoes",
+            "description": "The name for the sub-account/location"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1410039940",
+            "description": "The phone number of the business for which sub-account is created"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@mail.com",
+            "description": "The email for the sub-account/location"
+          },
+          "address": {
+            "type": "string",
+            "example": "4th fleet street",
+            "description": "The address of the business for which sub-account is created"
+          },
+          "city": {
+            "type": "string",
+            "example": "New York",
+            "description": "The city where the business is located for which sub-account is created"
+          },
+          "state": {
+            "type": "string",
+            "example": "Illinois",
+            "description": "The state in which the business operates for which sub-account is created"
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "description": "The country in which the business is present for which sub-account is created"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "567654",
+            "description": "The postal code of the business for which sub-account is created"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://yourwebsite.com",
+            "description": "The website of the business for which sub-account is created"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "US/Central",
+            "description": "The timezone of the business for which sub-account is created"
+          },
+          "settings": {
+            "description": "The default settings for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingsSchema"
+              }
+            ]
+          },
+          "social": {
+            "description": "The social media links for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SocialSchema"
+              }
+            ]
+          }
+        }
+      },
+      "SearchSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetLocationSchema"
+            }
+          }
+        }
+      },
+      "BusinessSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "dentist"
+          },
+          "address": {
+            "type": "string",
+            "example": "MIG 14, Delhi"
+          },
+          "city": {
+            "type": "string",
+            "example": "delhi"
+          },
+          "state": {
+            "type": "string",
+            "example": "delhi"
+          },
+          "country": {
+            "type": "string",
+            "example": "IN"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "567654"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://gohighlevel.com/"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "America/Chicago"
+          },
+          "logoUrl": {
+            "type": "string",
+            "example": "https://dummyimage.com/o/locationPhotos%2Fve9EPM428h8vShlRW1KT.jpeg"
+          }
+        }
+      },
+      "GetLocationByIdSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "companyId": {
+            "type": "string",
+            "example": "5DP4iH6HLkQsiKESj6rh"
+          },
+          "name": {
+            "type": "string",
+            "example": "dentist"
+          },
+          "domain": {
+            "type": "string",
+            "example": "test.msgsndr.com"
+          },
+          "address": {
+            "type": "string",
+            "example": "ganthi nagar, gyanbabu chauk motihati"
+          },
+          "city": {
+            "type": "string",
+            "example": "motihari"
+          },
+          "state": {
+            "type": "string",
+            "example": "Loca"
+          },
+          "logoUrl": {
+            "type": "string",
+            "example": "https://dummyimage.com/o/locationPhotos%2Fve9EPM428h8vShlRW1KT.jpeg"
+          },
+          "country": {
+            "type": "string",
+            "example": "IN"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "567654"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://gohighlevel.com/"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "America/Chicago"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Dr. Rane"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "deo"
+          },
+          "email": {
+            "type": "string",
+            "example": "rane@due.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+919039160788"
+          },
+          "business": {
+            "$ref": "#/components/schemas/BusinessSchema"
+          },
+          "social": {
+            "$ref": "#/components/schemas/SocialSchema"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/SettingsSchema"
+          },
+          "reseller": {
+            "type": "object"
+          }
+        }
+      },
+      "GetLocationByIdSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/GetLocationByIdSchema"
+          }
+        }
+      },
+      "ProspectInfoDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the prospect",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the prospect",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the prospect",
+            "example": "john.doe@mail.com"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "email"
+        ]
+      },
+      "TwilioSchema": {
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID provided by Twilio",
+            "example": "AC_XXXXXXXXXXX"
+          },
+          "authToken": {
+            "type": "string",
+            "description": "Auth token provided by Twilio",
+            "example": "77_XXXXXXXXXXX"
+          }
+        },
+        "required": [
+          "sid",
+          "authToken"
+        ]
+      },
+      "MailgunSchema": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "API key provided by Mailgun",
+            "example": "key-XXXXXXXXXXX"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain connected with Mailgun",
+            "example": "replies.yourdomain.com"
+          }
+        },
+        "required": [
+          "apiKey",
+          "domain"
+        ]
+      },
+      "CreateLocationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Mark Shoes",
+            "description": "The name for the sub-account/location"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1410039940",
+            "description": "The phone number of the business for which sub-account is created with the appropriate country-code"
+          },
+          "companyId": {
+            "type": "string",
+            "description": "Company/Agency Id",
+            "example": "UAXssdawIWAWD"
+          },
+          "address": {
+            "type": "string",
+            "example": "4th fleet street",
+            "description": "The address of the business for which sub-account is created"
+          },
+          "city": {
+            "type": "string",
+            "example": "New York",
+            "description": "The city where the business is located for which sub-account is created"
+          },
+          "state": {
+            "type": "string",
+            "example": "Illinois",
+            "description": "The state in which the business operates for which sub-account is created"
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "description": "The 2 letter country-code in which the business is present for which sub-account is created",
+            "enum": [
+              "AF",
+              "AX",
+              "AL",
+              "DZ",
+              "AS",
+              "AD",
+              "AO",
+              "AI",
+              "AQ",
+              "AG",
+              "AR",
+              "AM",
+              "AW",
+              "AU",
+              "AT",
+              "AZ",
+              "BS",
+              "BH",
+              "BD",
+              "BB",
+              "BY",
+              "BE",
+              "BZ",
+              "BJ",
+              "BM",
+              "BT",
+              "BO",
+              "BA",
+              "BW",
+              "BV",
+              "BR",
+              "IO",
+              "BN",
+              "BG",
+              "BF",
+              "BI",
+              "KH",
+              "CM",
+              "CA",
+              "CV",
+              "KY",
+              "CF",
+              "TD",
+              "CL",
+              "CN",
+              "CX",
+              "CC",
+              "CO",
+              "KM",
+              "CG",
+              "CD",
+              "CK",
+              "CR",
+              "CI",
+              "HR",
+              "CU",
+              "CY",
+              "CZ",
+              "DK",
+              "DJ",
+              "DM",
+              "DO",
+              "EC",
+              "EG",
+              "SV",
+              "GQ",
+              "ER",
+              "EE",
+              "ET",
+              "FK",
+              "FO",
+              "FJ",
+              "FI",
+              "FR",
+              "GF",
+              "PF",
+              "TF",
+              "GA",
+              "GM",
+              "GE",
+              "DE",
+              "GH",
+              "GI",
+              "GR",
+              "GL",
+              "GD",
+              "GP",
+              "GU",
+              "GT",
+              "GG",
+              "GN",
+              "GW",
+              "GY",
+              "HT",
+              "HM",
+              "VA",
+              "HN",
+              "HK",
+              "HU",
+              "IS",
+              "IN",
+              "ID",
+              "IR",
+              "IQ",
+              "IE",
+              "IM",
+              "IL",
+              "IT",
+              "JM",
+              "JP",
+              "JE",
+              "JO",
+              "KZ",
+              "KE",
+              "KI",
+              "KP",
+              "KR",
+              "XK",
+              "KW",
+              "KG",
+              "LA",
+              "LV",
+              "LB",
+              "LS",
+              "LR",
+              "LY",
+              "LI",
+              "LT",
+              "LU",
+              "MO",
+              "MK",
+              "MG",
+              "MW",
+              "MY",
+              "MV",
+              "ML",
+              "MT",
+              "MH",
+              "MQ",
+              "MR",
+              "MU",
+              "YT",
+              "MX",
+              "FM",
+              "MD",
+              "MC",
+              "MN",
+              "ME",
+              "MS",
+              "MA",
+              "MZ",
+              "MM",
+              "NA",
+              "NR",
+              "NP",
+              "NL",
+              "AN",
+              "NC",
+              "NZ",
+              "NI",
+              "NE",
+              "NG",
+              "NU",
+              "NF",
+              "MP",
+              "NO",
+              "OM",
+              "PK",
+              "PW",
+              "PS",
+              "PA",
+              "PG",
+              "PY",
+              "PE",
+              "PH",
+              "PN",
+              "PL",
+              "PT",
+              "PR",
+              "QA",
+              "RE",
+              "RO",
+              "RU",
+              "RW",
+              "SH",
+              "KN",
+              "LC",
+              "MF",
+              "PM",
+              "VC",
+              "WS",
+              "SM",
+              "ST",
+              "SA",
+              "SN",
+              "RS",
+              "SC",
+              "SL",
+              "SG",
+              "SX",
+              "SK",
+              "SI",
+              "SB",
+              "SO",
+              "ZA",
+              "GS",
+              "ES",
+              "LK",
+              "SD",
+              "SR",
+              "SJ",
+              "SZ",
+              "SE",
+              "CH",
+              "SY",
+              "TW",
+              "TJ",
+              "TZ",
+              "TH",
+              "TL",
+              "TG",
+              "TK",
+              "TO",
+              "TT",
+              "TN",
+              "TR",
+              "TM",
+              "TC",
+              "TV",
+              "UG",
+              "GB",
+              "UA",
+              "AE",
+              "US",
+              "UM",
+              "UY",
+              "UZ",
+              "VU",
+              "VE",
+              "VN",
+              "VG",
+              "VI",
+              "WF",
+              "EH",
+              "YE",
+              "ZM",
+              "ZW"
+            ]
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "567654",
+            "description": "The postal code of the business for which sub-account is created"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://yourwebsite.com",
+            "description": "The website of the business for which sub-account is created"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "US/Central",
+            "description": "The timezone of the business for which sub-account is created"
+          },
+          "prospectInfo": {
+            "example": {
+              "firstName": "John",
+              "lastName": "Doe",
+              "email": "john.doe@mail.com"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProspectInfoDto"
+              }
+            ]
+          },
+          "settings": {
+            "description": "The default settings for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingsSchema"
+              }
+            ]
+          },
+          "social": {
+            "description": "The social media links for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SocialSchema"
+              }
+            ]
+          },
+          "twilio": {
+            "description": "(DEPRECATED) The twilio credentials for location",
+            "deprecated": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TwilioSchema"
+              }
+            ]
+          },
+          "mailgun": {
+            "description": "The mailgun credentials for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MailgunSchema"
+              }
+            ]
+          },
+          "snapshotId": {
+            "type": "string",
+            "description": "The snapshot ID to be loaded into the location.",
+            "example": "XXXXXXXXXXX"
+          }
+        },
+        "required": [
+          "name",
+          "companyId"
+        ]
+      },
+      "CreateLocationSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "companyId": {
+            "type": "string",
+            "description": "Company/Agency Id",
+            "example": "UAXssdawIWAWD"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mark Shoes",
+            "description": "The name for the sub-account/location"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1410039940",
+            "description": "The phone number of the business for which sub-account is created"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@mail.com",
+            "description": "The email for the sub-account/location"
+          },
+          "address": {
+            "type": "string",
+            "example": "4th fleet street",
+            "description": "The address of the business for which sub-account is created"
+          },
+          "city": {
+            "type": "string",
+            "example": "New York",
+            "description": "The city where the business is located for which sub-account is created"
+          },
+          "state": {
+            "type": "string",
+            "example": "Illinois",
+            "description": "The state in which the business operates for which sub-account is created"
+          },
+          "domain": {
+            "type": "string",
+            "example": "test.msgsndr.com"
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "description": "The country in which the business is present for which sub-account is created",
+            "enum": [
+              "AF",
+              "AX",
+              "AL",
+              "DZ",
+              "AS",
+              "AD",
+              "AO",
+              "AI",
+              "AQ",
+              "AG",
+              "AR",
+              "AM",
+              "AW",
+              "AU",
+              "AT",
+              "AZ",
+              "BS",
+              "BH",
+              "BD",
+              "BB",
+              "BY",
+              "BE",
+              "BZ",
+              "BJ",
+              "BM",
+              "BT",
+              "BO",
+              "BA",
+              "BW",
+              "BV",
+              "BR",
+              "IO",
+              "BN",
+              "BG",
+              "BF",
+              "BI",
+              "KH",
+              "CM",
+              "CA",
+              "CV",
+              "KY",
+              "CF",
+              "TD",
+              "CL",
+              "CN",
+              "CX",
+              "CC",
+              "CO",
+              "KM",
+              "CG",
+              "CD",
+              "CK",
+              "CR",
+              "CI",
+              "HR",
+              "CU",
+              "CY",
+              "CZ",
+              "DK",
+              "DJ",
+              "DM",
+              "DO",
+              "EC",
+              "EG",
+              "SV",
+              "GQ",
+              "ER",
+              "EE",
+              "ET",
+              "FK",
+              "FO",
+              "FJ",
+              "FI",
+              "FR",
+              "GF",
+              "PF",
+              "TF",
+              "GA",
+              "GM",
+              "GE",
+              "DE",
+              "GH",
+              "GI",
+              "GR",
+              "GL",
+              "GD",
+              "GP",
+              "GU",
+              "GT",
+              "GG",
+              "GN",
+              "GW",
+              "GY",
+              "HT",
+              "HM",
+              "VA",
+              "HN",
+              "HK",
+              "HU",
+              "IS",
+              "IN",
+              "ID",
+              "IR",
+              "IQ",
+              "IE",
+              "IM",
+              "IL",
+              "IT",
+              "JM",
+              "JP",
+              "JE",
+              "JO",
+              "KZ",
+              "KE",
+              "KI",
+              "KP",
+              "KR",
+              "XK",
+              "KW",
+              "KG",
+              "LA",
+              "LV",
+              "LB",
+              "LS",
+              "LR",
+              "LY",
+              "LI",
+              "LT",
+              "LU",
+              "MO",
+              "MK",
+              "MG",
+              "MW",
+              "MY",
+              "MV",
+              "ML",
+              "MT",
+              "MH",
+              "MQ",
+              "MR",
+              "MU",
+              "YT",
+              "MX",
+              "FM",
+              "MD",
+              "MC",
+              "MN",
+              "ME",
+              "MS",
+              "MA",
+              "MZ",
+              "MM",
+              "NA",
+              "NR",
+              "NP",
+              "NL",
+              "AN",
+              "NC",
+              "NZ",
+              "NI",
+              "NE",
+              "NG",
+              "NU",
+              "NF",
+              "MP",
+              "NO",
+              "OM",
+              "PK",
+              "PW",
+              "PS",
+              "PA",
+              "PG",
+              "PY",
+              "PE",
+              "PH",
+              "PN",
+              "PL",
+              "PT",
+              "PR",
+              "QA",
+              "RE",
+              "RO",
+              "RU",
+              "RW",
+              "SH",
+              "KN",
+              "LC",
+              "MF",
+              "PM",
+              "VC",
+              "WS",
+              "SM",
+              "ST",
+              "SA",
+              "SN",
+              "RS",
+              "SC",
+              "SL",
+              "SG",
+              "SX",
+              "SK",
+              "SI",
+              "SB",
+              "SO",
+              "ZA",
+              "GS",
+              "ES",
+              "LK",
+              "SD",
+              "SR",
+              "SJ",
+              "SZ",
+              "SE",
+              "CH",
+              "SY",
+              "TW",
+              "TJ",
+              "TZ",
+              "TH",
+              "TL",
+              "TG",
+              "TK",
+              "TO",
+              "TT",
+              "TN",
+              "TR",
+              "TM",
+              "TC",
+              "TV",
+              "UG",
+              "GB",
+              "UA",
+              "AE",
+              "US",
+              "UM",
+              "UY",
+              "UZ",
+              "VU",
+              "VE",
+              "VN",
+              "VG",
+              "VI",
+              "WF",
+              "EH",
+              "YE",
+              "ZM",
+              "ZW"
+            ]
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "567654",
+            "description": "The postal code of the business for which sub-account is created"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://yourwebsite.com",
+            "description": "The website of the business for which sub-account is created"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "US/Central",
+            "description": "The timezone of the business for which sub-account is created"
+          },
+          "settings": {
+            "description": "The default settings for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingsSchema"
+              }
+            ]
+          },
+          "social": {
+            "description": "The social media links for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SocialSchema"
+              }
+            ]
+          }
+        }
+      },
+      "SnapshotPutSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Snaptshot ID",
+            "example": "XXXXXXXXXXX"
+          },
+          "override": {
+            "type": "boolean",
+            "description": "If you want override all conflicted assets then pass true. Default value is false.",
+            "example": false,
+            "default": false
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "UpdateLocationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Mark Shoes",
+            "description": "The name for the sub-account/location"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1410039940",
+            "description": "The phone number of the business for which sub-account is created"
+          },
+          "companyId": {
+            "type": "string",
+            "description": "Company/Agency Id",
+            "example": "UAXssdawIWAWD"
+          },
+          "address": {
+            "type": "string",
+            "example": "4th fleet street",
+            "description": "The address of the business for which sub-account is created"
+          },
+          "city": {
+            "type": "string",
+            "example": "New York",
+            "description": "The city where the business is located for which sub-account is created"
+          },
+          "state": {
+            "type": "string",
+            "example": "Illinois",
+            "description": "The state in which the business operates for which sub-account is created"
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "description": "The country in which the business is present for which sub-account is created",
+            "enum": [
+              "AF",
+              "AX",
+              "AL",
+              "DZ",
+              "AS",
+              "AD",
+              "AO",
+              "AI",
+              "AQ",
+              "AG",
+              "AR",
+              "AM",
+              "AW",
+              "AU",
+              "AT",
+              "AZ",
+              "BS",
+              "BH",
+              "BD",
+              "BB",
+              "BY",
+              "BE",
+              "BZ",
+              "BJ",
+              "BM",
+              "BT",
+              "BO",
+              "BA",
+              "BW",
+              "BV",
+              "BR",
+              "IO",
+              "BN",
+              "BG",
+              "BF",
+              "BI",
+              "KH",
+              "CM",
+              "CA",
+              "CV",
+              "KY",
+              "CF",
+              "TD",
+              "CL",
+              "CN",
+              "CX",
+              "CC",
+              "CO",
+              "KM",
+              "CG",
+              "CD",
+              "CK",
+              "CR",
+              "CI",
+              "HR",
+              "CU",
+              "CY",
+              "CZ",
+              "DK",
+              "DJ",
+              "DM",
+              "DO",
+              "EC",
+              "EG",
+              "SV",
+              "GQ",
+              "ER",
+              "EE",
+              "ET",
+              "FK",
+              "FO",
+              "FJ",
+              "FI",
+              "FR",
+              "GF",
+              "PF",
+              "TF",
+              "GA",
+              "GM",
+              "GE",
+              "DE",
+              "GH",
+              "GI",
+              "GR",
+              "GL",
+              "GD",
+              "GP",
+              "GU",
+              "GT",
+              "GG",
+              "GN",
+              "GW",
+              "GY",
+              "HT",
+              "HM",
+              "VA",
+              "HN",
+              "HK",
+              "HU",
+              "IS",
+              "IN",
+              "ID",
+              "IR",
+              "IQ",
+              "IE",
+              "IM",
+              "IL",
+              "IT",
+              "JM",
+              "JP",
+              "JE",
+              "JO",
+              "KZ",
+              "KE",
+              "KI",
+              "KP",
+              "KR",
+              "XK",
+              "KW",
+              "KG",
+              "LA",
+              "LV",
+              "LB",
+              "LS",
+              "LR",
+              "LY",
+              "LI",
+              "LT",
+              "LU",
+              "MO",
+              "MK",
+              "MG",
+              "MW",
+              "MY",
+              "MV",
+              "ML",
+              "MT",
+              "MH",
+              "MQ",
+              "MR",
+              "MU",
+              "YT",
+              "MX",
+              "FM",
+              "MD",
+              "MC",
+              "MN",
+              "ME",
+              "MS",
+              "MA",
+              "MZ",
+              "MM",
+              "NA",
+              "NR",
+              "NP",
+              "NL",
+              "AN",
+              "NC",
+              "NZ",
+              "NI",
+              "NE",
+              "NG",
+              "NU",
+              "NF",
+              "MP",
+              "NO",
+              "OM",
+              "PK",
+              "PW",
+              "PS",
+              "PA",
+              "PG",
+              "PY",
+              "PE",
+              "PH",
+              "PN",
+              "PL",
+              "PT",
+              "PR",
+              "QA",
+              "RE",
+              "RO",
+              "RU",
+              "RW",
+              "SH",
+              "KN",
+              "LC",
+              "MF",
+              "PM",
+              "VC",
+              "WS",
+              "SM",
+              "ST",
+              "SA",
+              "SN",
+              "RS",
+              "SC",
+              "SL",
+              "SG",
+              "SX",
+              "SK",
+              "SI",
+              "SB",
+              "SO",
+              "ZA",
+              "GS",
+              "ES",
+              "LK",
+              "SD",
+              "SR",
+              "SJ",
+              "SZ",
+              "SE",
+              "CH",
+              "SY",
+              "TW",
+              "TJ",
+              "TZ",
+              "TH",
+              "TL",
+              "TG",
+              "TK",
+              "TO",
+              "TT",
+              "TN",
+              "TR",
+              "TM",
+              "TC",
+              "TV",
+              "UG",
+              "GB",
+              "UA",
+              "AE",
+              "US",
+              "UM",
+              "UY",
+              "UZ",
+              "VU",
+              "VE",
+              "VN",
+              "VG",
+              "VI",
+              "WF",
+              "EH",
+              "YE",
+              "ZM",
+              "ZW"
+            ]
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "567654",
+            "description": "The postal code of the business for which sub-account is created"
+          },
+          "website": {
+            "type": "string",
+            "example": "https://yourwebsite.com",
+            "description": "The website of the business for which sub-account is created"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "US/Central",
+            "description": "The timezone of the business for which sub-account is created"
+          },
+          "prospectInfo": {
+            "example": {
+              "firstName": "John",
+              "lastName": "Doe",
+              "email": "john.doe@mail.com"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProspectInfoDto"
+              }
+            ]
+          },
+          "settings": {
+            "description": "The default settings for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingsSchema"
+              }
+            ]
+          },
+          "social": {
+            "description": "The social media links for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SocialSchema"
+              }
+            ]
+          },
+          "twilio": {
+            "description": "(DEPRECATED) The twilio credentials for location",
+            "deprecated": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TwilioSchema"
+              }
+            ]
+          },
+          "mailgun": {
+            "description": "The mailgun credentials for location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MailgunSchema"
+              }
+            ]
+          },
+          "snapshot": {
+            "description": "The snapshot to be updated in the location.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SnapshotPutSchema"
+              }
+            ]
+          }
+        },
+        "required": [
+          "companyId"
+        ]
+      },
+      "LocationDeletedSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the API",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message of the API",
+            "example": "Deleted location with id: ve9EPM428h8vShlRW1KT"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ]
+      },
+      "LocationTagsSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "minim aliquip anim"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "id": {
+            "type": "string",
+            "example": "flGwEuzsfJOia1i1ikRN"
+          }
+        }
+      },
+      "LocationTagsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocationTagsSchema"
+            }
+          }
+        }
+      },
+      "LocationTagSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "$ref": "#/components/schemas/LocationTagsSchema"
+          }
+        }
+      },
+      "tagBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Tag name",
+            "example": "Tag"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "LocationTagDeleteSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeded": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "TaskSearchParamsDto": {
+        "type": "object",
+        "properties": {
+          "contactId": {
+            "description": "Contact Ids",
+            "example": [
+              "dSMo5jnqkJyh8YeGXM7k",
+              "j5WESpmRj816VtyUuWwh"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Task Completed Or Pending",
+            "example": true
+          },
+          "assignedTo": {
+            "description": "Assigned User Ids",
+            "example": [
+              "0004Mtfsd11SBU1mBPgd"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "query": {
+            "type": "string",
+            "description": "Search Value",
+            "example": "Task Name"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Limit To Api",
+            "example": 10,
+            "default": 25
+          },
+          "skip": {
+            "type": "number",
+            "description": "Number Of Tasks To Skip",
+            "default": 0,
+            "example": 10
+          },
+          "businessId": {
+            "type": "string",
+            "description": "Bussiness Id",
+            "example": "6348240b98722079e5417332"
+          }
+        }
+      },
+      "LocationTaskListSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      "CustomFieldSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3sv6UEo51C9Bmpo1cKTq"
+          },
+          "name": {
+            "type": "string",
+            "example": "pincode"
+          },
+          "fieldKey": {
+            "type": "string",
+            "example": "contact.pincode"
+          },
+          "placeholder": {
+            "type": "string",
+            "example": "Pin code"
+          },
+          "dataType": {
+            "type": "string",
+            "example": "TEXT"
+          },
+          "position": {
+            "type": "number",
+            "example": 0
+          },
+          "picklistOptions": {
+            "example": [
+              "first option"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "picklistImageOptions": {
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isAllowedCustomOption": {
+            "type": "boolean",
+            "example": false
+          },
+          "isMultiFileAllowed": {
+            "type": "boolean",
+            "example": true
+          },
+          "maxFileLimit": {
+            "type": "number",
+            "example": 4
+          },
+          "locationId": {
+            "type": "string",
+            "example": "3sv6UEo51C9Bmpo1cKTq"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model of the custom field",
+            "example": "opportunity",
+            "enum": [
+              "contact",
+              "opportunity"
+            ]
+          }
+        }
+      },
+      "CustomFieldsListSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "customFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomFieldSchema"
+            }
+          }
+        }
+      },
+      "CustomFieldSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "customField": {
+            "$ref": "#/components/schemas/CustomFieldSchema"
+          }
+        }
+      },
+      "textBoxListOptionsSchema": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "First"
+          },
+          "prefillValue": {
+            "type": "string",
+            "example": ""
+          }
+        }
+      },
+      "CreateCustomFieldsDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Custom Field"
+          },
+          "dataType": {
+            "type": "string",
+            "example": "TEXT"
+          },
+          "placeholder": {
+            "type": "string",
+            "example": "Placeholder Text"
+          },
+          "acceptedFormat": {
+            "example": [
+              ".pdf",
+              ".docx",
+              ".jpeg"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isMultipleFile": {
+            "type": "boolean",
+            "example": false
+          },
+          "maxNumberOfFiles": {
+            "type": "number",
+            "example": 2
+          },
+          "textBoxListOptions": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/textBoxListOptionsSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/textBoxListOptionsSchema"
+                }
+              ]
+            }
+          },
+          "position": {
+            "type": "number",
+            "example": 0,
+            "default": 0
+          },
+          "model": {
+            "type": "string",
+            "description": "Model of the custom field you want to create",
+            "example": "opportunity",
+            "enum": [
+              "contact",
+              "opportunity"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "dataType"
+        ]
+      },
+      "UpdateCustomFieldsDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Custom Field"
+          },
+          "placeholder": {
+            "type": "string",
+            "example": "Placeholder Text"
+          },
+          "acceptedFormat": {
+            "example": [
+              ".pdf",
+              ".docx",
+              ".jpeg"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isMultipleFile": {
+            "type": "boolean",
+            "example": false
+          },
+          "maxNumberOfFiles": {
+            "type": "number",
+            "example": 2
+          },
+          "textBoxListOptions": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/textBoxListOptionsSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/textBoxListOptionsSchema"
+                }
+              ]
+            }
+          },
+          "position": {
+            "type": "number",
+            "example": 0,
+            "default": 0
+          },
+          "model": {
+            "type": "string",
+            "description": "Model of the custom field you want to update",
+            "example": "opportunity",
+            "enum": [
+              "contact",
+              "opportunity"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "CustomFieldDeleteSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeded": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "FileUploadBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id(Contact Id/Opportunity Id/Custom Field Id)",
+            "example": "aWdODOBVOlH1RUFKWQke"
+          },
+          "maxFiles": {
+            "type": "string",
+            "description": "Max number of files",
+            "example": "15"
+          }
+        }
+      },
+      "FileUploadResponseDto": {
+        "type": "object",
+        "properties": {
+          "uploadedFiles": {
+            "type": "object",
+            "description": "Uploaded files",
+            "example": {
+              "FileName.csv": "https://highlevel-private-staging.storage.googleapis.com/location/Ar4JQgIyuzRsVuwD9RSK/custom-Field/UpZLmohmKEQYn0ymqplY/56e0d7fc-085c-4a07-9e1d-6d8fdac7e710.csv"
+            }
+          },
+          "meta": {
+            "description": "Meta data of uploaded files",
+            "example": [
+              {
+                "fieldname": "FileName.csv",
+                "originalname": "FileName.csv",
+                "encoding": "7bit",
+                "mimetype": "text/csv",
+                "size": 2061,
+                "url": "https://highlevel-private-staging.storage.googleapis.com/location/Ar4JQgIyuzRsVuwD9RSK/custom-Field/UpZLmohmKEQYn0ymqplY/56e0d7fc-085c-4a07-9e1d-6d8fdac7e710.csv"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CustomValueSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "rWQ709Pb62syqGLceg1x"
+          },
+          "name": {
+            "type": "string",
+            "example": "Custom Field"
+          },
+          "fieldKey": {
+            "type": "string",
+            "example": "{{ custom_values.custom_field }}"
+          },
+          "value": {
+            "type": "string",
+            "example": "Value"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "rWQ709Pb6dasyqGLceg1x"
+          }
+        }
+      },
+      "CustomValuesListSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "customValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomValueSchema"
+            }
+          }
+        }
+      },
+      "CustomValueIdSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "customValue": {
+            "$ref": "#/components/schemas/CustomValueSchema"
+          }
+        }
+      },
+      "customValuesDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Custom Field Name"
+          },
+          "value": {
+            "type": "string",
+            "example": "Value"
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ]
+      },
+      "CustomValueDeleteSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeded": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "SmsTemplateSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "example": "sms body"
+          },
+          "attachments": {
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      "GetSmsTemplateResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "2yMwhgTNO19bpintqrap"
+          },
+          "name": {
+            "type": "string",
+            "example": "sms template"
+          },
+          "type": {
+            "type": "string",
+            "example": "sms"
+          },
+          "template": {
+            "$ref": "#/components/schemas/SmsTemplateSchema"
+          },
+          "dateAdded": {
+            "type": "string",
+            "example": "2022-01-27T12:31:19.679Z"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "urlAttachments": {
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "EmailTemplateSchema": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "example": "subject text"
+          },
+          "attachments": {
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "html": {
+            "type": "string",
+            "example": "<html><head><style>body{font-family: sans-serif;}</style></head><body>testing</body></html>"
+          }
+        }
+      },
+      "GetEmailTemplateResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "2yMwhgTNO19bpintqrap"
+          },
+          "name": {
+            "type": "string",
+            "example": "email template"
+          },
+          "type": {
+            "type": "string",
+            "example": "email"
+          },
+          "dateAdded": {
+            "type": "string",
+            "example": "2022-01-27T12:31:19.679Z"
+          },
+          "template": {
+            "$ref": "#/components/schemas/EmailTemplateSchema"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          }
+        }
+      },
+      "GetTemplatesSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/GetSmsTemplateResponseSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/GetEmailTemplateResponseSchema"
+                }
+              ]
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "example": 100
+          }
+        }
+      },
+      "CustomRRulesOptions": {
+        "type": "object",
+        "properties": {
+          "intervalType": {
+            "type": "string",
+            "enum": [
+              "yearly",
+              "monthly",
+              "weekly",
+              "daily",
+              "hourly"
+            ],
+            "example": "monthly"
+          },
+          "interval": {
+            "type": "number",
+            "example": 2
+          },
+          "startDate": {
+            "type": "string",
+            "example": "2021-09-30T00:00:00.000Z",
+            "description": "Start Date"
+          },
+          "endDate": {
+            "type": "string",
+            "example": "2021-09-30T00:00:00.000Z",
+            "description": "End Date"
+          },
+          "dayOfMonth": {
+            "type": "number",
+            "description": "1, 2, 3, ..., 27, 31",
+            "example": 15
+          },
+          "dayOfWeek": {
+            "type": "string",
+            "enum": [
+              "MO",
+              "TU",
+              "WE",
+              "TH",
+              "FR",
+              "SA",
+              "SU"
+            ],
+            "example": "MO"
+          },
+          "monthOfYear": {
+            "type": "number",
+            "description": "1, 2, ....., 11, 12",
+            "example": 1
+          },
+          "count": {
+            "type": "number",
+            "description": "Max number of task executions",
+            "example": 10
+          },
+          "createTaskIfOverDue": {
+            "type": "boolean",
+            "example": true,
+            "description": "Create Task If Over Due"
+          },
+          "dueAfterSeconds": {
+            "type": "number",
+            "example": 23404000,
+            "description": "Due after seconds"
+          }
+        },
+        "required": [
+          "intervalType",
+          "interval",
+          "startDate",
+          "dueAfterSeconds"
+        ]
+      },
+      "RecurringTaskResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Recurring Task Id"
+          },
+          "title": {
+            "type": "string",
+            "example": "Task Name",
+            "description": "Name of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Task Description",
+            "description": "Description of the task"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Location Id"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2021-04-15T10:00:00.000Z",
+            "description": "Updated At"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2021-04-15T10:00:00.000Z",
+            "description": "Created At"
+          },
+          "rruleOptions": {
+            "example": {
+              "createTaskIfOverDue": false,
+              "interval": 1,
+              "intervalType": "hourly",
+              "startDate": "2024-10-29T12:34:03.000Z",
+              "dueAfterSeconds": 600,
+              "count": 550
+            },
+            "description": "Recurring rules",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomRRulesOptions"
+              }
+            ]
+          },
+          "totalOccurrence": {
+            "type": "number",
+            "example": 10,
+            "description": "Total Occurrence"
+          },
+          "deleted": {
+            "type": "boolean",
+            "example": false,
+            "description": "Deleted"
+          },
+          "assignedTo": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Assigned To"
+          },
+          "contactId": {
+            "type": "string",
+            "example": "v5cEPM428h8vShlRW1KT",
+            "description": "Contact Id"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "locationId",
+          "updatedAt",
+          "createdAt",
+          "rruleOptions",
+          "totalOccurrence",
+          "deleted"
+        ]
+      },
+      "RecurringTaskSingleResponseDTO": {
+        "type": "object",
+        "properties": {
+          "recurringTask": {
+            "description": "Recurring Tasks",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringTaskResponseDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "recurringTask"
+        ]
+      },
+      "RecurringTaskCreateDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Task Name",
+            "description": "Name of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Task Description",
+            "description": "Description of the task"
+          },
+          "contactIds": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Contact Id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owners": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Assigned To",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rruleOptions": {
+            "example": {
+              "intervalType": "hourly",
+              "interval": 1,
+              "startDate": "2025-07-23T10:00:00.000Z",
+              "dueAfterSeconds": 600
+            },
+            "description": "Recurring rules",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomRRulesOptions"
+              }
+            ]
+          },
+          "ignoreTaskCreation": {
+            "type": "boolean",
+            "example": true,
+            "description": "Create initial task or not"
+          }
+        },
+        "required": [
+          "title",
+          "rruleOptions"
+        ]
+      },
+      "RecurringTaskUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Task Name",
+            "description": "Name of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Task Description",
+            "description": "Description of the task"
+          },
+          "contactIds": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Contact Id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owners": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "description": "Assigned To",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rruleOptions": {
+            "example": {
+              "intervalType": "hourly",
+              "interval": 1,
+              "startDate": "2025-07-23T10:00:00.000Z",
+              "dueAfterSeconds": 600
+            },
+            "description": "Recurring rules",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomRRulesOptions"
+              }
+            ]
+          },
+          "ignoreTaskCreation": {
+            "type": "boolean",
+            "example": true,
+            "description": "Create initial task or not"
+          }
+        }
+      },
+      "DeleteRecurringTaskResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "sx6wyHhbFdRXh302Lunr",
+            "description": "Recurring Task Id"
+          },
+          "success": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success"
+          }
+        },
+        "required": [
+          "id",
+          "success"
+        ]
+      },
+      "UpdatePermissionsDto": {
+        "type": "object",
+        "properties": {
+          "permissions": {
+            "type": "array",
+            "description": "Permission plan values to apply for the sub-account",
+            "example": [
+              "crm",
+              "workflow"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "2-way-text-messaging",
+                "gmb-messaging",
+                "web-chat",
+                "reputation-management",
+                "facebook-messenger",
+                "gmb-call-tracking",
+                "missed-call-text-back",
+                "text-to-pay",
+                "calendar",
+                "crm",
+                "opportunities",
+                "email-marketing",
+                "form-builder",
+                "survey-builder",
+                "trigger-links",
+                "html-builder",
+                "sms-email-templates",
+                "funnels",
+                "websites",
+                "workflow",
+                "membership",
+                "all-reports",
+                "triggers",
+                "campaigns",
+                "launchpad"
+              ]
+            }
+          }
+        },
+        "required": [
+          "permissions"
+        ]
+      },
+      "PermissionsResponseDto": {
+        "type": "object",
+        "properties": {
+          "permissions": {
+            "type": "array",
+            "description": "Enabled permission names for the sub-account",
+            "example": [
+              "crm",
+              "workflow"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "2-way-text-messaging",
+                "gmb-messaging",
+                "web-chat",
+                "reputation-management",
+                "facebook-messenger",
+                "gmb-call-tracking",
+                "missed-call-text-back",
+                "text-to-pay",
+                "calendar",
+                "crm",
+                "opportunities",
+                "email-marketing",
+                "form-builder",
+                "survey-builder",
+                "trigger-links",
+                "html-builder",
+                "sms-email-templates",
+                "funnels",
+                "websites",
+                "workflow",
+                "membership",
+                "all-reports",
+                "triggers",
+                "campaigns",
+                "launchpad"
+              ]
+            }
+          }
+        },
+        "required": [
+          "permissions"
+        ]
+      },
+      "ConversationProviderSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Provider ID",
+            "example": "twilio_provider"
+          },
+          "name": {
+            "type": "string",
+            "description": "Provider name",
+            "example": "Twilio"
+          },
+          "type": {
+            "type": "string",
+            "description": "Provider type",
+            "enum": [
+              "SMS",
+              "Email"
+            ],
+            "example": "SMS"
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Whether this is the default provider",
+            "example": true
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "type",
+          "default"
+        ]
+      },
+      "ConversationChannelEntrySchema": {
+        "type": "object",
+        "properties": {
+          "conversationProvider": {
+            "$ref": "#/components/schemas/ConversationProviderSchema"
+          }
+        },
+        "required": [
+          "conversationProvider"
+        ]
+      },
+      "ConversationChannelSchema": {
+        "type": "object",
+        "properties": {
+          "SMS": {
+            "type": "array",
+            "description": "List of SMS providers configured for this location",
+            "items": {
+              "$ref": "#/components/schemas/ConversationChannelEntrySchema"
+            }
+          },
+          "Email": {
+            "type": "array",
+            "description": "List of Email providers configured for this location",
+            "items": {
+              "$ref": "#/components/schemas/ConversationChannelEntrySchema"
+            }
+          }
+        }
+      },
+      "GetConversationChannelListSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "conversationChannel": {
+            "$ref": "#/components/schemas/ConversationChannelSchema"
+          }
+        },
+        "required": [
+          "conversationChannel"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/locations/search": {
+      "get": {
+        "operationId": "search-locations",
+        "summary": "Search",
+        "description": "Search Sub-Account (Formerly Location)",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": false,
+            "in": "query",
+            "description": "The company/agency id on which you want to perform the search",
+            "example": "5DP4iH6HLkQsiKESj6rh",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": "1",
+            "description": "The value by which the results should be skipped. Default will be 0",
+            "schema": {
+              "default": "0",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": "10",
+            "description": "The value by which the results should be limited. Default will be 10",
+            "schema": {
+              "default": "10",
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "example": "asc",
+            "description": "The order in which the results should be returned - Allowed values asc, desc. Default will be asc",
+            "schema": {
+              "default": "asc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "required": false,
+            "in": "query",
+            "example": "johndoe@mail.com",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "locations.readonly"
+            ]
+          },
+          {
+            "Location-Access": [
+              "locations.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}": {
+      "get": {
+        "operationId": "get-location",
+        "summary": "Get Sub-Account (Formerly Location)",
+        "description": "Get details of a Sub-Account (Formerly Location) by passing the sub-account id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLocationByIdSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Sub-Account (Formerly Location)"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "locations.readonly"
+            ]
+          },
+          {
+            "Agency-Access": [
+              "locations.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "put-location",
+        "summary": "Put Sub-Account (Formerly Location)",
+        "description": "Update a Sub-Account (Formerly Location) based on the data provided",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful update response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateLocationSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Sub-Account (Formerly Location)"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "locations.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-location",
+        "summary": "Delete Sub-Account (Formerly Location)",
+        "description": "Delete a Sub-Account (Formerly Location) from the Agency",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleteTwilioAccount",
+            "required": true,
+            "in": "query",
+            "description": "Boolean value to indicate whether to delete Twilio Account or not",
+            "example": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationDeletedSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Sub-Account (Formerly Location)"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "locations.internal-access-only"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/permissions": {
+      "get": {
+        "operationId": "get-location-permissions",
+        "summary": "Get Permissions",
+        "description": "Get Sub-Account (Formerly Location) permissions",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Permissions"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "locations/write"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-location-permissions",
+        "summary": "Update Permissions",
+        "description": "Update Sub-Account (Formerly Location) permissions",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePermissionsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Permissions"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "locations/write"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/tags": {
+      "get": {
+        "operationId": "get-location-tags",
+        "summary": "Get Tags",
+        "description": "Get Sub-Account (Formerly Location) Tags",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationTagsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/tags.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-tag",
+        "summary": "Create Tag",
+        "description": "Create tag",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tagBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationTagSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/tags.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/tags/{tagId}": {
+      "get": {
+        "operationId": "get-tag-by-id",
+        "summary": "Get tag by id",
+        "description": "Get tag by id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "required": true,
+            "in": "path",
+            "description": "Tag Id",
+            "example": "flGwEuzsfJOia1i1ikRN",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationTagSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-tag",
+        "summary": "Update tag",
+        "description": "Update tag",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "required": true,
+            "in": "path",
+            "description": "Tag Id",
+            "example": "flGwEuzsfJOia1i1ikRN",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tagBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationTagSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-tag",
+        "summary": "Delete tag",
+        "description": "Delete tag",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "required": true,
+            "in": "path",
+            "description": "Tag Id",
+            "example": "flGwEuzsfJOia1i1ikRN",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationTagDeleteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/tasks/search": {
+      "post": {
+        "operationId": "task-search",
+        "summary": "Task Search Filter",
+        "description": "Task Search",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskSearchParamsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationTaskListSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/tasks.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/recurring-tasks/{id}": {
+      "get": {
+        "operationId": "get-recurring-task-by-id",
+        "summary": "Get Recurring Task By Id",
+        "description": "Get Recurring Task By Id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Recurring Task Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecurringTaskSingleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-recurring-task",
+        "summary": "Update Recurring Task",
+        "description": "Update Recurring Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Recurring Task Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecurringTaskUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecurringTaskSingleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-recurring-task",
+        "summary": "Delete Recurring Task",
+        "description": "Delete Recurring Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Recurring Task Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "sx6wyHhbFdRXh302Lunr",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteRecurringTaskResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/recurring-tasks": {
+      "post": {
+        "operationId": "create-recurring-task",
+        "summary": "Create Recurring Task",
+        "description": "Create Recurring Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecurringTaskCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecurringTaskSingleResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recurring Tasks"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/customFields": {
+      "get": {
+        "operationId": "get-custom-fields",
+        "summary": "Get Custom Fields",
+        "description": "Get Custom Fields",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "model",
+            "required": false,
+            "in": "query",
+            "description": "Model of the custom field you want to retrieve",
+            "example": "opportunity",
+            "schema": {
+              "enum": [
+                "contact",
+                "opportunity",
+                "all"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldsListSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Field"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-custom-field",
+        "summary": "Create Custom Field",
+        "description": "Create Custom Field",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomFieldsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Field"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/customFields/{id}": {
+      "get": {
+        "operationId": "get-custom-field",
+        "summary": "Get Custom Field",
+        "description": "Get Custom Field",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Custom Field Id or Field Key (e.g. \"contact.first_name\" or \"opportunity.pipeline_id\")",
+            "examples": {
+              "id": {
+                "value": "00NhGCcN1tlO8ZHcu7Wb",
+                "summary": "Custom Field ID"
+              },
+              "field_key": {
+                "value": "contact.first_name",
+                "summary": "Custom Field Key"
+              }
+            },
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Field"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-custom-field",
+        "summary": "Update Custom Field",
+        "description": "Update Custom Field",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Custom Field Id",
+            "example": "00NhGCcN1tlO8ZHcu7Wb",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomFieldsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Field"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-custom-field",
+        "summary": "Delete Custom Field",
+        "description": "Delete Custom Field",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Custom Field Id",
+            "example": "00NhGCcN1tlO8ZHcu7Wb",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomFieldDeleteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Field"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/customFields/upload": {
+      "post": {
+        "operationId": "upload-file-customFields",
+        "summary": "Uploads File to customFields",
+        "description": "Uploads File to customFields",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/FileUploadBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Field"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customFields.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/customValues": {
+      "get": {
+        "operationId": "get-custom-values",
+        "summary": "Get Custom Values",
+        "description": "Get Custom Values",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomValuesListSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Value"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customValues.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-custom-value",
+        "summary": "Create Custom Value",
+        "description": "Create Custom Value",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customValuesDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomValueIdSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Value"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/customValues.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/customValues/{id}": {
+      "get": {
+        "operationId": "get-custom-value",
+        "summary": "Get Custom Value",
+        "description": "Get Custom Value",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Custom Value Id",
+            "example": "kOBjMVAJhFuUeYIojVet",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomValueIdSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Value"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-custom-value",
+        "summary": "Update Custom Value",
+        "description": "Update Custom Value",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Custom Value Id",
+            "example": "kOBjMVAJhFuUeYIojVet",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customValuesDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomValueIdSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Value"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-custom-value",
+        "summary": "Delete Custom Value",
+        "description": "Delete Custom Value",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Custom Value Id",
+            "example": "kOBjMVAJhFuUeYIojVet",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomValueDeleteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Value"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/timezones": {
+      "get": {
+        "operationId": "get-timezones",
+        "summary": "Fetch Timezones",
+        "description": "Fetch the available timezones",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Timezone"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations.readonly"
+            ]
+          },
+          {
+            "Location-Access": [
+              "locations.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/templates": {
+      "get": {
+        "operationId": "GET-all-or-email-sms-templates",
+        "summary": "GET all or email/sms templates",
+        "description": "GET all or email/sms templates",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "deleted",
+            "required": false,
+            "in": "query",
+            "example": false,
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": "1",
+            "schema": {
+              "default": "0",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": "25",
+            "schema": {
+              "default": "25",
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "sms",
+                "email",
+                "whatsapp"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "originId",
+            "required": true,
+            "in": "query",
+            "description": "Origin Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTemplatesSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Template"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "locations/templates.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/templates/{id}": {
+      "delete": {
+        "operationId": "DELETE-an-email-sms-template",
+        "summary": "DELETE an email/sms template",
+        "description": "DELETE an email/sms template",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Template Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Template"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/locations/": {
+      "post": {
+        "operationId": "create-location",
+        "summary": "Create Sub-Account (Formerly Location)",
+        "description": "<div>\n                  <p>Create a new Sub-Account (Formerly Location) based on the data provided</p> \n                  <div>\n<span>\n                     :::info\n This feature is only available on Agency Pro ($497) plan.\n :::  \n </span>\n                  </div>\n                </div>\n    ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateLocationSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Sub-Account (Formerly Location)"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "locations.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/locations/{locationId}/conversationChannels/{type}": {
+      "get": {
+        "operationId": "get-conversation-channel",
+        "summary": "Get Conversation Channel",
+        "description": "Get the conversation channel providers configured for a location by type (SMS or Email)",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "description": "Channel type to retrieve providers for",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "SMS",
+                "Email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved all the conversation channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetConversationChannelListSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Conversation Channel"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "locations.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Sub-Account (Formerly location)",
+    "tags": [
+      "Location",
+      "Location Tags",
+      "Custom Field",
+      "Custom Value",
+      "Template",
+      "Tags Search",
+      "Location Notes",
+      "Location Tasks",
+      "Recurring Tasks",
+      "Location Search",
+      "Custom Field Search",
+      "Location Keys",
+      "Labs",
+      "Conversation Channel",
+      "Search",
+      "Sub-Account (Formerly Location)",
+      "Tags",
+      "Permissions",
+      "Tasks Search",
+      "Timezone",
+      "ElasticSearch"
+    ]
+  }
+}
