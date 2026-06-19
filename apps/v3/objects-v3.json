@@ -1,0 +1,1654 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/objects/{key}": {
+      "get": {
+        "operationId": "get-object-schema-by-key",
+        "summary": "Get Object Schema by key / id",
+        "description": "Retrieve Object Schema by key or ID. This will return the schema of the custom object, including all its fields and properties. Supported objects include contact, opportunity, business and custom objects.To understand objects and records, please have a look the documentation here : https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+          "description": "To understand objects and records, please have a look the documentation."
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "description": "key of the custom or standard object. For custom objects, the key must include the prefix “custom_objects.”. This key can be found on the Object Details page under Settings in the UI.",
+            "schema": {
+              "example": "custom_objects.pet",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location id of the sub account",
+            "schema": {
+              "example": "632c34b4c9b7da3358ac9891",
+              "type": "string"
+            }
+          },
+          {
+            "name": "fetchProperties",
+            "required": false,
+            "in": "query",
+            "description": "Fetch Properties , Fetches all the standard / custom fields of the object when set to true",
+            "schema": {
+              "example": true,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomObjectByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Object Schema"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "objects/schema.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-custom-object",
+        "summary": "Update Object Schema By Key / Id",
+        "description": "Update Custom Object Schema  or standard object's like contact, opportunity, business searchable fields. To understand objects and records, please have a look at the documentation here : https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+          "description": "To understand objects and records, please have a look at the documentation here "
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "description": "key of the custom or standard object. For custom objects, the key must include the prefix “custom_objects.”. This key can be found on the Object Details page under Settings in the UI.",
+            "schema": {
+              "example": "custom_objects.pet",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomObjectSchemaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomObjectResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Object Schema"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "objects/schema.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/objects/{schemaKey}/records/{id}": {
+      "get": {
+        "operationId": "get-record-by-id",
+        "summary": "Get Record By Id",
+        "description": "Allows you to get a Standard Object like business and custom object record by Id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "schemaKey",
+            "required": true,
+            "in": "path",
+            "description": "The key of the Custom Object / Standard Object Schema. For custom objects, the key must include the “custom_objects.” prefix, while standard objects use their respective object keys. This information is available on the Custom Objects Details page under Settings.",
+            "schema": {
+              "example": "custom_objects.pet or business.email (for company's email)",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "id of the record to be updated. Available on the Record details page under the 3 dots or in the url",
+            "schema": {
+              "example": "632c34b4c9b7da3358ac9891",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Records"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-object-record",
+        "summary": "Update Record",
+        "description": "Update a Custom Object Record by Id. Supported Objects are business and custom objects. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0/87cpx-376296",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-175596/e2f3e9f2e111d69/87cpx-275676",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "schemaKey",
+            "required": true,
+            "in": "path",
+            "description": "The key of the Custom Object / Standard Object Schema. For custom objects, the key must include the “custom_objects.” prefix, while standard objects use their respective object keys. This information is available on the Custom Objects Details page under Settings.",
+            "schema": {
+              "example": "custom_objects.pet or business.email (for company's email)",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "id of the record to be updated. Available on the Record details page under the 3 dots or in the url",
+            "schema": {
+              "example": "632c34b4c9b7da3358ac9891",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomObjectRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Records"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-object-record",
+        "summary": "Delete Record",
+        "description": "Delete Record By Id . Supported Objects are business and custom objects.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "schemaKey",
+            "required": true,
+            "in": "path",
+            "description": "The key of the Custom Object / Standard Object Schema. For custom objects, the key must include the “custom_objects.” prefix, while standard objects use their respective object keys. This information is available on the Custom Objects Details page under Settings.",
+            "schema": {
+              "example": "custom_objects.pet or business.email (for company's email)",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "id of the record to be updated. Available on the Record details page under the 3 dots or in the url",
+            "schema": {
+              "example": "632c34b4c9b7da3358ac9891",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectRecordDeleteResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Records"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/objects/{schemaKey}/records": {
+      "post": {
+        "operationId": "create-object-record",
+        "summary": "Create Record",
+        "description": "Create a Custom Object Record. Supported Objects business and custom objects. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0/87cpx-376296",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-175596/e2f3e9f2e111d69/87cpx-275236",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "schemaKey",
+            "required": true,
+            "in": "path",
+            "description": "The key of the Custom Object / Standard Object Schema. For custom objects, the key must include the “custom_objects.” prefix, while standard objects use their respective object keys. This information is available on the Custom Objects Details page under Settings.",
+            "schema": {
+              "example": "custom_objects.pet or business.email (for company's email)",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomObjectRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Records"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "objects/record.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/objects/{schemaKey}/records/search": {
+      "post": {
+        "operationId": "search-object-records",
+        "summary": "Search Object Records",
+        "description": "Supported Objects are custom objects and standard objects like \"business\". Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0/87cpx-379336",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "schemaKey",
+            "required": false,
+            "in": "path",
+            "description": "custom object key",
+            "schema": {
+              "example": "632c34b4c9b7da3358ac9891",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRecordsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchRecordResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search Object Records"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "objects/record.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/objects/": {
+      "get": {
+        "operationId": "get-object-by-location-id",
+        "summary": "Get all objects for a location",
+        "description": "Get all objects for a location. Supported Objects are contact, opportunity, business and custom objects.To understand objects and records, please have a look at the documentation here : https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+          "description": "To understand objects and records, please have a look the documentation."
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "location id",
+            "schema": {
+              "example": "632c34b4c9b7da3358ac9891",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomObjectListResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Object Schema"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "objects/schema.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-custom-object-schema",
+        "summary": "Create Custom Object",
+        "description": "Allows you to create a custom object schema. To understand objects and records, please have a look at the documentation here : https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-277156/93bf0c2e23177b0",
+          "description": "To understand objects and records, please have a look at the documentation here "
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomObjectSchemaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomObjectResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Object Schema"
+        ],
+        "security": [
+          {
+            "Agency-Access": [
+              "objects/schema.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "CUSTOM_OBJECTS API",
+    "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Custom Objects Schema",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Object Schema",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Sub-Account (Formerly Location)",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Records",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Search Object Records",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Search",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Tags",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Tasks Search",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Custom Field",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Custom Value",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Timezone",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "Template",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    },
+    {
+      "name": "ElasticSearch",
+      "description": "Custom objects are completely customizable objects that allow you to store and manage information tailored to your unique business needs. With custom objects, you can create custom fields, establish relationships, and integrate them into workflows, providing flexibility beyond standard objects like Contacts, Opportunities or Companies."
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CustomObjectLabelDto": {
+        "type": "object",
+        "properties": {
+          "singular": {
+            "type": "string",
+            "example": "Pet",
+            "description": "Singular name of the custom object"
+          },
+          "plural": {
+            "type": "string",
+            "example": "Pets",
+            "description": "Plural name of the custom object"
+          }
+        },
+        "required": [
+          "singular",
+          "plural"
+        ]
+      },
+      "ICustomObjectSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "661c06b4ffde146bdb469442",
+            "description": "id of the custom / standard object schema"
+          },
+          "standard": {
+            "type": "boolean",
+            "example": false,
+            "description": "false in case of custom objects and true in case of standard objects like contacts and opportunities "
+          },
+          "key": {
+            "type": "string",
+            "example": "custom_objects.pet",
+            "description": "key that would be used to refer the custom / standard Object internally (lowercase + underscore_separated). For custom objects, 'custom_objects.' would be added as prefix by default"
+          },
+          "labels": {
+            "example": {
+              "singular": "Pet",
+              "plural": "Pets"
+            },
+            "description": "This is what your custom / standard  object will be called. These labels will be used to display your custom object on the UI",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomObjectLabelDto"
+              }
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "These are non vaccinated pets",
+            "description": "Custom / Standard  Object Descriptions for example , Pet Object`s description"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "location's id",
+            "example": "Q9DT3OAqEXDLYuob1G32"
+          },
+          "primaryDisplayProperty": {
+            "type": "string",
+            "description": "Primary property for the custom / standard  Object. This would be used as primary data when rendering the UI. 'custom_objects.{{object_key}} or business.{{object_key}} (for company)' would be added as prefix by default for all the custom / standard objects",
+            "example": "custom_objects.pet.name"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date and time when the object was added",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date and time when the object was last updated",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "object",
+            "example": "The Object type can either USER_DEFINED or SYSTEM_DEFINED",
+            "description": "Object`s Type"
+          }
+        },
+        "required": [
+          "id",
+          "standard",
+          "key",
+          "labels",
+          "locationId",
+          "primaryDisplayProperty",
+          "dateAdded",
+          "dateUpdated"
+        ]
+      },
+      "OptionDTO": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key of the option (Included in Create and Response, excluded in Update)"
+          },
+          "label": {
+            "type": "string",
+            "description": "Value of the option"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL associated with the option (Optional, valid only for RADIO type)"
+          }
+        },
+        "required": [
+          "key",
+          "label"
+        ]
+      },
+      "ICustomField": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the field"
+          },
+          "placeholder": {
+            "type": "string",
+            "description": "Placeholder text for the field"
+          },
+          "showInForms": {
+            "type": "boolean",
+            "description": "Whether the field should be shown in forms"
+          },
+          "options": {
+            "description": "Options for the field (Optional, valid only for SINGLE_OPTIONS, MULTIPLE_OPTIONS, RADIO, CHECKBOX, TEXTBOX_LIST type)",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OptionDTO"
+            }
+          },
+          "acceptedFormats": {
+            "type": "string",
+            "enum": [
+              ".pdf",
+              ".docx",
+              ".doc",
+              ".jpg",
+              ".jpeg",
+              ".png",
+              ".gif",
+              ".csv",
+              ".xlsx",
+              ".xls",
+              "all"
+            ],
+            "description": "Allowed file formats for uploads. Options include: .pdf, .docx, .doc, .jpg, .jpeg, .png, .gif, .csv, .xlsx, .xls, all"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the object"
+          },
+          "objectKey": {
+            "type": "string",
+            "description": "The key for your custom / standard object. This key uniquely identifies the custom object. Example: \"custom_object.pet\" for a custom object related to pets.",
+            "example": "custom_object.pet"
+          },
+          "dataType": {
+            "type": "string",
+            "enum": [
+              "TEXT",
+              "LARGE_TEXT",
+              "NUMERICAL",
+              "PHONE",
+              "MONETORY",
+              "CHECKBOX",
+              "SINGLE_OPTIONS",
+              "MULTIPLE_OPTIONS",
+              "DATE",
+              "TEXTBOX_LIST",
+              "FILE_UPLOAD",
+              "RADIO"
+            ],
+            "description": "Type of field that you are trying to create"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder",
+            "example": "3v34PM428h8vShlRW1KT"
+          },
+          "fieldKey": {
+            "type": "string",
+            "description": "Field key. For Custom Object it's formatted as \"custom_object.{objectKey}.{fieldKey}\". \"custom_object\" is a fixed prefix, \"{objectKey}\" is your custom object's identifier, and \"{fieldName}\" is the unique field name within that object. Example: \"custom_object.pet.name\" for a \"name\" field in a \"pet\" custom object.",
+            "example": "custom_object.pet.name"
+          },
+          "allowCustomOption": {
+            "type": "boolean",
+            "description": "Determines if users can add a custom option value different from the predefined options in records for RADIO type fields. A custom value added in one record does not automatically become an option and will not appear as an option for other records.",
+            "example": true
+          },
+          "maxFileLimit": {
+            "type": "number",
+            "description": "Maximum file limit for uploads",
+            "example": 2
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date and time when the object was added",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date and time when the object was last updated",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "locationId",
+          "showInForms",
+          "id",
+          "objectKey",
+          "dataType",
+          "parentId",
+          "fieldKey",
+          "dateAdded",
+          "dateUpdated"
+        ]
+      },
+      "CustomObjectByIdResponseDTO": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "$ref": "#/components/schemas/ICustomObjectSchema"
+          },
+          "cache": {
+            "type": "boolean",
+            "description": "Is the response served from cache",
+            "example": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICustomField"
+            }
+          }
+        },
+        "required": [
+          "cache"
+        ]
+      },
+      "CustomObjectListResponseDTO": {
+        "type": "object",
+        "properties": {
+          "objects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICustomObjectSchema"
+            }
+          }
+        }
+      },
+      "CustomObjectDisplayPropertyDetails": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "custom_objects.pet.name",
+            "description": "key that would be used to refer the custom field internally (lowercase + underscore_separated). 'custom_objects.{{objectKey}}' would be added as prefix by default is not passed"
+          },
+          "name": {
+            "type": "string",
+            "example": "Pet name",
+            "description": "Name of the Primary property name which will be displayed on the record page"
+          },
+          "dataType": {
+            "type": "string",
+            "example": "TEXT",
+            "description": "Primary property data Type (it can either be TEXT or NUMERICAL type)"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "dataType"
+        ]
+      },
+      "CreateCustomObjectSchemaDTO": {
+        "type": "object",
+        "properties": {
+          "labels": {
+            "example": {
+              "singular": "Pet",
+              "plural": "Pets"
+            },
+            "description": "This is what your custom object will be called. These labels will be used to display your custom object on the UI",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomObjectLabelDto"
+              }
+            ]
+          },
+          "key": {
+            "type": "string",
+            "example": "custom_objects.pet",
+            "description": "key that would be used to refer the Custom Object internally (lowercase + underscore_separated). 'custom_objects.' would be added as prefix by default"
+          },
+          "description": {
+            "type": "string",
+            "example": "These are non vaccinated pets",
+            "description": "Pet Object`s description"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "primaryDisplayPropertyDetails": {
+            "description": "Primary property which will be displayed on the record page",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomObjectDisplayPropertyDetails"
+              }
+            ]
+          }
+        },
+        "required": [
+          "labels",
+          "key",
+          "locationId",
+          "primaryDisplayPropertyDetails"
+        ]
+      },
+      "CustomObjectResponseDTO": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "$ref": "#/components/schemas/ICustomObjectSchema"
+          }
+        }
+      },
+      "CustomObjectLabelUpdateDto": {
+        "type": "object",
+        "properties": {
+          "singular": {
+            "type": "string",
+            "example": "Car",
+            "description": "Singular name of the custom object"
+          },
+          "plural": {
+            "type": "string",
+            "example": "Cars",
+            "description": "Plural name of the custom object"
+          }
+        }
+      },
+      "UpdateCustomObjectSchemaDTO": {
+        "type": "object",
+        "properties": {
+          "labels": {
+            "example": {
+              "singular": "Pet",
+              "plural": "Pets"
+            },
+            "description": "This is how your custom object will  be  displayed",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomObjectLabelUpdateDto"
+              }
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "These are non vaccinated pets",
+            "description": "Pet Object`s description",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "description": "location id",
+            "example": "632c34b4c9b7da3358ac9891"
+          },
+          "searchableProperties": {
+            "description": "Searchable Fields: Provide the field key of your object that you want to search on, using the format (custom_object.<object_name>.<field_key>).",
+            "example": [
+              "custom_objects.mad.mad",
+              "custom_objects.mad.record_1",
+              "custom_objects.mad.nn"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "locationId",
+          "searchableProperties"
+        ]
+      },
+      "IRecordSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "661c06b4ffde146bdb469442",
+            "description": "id of the record"
+          },
+          "owner": {
+            "description": "Owner (User's id). Limited to 1 for now. Only Supported with custom objects",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followers": {
+            "description": "Follower (User's ids). Limited to 10 for now",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "v5cEPM428h8vShlRW1KT"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "properties": {
+            "type": "string",
+            "example": {
+              "customer_number": 1424,
+              "ticket_name": "Customer not able login",
+              "phone_number": "+917000000000",
+              "money": {
+                "currency": "default",
+                "value": 100
+              },
+              "type_of_ticket": "doubt",
+              "section_of_app": [
+                "contacts",
+                "smartlist"
+              ],
+              "recieved_on": "2024-07-11",
+              "my_files": [
+                {
+                  "url": "---url_of_file---"
+                }
+              ],
+              "my_textbox_list.option_a": "Value 1",
+              "my_textbox_list.option_b": "Value 2"
+            },
+            "description": "Properties of the record"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date and time when the object was added",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date and time when the object was last updated",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "owner",
+          "followers",
+          "properties",
+          "dateAdded",
+          "dateUpdated"
+        ]
+      },
+      "RecordByIdResponseDTO": {
+        "type": "object",
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/IRecordSchema"
+          }
+        }
+      },
+      "CreateCustomObjectRecordDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateCustomObjectRecordDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ObjectRecordDeleteResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id of the deleted object",
+            "example": "661c06b4ffde146bdb469442"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "boolean that defines if the operation was a success or not",
+            "example": true
+          }
+        }
+      },
+      "SearchRecordsBody": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "page": {
+            "type": "number",
+            "description": "Page",
+            "example": 1
+          },
+          "pageLimit": {
+            "type": "number",
+            "description": "Page Limit",
+            "example": 10
+          },
+          "query": {
+            "type": "string",
+            "example": "Buddy",
+            "description": "Pass this query parameter to search using your searchable properties. For example, if you have a custom object called “Pets” and have configured “name” as a searchable property, you can pass name:Buddy to search for pets with the name “Buddy.”"
+          },
+          "searchAfter": {
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "locationId",
+          "page",
+          "pageLimit",
+          "query",
+          "searchAfter"
+        ]
+      },
+      "CreatedByResponseDTO": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Creation Channel",
+            "example": "WEB_USER"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created At",
+            "example": "2025-01-02T09:35:39.032Z"
+          },
+          "source": {
+            "type": "string",
+            "description": "From where the record was created",
+            "example": "PUBLIC_API"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "User/Resource Id",
+            "example": "26653146-ec82-435d-8a99-84ecdb7fde13"
+          }
+        },
+        "required": [
+          "channel",
+          "createdAt",
+          "source",
+          "sourceId"
+        ]
+      },
+      "RecordResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "661c06b4ffde146bdb469442",
+            "description": "id of the record"
+          },
+          "owner": {
+            "description": "Owner (User's id). Limited to 1 for now . Only supported for custom objects for now",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followers": {
+            "description": "Follower (User's ids). Limited to 10 and supported for custom objects for now",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "v5cEPM428h8vShlRW1KT"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "properties": {
+            "type": "string",
+            "example": {
+              "customer_number": 1424,
+              "ticket_name": "Customer not able login",
+              "phone_number": "+917000000000",
+              "money": {
+                "currency": "default",
+                "value": 100
+              },
+              "type_of_ticket": "doubt",
+              "section_of_app": [
+                "contacts",
+                "smartlist"
+              ],
+              "recieved_on": "2024-07-11",
+              "my_files": [
+                {
+                  "url": "---url_of_file---"
+                }
+              ],
+              "my_textbox_list.option_a": "Value 1",
+              "my_textbox_list.option_b": "Value 2"
+            },
+            "description": "Properties of the record"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date and time when the object was added",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date and time when the object was last updated",
+            "format": "date-time"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "objectId": {
+            "type": "string",
+            "description": "ObjectId Id",
+            "example": "6d6f6e676f5f6576656e7473"
+          },
+          "objectKey": {
+            "type": "string",
+            "description": "ObjectId key",
+            "example": "custom_objects.pet"
+          },
+          "createdBy": {
+            "description": "Created By Meta",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CreatedByResponseDTO"
+              }
+            ]
+          },
+          "lastUpdatedBy": {
+            "description": "Last Updated By Meta",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CreatedByResponseDTO"
+              }
+            ]
+          },
+          "searchAfter": {
+            "example": [
+              1738683828372,
+              "67a235b49b289431bcf657f8"
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "owner",
+          "followers",
+          "properties",
+          "createdAt",
+          "updatedAt",
+          "locationId",
+          "objectId",
+          "objectKey",
+          "createdBy",
+          "lastUpdatedBy",
+          "searchAfter"
+        ]
+      },
+      "SearchRecordResponseDTO": {
+        "type": "object",
+        "properties": {
+          "records": {
+            "description": "Records",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecordResponseDTO"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total Number of records",
+            "example": 20
+          }
+        },
+        "required": [
+          "total"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Objects",
+    "tags": [
+      "Custom Objects Schema",
+      "Object Schema",
+      "Sub-Account (Formerly Location)",
+      "Records",
+      "Search Object Records",
+      "Search",
+      "Tags",
+      "Tasks Search",
+      "Custom Field",
+      "Custom Value",
+      "Timezone",
+      "Template",
+      "ElasticSearch"
+    ]
+  }
+}

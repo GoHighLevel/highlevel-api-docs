@@ -1,0 +1,5742 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/payments/integrations/provider/whitelabel": {
+      "post": {
+        "operationId": "create-integration provider",
+        "summary": "Create White-label Integration Provider",
+        "description": "The \"Create White-label Integration Provider\" API allows adding a new payment provider integration to the system which is built on top of Authorize.net or NMI. Use this endpoint to create a integration provider with the specified details. Ensure that the required information is provided in the request payload. This endpoint can be only invoked using marketplace-app token",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWhiteLabelIntegrationProviderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWhitelabelIntegrationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/integration.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-integration-providers",
+        "summary": "List White-label Integration Providers",
+        "description": "The \"List White-label Integration Providers\" API allows to retrieve a paginated list of integration providers. Customize your results by filtering whitelabel integration providers(which are built directly on top of Authorize.net or NMI) based on name or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve integration provider information.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "location Id / company Id based on altType",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "Alt Type",
+            "schema": {
+              "example": "location",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 0,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListWhitelabelIntegrationProviderResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/integration.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/orders": {
+      "get": {
+        "operationId": "list-orders",
+        "summary": "List Orders",
+        "description": "The \"List Orders\" API allows to retrieve a paginated list of orders. Customize your results by filtering orders based on name, alt type, order status, payment mode, date range, type of source, contact, funnel products or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve order information.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "description": "LocationId is the id of the sub-account.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "AltId is the unique identifier e.g: location id.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Order status.",
+            "schema": {
+              "example": "completed",
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentStatus",
+            "required": false,
+            "in": "query",
+            "description": "Payment Status of the Order",
+            "schema": {
+              "example": "unpaid",
+              "enum": [
+                "paid",
+                "unpaid",
+                "refunded",
+                "partially_paid"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentMode",
+            "required": false,
+            "in": "query",
+            "description": "Mode of payment.",
+            "schema": {
+              "example": "live",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startAt",
+            "required": false,
+            "in": "query",
+            "description": "Starting interval of orders.",
+            "schema": {
+              "example": "2024-02-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endAt",
+            "required": false,
+            "in": "query",
+            "description": "Closing interval of orders.",
+            "schema": {
+              "example": "2024-02-13",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "The name of the order for searching.",
+            "schema": {
+              "example": "Awesome order",
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Contact id for filtering of orders.",
+            "schema": {
+              "example": "XPLSw2SVagl12LMDeTmQ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "funnelProductIds",
+            "required": false,
+            "in": "query",
+            "description": "Funnel product ids separated by comma.",
+            "schema": {
+              "example": "61dd0c7dc077f712a5f787ff,61d6afc9d39ac5e35965c017",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceId",
+            "required": false,
+            "in": "query",
+            "description": "Source id",
+            "schema": {
+              "example": "61dd0c7dc077f712a5f787ff",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 10,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOrdersResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/orders.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/orders/{orderId}": {
+      "get": {
+        "operationId": "get-order-by-id",
+        "summary": "Get Order by ID",
+        "description": "The \"Get Order by ID\" API allows to retrieve information for a specific order using its unique identifier. Use this endpoint to fetch details for a single order based on the provided order ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "orderId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the order that needs to be returned",
+            "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "description": "LocationId is the id of the sub-account.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "AltId is the unique identifier e.g: location id.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrderResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/orders.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/orders/{orderId}/record-payment": {
+      "post": {
+        "operationId": "record-order-payment",
+        "summary": "Record Order Payment",
+        "description": "The \"Record Order Payment\" API allows to record a payment for an order. Use this endpoint to record payment for an order and update the order status to \"Paid\".",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "orderId",
+            "required": true,
+            "in": "path",
+            "description": "Order ID",
+            "schema": {
+              "example": "5e2d4c8e0e8b4e001c1c4f5d",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostRecordOrderPaymentBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostRecordOrderPaymentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/orders.collectPayment"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/orders/{orderId}/fulfillments": {
+      "post": {
+        "operationId": "create-order-fulfillment",
+        "summary": "Create order fulfillment",
+        "description": "The \"Order Fulfillment\" API facilitates the process of fulfilling an order.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "orderId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the order that needs to be returned",
+            "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateFulfillmentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Order fulfillments"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/orders.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-order-fulfillment",
+        "summary": "List fulfillment",
+        "description": "List all fulfillment history of an order",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the order that needs to be returned",
+            "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListFulfillmentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Order fulfillments"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/orders.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/orders/{orderId}/notes": {
+      "get": {
+        "operationId": "list-order-notes",
+        "summary": "List Order Notes",
+        "description": "List all notes of an order",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id or Agency Id",
+            "schema": {
+              "example": "6578278e879ad2646715ba9c",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the order that needs to be returned",
+            "schema": {
+              "example": "653f5e0cde5a1314e62a837c",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Order Notes"
+        ],
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/payments/transactions": {
+      "get": {
+        "operationId": "list-transactions",
+        "summary": "List Transactions",
+        "description": "The \"List Transactions\" API allows to retrieve a paginated list of transactions. Customize your results by filtering transactions based on name, alt type, transaction status, payment mode, date range, type of source, contact, subscription id, entity id or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve transaction information.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "description": "LocationId is the id of the sub-account.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "AltId is the unique identifier e.g: location id.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "AltType is the type of identifier.",
+            "schema": {
+              "example": "location",
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentMode",
+            "required": false,
+            "in": "query",
+            "description": "Mode of payment.",
+            "schema": {
+              "example": "live",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startAt",
+            "required": false,
+            "in": "query",
+            "description": "Starting interval of transactions.",
+            "schema": {
+              "example": "2024-02-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endAt",
+            "required": false,
+            "in": "query",
+            "description": "Closing interval of transactions.",
+            "schema": {
+              "example": "2024-02-13",
+              "type": "string"
+            }
+          },
+          {
+            "name": "entitySourceType",
+            "required": false,
+            "in": "query",
+            "description": "Source of the transactions.",
+            "schema": {
+              "example": "funnel",
+              "type": "string"
+            }
+          },
+          {
+            "name": "entitySourceSubType",
+            "required": false,
+            "in": "query",
+            "description": "Source sub-type of the transactions.",
+            "schema": {
+              "example": "two_step_order_form",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "The name of the transaction for searching.",
+            "schema": {
+              "example": "Awesome transaction",
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscriptionId",
+            "required": false,
+            "in": "query",
+            "description": "Subscription id for filtering of transactions.",
+            "schema": {
+              "example": "sub_1KGcXDCScnf89tZoVkoEMCEL",
+              "type": "string"
+            }
+          },
+          {
+            "name": "entityId",
+            "required": false,
+            "in": "query",
+            "description": "Entity id for filtering of transactions.",
+            "schema": {
+              "example": "61dd0fe9c077f73e67f78803",
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Contact id for filtering of transactions.",
+            "schema": {
+              "example": "XPLSw2SVagl12LMDeTmQ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 10,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListTxnsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Transactions"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/transactions.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/transactions/{transactionId}": {
+      "get": {
+        "operationId": "get-transaction-by-id",
+        "summary": "Get Transaction by ID",
+        "description": "The \"Get Transaction by ID\" API allows to retrieve information for a specific transaction using its unique identifier. Use this endpoint to fetch details for a single transaction based on the provided transaction ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the transaction that needs to be returned",
+            "schema": {
+              "example": "61dd0feac077f72010f78804",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "description": "LocationId is the id of the sub-account.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "AltId is the unique identifier e.g: location id.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "AltType is the type of identifier.",
+            "schema": {
+              "example": "location",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTxnResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Transactions"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/transactions.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/subscriptions": {
+      "get": {
+        "operationId": "list-subscriptions",
+        "summary": "List Subscriptions",
+        "description": "The \"List Subscriptions\" API allows to retrieve a paginated list of subscriptions. Customize your results by filtering subscriptions based on name, alt type, subscription status, payment mode, date range, type of source, contact, subscription id, entity id, contact or paginate through the list using the provided query parameters. This endpoint provides a straightforward way to explore and retrieve subscription information.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "AltId is the unique identifier e.g: location id.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "AltType is the type of identifier.",
+            "schema": {
+              "example": "location",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "entityId",
+            "required": false,
+            "in": "query",
+            "description": "Entity id for filtering of subscriptions.",
+            "schema": {
+              "example": "61dd0fe9c077f73e67f78803",
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentMode",
+            "required": false,
+            "in": "query",
+            "description": "Mode of payment.",
+            "schema": {
+              "example": "live",
+              "type": "string"
+            }
+          },
+          {
+            "name": "startAt",
+            "required": false,
+            "in": "query",
+            "description": "Starting interval of subscriptions.",
+            "schema": {
+              "example": "2024-02-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endAt",
+            "required": false,
+            "in": "query",
+            "description": "Closing interval of subscriptions.",
+            "schema": {
+              "example": "2024-02-13",
+              "type": "string"
+            }
+          },
+          {
+            "name": "entitySourceType",
+            "required": false,
+            "in": "query",
+            "description": "Source of the subscriptions.",
+            "schema": {
+              "example": "funnel",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "The name of the subscription for searching.",
+            "schema": {
+              "example": "Awesome subscription",
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Contact ID for the subscription",
+            "schema": {
+              "example": "AmuzcoPBpgKeccNsFlib",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "description": "Subscription id for filtering of subscriptions.",
+            "schema": {
+              "example": "64bf78af39118e4011926cba",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The maximum number of items to be included in a single page of results",
+            "schema": {
+              "default": 10,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The starting index of the page, indicating the position from which the results should be retrieved.",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "getPaymentsCollectedCount",
+            "required": false,
+            "in": "query",
+            "description": "Get the total payments collected for the subscription.",
+            "schema": {
+              "example": "true",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubscriptionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/subscriptions.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/subscriptions/{subscriptionId}": {
+      "get": {
+        "operationId": "get-subscription-by-id",
+        "summary": "Get Subscription by ID",
+        "description": "The \"Get Subscription by ID\" API allows to retrieve information for a specific subscription using its unique identifier. Use this endpoint to fetch details for a single subscription based on the provided subscription ID.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "subscriptionId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the subscription that needs to be returned",
+            "schema": {
+              "example": "6322e9c9e39fc14ab3ed7042",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "AltId is the unique identifier e.g: location id.",
+            "schema": {
+              "example": "3SwdhCu3svxI8AKsPJt6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "AltType is the type of identifier.",
+            "schema": {
+              "example": "location",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSubscriptionResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/subscriptions.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/coupon/list": {
+      "get": {
+        "operationId": "list-coupons",
+        "summary": "List Coupons",
+        "description": "The \"List Coupons\" API allows you to retrieve a list of all coupons available in your location. Use this endpoint to view all promotional offers and special discounts for your customers.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "BQdAwxa0ky1iK2sstLGJ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "Alt Type",
+            "schema": {
+              "example": "location",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of coupons to return",
+            "schema": {
+              "default": 100,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of coupons to skip for pagination",
+            "schema": {
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter coupons by status",
+            "schema": {
+              "example": "active",
+              "enum": [
+                "scheduled",
+                "active",
+                "expired"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term to filter coupons by name or code",
+            "schema": {
+              "example": "DEAL50",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListCouponsResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Coupons"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/coupons.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/coupon": {
+      "post": {
+        "operationId": "create-coupon",
+        "summary": "Create Coupon",
+        "description": "The \"Create Coupon\" API allows you to create a new promotional coupon with customizable parameters such as discount amount, validity period, usage limits, and applicable products. Use this endpoint to set up promotional offers and special discounts for your customers.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCouponParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCouponResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Coupons"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/coupons.write"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-coupon",
+        "summary": "Update Coupon",
+        "description": "The \"Update Coupon\" API enables you to modify existing coupon details such as discount values, validity periods, usage limits, and other promotional parameters. Use this endpoint to adjust or extend promotional offers for your customers.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCouponParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCouponResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Coupons"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/coupons.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-coupon",
+        "summary": "Delete Coupon",
+        "description": "The \"Delete Coupon\" API allows you to permanently remove a coupon from your system using its unique identifier. Use this endpoint to discontinue promotional offers or clean up unused coupons. Note that this action cannot be undone.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCouponParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteCouponResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Coupons"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/coupons.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get-coupon",
+        "summary": "Fetch Coupon",
+        "description": "The \"Get Coupon Details\" API enables you to retrieve comprehensive information about a specific coupon using either its unique identifier or promotional code. Use this endpoint to view coupon parameters, usage statistics, validity periods, and other promotional details.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "BQdAwxa0ky1iK2sstLGJ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "Alt Type",
+            "schema": {
+              "example": "location",
+              "enum": [
+                "location"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "description": "Coupon id",
+            "schema": {
+              "example": "6241712be68f7a98102ba272",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "required": true,
+            "in": "query",
+            "description": "Coupon code",
+            "schema": {
+              "example": "DEAL50",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCouponResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Coupons"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/coupons.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/custom-provider/provider": {
+      "post": {
+        "operationId": "create-integration",
+        "summary": "Create new integration",
+        "description": "API to create a new association for an app and location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location id",
+            "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomProvidersDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomProvidersResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Provider"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-integration",
+        "summary": "Deleting an existing integration",
+        "description": "API to delete an association for an app and location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location id",
+            "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteCustomProvidersResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Provider"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/custom-provider/connect": {
+      "get": {
+        "operationId": "fetch-config",
+        "summary": "Fetch given provider config",
+        "description": "API for fetching an existing payment config for given location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location id",
+            "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCustomProvidersResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No such config exists for given locationId and marketplaceAppId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Provider"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/custom-provider.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-config",
+        "summary": "Create new provider config",
+        "description": "API to create a new payment config for given location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location id",
+            "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectCustomProvidersConfigDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectCustomProvidersResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No such config exists for given locationId and marketplaceAppId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Provider"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/custom-provider/disconnect": {
+      "post": {
+        "operationId": "disconnect-config",
+        "summary": "Disconnect existing provider config",
+        "description": "API to disconnect an existing payment config for given location",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location id",
+            "schema": {
+              "example": "Lk3nlfk4lxlelVEwcW",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCustomProvidersConfigDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisconnectCustomProvidersResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No such config exists for given locationId and marketplaceAppId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Provider"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/custom-provider/capabilities": {
+      "put": {
+        "operationId": "custom-provider-marketplace-app-update-capabilities",
+        "summary": "Custom-provider marketplace app update capabilities",
+        "description": "Toggle capabilities for the marketplace app tied to the OAuth client",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomProviderCapabilitiesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCustomProviderCapabilitiesResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Custom Provider"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "payments/custom-provider.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Payments API",
+    "description": "Documentation for payments API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Payments",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Integrations",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Orders",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Order fulfillments",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Order Notes",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Transactions",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Subscriptions",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Coupons",
+      "description": "Documentation for payments API"
+    },
+    {
+      "name": "Custom Provider",
+      "description": "Documentation for payments API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateWhiteLabelIntegrationProviderDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "location Id / company Id based on altType",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Alt Type",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "uniqueName": {
+            "type": "string",
+            "description": "A unique name given to the integration provider, uniqueName must start and end with a character. Only lowercase characters and hyphens (-) are supported",
+            "example": "easy-direct"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title or name of the integration provider.",
+            "example": "Title"
+          },
+          "provider": {
+            "type": "string",
+            "description": "The type of payment provider associated with the integration provider.",
+            "enum": [
+              "authorize-net",
+              "nmi"
+            ],
+            "example": {
+              "AUTHORIZE_NET": "authorize-net",
+              "NMI": "nmi"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description providing additional information about the integration provider.",
+            "example": "Description"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "The URL to an image representing the integration provider. The imageUrl should start with \"https://\" and ensure that this URL is publicly accessible.",
+            "example": "https://example.com/image.jpg"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "uniqueName",
+          "title",
+          "provider",
+          "description",
+          "imageUrl"
+        ]
+      },
+      "CreateWhitelabelIntegrationResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier of the integration provider.",
+            "example": "65cb47dda50f4f13ced4b870"
+          },
+          "altId": {
+            "type": "string",
+            "description": "The altId / locationId of the integration provider.",
+            "example": "Z4Bxl8J4SaPEPLq9IQ8g"
+          },
+          "altType": {
+            "type": "string",
+            "description": "The altType of the integration provider.",
+            "example": "location"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title or name of the integration provider.",
+            "example": "Example"
+          },
+          "route": {
+            "type": "string",
+            "description": "The route name associated with the integration provider.",
+            "example": "epd"
+          },
+          "provider": {
+            "type": "string",
+            "description": "The payment provider associated with the integration provider.",
+            "example": "nmi"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description providing additional information about the integration provider.",
+            "example": "Lorem"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "The URL to an image representing the integration provider.",
+            "example": "https://example.com/assets/pmd/img/payments/nmi-logo.webp"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The timestamp when the integration provider was created.",
+            "example": "2024-02-13T10:43:41.026Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The timestamp when the integration provider was last updated.",
+            "example": "2024-02-13T10:43:41.026Z"
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "altType",
+          "title",
+          "route",
+          "provider",
+          "description",
+          "imageUrl",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "IntegrationProviderSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier of the integration provider.",
+            "example": "65cb47dda50f4f13ced4b870"
+          },
+          "altId": {
+            "type": "string",
+            "description": "The altId / locationId of the integration provider.",
+            "example": "Z4Bxl8J4SaPEPLq9IQ8g"
+          },
+          "altType": {
+            "type": "string",
+            "description": "The altType of the integration provider.",
+            "example": "location"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title or name of the integration provider.",
+            "example": "Example"
+          },
+          "route": {
+            "type": "string",
+            "description": "The route name associated with the integration provider.",
+            "example": "epd"
+          },
+          "provider": {
+            "type": "string",
+            "description": "The payment provider associated with the integration provider.",
+            "example": "nmi"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description providing additional information about the integration provider.",
+            "example": "Lorem"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "The URL to an image representing the integration provider.",
+            "example": "https://example.com/assets/pmd/img/payments/nmi-logo.webp"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The timestamp when the integration provider was created.",
+            "example": "2024-02-13T10:43:41.026Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The timestamp when the integration provider was last updated.",
+            "example": "2024-02-13T10:43:41.026Z"
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "altType",
+          "title",
+          "route",
+          "provider",
+          "description",
+          "imageUrl",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListWhitelabelIntegrationProviderResponseDto": {
+        "type": "object",
+        "properties": {
+          "providers": {
+            "description": "list of integration provider.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IntegrationProviderSchema"
+              }
+            ]
+          }
+        },
+        "required": [
+          "providers"
+        ]
+      },
+      "OrderResponseSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the order.",
+            "example": "653f5e0cde5a1314e62a837c"
+          },
+          "altId": {
+            "type": "string",
+            "description": "AltId is the unique identifier eg: location id.",
+            "example": "3SwdhCu3svxI8AKsPJt6"
+          },
+          "altType": {
+            "type": "string",
+            "example": "location",
+            "description": "AltType is the type of identifier."
+          },
+          "contactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "Contact id corresponding to the order."
+          },
+          "contactName": {
+            "type": "string",
+            "example": "James Bond",
+            "description": "Contact name corresponding to the order."
+          },
+          "contactEmail": {
+            "type": "string",
+            "example": "james.bond@gohighlevel.com",
+            "description": "Contact email corresponding to the order."
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency in which order was created."
+          },
+          "amount": {
+            "type": "number",
+            "example": "100",
+            "description": "Order value."
+          },
+          "subtotal": {
+            "type": "number",
+            "example": "100",
+            "description": "Order sub-total value."
+          },
+          "discount": {
+            "type": "number",
+            "example": "10",
+            "description": "Discount value on order."
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the order (e.g., completed).",
+            "example": "completed"
+          },
+          "liveMode": {
+            "type": "boolean",
+            "example": "false",
+            "description": "Order is in live / test mode."
+          },
+          "totalProducts": {
+            "type": "number",
+            "example": "5",
+            "description": "Total products in an order."
+          },
+          "sourceType": {
+            "type": "string",
+            "example": "funnel",
+            "description": "Source type of order (eg: funnel)."
+          },
+          "sourceName": {
+            "type": "string",
+            "example": "onestep",
+            "description": "Source name for the order."
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source id for the order.",
+            "example": "kDj7BHej9Zyyq3QakJmz"
+          },
+          "sourceMeta": {
+            "type": "object",
+            "description": "Meta content for the source of order.",
+            "example": "{ domain: \"app.gohighlevel.com\", pageId:  \"rBVhyYhMsbxbO8ZqOcei\", pageUrl:  \"/v2/preview/rBVhyYhMsbxbO8ZqOcei\", stepId:   \"5a772f62-3fbc-418b-af1b-be8929dd64c2\"}"
+          },
+          "couponCode": {
+            "type": "string",
+            "description": "Coupon code for the order.",
+            "example": "100PER"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the order.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the order.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "sourceSubType": {
+            "type": "string",
+            "description": "Source sub-type for the order.",
+            "example": "one_step_order_form"
+          },
+          "fulfillmentStatus": {
+            "type": "string",
+            "description": "Fulfillment status of the order.",
+            "example": "unfulfilled"
+          },
+          "onetimeProducts": {
+            "type": "number",
+            "example": "1",
+            "description": "Total one time products in an order."
+          },
+          "recurringProducts": {
+            "type": "number",
+            "example": "1",
+            "description": "Total recurring time products in an order."
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the order."
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "altType",
+          "status",
+          "sourceType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListOrdersResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "An array of orders",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderResponseSchema"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "total orders count"
+          }
+        },
+        "required": [
+          "data",
+          "totalCount"
+        ]
+      },
+      "AmountSummary": {
+        "type": "object",
+        "properties": {
+          "subtotal": {
+            "type": "number",
+            "example": "100",
+            "description": "Order sub-total value."
+          },
+          "discount": {
+            "type": "number",
+            "example": "10",
+            "description": "Discount value on order."
+          }
+        },
+        "required": [
+          "subtotal"
+        ]
+      },
+      "OrderSource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "funnel",
+              "website",
+              "invoice",
+              "calendar",
+              "text2Pay",
+              "document_contracts",
+              "membership",
+              "mobile_app",
+              "communities",
+              "point_of_sale",
+              "manual",
+              "form",
+              "survey",
+              "payment_link",
+              "external"
+            ]
+          },
+          "subType": {
+            "type": "string",
+            "enum": [
+              "one_step_order_form",
+              "two_step_order_form",
+              "upsell",
+              "tap_to_pay",
+              "card_payment",
+              "store",
+              "contact_view",
+              "email_campaign",
+              "payments_dashboard",
+              "shopify",
+              "subscription_view",
+              "store_upsell",
+              "woocommerce",
+              "service",
+              "meeting",
+              "imported_csv",
+              "qr_code",
+              "saas_one_time",
+              "saas_subscription"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "meta": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ]
+      },
+      "GetOrderResponseSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the order.",
+            "example": "653f5e0cde5a1314e62a837c"
+          },
+          "altId": {
+            "type": "string",
+            "description": "AltId is the unique identifier eg: location id.",
+            "example": "3SwdhCu3svxI8AKsPJt6"
+          },
+          "altType": {
+            "type": "string",
+            "example": "location",
+            "description": "AltType is the type of identifier."
+          },
+          "contactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "Contact id corresponding to the order."
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency in which order was created."
+          },
+          "amount": {
+            "type": "number",
+            "example": "100",
+            "description": "Order value."
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the order (e.g., completed).",
+            "example": "completed"
+          },
+          "liveMode": {
+            "type": "boolean",
+            "example": "false",
+            "description": "Order is in live / test mode."
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the order.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the order.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "fulfillmentStatus": {
+            "type": "string",
+            "description": "Fulfillment status of the order.",
+            "example": "unfulfilled"
+          },
+          "contactSnapshot": {
+            "type": "object",
+            "description": "Contact details of the order.",
+            "example": "{ last_name: \"Mcclain\", type: \"lead\", first_name_lower_case: \"rogan\", email: \"anish+11@gohighlevel.com\", last_name_lower_case: \"mcclain\", location_id: \"o6241QsiRwUIJHyjuhos\", company_name: \"Jordan and Cox Trading\"}"
+          },
+          "amountSummary": {
+            "description": "Amount details of the order.",
+            "example": "{ subtotal: 100, discount: 5 }",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AmountSummary"
+              }
+            ]
+          },
+          "source": {
+            "description": "Source details of the order.",
+            "example": "{ type: \"invoice\", id: \"61dd48ff65b013bc39bb09c6\" }",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderSource"
+              }
+            ]
+          },
+          "items": {
+            "description": "Item details of the order.",
+            "example": "{ _id: 61dd33e88058b9f967ca79dc, authorizeAmount: 0, locationId: \"SBAWb4yu7A4LSc0skQ6g\", name: \"Sample Product\": price: {}, product: { name: \"Testing product\", productType: \"SERVICE\" }}",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "coupon": {
+            "type": "object",
+            "description": "Coupon details of the order.",
+            "example": "{ code: \"FEST10\", _id: \"63455e48901b43d4ef364a20\" }"
+          },
+          "trackingId": {
+            "type": "string",
+            "description": "Tracking id of the order.",
+            "example": "63319ef9-de0a-4c84-aebd-3585fb4a0cdf"
+          },
+          "fingerprint": {
+            "type": "string",
+            "description": "Fingerprint id of the order.",
+            "example": "5d51db5a-42b0-4b04-ba88-2c046c982a3a"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Meta details of the order.",
+            "example": "{ couponSessionExpired: true }"
+          },
+          "markAsTest": {
+            "type": "boolean",
+            "description": "Is test order.",
+            "example": "false"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace id of the order.",
+            "example": "d3b16a92-a8ed-4e6b-8467-844750f78ed5"
+          },
+          "automaticTaxesCalculated": {
+            "type": "boolean",
+            "description": "Automatic taxes applied for the Order",
+            "example": true
+          },
+          "taxCalculationProvider": {
+            "type": "object",
+            "description": "Provider name for automatic tax calculation",
+            "example": "taxjar"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the order."
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "altType",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CardDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "visa",
+              "mastercard",
+              "other"
+            ],
+            "example": "mastercard"
+          },
+          "last4": {
+            "type": "string",
+            "description": "Last 4 digit of the card",
+            "example": "1234"
+          }
+        },
+        "required": [
+          "type",
+          "last4"
+        ]
+      },
+      "ChequeDto": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string",
+            "description": "check number",
+            "example": "129-129-129-912"
+          }
+        },
+        "required": [
+          "number"
+        ]
+      },
+      "PostRecordOrderPaymentBody": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "location Id / company Id based on altType",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Alt Type",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "mode": {
+            "type": "string",
+            "description": "manual payment method",
+            "enum": [
+              "cash",
+              "card",
+              "cheque",
+              "bank_transfer",
+              "other"
+            ],
+            "example": "card"
+          },
+          "card": {
+            "description": "Details of Card if used for payment",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CardDto"
+              }
+            ]
+          },
+          "cheque": {
+            "description": "Details of the Cheque if used for payment",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChequeDto"
+              }
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "description": "Any note to be recorded with the transaction",
+            "example": "This was a direct payment"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount to be paid against the invoice.",
+            "example": 100
+          },
+          "meta": {
+            "type": "object",
+            "description": "Meta data to be recorded with the transaction"
+          },
+          "isPartialPayment": {
+            "type": "boolean",
+            "description": "Indicates if the order is intended to be a partial payment."
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "mode"
+        ]
+      },
+      "PostRecordOrderPaymentResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success status of the request",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "FulfillmentTracking": {
+        "type": "object",
+        "properties": {
+          "trackingNumber": {
+            "type": "string",
+            "description": "Tracking number provided by the shipping carrier",
+            "example": "40012345678"
+          },
+          "shippingCarrier": {
+            "type": "string",
+            "description": "Shipping carrier name",
+            "example": "FedEx"
+          },
+          "trackingUrl": {
+            "type": "string",
+            "description": "Tracking URL",
+            "example": "https://www.fedex.com/wtrk/track/?trknbr=40012345678"
+          }
+        }
+      },
+      "FulfillmentItems": {
+        "type": "object",
+        "properties": {
+          "priceId": {
+            "type": "string",
+            "description": "The id of product price",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "qty": {
+            "type": "number",
+            "description": "The no of quantity of the item",
+            "example": 1
+          }
+        },
+        "required": [
+          "priceId",
+          "qty"
+        ]
+      },
+      "CreateFulfillmentDto": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "trackings": {
+            "description": "Fulfillment tracking information",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentTracking"
+            }
+          },
+          "items": {
+            "description": "Fulfilled items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentItems"
+            }
+          },
+          "notifyCustomer": {
+            "type": "boolean",
+            "description": "Need to send a notification to customer",
+            "example": true
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "trackings",
+          "items",
+          "notifyCustomer"
+        ]
+      },
+      "ProductVariantOptionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the option.",
+            "example": "h4z7u0im2q8"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the option.",
+            "example": "XL"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "ProductVariantDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the variant.",
+            "example": "38s63qmxfr4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the variant.",
+            "example": "Size"
+          },
+          "options": {
+            "description": "An array of options for the variant.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantOptionDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "options"
+        ]
+      },
+      "ProductLabelDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The content for the product label.",
+            "example": "Featured"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2024-06-26T05:43:35.000Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2024-06-30T05:43:39.000Z"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "DefaultProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "description": {
+            "type": "string",
+            "description": "product description",
+            "example": "This is a really awesome product"
+          },
+          "variants": {
+            "description": "An array of variants for the product.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "example": "Awesome Product"
+          },
+          "productType": {
+            "type": "string",
+            "description": "The type of the product (e.g., PHYSICAL).",
+            "example": "PHYSICAL"
+          },
+          "availableInStore": {
+            "type": "boolean",
+            "description": "Indicates whether the product is available in-store.",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the product.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the product.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "statementDescriptor": {
+            "type": "string",
+            "description": "The statement descriptor for the product.",
+            "example": "abcde"
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL for the product image.",
+            "example": "https://storage.googleapis.com/ghl-test/3SwdhCsvxI8Au3KsPJt6/media/65af8d5df88bdb4b1022ee90.png"
+          },
+          "collectionIds": {
+            "description": "An array of category Ids for the product",
+            "example": [
+              "65d71377c326ea78e1c47df5",
+              "65d71377c326ea78e1c47d34"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isTaxesEnabled": {
+            "type": "boolean",
+            "description": "The field indicates whether taxes are enabled for the product or not.",
+            "example": true,
+            "default": false
+          },
+          "taxes": {
+            "description": "An array of ids of Taxes attached to the Product. If the expand query includes tax, the taxes will be of type `ProductTaxDto`. Please refer to the `ProductTaxDto` for additional details.",
+            "example": [
+              "654492a4e6bef380114de15a"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "automaticTaxCategoryId": {
+            "type": "string",
+            "description": "Tax category ID for Automatic taxes calculation.",
+            "example": "65d71377c326ea78e1c47df5"
+          },
+          "label": {
+            "description": "The Product label details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductLabelDto"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the product by which the product will be navigated",
+            "example": "washing-machine"
+          }
+        },
+        "required": [
+          "_id",
+          "locationId",
+          "name",
+          "productType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "MembershipOfferDto": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Membership offer label",
+            "example": "top_50"
+          },
+          "value": {
+            "type": "string",
+            "description": "Membership offer label",
+            "example": "50"
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the membership offer.",
+            "example": "655b33aa2209e60b6adb87a7"
+          }
+        },
+        "required": [
+          "label",
+          "value",
+          "_id"
+        ]
+      },
+      "RecurringDto": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "type": "string",
+            "description": "The interval at which the recurring event occurs.",
+            "example": "day",
+            "enum": [
+              "day",
+              "month",
+              "week",
+              "year"
+            ]
+          },
+          "intervalCount": {
+            "type": "number",
+            "description": "The number of intervals between each occurrence of the event.",
+            "example": 1
+          }
+        },
+        "required": [
+          "interval",
+          "intervalCount"
+        ]
+      },
+      "DefaultPriceResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the price.",
+            "example": "655b33aa2209e60b6adb87a7"
+          },
+          "membershipOffers": {
+            "description": "An array of membership offers associated with the price.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipOfferDto"
+            }
+          },
+          "variantOptionIds": {
+            "description": "An array of variant option IDs associated with the price.",
+            "example": [
+              "h4z7u0im2q8",
+              "h3nst2ltsnn"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The unique identifier for the location.",
+            "example": "3SwdhCsvxI8Au3KsPJt6"
+          },
+          "product": {
+            "type": "string",
+            "description": "The unique identifier for the associated product.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier for the user.",
+            "example": "6YAtzfzpmHAdj0e8GkKp"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the price.",
+            "example": "Red / S"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the price (e.g., one_time).",
+            "example": "one_time",
+            "enum": [
+              "one_time",
+              "recurring"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code for the price.",
+            "example": "INR"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the price.",
+            "example": 199999
+          },
+          "recurring": {
+            "description": "The recurring details of the price (if type is recurring).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RecurringDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the price.",
+            "example": "2023-11-20T10:23:38.645Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the price.",
+            "example": "2024-01-23T09:57:04.852Z"
+          },
+          "compareAtPrice": {
+            "type": "number",
+            "description": "The compare-at price for comparison purposes.",
+            "example": 2000000
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether inventory tracking is enabled.",
+            "example": null
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available inventory stock quantity",
+            "example": 5
+          },
+          "allowOutOfStockPurchases": {
+            "type": "boolean",
+            "description": "Continue selling when out of stock",
+            "example": true
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "type",
+          "currency",
+          "amount"
+        ]
+      },
+      "FulfilledItem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The id of product price",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "example": "Iphone 15 pro"
+          },
+          "product": {
+            "description": "Product details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DefaultProductResponseDto"
+              }
+            ]
+          },
+          "price": {
+            "description": "Price details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DefaultPriceResponseDto"
+              }
+            ]
+          },
+          "qty": {
+            "type": "number",
+            "description": "The no of quantity of the current fulfilled item",
+            "example": 1
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "product",
+          "price",
+          "qty"
+        ]
+      },
+      "FulfillmentSchema": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id or Agency Id",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "altType": {
+            "type": "string",
+            "enum": [
+              "location"
+            ]
+          },
+          "trackings": {
+            "description": "Fulfillment tracking information",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentTracking"
+            }
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the fulfillment item.",
+            "example": "655b33a82209e60b6adb87a5"
+          },
+          "items": {
+            "description": "Fulfilled items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfilledItem"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "created at",
+            "example": "2023-12-12T09:27:42.355Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "updated at",
+            "example": "2023-12-12T09:27:42.355Z"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "trackings",
+          "_id",
+          "items",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateFulfillmentResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "data": {
+            "description": "fulfillment data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FulfillmentSchema"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "data"
+        ]
+      },
+      "ListFulfillmentResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Status of api action",
+            "example": true
+          },
+          "data": {
+            "description": "An array of fulfilled items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentSchema"
+            }
+          }
+        },
+        "required": [
+          "status",
+          "data"
+        ]
+      },
+      "TxnResponseSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the transaction.",
+            "example": "61dd0feac077f72010f78804"
+          },
+          "altId": {
+            "type": "string",
+            "description": "AltId is the unique identifier eg: location id.",
+            "example": "3SwdhCu3svxI8AKsPJt6"
+          },
+          "altType": {
+            "type": "string",
+            "example": "location",
+            "description": "AltType is the type of identifier."
+          },
+          "contactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "Contact id corresponding to the transaction."
+          },
+          "mergedFromContactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "ID of the contact that was merged from."
+          },
+          "contactName": {
+            "type": "string",
+            "example": "James Bond",
+            "description": "Contact name corresponding to the transaction."
+          },
+          "contactEmail": {
+            "type": "string",
+            "example": "james.bond@gohighlevel.com",
+            "description": "Contact email corresponding to the transaction."
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency in which transaction occurred."
+          },
+          "amount": {
+            "type": "number",
+            "example": "100",
+            "description": "Transaction value."
+          },
+          "status": {
+            "type": "object",
+            "description": "The status of the transaction (e.g., succeeded).",
+            "example": "succeeded"
+          },
+          "liveMode": {
+            "type": "boolean",
+            "example": "false",
+            "description": "Transaction is in live / test mode."
+          },
+          "entityType": {
+            "type": "string",
+            "example": "order",
+            "description": "Entity type of transaction (eg: order)."
+          },
+          "entityId": {
+            "type": "string",
+            "example": "61dd0fe9c077f73e67f78803",
+            "description": "Entity id for the transaction. e.g: order id"
+          },
+          "entitySourceType": {
+            "type": "string",
+            "example": "funnel",
+            "description": "Entity source type of transaction (eg: funnel)."
+          },
+          "entitySourceSubType": {
+            "type": "string",
+            "example": "two_step_order_form",
+            "description": "Entity source sub-type of the transactions."
+          },
+          "entitySourceName": {
+            "type": "string",
+            "example": "new funnel",
+            "description": "Entity source name for the transaction."
+          },
+          "entitySourceId": {
+            "type": "string",
+            "description": "Entity source id for the transaction.",
+            "example": "BDBMEghdIUaqMPEsK349"
+          },
+          "entitySourceMeta": {
+            "type": "object",
+            "description": "Meta content for the entity source of transaction.",
+            "example": "{ domain: \"app.gohighlevel.com\", pageId:  \"rBVhyYhMsbxbO8ZqOcei\", pageUrl:  \"/v2/preview/rBVhyYhMsbxbO8ZqOcei\", stepId:   \"5a772f62-3fbc-418b-af1b-be8929dd64c2\"}"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "example": "sub_1KGcXDCScnf89tZoVkoEMCEL",
+            "description": "Subscription id for transaction."
+          },
+          "chargeId": {
+            "type": "string",
+            "example": "in_1KGcXDCScnf89tZohCsmImwE",
+            "description": "Charge id for transaction."
+          },
+          "chargeSnapshot": {
+            "type": "object",
+            "description": "Charge snapshot of transaction.",
+            "example": "{ id: \"in_1KGcXDCScnf89tZohCsmImwE\", object: \"invoice\", account_country: \"US\",  account_name:  \"GHL-Testing\" }"
+          },
+          "paymentProviderType": {
+            "type": "string",
+            "example": "stripe",
+            "description": "Payment provider for transaction."
+          },
+          "paymentProviderConnectedAccount": {
+            "type": "string",
+            "example": "612ca676b484b241fef9d962",
+            "description": "Payment provider  account id for transaction."
+          },
+          "ipAddress": {
+            "type": "string",
+            "example": "107.178.194.224",
+            "description": "Ip address from where transaction was initiated."
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the transaction.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The update timestamp of the transaction.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "amountRefunded": {
+            "type": "number",
+            "example": "10",
+            "description": "Transaction amount refunded."
+          },
+          "paymentMethod": {
+            "type": "object",
+            "example": "{ card: { \"brand\": \"discover\", \"last4\": \"0012\" } }",
+            "description": "Transaction payment method details."
+          },
+          "fulfilledAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The charged timestamp of the transaction.",
+            "example": "2023-11-20T10:27:36.515Z"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the transaction."
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "altType",
+          "status",
+          "entitySourceType",
+          "createdAt",
+          "updatedAt",
+          "fulfilledAt"
+        ]
+      },
+      "ListTxnsResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "An array of transactions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxnResponseSchema"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "total transactions count"
+          }
+        },
+        "required": [
+          "data",
+          "totalCount"
+        ]
+      },
+      "GetTxnResponseSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the transaction.",
+            "example": "61dd0feac077f72010f78804"
+          },
+          "altType": {
+            "type": "string",
+            "example": "location",
+            "description": "AltType is the type of identifier."
+          },
+          "altId": {
+            "type": "string",
+            "description": "AltId is the unique identifier eg: location id.",
+            "example": "3SwdhCu3svxI8AKsPJt6"
+          },
+          "contactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "Contact id corresponding to the transaction."
+          },
+          "contactSnapshot": {
+            "type": "object",
+            "description": "Contact details of the transaction.",
+            "example": "{ last_name: \"Mcclain\", type: \"lead\", first_name_lower_case: \"rogan\", email: \"anish+11@gohighlevel.com\", last_name_lower_case: \"mcclain\", location_id: \"o6241QsiRwUIJHyjuhos\", company_name: \"Jordan and Cox Trading\"}"
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency in which transaction was made."
+          },
+          "amount": {
+            "type": "number",
+            "example": "100",
+            "description": "Transaction value."
+          },
+          "status": {
+            "type": "object",
+            "example": "succeeded",
+            "description": "Transaction status."
+          },
+          "liveMode": {
+            "type": "boolean",
+            "example": "false",
+            "description": "Transaction is in live / test mode."
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the transaction.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the transaction.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "entityType": {
+            "type": "string",
+            "example": "order",
+            "description": "Entity type of transaction (eg: order)."
+          },
+          "entityId": {
+            "type": "string",
+            "example": "61dd0fe9c077f73e67f78803",
+            "description": "Entity id for the transaction. e.g: order id"
+          },
+          "entitySource": {
+            "description": "Entity source details for the transaction.",
+            "example": "{ type: \"funnel\", id: \"BDBMEghdIUaqMPEsK349\", subType: \"two_step_order_form\", name: \"new funnel\" }",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderSource"
+              }
+            ]
+          },
+          "chargeId": {
+            "type": "string",
+            "example": "in_1KGcXDCScnf89tZohCsmImwE",
+            "description": "Charge id for transaction."
+          },
+          "chargeSnapshot": {
+            "type": "object",
+            "description": "Charge snapshot of transaction.",
+            "example": "{ id: \"in_1KGcXDCScnf89tZohCsmImwE\", object: \"invoice\", account_country: \"US\",  account_name:  \"GHL-Testing\" }"
+          },
+          "invoiceId": {
+            "type": "string",
+            "example": "in_1KGcXDCScnf89tZohCsmImwE",
+            "description": "Invoice id for the transaction."
+          },
+          "subscriptionId": {
+            "type": "string",
+            "example": "sub_1KGcXDCScnf89tZoVkoEMCEL",
+            "description": "Subscription id for transaction."
+          },
+          "paymentProvider": {
+            "type": "object",
+            "description": "Payment provider details of the transaction.",
+            "example": "{ type: \"stripe\", connectedAccount: { _id: \"612ca676b484b241fef9d962\", accountId: \"acct_1Ihw53CScnf89tZo\" } }"
+          },
+          "ipAddress": {
+            "type": "string",
+            "example": "107.178.194.224",
+            "description": "Ip address from where transaction was initiated."
+          },
+          "meta": {
+            "type": "object",
+            "description": "Meta details of the transaction.",
+            "example": "{ stepId: \"af7c731e-e36f-4152-bd1a-3f69a31d6d6d\", pageId: \"A8ltotc2jZxurJba4e3Y\", pageUrl: \"/v2/preview/A8ltotc2jZxurJba4e3Y\" }"
+          },
+          "markAsTest": {
+            "type": "boolean",
+            "description": "Is test transaction.",
+            "example": "false"
+          },
+          "isParent": {
+            "type": "boolean",
+            "description": "Is parent transaction.",
+            "example": "false"
+          },
+          "amountRefunded": {
+            "type": "number",
+            "example": "10",
+            "description": "Transaction amount refunded."
+          },
+          "receiptId": {
+            "type": "string",
+            "example": "6492fbea489bc07892c6defb",
+            "description": "Receipt id for transaction."
+          },
+          "qboSynced": {
+            "type": "boolean",
+            "description": "Is transaction qbo synced.",
+            "example": "false"
+          },
+          "qboResponse": {
+            "type": "object",
+            "description": "Qbo details of the transaction.",
+            "example": "{ domain: \"QBO\", sparse: false, Id: \"180\", SyncToken: \"0\", TotalAmt: 25 }"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace id of the transaction.",
+            "example": "d3b16a92-a8ed-4e6b-8467-844750f78ed5"
+          },
+          "mergedFromContactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "ID of the contact that was merged from."
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the transaction."
+          }
+        },
+        "required": [
+          "_id",
+          "altType",
+          "altId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SubscriptionResponseSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the subscription.",
+            "example": "64bf78af39118e4011926cba"
+          },
+          "altId": {
+            "type": "string",
+            "description": "AltId is the unique identifier eg: location id.",
+            "example": "3SwdhCu3svxI8AKsPJt6"
+          },
+          "altType": {
+            "type": "string",
+            "example": "location",
+            "description": "AltType is the type of identifier.",
+            "enum": [
+              "location"
+            ]
+          },
+          "contactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "Contact id corresponding to the subscription."
+          },
+          "contactName": {
+            "type": "string",
+            "example": "James Bond",
+            "description": "Contact name corresponding to the subscription."
+          },
+          "contactEmail": {
+            "type": "string",
+            "example": "james.bond@gohighlevel.com",
+            "description": "Contact email corresponding to the subscription."
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency in which subscription occurred."
+          },
+          "amount": {
+            "type": "number",
+            "example": "100",
+            "description": "Subscription value."
+          },
+          "status": {
+            "type": "object",
+            "description": "The status of the subscription (e.g., succeeded).",
+            "example": "active"
+          },
+          "liveMode": {
+            "type": "boolean",
+            "example": "false",
+            "description": "Subscription is in live / test mode."
+          },
+          "entityType": {
+            "type": "string",
+            "example": "order",
+            "description": "Entity type of subscription (eg: order)."
+          },
+          "entityId": {
+            "type": "string",
+            "example": "62f4db0f3059ecee61379012",
+            "description": "Entity id for the subscription. e.g: order id"
+          },
+          "entitySourceType": {
+            "type": "string",
+            "example": "funnel",
+            "description": "Entity source type of subscription (eg: funnel)."
+          },
+          "entitySourceName": {
+            "type": "string",
+            "example": "Attribution Funnel",
+            "description": "Entity source name for the subscription."
+          },
+          "entitySourceId": {
+            "type": "string",
+            "description": "Entity source id for the subscription.",
+            "example": "bevrkPbLaDNXFaqfLKMm"
+          },
+          "entitySourceMeta": {
+            "type": "object",
+            "description": "Meta content for the entity source of subscription.",
+            "example": "{ domain: \"app.gohighlevel.com\", pageId:  \"sxC4lNhFIavEnLZh5KhC\", pageUrl:  \"/v2/preview/sxC4lNhFIavEnLZh5KhC\", stepId: \"7d303d1f-cb85-403d-b548-bf01de5c7bb0\" }"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "example": "I-0UE609H8E43P",
+            "description": "Subscription id for subscription."
+          },
+          "subscriptionSnapshot": {
+            "type": "object",
+            "description": "Snapshot of subscription.",
+            "example": "{ status: \"ACTIVE\", status_update_time: \"2022-08-16T11:06:53Z\", id: \"I-0UE609H8E43P\", plan_id: \"P-82K11750F0313430KMLRGE6Y\", start_time: \"2022-08-16T11:05:31Z\", quantity: 1 }"
+          },
+          "paymentProviderType": {
+            "type": "string",
+            "example": "stripe",
+            "description": "Payment provider for subscription."
+          },
+          "paymentProviderConnectedAccount": {
+            "type": "string",
+            "example": "ATn0CqrzrWS5ak185Bsb1xCpyzBDOZ8WdRxyFotppLYePTDhiuQ49H5QXO_L-4HKk1GBn7f9_QhbNK2s",
+            "description": "Payment provider connected account id for subscription."
+          },
+          "ipAddress": {
+            "type": "string",
+            "example": "103.100.16.82",
+            "description": "Ip address from where subscription was initiated."
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the subscription.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The update timestamp of the subscription.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the subscription."
+          }
+        },
+        "required": [
+          "_id",
+          "altId",
+          "altType",
+          "status",
+          "entitySourceType",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListSubscriptionResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "An array of subscriptions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionResponseSchema"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "total subscriptions count"
+          }
+        },
+        "required": [
+          "data",
+          "totalCount"
+        ]
+      },
+      "CustomRRuleOptionsDto": {
+        "type": "object",
+        "properties": {
+          "intervalType": {
+            "type": "string",
+            "enum": [
+              "yearly",
+              "monthly",
+              "weekly",
+              "daily",
+              "hourly",
+              "minutely",
+              "secondly"
+            ],
+            "example": "monthly"
+          },
+          "interval": {
+            "type": "number",
+            "example": 2
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DD format",
+            "example": "2023-01-01"
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Start time in HH:mm:ss format",
+            "example": "20:45:00"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End date in YYYY-MM-DD format",
+            "example": "2029-11-01"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "End time in HH:mm:ss format",
+            "example": "18:45:00"
+          },
+          "dayOfMonth": {
+            "type": "number",
+            "description": "-1, 1, 2, 3, ..., 27, 28",
+            "example": 15
+          },
+          "dayOfWeek": {
+            "type": "string",
+            "enum": [
+              "mo",
+              "tu",
+              "we",
+              "th",
+              "fr",
+              "sa",
+              "su"
+            ],
+            "example": "mo"
+          },
+          "numOfWeek": {
+            "type": "number",
+            "description": "-1, 1, 2, 3, 4",
+            "example": -1
+          },
+          "monthOfYear": {
+            "type": "string",
+            "enum": [
+              "jan",
+              "feb",
+              "mar",
+              "apr",
+              "may",
+              "jun",
+              "jul",
+              "aug",
+              "sep",
+              "oct",
+              "nov",
+              "dec"
+            ],
+            "example": "jan"
+          },
+          "count": {
+            "type": "number",
+            "description": "Max number of task executions",
+            "example": 10
+          },
+          "daysBefore": {
+            "type": "number",
+            "description": "Execute task number of days before",
+            "example": 5
+          }
+        },
+        "required": [
+          "intervalType",
+          "interval",
+          "startDate"
+        ]
+      },
+      "ScheduleOptionsDto": {
+        "type": "object",
+        "properties": {
+          "executeAt": {
+            "type": "string"
+          },
+          "rrule": {
+            "$ref": "#/components/schemas/CustomRRuleOptionsDto"
+          }
+        }
+      },
+      "GetSubscriptionResponseSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the subscription.",
+            "example": "64bf78af39118e4011926cba"
+          },
+          "altType": {
+            "type": "object",
+            "example": "location",
+            "description": "AltType is the type of identifier."
+          },
+          "altId": {
+            "type": "string",
+            "description": "AltId is the unique identifier eg: location id.",
+            "example": "3SwdhCu3svxI8AKsPJt6"
+          },
+          "contactId": {
+            "type": "string",
+            "example": "XPLSw2SVagl12LMDeTmQ",
+            "description": "Contact id corresponding to the subscription."
+          },
+          "contactSnapshot": {
+            "type": "object",
+            "description": "Contact details of the subscriber.",
+            "example": "{ last_name: \"Mcclain\", type: \"lead\", first_name_lower_case: \"rogan\", email: \"anish+11@gohighlevel.com\", last_name_lower_case: \"mcclain\", location_id: \"o6241QsiRwUIJHyjuhos\", company_name: \"Jordan and Cox Trading\"}"
+          },
+          "coupon": {
+            "type": "object",
+            "description": "Coupon details of the subscription.",
+            "example": "{ _id: \"6374c6926d119a393fe1e556\", usageCount: 5260, altId: \"jVFIxsMY19D94nOSIOEO\", altType: \"location\", name: \"FREE-100%\", code: \"FREE100\", discountType: \"percentage\", discountValue: 100 }"
+          },
+          "currency": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency in which subscription was made."
+          },
+          "amount": {
+            "type": "number",
+            "example": "100",
+            "description": "Subscription value."
+          },
+          "status": {
+            "type": "object",
+            "example": "active",
+            "description": "Subscription status."
+          },
+          "liveMode": {
+            "type": "boolean",
+            "example": "false",
+            "description": "Subscription is in live / test mode."
+          },
+          "entityType": {
+            "type": "string",
+            "example": "order",
+            "description": "Entity type of subscription (eg: order)."
+          },
+          "entityId": {
+            "type": "string",
+            "example": "62f4db0f3059ecee61379012",
+            "description": "Entity id for the subscription. e.g: order id"
+          },
+          "entitySource": {
+            "description": "Entity source details for the subscription.",
+            "example": "{ type: \"funnel\", id: \"lx6ROqruHGVQD2PZwFxK\", subType: \"upsell\", name: \"test funnel\" }",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderSource"
+              }
+            ]
+          },
+          "subscriptionId": {
+            "type": "string",
+            "example": "I-0UE609H8E43P",
+            "description": "Subscription id for subscription."
+          },
+          "subscriptionSnapshot": {
+            "type": "object",
+            "description": "Snapshot of subscription.",
+            "example": "{ status: \"ACTIVE\", status_update_time: \"2022-08-16T11:06:53Z\", id: \"I-0UE609H8E43P\", plan_id: \"P-82K11750F0313430KMLRGE6Y\", start_time: \"2022-08-16T11:05:31Z\", quantity: 1 }"
+          },
+          "paymentProvider": {
+            "type": "object",
+            "description": "Payment provider details for the subscription.",
+            "example": "{ type: \"paypal\", connectedAccount: { _id: \"64410debdc8f3b0503523abb\", merchantClientId: \"AeXtjrxdgsJiCPwQt5jML5pH-0mwmLs-tH7ub4Uo3IrDKvRl34FvJy8niI6E1wmS_pryIRdNllyVl58b\" } }"
+          },
+          "ipAddress": {
+            "type": "string",
+            "example": "103.100.16.82",
+            "description": "Ip address from where subscription was initiated."
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the subscription.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the subscription.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Meta details of the subscription.",
+            "example": "{ collection: \"transactionsv2\", id: \"6320652f0f664b6632006920\" }"
+          },
+          "markAsTest": {
+            "type": "boolean",
+            "description": "Is test subscription.",
+            "example": "false"
+          },
+          "schedule": {
+            "description": "Scedule details for the subscription.",
+            "example": "{ collection: \"transactionsv2\", id: \"6320652f0f664b6632006920\" }",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleOptionsDto"
+              }
+            ]
+          },
+          "autoPayment": {
+            "type": "object",
+            "description": "Auto payment details of the subscription.",
+            "example": "{ customerId: \"908879612\", paymentMethodId: \"908646635\" }"
+          },
+          "recurringProduct": {
+            "type": "object",
+            "description": "Recurring product details of the subscription.",
+            "example": "{ locationId: \"Z4Bxl8J4SaPEPLq9IQ8g\", funnel: \"bQHJWKcyjiKjk4BHv91g\", step: \"2281a993-8a75-4b48-9912-571f29c99a74\", name: \"Sofa Set\" }"
+          },
+          "canceledAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Cancellation timestamp of the subscription.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "canceledBy": {
+            "type": "string",
+            "example": "qUuXUiB2AiA2DIthEicP",
+            "description": "User id who cancelled the subscription."
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace id of the subscription.",
+            "example": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "user123",
+            "description": "User ID who created the subscription."
+          }
+        },
+        "required": [
+          "_id",
+          "altType",
+          "altId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ApplyToFuturePaymentsConfigDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of future payments configuration",
+            "example": "fixed",
+            "enum": [
+              "forever",
+              "fixed"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "description": "Duration value for fixed type configurations",
+            "example": 3
+          },
+          "durationType": {
+            "type": "string",
+            "description": "Duration type for fixed configurations (e.g. months)",
+            "example": "months"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "CouponDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique MongoDB identifier for the coupon",
+            "example": "67f6c132d9485f9dacd5f123"
+          },
+          "usageCount": {
+            "type": "number",
+            "description": "Number of times the coupon has been used",
+            "example": 12
+          },
+          "limitPerCustomer": {
+            "type": "number",
+            "description": "Maximum number of times a customer can use this coupon (0 for unlimited)",
+            "example": 5
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "79t07PzK8Tvf73d12312"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity",
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the coupon",
+            "example": "NEWT6"
+          },
+          "code": {
+            "type": "string",
+            "description": "Redemption code for the coupon",
+            "example": "NEWT6"
+          },
+          "discountType": {
+            "type": "string",
+            "description": "Type of discount (percentage or amount)",
+            "example": "percentage",
+            "enum": [
+              "percentage",
+              "amount"
+            ]
+          },
+          "discountValue": {
+            "type": "number",
+            "description": "Value of the discount (percentage or fixed amount)",
+            "example": 25
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the coupon",
+            "example": "scheduled",
+            "enum": [
+              "scheduled",
+              "active",
+              "expired"
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Date when the coupon becomes active",
+            "example": "2025-04-30T18:30:00.000Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End date when the coupon expires",
+            "example": "2025-05-30T18:30:00.000Z"
+          },
+          "applyToFuturePayments": {
+            "type": "boolean",
+            "description": "Indicates if the coupon applies to future recurring payments",
+            "example": true
+          },
+          "applyToFuturePaymentsConfig": {
+            "description": "Configuration for how the coupon applies to future payments",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplyToFuturePaymentsConfigDto"
+              }
+            ]
+          },
+          "productIds": {
+            "description": "Product Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "priceIds": {
+            "description": "Price Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "variantIds": {
+            "description": "Variant Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID associated with the coupon (if applicable)",
+            "example": "q0m15dTLGeiGOXG123123"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2025-04-09T18:49:22.026Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2025-04-09T18:49:22.026Z"
+          }
+        },
+        "required": [
+          "_id",
+          "usageCount",
+          "limitPerCustomer",
+          "altId",
+          "altType",
+          "name",
+          "code",
+          "discountType",
+          "discountValue",
+          "status",
+          "startDate",
+          "applyToFuturePayments",
+          "applyToFuturePaymentsConfig",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListCouponsResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of coupon objects",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CouponDto"
+            }
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "Total number of coupons matching the query criteria",
+            "example": 20
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Unique identifier for tracing this API request",
+            "example": "c667b18d-8f5e-44cf-a914"
+          }
+        },
+        "required": [
+          "data",
+          "totalCount",
+          "traceId"
+        ]
+      },
+      "ApplyToFuturePaymentsConfig": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of the config",
+            "example": "forever | fixed",
+            "enum": [
+              "forever",
+              "fixed"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "description": "Duration the coupon to be applied in a subscription",
+            "example": 5
+          },
+          "durationType": {
+            "type": "string",
+            "description": "Type of the duration",
+            "example": "months",
+            "enum": [
+              "months"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "duration",
+          "durationType"
+        ]
+      },
+      "CreateCouponParams": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "BQdAwxa0ky1iK2sstLGJ"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Alt Type",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Coupon Name",
+            "example": "New Year Sale"
+          },
+          "code": {
+            "type": "string",
+            "description": "Coupon Code",
+            "example": "LEVELUPDAY2022"
+          },
+          "discountType": {
+            "type": "string",
+            "description": "Discount Type",
+            "enum": [
+              "percentage",
+              "amount"
+            ],
+            "example": "amount"
+          },
+          "discountValue": {
+            "type": "number",
+            "description": "Discount Value",
+            "example": 10
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2023-01-01T22:45:00.000Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2023-01-31T22:45:00.000Z"
+          },
+          "usageLimit": {
+            "type": "number",
+            "description": "Max number of times coupon can be used",
+            "example": 10
+          },
+          "productIds": {
+            "description": "Product Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "priceIds": {
+            "description": "Price Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "variantIds": {
+            "description": "Variant Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applyToFuturePayments": {
+            "type": "boolean",
+            "example": true,
+            "default": true,
+            "description": "Is Coupon applicable on upcoming subscription transactions"
+          },
+          "applyToFuturePaymentsConfig": {
+            "example": [
+              {
+                "type": "fixed",
+                "duration": 5,
+                "durationType": "months"
+              },
+              {
+                "type": "forever"
+              }
+            ],
+            "default": {
+              "type": "forever"
+            },
+            "description": "If coupon is applicable on upcoming subscription transactions, how many months should it be applicable for a subscription",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplyToFuturePaymentsConfig"
+              }
+            ]
+          },
+          "limitPerCustomer": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Limits whether a coupon can be redeemed only once per customer."
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name",
+          "code",
+          "discountType",
+          "discountValue",
+          "startDate"
+        ]
+      },
+      "CreateCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique MongoDB identifier for the coupon",
+            "example": "67f6c132d9485f9dacd5f123"
+          },
+          "usageCount": {
+            "type": "number",
+            "description": "Number of times the coupon has been used",
+            "example": 12
+          },
+          "limitPerCustomer": {
+            "type": "number",
+            "description": "Maximum number of times a customer can use this coupon (0 for unlimited)",
+            "example": 5
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "79t07PzK8Tvf73d12312"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity",
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the coupon",
+            "example": "NEWT6"
+          },
+          "code": {
+            "type": "string",
+            "description": "Redemption code for the coupon",
+            "example": "NEWT6"
+          },
+          "discountType": {
+            "type": "string",
+            "description": "Type of discount (percentage or amount)",
+            "example": "percentage",
+            "enum": [
+              "percentage",
+              "amount"
+            ]
+          },
+          "discountValue": {
+            "type": "number",
+            "description": "Value of the discount (percentage or fixed amount)",
+            "example": 25
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the coupon",
+            "example": "scheduled",
+            "enum": [
+              "scheduled",
+              "active",
+              "expired"
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Date when the coupon becomes active",
+            "example": "2025-04-30T18:30:00.000Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End date when the coupon expires",
+            "example": "2025-05-30T18:30:00.000Z"
+          },
+          "applyToFuturePayments": {
+            "type": "boolean",
+            "description": "Indicates if the coupon applies to future recurring payments",
+            "example": true
+          },
+          "applyToFuturePaymentsConfig": {
+            "description": "Configuration for how the coupon applies to future payments",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplyToFuturePaymentsConfigDto"
+              }
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID associated with the coupon (if applicable)",
+            "example": "q0m15dTLGeiGOXG123123"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2025-04-09T18:49:22.026Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2025-04-09T18:49:22.026Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Unique identifier for tracing this API request",
+            "example": "c667b18d-8f5e-44cf-a914"
+          }
+        },
+        "required": [
+          "_id",
+          "usageCount",
+          "limitPerCustomer",
+          "altId",
+          "altType",
+          "name",
+          "code",
+          "discountType",
+          "discountValue",
+          "status",
+          "startDate",
+          "applyToFuturePayments",
+          "applyToFuturePaymentsConfig",
+          "createdAt",
+          "updatedAt",
+          "traceId"
+        ]
+      },
+      "UpdateCouponParams": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "BQdAwxa0ky1iK2sstLGJ"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Alt Type",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Coupon Name",
+            "example": "New Year Sale"
+          },
+          "code": {
+            "type": "string",
+            "description": "Coupon Code",
+            "example": "LEVELUPDAY2022"
+          },
+          "discountType": {
+            "type": "string",
+            "description": "Discount Type",
+            "enum": [
+              "percentage",
+              "amount"
+            ],
+            "example": "amount"
+          },
+          "discountValue": {
+            "type": "number",
+            "description": "Discount Value",
+            "example": 10
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Start date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2023-01-01T22:45:00.000Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End date in YYYY-MM-DDTHH:mm:ssZ format",
+            "example": "2023-01-31T22:45:00.000Z"
+          },
+          "usageLimit": {
+            "type": "number",
+            "description": "Max number of times coupon can be used",
+            "example": 10
+          },
+          "productIds": {
+            "description": "Product Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "priceIds": {
+            "description": "Price Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "variantIds": {
+            "description": "Variant Ids",
+            "example": [
+              "6241712be68f7a98102ba272"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applyToFuturePayments": {
+            "type": "boolean",
+            "example": true,
+            "default": true,
+            "description": "Is Coupon applicable on upcoming subscription transactions"
+          },
+          "applyToFuturePaymentsConfig": {
+            "example": [
+              {
+                "type": "fixed",
+                "duration": 5,
+                "durationType": "months"
+              },
+              {
+                "type": "forever"
+              }
+            ],
+            "default": {
+              "type": "forever"
+            },
+            "description": "If coupon is applicable on upcoming subscription transactions, how many months should it be applicable for a subscription",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplyToFuturePaymentsConfig"
+              }
+            ]
+          },
+          "limitPerCustomer": {
+            "type": "boolean",
+            "example": true,
+            "default": false,
+            "description": "Limits whether a coupon can be redeemed only once per customer."
+          },
+          "id": {
+            "type": "string",
+            "description": "Coupon Id",
+            "example": "6241712be68f7a98102ba272"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name",
+          "code",
+          "discountType",
+          "discountValue",
+          "startDate",
+          "id"
+        ]
+      },
+      "DeleteCouponParams": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "BQdAwxa0ky1iK2sstLGJ"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Alt Type",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "id": {
+            "type": "string",
+            "description": "Coupon Id",
+            "example": "6241712be68f7a98102ba272"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "id"
+        ]
+      },
+      "DeleteCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the delete was successful",
+            "example": true
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Unique identifier for tracing this API request",
+            "example": "c667b18d-8f5e-44cf-a914"
+          }
+        },
+        "required": [
+          "success",
+          "traceId"
+        ]
+      },
+      "CreateCustomProvidersDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the custom provider",
+            "example": "Company Paypal Integration"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of payment gateway. Shown on the payments integrations page as subtext",
+            "example": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets."
+          },
+          "paymentsUrl": {
+            "type": "string",
+            "description": "This url will be loaded in iFrame to start a payment session.",
+            "example": "https://testpayment.paypal.com"
+          },
+          "queryUrl": {
+            "type": "string",
+            "description": "The url used for querying payments related events. Ex. verify, refund, subscription etc.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Public image url for logo of the payment gateway displayed on the payments integrations page.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "supportsSubscriptionSchedule": {
+            "type": "boolean",
+            "description": "Whether the config supports subscription schedule or not. true represents config supports subscription schedule",
+            "example": true
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "paymentsUrl",
+          "queryUrl",
+          "imageUrl",
+          "supportsSubscriptionSchedule"
+        ]
+      },
+      "CreateCustomProvidersResponseSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the custom provider",
+            "example": "Company Paypal Integration"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of payment gateway. Shown on the payments integrations page as subtext",
+            "example": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets."
+          },
+          "paymentsUrl": {
+            "type": "string",
+            "description": "This url will be loaded in iFrame to start a payment session.",
+            "example": "https://testpayment.paypal.com"
+          },
+          "queryUrl": {
+            "type": "string",
+            "description": "The url used for querying payments related events. Ex. verify, refund, subscription etc.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Public image url for logo of the payment gateway displayed on the payments integrations page.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the custom provider.",
+            "example": "662a44ad19a2a44d3cd9d749"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location id",
+            "example": "Lk3nlfk4lxlelVEwcW"
+          },
+          "marketplaceAppId": {
+            "type": "string",
+            "description": "The application id of marketplace",
+            "example": "65f0b217a05c774da7f1efa5"
+          },
+          "paymentProvider": {
+            "type": "object",
+            "description": "Payment provider details.",
+            "example": "{ live: { liveMode: true }, test: { liveMode: false, apiKey: \"y5ZQxryRFXZHvUJZdLXXXXXX\", publishableKey: \"rzp_test_zPRoVMLOa0A9wo\" }}"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the config is deleted or not. true represents config is deleted",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the custom provider.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the custom provider.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace id of the custom provider.",
+            "example": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "paymentsUrl",
+          "queryUrl",
+          "imageUrl",
+          "_id",
+          "locationId",
+          "marketplaceAppId",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "DeleteCustomProvidersResponseSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the custom provider config is disconnect or not. true represents config is disconnect",
+            "example": "true"
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "GetCustomProvidersResponseSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the custom provider",
+            "example": "Company Paypal Integration"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of payment gateway. Shown on the payments integrations page as subtext",
+            "example": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets."
+          },
+          "paymentsUrl": {
+            "type": "string",
+            "description": "This url will be loaded in iFrame to start a payment session.",
+            "example": "https://testpayment.paypal.com"
+          },
+          "queryUrl": {
+            "type": "string",
+            "description": "The url used for querying payments related events. Ex. verify, refund, subscription etc.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Public image url for logo of the payment gateway displayed on the payments integrations page.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the custom provider.",
+            "example": "662a44ad19a2a44d3cd9d749"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location id",
+            "example": "Lk3nlfk4lxlelVEwcW"
+          },
+          "marketplaceAppId": {
+            "type": "string",
+            "description": "The application id of marketplace",
+            "example": "65f0b217a05c774da7f1efa5"
+          },
+          "paymentProvider": {
+            "type": "object",
+            "description": "Payment provider details.",
+            "example": "{ live: { liveMode: true }, test: { liveMode: false, apiKey: \"y5ZQxryRFXZHvUJZdLXXXXXX\", publishableKey: \"rzp_test_zPRoVMLOa0A9wo\" }}"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the config is deleted or not. true represents config is deleted",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the custom provider.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the custom provider.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace id of the custom provider.",
+            "example": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "paymentsUrl",
+          "queryUrl",
+          "imageUrl",
+          "_id",
+          "locationId",
+          "marketplaceAppId",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CustomProviderKeys": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "Api-key for custom payment provider config",
+            "example": "y5ZQxryRFXZHvUJZdLeXXXXX"
+          },
+          "publishableKey": {
+            "type": "string",
+            "description": "Publishable-key for custom payment provider config",
+            "example": "rzp_test_zPRoVMLOa0XXXX"
+          }
+        },
+        "required": [
+          "apiKey",
+          "publishableKey"
+        ]
+      },
+      "ConnectCustomProvidersConfigDto": {
+        "type": "object",
+        "properties": {
+          "live": {
+            "description": "Live config containing api-key and publishable key for live payments",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomProviderKeys"
+              }
+            ]
+          },
+          "test": {
+            "description": "Test config containing api-key and publishable-key for test payments",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomProviderKeys"
+              }
+            ]
+          }
+        },
+        "required": [
+          "live",
+          "test"
+        ]
+      },
+      "ConnectCustomProvidersResponseSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the custom provider",
+            "example": "Company Paypal Integration"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of payment gateway. Shown on the payments integrations page as subtext",
+            "example": "This payment gateway supports payments in India via UPI, Net banking, cards and wallets."
+          },
+          "paymentsUrl": {
+            "type": "string",
+            "description": "This url will be loaded in iFrame to start a payment session.",
+            "example": "https://testpayment.paypal.com"
+          },
+          "queryUrl": {
+            "type": "string",
+            "description": "The url used for querying payments related events. Ex. verify, refund, subscription etc.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Public image url for logo of the payment gateway displayed on the payments integrations page.",
+            "example": "https://testsubscription.paypal.com"
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the custom provider.",
+            "example": "662a44ad19a2a44d3cd9d749"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location id",
+            "example": "Lk3nlfk4lxlelVEwcW"
+          },
+          "marketplaceAppId": {
+            "type": "string",
+            "description": "The application id of marketplace",
+            "example": "65f0b217a05c774da7f1efa5"
+          },
+          "paymentProvider": {
+            "type": "object",
+            "description": "Payment provider details.",
+            "example": "{ live: { liveMode: true }, test: { liveMode: false, apiKey: \"y5ZQxryRFXZHvUJZdLXXXXXX\", publishableKey: \"rzp_test_zPRoVMLOa0A9wo\" }}"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the config is deleted or not. true represents config is deleted",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The creation timestamp of the custom provider.",
+            "example": "2023-11-20T10:23:36.515Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The last update timestamp of the custom provider.",
+            "example": "2024-01-23T09:57:04.846Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace id of the custom provider.",
+            "example": "302d2cf4-1ba0-4bf5-bc3b-f8fa76fda58a"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "paymentsUrl",
+          "queryUrl",
+          "imageUrl",
+          "_id",
+          "locationId",
+          "marketplaceAppId",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "DeleteCustomProvidersConfigDto": {
+        "type": "object",
+        "properties": {
+          "liveMode": {
+            "type": "boolean",
+            "description": "Whether the config is for test mode or live mode. true represents config is for live payments",
+            "example": "true"
+          }
+        },
+        "required": [
+          "liveMode"
+        ]
+      },
+      "DisconnectCustomProvidersResponseSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the custom provider config is disconnect or not. true represents config is disconnect",
+            "example": "true"
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "UpdateCustomProviderCapabilitiesDto": {
+        "type": "object",
+        "properties": {
+          "supportsSubscriptionSchedules": {
+            "type": "boolean",
+            "description": "Whether the marketplace app supports subscription schedules or not",
+            "example": true
+          },
+          "companyId": {
+            "type": "string",
+            "description": "Company id. Mandatory if locationId is not provided",
+            "example": "Yjnwuduw83e8x30sm0"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location / Sub-account id. Mandatory if companyId is not provided",
+            "example": "Yjnwuduw83e8x30sm0"
+          }
+        },
+        "required": [
+          "supportsSubscriptionSchedules"
+        ]
+      },
+      "UpdateCustomProviderCapabilitiesResponseSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the custom provider capabilities are updated or not. true represents capabilities are updated",
+            "example": "true"
+          }
+        },
+        "required": [
+          "success"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Payments",
+    "tags": [
+      "Payments",
+      "Integrations",
+      "Orders",
+      "Order fulfillments",
+      "Order Notes",
+      "Transactions",
+      "Subscriptions",
+      "Coupons",
+      "Custom Provider"
+    ]
+  }
+}

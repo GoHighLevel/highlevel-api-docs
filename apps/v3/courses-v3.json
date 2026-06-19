@@ -1,0 +1,344 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/courses/courses-exporter/public/import": {
+      "post": {
+        "operationId": "import-courses",
+        "summary": "Import Courses",
+        "description": "Import Courses through public channels",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicExporterPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "MEMBERSHIPS API",
+    "description": "API Service for Courses and Memberships",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Courses",
+      "description": "API Service for Courses and Memberships"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "visibility": {
+        "type": "string",
+        "enum": [
+          "published",
+          "draft"
+        ]
+      },
+      "contentType": {
+        "type": "string",
+        "enum": [
+          "video",
+          "assignment",
+          "quiz"
+        ]
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "pdf",
+          "image",
+          "docx",
+          "pptx",
+          "xlsx",
+          "html",
+          "dotx",
+          "epub",
+          "webp",
+          "gdoc",
+          "mp3",
+          "doc",
+          "txt",
+          "zip",
+          "ppt",
+          "key",
+          "htm",
+          "xls",
+          "odp",
+          "odt",
+          "rtf",
+          "m4a",
+          "ods",
+          "mp4",
+          "ai",
+          "avi",
+          "mov",
+          "wmv",
+          "mkv",
+          "wav",
+          "flac",
+          "ogg",
+          "png",
+          "jpeg",
+          "jpg",
+          "gif",
+          "bmp",
+          "tiff",
+          "svg",
+          "odg",
+          "sxw",
+          "sxc",
+          "sxi",
+          "rar",
+          "7z",
+          "json",
+          "xml",
+          "csv",
+          "md",
+          "obj",
+          "stl",
+          "woff",
+          "ttf"
+        ]
+      },
+      "PostMaterialInterface": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/type"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "url"
+        ]
+      },
+      "PostInterface": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/visibility"
+          },
+          "thumbnailUrl": {
+            "type": "string"
+          },
+          "contentType": {
+            "$ref": "#/components/schemas/contentType"
+          },
+          "description": {
+            "type": "string"
+          },
+          "bucketVideoUrl": {
+            "type": "string"
+          },
+          "postMaterials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostMaterialInterface"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "visibility",
+          "contentType",
+          "description"
+        ]
+      },
+      "SubCategoryInterface": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/visibility"
+          },
+          "thumbnailUrl": {
+            "type": "string"
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostInterface"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "visibility"
+        ]
+      },
+      "CategoryInterface": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/visibility"
+          },
+          "thumbnailUrl": {
+            "type": "string"
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostInterface"
+            }
+          },
+          "subCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubCategoryInterface"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "visibility"
+        ]
+      },
+      "InstructorDetails": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "description"
+        ]
+      },
+      "ProductInterface": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryInterface"
+            }
+          },
+          "instructorDetails": {
+            "$ref": "#/components/schemas/InstructorDetails"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "categories"
+        ]
+      },
+      "PublicExporterPayload": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductInterface"
+            }
+          }
+        },
+        "required": [
+          "locationId",
+          "products"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Courses",
+    "tags": [
+      "Courses"
+    ]
+  }
+}

@@ -1,0 +1,4062 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/conversations/search": {
+      "get": {
+        "operationId": "search-conversation",
+        "summary": "Search Conversations",
+        "description": "Returns a list of all conversations matching the search criteria along with the sort and filter options selected.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK",
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Contact Id",
+            "schema": {
+              "example": "9VEmS0si86GW6gXWU89b",
+              "type": "string"
+            }
+          },
+          {
+            "name": "assignedTo",
+            "required": false,
+            "in": "query",
+            "description": "User IDs that conversations are assigned to. Multiple IDs can be provided as comma-separated values. Use \"unassigned\" to fetch conversations not assigned to any user.",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK,fGiae4CHkzoskh8thsik",
+              "type": "string"
+            }
+          },
+          {
+            "name": "followers",
+            "required": false,
+            "in": "query",
+            "description": "User IDs of followers to filter conversations by. Multiple IDs can be provided as comma-separated values.",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK,fGiae4CHkzoskh8thsik",
+              "type": "string"
+            }
+          },
+          {
+            "name": "mentions",
+            "required": false,
+            "in": "query",
+            "description": "User Id of the mention. Multiple values are comma separated.",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK,fGiae4CHkzoskh8thsik",
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Search paramater as a string",
+            "schema": {
+              "example": "Search string",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Sort paramater - asc or desc",
+            "schema": {
+              "example": "asc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "startAfterDate",
+            "required": false,
+            "in": "query",
+            "description": "Search to begin after the specified date - should contain the sort value of the last document",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StartAfterNumberSchema"
+              },
+              {
+                "$ref": "#/components/schemas/StartAfterArrayNumberSchema"
+              }
+            ],
+            "schema": {
+              "example": 1600854,
+              "type": "any"
+            }
+          },
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "description": "Id of the conversation",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Limit of conversations - Default is 20",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "lastMessageType",
+            "required": false,
+            "in": "query",
+            "description": "Type of the last message in the conversation as a string",
+            "schema": {
+              "example": "TYPE_SMS",
+              "enum": [
+                "TYPE_CALL",
+                "TYPE_SMS",
+                "TYPE_EMAIL",
+                "TYPE_SMS_REVIEW_REQUEST",
+                "TYPE_WEBCHAT",
+                "TYPE_SMS_NO_SHOW_REQUEST",
+                "TYPE_CAMPAIGN_SMS",
+                "TYPE_CAMPAIGN_CALL",
+                "TYPE_CAMPAIGN_EMAIL",
+                "TYPE_CAMPAIGN_VOICEMAIL",
+                "TYPE_FACEBOOK",
+                "TYPE_CAMPAIGN_FACEBOOK",
+                "TYPE_CAMPAIGN_MANUAL_CALL",
+                "TYPE_CAMPAIGN_MANUAL_SMS",
+                "TYPE_GMB",
+                "TYPE_CAMPAIGN_GMB",
+                "TYPE_REVIEW",
+                "TYPE_INSTAGRAM",
+                "TYPE_WHATSAPP",
+                "TYPE_CUSTOM_SMS",
+                "TYPE_CUSTOM_EMAIL",
+                "TYPE_CUSTOM_PROVIDER_SMS",
+                "TYPE_CUSTOM_PROVIDER_EMAIL",
+                "TYPE_IVR_CALL",
+                "TYPE_ACTIVITY_CONTACT",
+                "TYPE_ACTIVITY_INVOICE",
+                "TYPE_ACTIVITY_PAYMENT",
+                "TYPE_ACTIVITY_OPPORTUNITY",
+                "TYPE_LIVE_CHAT",
+                "TYPE_LIVE_CHAT_INFO_MESSAGE",
+                "TYPE_ACTIVITY_APPOINTMENT",
+                "TYPE_FACEBOOK_COMMENT",
+                "TYPE_INSTAGRAM_COMMENT",
+                "TYPE_CUSTOM_CALL",
+                "TYPE_INTERNAL_COMMENT",
+                "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastMessageAction",
+            "required": false,
+            "in": "query",
+            "description": "Action of the last outbound message in the conversation as string.",
+            "schema": {
+              "example": "manual",
+              "enum": [
+                "automated",
+                "manual"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastMessageDirection",
+            "required": false,
+            "in": "query",
+            "description": "Direction of the last message in the conversation as string.",
+            "schema": {
+              "example": "inbound",
+              "enum": [
+                "inbound",
+                "outbound"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "The status of the conversation to be filtered - all, read, unread, starred ",
+            "schema": {
+              "example": "all",
+              "enum": [
+                "all",
+                "read",
+                "unread",
+                "starred",
+                "recents"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "The sorting of the conversation to be filtered as - manual messages or all messages",
+            "schema": {
+              "example": "last_message_date",
+              "enum": [
+                "last_manual_message_date",
+                "last_message_date",
+                "score_profile"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortScoreProfile",
+            "required": false,
+            "in": "query",
+            "description": "Id of score profile on which sortBy.ScoreProfile should sort on",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK",
+              "type": "string"
+            }
+          },
+          {
+            "name": "scoreProfile",
+            "required": false,
+            "in": "query",
+            "description": "Id of score profile on which conversations should get filtered out, works with scoreProfileMin & scoreProfileMax",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK",
+              "type": "string"
+            }
+          },
+          {
+            "name": "scoreProfileMin",
+            "required": false,
+            "in": "query",
+            "description": "Minimum value for score",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK",
+              "type": "number"
+            }
+          },
+          {
+            "name": "scoreProfileMax",
+            "required": false,
+            "in": "query",
+            "description": "Maximum value for score",
+            "schema": {
+              "example": "ABCHkzuJQ8ZMd4Te84GK",
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched the conversations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendConversationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/{conversationId}": {
+      "get": {
+        "operationId": "get-conversation",
+        "summary": "Get Conversation",
+        "description": "Get the conversation details based on the conversation ID",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "description": "Conversation ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetConversationByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-conversation",
+        "summary": "Update Conversation",
+        "description": "Update the conversation details based on the conversation ID",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "description": "Conversation ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateConversationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetConversationSuccessfulResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-conversation",
+        "summary": "Delete Conversation",
+        "description": "Delete the conversation details based on the conversation ID",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "description": "Conversation ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteConversationSuccessfulResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/email/{id}": {
+      "get": {
+        "operationId": "get-email-by-id",
+        "summary": "Get email by Id",
+        "description": "Get email by Id",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Email object for the id given.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmailMessageResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Email"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/email/{emailMessageId}/schedule": {
+      "delete": {
+        "operationId": "cancel-scheduled-email-message",
+        "summary": "Cancel a scheduled email message.",
+        "description": "Post the messageId for the API to delete a scheduled email message. <br />",
+        "parameters": [
+          {
+            "name": "emailMessageId",
+            "required": true,
+            "in": "path",
+            "description": "Email Message Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The scheduled email message was cancelled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelScheduledResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Email"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/email/{emailMessageId}/status": {
+      "put": {
+        "operationId": "update-email-message-status",
+        "summary": "Update email message status",
+        "description": "Update delivery events, per-recipient statuses, and the overall message status for an email sent via a custom conversation provider.\n\n### Authorization\n- Requires the `conversations/message.write` OAuth scope.\n- The calling OAuth app must own the conversation provider that originally sent the email.\n- Attempts to update emails sent via LC Email or Mailgun will return `403 Forbidden`.\n\n### Updatable Fields\nAll request body fields are optional. Pass only what you need to update.\n\n**`events`** — Aggregate delivery event counters (integers). Counters are merged into the existing values (not replaced). Setting a counter to `0` is treated as no-op and will **not** reset the stored value.\n\n**`recipients`** — Per-recipient delivery statuses. Each entry maps a recipient email address to a `MessageStatus` value. Use `failReason` to capture bounce or rejection details when the status is `failed`.\n\n**`status`** — The overall message status. Accepts any `MessageStatus` enum value.\n\n### Event Inference\nThe API automatically infers related events to maintain data consistency:\n- **`clicked`, `complained`, `unsubscribed`, or `replied`** → implies `opened` (set to 1 if not already provided and open tracking is enabled) and `delivered` (set to 1).\n- **`opened`** → implies `delivered` (set to 1 if not provided).\n- **`delivered`, `permanent_fail`, or `temporary_fail`** → implies `accepted` (set to 1 if not provided).\n\n### Timestamps\nThe API automatically records server-side timestamps on first occurrence for `delivered`, `opened`, and `clicked` events. Subsequent updates to these counters do not overwrite the original timestamp.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "emailMessageId",
+            "required": true,
+            "in": "path",
+            "description": "Email Message Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmailMessageStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email message status updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateEmailMessageStatusResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - status updates are only supported for custom conversation provider emails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Email"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/export": {
+      "get": {
+        "operationId": "export-messages-by-location",
+        "summary": "Export messages by location ID",
+        "description": "Export messages for a specific location with cursor-based pagination support.\n\n**Channel Filtering Behavior:**\n- **When channel is omitted:** Returns all non-email message types, including messages that don't belong to any specific channel.\n- **When channel=Email:** Returns email messages only.\n- **When channel is specified (SMS, Call, WhatsApp, etc.):** Returns messages for that specific channel.\n\n**Limitations:**\n- Group Chat and SMS Review Request message types are not supported.\n- Cursor validity is 2 minutes from the last request made.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location ID to filter messages by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "required": false,
+            "in": "query",
+            "description": "Filter by message channel. Optional - when not provided, all non-email message types will be returned including activity messages (opportunity updates, appointments, etc.). To fetch email messages, you must explicitly set channel=Email.",
+            "schema": {
+              "enum": [
+                "Call",
+                "SMS",
+                "Email",
+                "WhatsApp",
+                "Instagram",
+                "Facebook"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of messages to return per page",
+            "schema": {
+              "default": 100,
+              "minimum": 10,
+              "maximum": 1000,
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination. Pass the nextCursor from previous response to get next page.",
+            "schema": {
+              "example": "a748514c-f49e-4fa8-9954-b53afc78d81d",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "enum": [
+                "createdAt",
+                "updatedAt"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort order",
+            "schema": {
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "conversationId",
+            "required": false,
+            "in": "query",
+            "description": "Filter messages by conversation ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Filter messages by contact ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "in": "query",
+            "description": "Start date to filter messages by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "in": "query",
+            "description": "End date to filter messages by",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of messages for the location with pagination details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportMessagesResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/{id}": {
+      "get": {
+        "operationId": "get-message",
+        "summary": "Get message by message id",
+        "description": "Get message by message id.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message object for the id given.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMessageResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/{conversationId}/messages": {
+      "get": {
+        "operationId": "get-messages",
+        "summary": "Get messages by conversation id",
+        "description": "Get messages by conversation id.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "description": "Conversation ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastMessageId",
+            "required": false,
+            "in": "query",
+            "description": "Message ID of the last message in the list as a string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of messages to be fetched from the conversation. Default limit is 20",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Types of message to fetched separated with comma",
+            "schema": {
+              "example": "TYPE_SMS,TYPE_CALL",
+              "enum": [
+                "TYPE_CALL",
+                "TYPE_SMS",
+                "TYPE_EMAIL",
+                "TYPE_FACEBOOK",
+                "TYPE_GMB",
+                "TYPE_INSTAGRAM",
+                "TYPE_WHATSAPP",
+                "TYPE_ACTIVITY_APPOINTMENT",
+                "TYPE_ACTIVITY_CONTACT",
+                "TYPE_ACTIVITY_INVOICE",
+                "TYPE_ACTIVITY_PAYMENT",
+                "TYPE_ACTIVITY_OPPORTUNITY",
+                "TYPE_LIVE_CHAT",
+                "TYPE_INTERNAL_COMMENTS",
+                "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of messages for the conversation id of the given type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMessagesByConversationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages": {
+      "post": {
+        "operationId": "send-a-new-message",
+        "summary": "Send a new message",
+        "description": "Post the necessary fields for the API to send a new message.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created the message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendMessageResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/inbound": {
+      "post": {
+        "operationId": "add-an-inbound-message",
+        "summary": "Add an inbound message",
+        "description": "Post the necessary fields for the API to add a new inbound message. <br /><br />**Note:** Either `conversationId` or `contactId` is required",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessMessageBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created the message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessMessageResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/outbound": {
+      "post": {
+        "operationId": "add-an-outbound-message",
+        "summary": "Add an external outbound call",
+        "description": "Post the necessary fields for the API to add a new outbound call.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessOutboundMessageBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created the message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessMessageResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/{messageId}/schedule": {
+      "delete": {
+        "operationId": "cancel-scheduled-message",
+        "summary": "Cancel a scheduled message.",
+        "description": "Post the messageId for the API to delete a scheduled message. <br />",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "description": "Message Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The scheduled message was cancelled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelScheduledResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/upload": {
+      "post": {
+        "operationId": "upload-file-attachments",
+        "summary": "Upload file attachments",
+        "description": "Post the necessary fields for the API to upload files. The files need to be a buffer with the key \"fileAttachment\". <br /><br /> <b>Note:</b> One of conversationId or contactId must be provided. <br /><br /> <b>File Size Limits:</b> <ul><li>Maximum file size: 5 MB</li><li>Maximum files per upload: 5</li></ul> <br /> <b>Allowed file types:</b> <br /><br /> <b>Images:</b> JPG, JPEG, PNG, GIF, SVG, HEIC, AI <br /><br /> <b>Videos:</b> MP4, MPEG, 3GP <br /><br /> <b>Audio:</b> MP3, WAV, WAVE, AIFF, AIF, AIFC, GSM, ULAW, OGG, AAC, M4A, AMR <br /><br /> <b>Documents:</b> PDF, DOC, DOCX, TXT, CSV, XLS, XLSX, PPT, PPTX, ODT <br /><br /> <b>Archives:</b> ZIP, RAR <br /><br /> <b>Other:</b> VCF, VCARD (contact files), ICS (calendar files) <br /><br /> The API will return an object with the URLs",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFilesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Uploaded the file successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFilesResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - Conversation id, contact id, workflow id or campaign id not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFilesErrorResponseDto"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFilesErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/{messageId}/status": {
+      "put": {
+        "operationId": "update-message-status",
+        "summary": "Update message status",
+        "description": "Post the necessary fields for the API to update message status.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "description": "Message Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMessageStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created the message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendMessageResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/{messageId}/attachments": {
+      "put": {
+        "operationId": "add-message-attachments",
+        "summary": "Add message attachments",
+        "description": "Set attachments on an existing message (replaces existing). Maximum 5 URLs. Supported for Custom Call message type.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "description": "Message Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMessageAttachmentsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully set message attachments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddMessageAttachmentsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/{messageId}/locations/{locationId}/recording": {
+      "get": {
+        "operationId": "get-message-recording",
+        "summary": "Get Recording by Message ID",
+        "description": "Get the recording for a message by passing the message id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "description": "Message ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gives the attached recording to the message",
+            "headers": {
+              "Content-Type": {
+                "description": "audio/x-wav"
+              },
+              "Content-Disposition": {
+                "description": "Attachment; filename=audio.wav"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/conversations/locations/{locationId}/messages/{messageId}/transcription": {
+      "get": {
+        "operationId": "get-message-transcription",
+        "summary": "Get transcription by Message ID",
+        "description": "Get the recording transcription for a message by passing the message id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "description": "Message ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gives the attached recording transcription to the message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMessageTranscriptionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/conversations/locations/{locationId}/messages/{messageId}/transcription/download": {
+      "get": {
+        "operationId": "download-message-transcription",
+        "summary": "Download transcription by Message ID",
+        "description": "Download the recording transcription for a message by passing the message id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "description": "Message ID as string",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Downloads the attached transcription of the message",
+            "headers": {
+              "Content-Type": {
+                "description": "text/plain"
+              },
+              "Content-Disposition": {
+                "description": "Attachment; filename=\"transcription.txt\""
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Messages"
+        ],
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "Location-Access": []
+          }
+        ]
+      }
+    },
+    "/conversations/providers/live-chat/typing": {
+      "post": {
+        "operationId": "live-chat-agent-typing",
+        "summary": "Agent/Ai-Bot is typing a message indicator for live chat",
+        "description": "Agent/AI-Bot will call this when they are typing a message in live chat message",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserTypingBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Show typing indicator for live chat",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateLiveChatMessageFeedbackResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Providers"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "conversations/livechat.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/": {
+      "post": {
+        "operationId": "create-conversation",
+        "summary": "Create Conversation",
+        "description": "Creates a new conversation with the data provided",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateConversationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateConversationSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/conversations/messages/email/{id}/status": {
+      "put": {
+        "operationId": "update-email-message-status",
+        "summary": "Update email message status",
+        "description": "Update delivery events, per-recipient statuses, and the overall message status for an email sent via a custom conversation provider.\n\n### Authorization\n- Requires the `conversations/message.write` OAuth scope.\n- The calling OAuth app must own the conversation provider that originally sent the email.\n- Attempts to update emails sent via LC Email or Mailgun will return `403 Forbidden`.\n\n### Updatable Fields\n**`status`** is required on every request. You may also include **`events`** and/or **`recipients`**.\n\n**`events`** — Aggregate delivery event counters (integers). Counters are merged into the existing values (not replaced). Setting a counter to `0` is treated as no-op and will **not** reset the stored value.\n\n**`recipients`** — Per-recipient delivery statuses. Each entry maps a recipient email address to a `MessageStatus` value. Use `failReason` to capture bounce or rejection details when the status is `failed`.\n\n**`status`** — The overall message status. Accepts any `MessageStatus` enum value.\n\n### Event Inference\nThe API automatically infers related events to maintain data consistency:\n- **`clicked`, `complained`, `unsubscribed`, or `replied`** → implies `opened` (set to 1 if not already provided and open tracking is enabled) and `delivered` (set to 1).\n- **`opened`** → implies `delivered` (set to 1 if not provided).\n- **`delivered`, `permanent_fail`, or `temporary_fail`** → implies `accepted` (set to 1 if not provided).\n\n### Timestamps\nThe API automatically records server-side timestamps on first occurrence for `delivered`, `opened`, and `clicked` events. Subsequent updates to these counters do not overwrite the original timestamp.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Email message id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmailMessageStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email message status updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateEmailMessageStatusResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - status updates are only supported for custom conversation provider emails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/ForbiddenDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Email"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "conversations/message.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Conversations API",
+    "description": "Documentation for Conversations API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Conversations",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Search",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Email",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Messages",
+      "description": "Documentation for Conversations API"
+    },
+    {
+      "name": "Providers",
+      "description": "Documentation for Conversations API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "StartAfterNumberSchema": {
+        "type": "object",
+        "properties": {
+          "startAfterDate": {
+            "type": "number",
+            "description": "Search to begin after the specified date - should contain the sort value of the last document",
+            "example": 1600854
+          }
+        }
+      },
+      "StartAfterArrayNumberSchema": {
+        "type": "object",
+        "properties": {
+          "startAfterDate": {
+            "description": "Search to begin after the specified date - should contain the sort value of the last document",
+            "example": [
+              1600854,
+              1600851
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ConversationSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Conversation Id",
+            "example": "ABCHkzuJQ8ZMd4Te84GK"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id",
+            "example": "ABCHkzuJQ8ZMd4Te84GK"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ABCHkzuJQ8ZMd4Te84GK"
+          },
+          "lastMessageBody": {
+            "type": "string",
+            "description": "Content of the most recent message in the conversation",
+            "example": "This is a sample message body"
+          },
+          "lastMessageType": {
+            "type": "string",
+            "description": "Channel/type of the most recent message (SMS, Email, Call, etc)",
+            "example": "TYPE_SMS",
+            "enum": [
+              "TYPE_CALL",
+              "TYPE_SMS",
+              "TYPE_EMAIL",
+              "TYPE_SMS_REVIEW_REQUEST",
+              "TYPE_WEBCHAT",
+              "TYPE_SMS_NO_SHOW_REQUEST",
+              "TYPE_CAMPAIGN_SMS",
+              "TYPE_CAMPAIGN_CALL",
+              "TYPE_CAMPAIGN_EMAIL",
+              "TYPE_CAMPAIGN_VOICEMAIL",
+              "TYPE_FACEBOOK",
+              "TYPE_CAMPAIGN_FACEBOOK",
+              "TYPE_CAMPAIGN_MANUAL_CALL",
+              "TYPE_CAMPAIGN_MANUAL_SMS",
+              "TYPE_GMB",
+              "TYPE_CAMPAIGN_GMB",
+              "TYPE_REVIEW",
+              "TYPE_INSTAGRAM",
+              "TYPE_WHATSAPP",
+              "TYPE_CUSTOM_SMS",
+              "TYPE_CUSTOM_EMAIL",
+              "TYPE_CUSTOM_PROVIDER_SMS",
+              "TYPE_CUSTOM_PROVIDER_EMAIL",
+              "TYPE_IVR_CALL",
+              "TYPE_ACTIVITY_CONTACT",
+              "TYPE_ACTIVITY_INVOICE",
+              "TYPE_ACTIVITY_PAYMENT",
+              "TYPE_ACTIVITY_OPPORTUNITY",
+              "TYPE_LIVE_CHAT",
+              "TYPE_LIVE_CHAT_INFO_MESSAGE",
+              "TYPE_ACTIVITY_APPOINTMENT",
+              "TYPE_FACEBOOK_COMMENT",
+              "TYPE_INSTAGRAM_COMMENT",
+              "TYPE_CUSTOM_CALL",
+              "TYPE_INTERNAL_COMMENT",
+              "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "Primary channel/type of the conversation (Phone, Email, etc)",
+            "example": "TYPE_PHONE",
+            "enum": [
+              "TYPE_PHONE",
+              "TYPE_EMAIL",
+              "TYPE_FB_MESSENGER",
+              "TYPE_REVIEW",
+              "TYPE_GROUP_SMS"
+            ]
+          },
+          "unreadCount": {
+            "type": "number",
+            "description": "Number of unread messages in this conversation",
+            "example": 1
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Complete name of the contact (first and last name)",
+            "example": "John Doe"
+          },
+          "contactName": {
+            "type": "string",
+            "description": "Alternative display name for the contact - used when full name is not available",
+            "example": "John Doe Company"
+          },
+          "email": {
+            "type": "string",
+            "description": "Primary email address of the contact",
+            "example": "johndoe@mailingdomain.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Primary phone number of the contact",
+            "example": "+15550001234"
+          }
+        },
+        "required": [
+          "id",
+          "contactId",
+          "locationId",
+          "lastMessageBody",
+          "lastMessageType",
+          "type",
+          "unreadCount",
+          "fullName",
+          "contactName",
+          "email",
+          "phone"
+        ]
+      },
+      "SendConversationResponseDto": {
+        "type": "object",
+        "properties": {
+          "conversations": {
+            "description": "The list of all conversations found for the given query",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConversationSchema"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total Number of results found for the given query",
+            "example": 100
+          }
+        },
+        "required": [
+          "conversations",
+          "total"
+        ]
+      },
+      "CreateConversationDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          }
+        },
+        "required": [
+          "locationId",
+          "contactId"
+        ]
+      },
+      "ConversationCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the conversation",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date when the conversation was last updated",
+            "example": "2023-10-01T12:00:00Z"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date when the conversation was created",
+            "example": "2023-10-01T12:00:00Z"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Flag indicating if this conversation has been deleted",
+            "example": false
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Unique identifier of the contact associated with this conversation",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Unique identifier of the business location where this conversation takes place",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "lastMessageDate": {
+            "type": "string",
+            "description": "Date of the last message in the conversation",
+            "example": "2023-10-01T12:00:00Z"
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Unique identifier of the team member assigned to this conversation",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          }
+        },
+        "required": [
+          "id",
+          "dateUpdated",
+          "dateAdded",
+          "deleted",
+          "contactId",
+          "locationId",
+          "lastMessageDate"
+        ]
+      },
+      "CreateConversationSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the API request was successful.",
+            "example": true
+          },
+          "conversation": {
+            "description": "Conversation data of the provided conversation ID.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConversationCreateResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "conversation"
+        ]
+      },
+      "GetConversationByIdResponse": {
+        "type": "object",
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "Unique identifier of the contact associated with this conversation",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Unique identifier of the business location where this conversation takes place",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Flag indicating if this conversation has been moved to trash/deleted",
+            "example": false
+          },
+          "inbox": {
+            "type": "boolean",
+            "description": "Flag indicating if this conversation is currently in the main inbox view",
+            "example": true
+          },
+          "type": {
+            "type": "number",
+            "description": "Communication channel type for this conversation: 1 (Phone), 2 (Email), 3 (Facebook Messenger), 4 (Review), 5 (Group SMS), 6 (Internal Chat - coming soon)"
+          },
+          "unreadCount": {
+            "type": "number",
+            "description": "Number of messages in this conversation that have not been read by the user",
+            "example": 1
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Unique identifier of the team member currently responsible for handling this conversation",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this specific conversation thread",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "starred": {
+            "type": "boolean",
+            "description": "Flag indicating if this conversation has been marked as important/starred by the user",
+            "example": true
+          }
+        },
+        "required": [
+          "contactId",
+          "locationId",
+          "deleted",
+          "inbox",
+          "type",
+          "unreadCount",
+          "id"
+        ]
+      },
+      "UpdateConversationDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "unreadCount": {
+            "type": "number",
+            "description": "Count of unread messages in the conversation",
+            "example": 1
+          },
+          "starred": {
+            "type": "boolean",
+            "description": "Starred status of the conversation.",
+            "example": true
+          },
+          "feedback": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "ConversationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Contact ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Assigned User ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID as string",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "lastMessageBody": {
+            "type": "string",
+            "description": "Last message body as string",
+            "example": "Hello, this is the message body"
+          },
+          "lastMessageDate": {
+            "type": "string",
+            "description": "Last message date as UTC",
+            "example": "1628008053263"
+          },
+          "lastMessageType": {
+            "type": "string",
+            "description": "Type of the last message sent/received in the conversation.",
+            "enum": [
+              "TYPE_CALL",
+              "TYPE_SMS",
+              "TYPE_EMAIL",
+              "TYPE_SMS_REVIEW_REQUEST",
+              "TYPE_WEBCHAT",
+              "TYPE_SMS_NO_SHOW_REQUEST",
+              "TYPE_CAMPAIGN_SMS",
+              "TYPE_CAMPAIGN_CALL",
+              "TYPE_CAMPAIGN_EMAIL",
+              "TYPE_CAMPAIGN_VOICEMAIL",
+              "TYPE_FACEBOOK",
+              "TYPE_CAMPAIGN_FACEBOOK",
+              "TYPE_CAMPAIGN_MANUAL_CALL",
+              "TYPE_CAMPAIGN_MANUAL_SMS",
+              "TYPE_GMB",
+              "TYPE_CAMPAIGN_GMB",
+              "TYPE_REVIEW",
+              "TYPE_INSTAGRAM",
+              "TYPE_WHATSAPP",
+              "TYPE_CUSTOM_SMS",
+              "TYPE_CUSTOM_EMAIL",
+              "TYPE_CUSTOM_PROVIDER_SMS",
+              "TYPE_CUSTOM_PROVIDER_EMAIL",
+              "TYPE_IVR_CALL",
+              "TYPE_ACTIVITY_CONTACT",
+              "TYPE_ACTIVITY_INVOICE",
+              "TYPE_ACTIVITY_PAYMENT",
+              "TYPE_ACTIVITY_OPPORTUNITY",
+              "TYPE_LIVE_CHAT",
+              "TYPE_LIVE_CHAT_INFO_MESSAGE",
+              "TYPE_ACTIVITY_APPOINTMENT",
+              "TYPE_FACEBOOK_COMMENT",
+              "TYPE_INSTAGRAM_COMMENT",
+              "TYPE_CUSTOM_CALL",
+              "TYPE_INTERNAL_COMMENT",
+              "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
+            ],
+            "example": "TYPE_CALL"
+          },
+          "unreadCount": {
+            "type": "number",
+            "description": "Count of unread messages in the conversation",
+            "example": 1
+          },
+          "inbox": {
+            "type": "boolean",
+            "description": "Inbox status of the conversation.",
+            "example": true
+          },
+          "starred": {
+            "type": "boolean",
+            "description": "Starred status of the conversation.",
+            "example": true
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Deleted status of the conversation.",
+            "example": false
+          }
+        },
+        "required": [
+          "locationId",
+          "contactId",
+          "deleted"
+        ]
+      },
+      "GetConversationSuccessfulResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Boolean value as the API response.",
+            "example": true
+          },
+          "conversation": {
+            "description": "Conversation data of the provided conversation ID.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConversationDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "success",
+          "conversation"
+        ]
+      },
+      "DeleteConversationSuccessfulResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Boolean value as the API response.",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "GetEmailMessageResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "altId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "External Id"
+          },
+          "threadId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "Message Id or thread Id"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "contactId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "conversationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "dateAdded": {
+            "type": "string",
+            "example": "2024-03-27T18:13:49.000Z"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Order confirm"
+          },
+          "body": {
+            "type": "string",
+            "example": "Hi there"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "scheduled",
+              "sent",
+              "delivered",
+              "read",
+              "undelivered",
+              "connected",
+              "failed",
+              "opened"
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "example": "text/plain"
+          },
+          "attachments": {
+            "description": "An array of attachment URLs.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "provider": {
+            "type": "string",
+            "examples": [
+              "Leadconnector Gmail",
+              "mailgun",
+              "smtp",
+              "custom"
+            ]
+          },
+          "from": {
+            "type": "string",
+            "description": "Name and Email Id of the sender"
+          },
+          "to": {
+            "description": "List of email Ids of the receivers",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cc": {
+            "description": "List of email Ids of the people in the cc field",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "bcc": {
+            "description": "List of email Ids of the people in the bcc field",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "replyToMessageId": {
+            "type": "string",
+            "description": "In case of reply, email message Id of the reply to email"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "workflow",
+              "bulk_actions",
+              "campaign",
+              "api",
+              "app"
+            ],
+            "description": "Email source"
+          },
+          "conversationProviderId": {
+            "type": "string",
+            "example": "cI08i1Bls3iTB9bKgF01",
+            "description": "Conversation provider ID"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message for bounced/failed emails"
+          }
+        },
+        "required": [
+          "id",
+          "threadId",
+          "locationId",
+          "contactId",
+          "conversationId",
+          "dateAdded",
+          "body",
+          "direction",
+          "contentType",
+          "from",
+          "to"
+        ]
+      },
+      "CancelScheduledResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number",
+            "description": "HTTP Status code of the request",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message of the request",
+            "example": "Failed cancel the scheduled message"
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
+      },
+      "MessageMeta": {
+        "type": "object",
+        "properties": {
+          "callDuration": {
+            "type": "string",
+            "description": "Call duration in seconds",
+            "example": 120
+          },
+          "callStatus": {
+            "type": "string",
+            "description": "Call status - can be pending, completed, answered, busy, no-answer, failed, canceled, or voicemail",
+            "example": "completed",
+            "enum": [
+              "pending",
+              "completed",
+              "answered",
+              "busy",
+              "no-answer",
+              "failed",
+              "canceled",
+              "voicemail"
+            ]
+          },
+          "email": {
+            "type": "object",
+            "description": "meta will contain email, for message type 3 (email). messageIds is list of all email message ids under the message thread",
+            "example": {
+              "email": {
+                "messageIds": [
+                  "ve9EPM428kjkvShlRW1KT",
+                  "ve9EPs1028kjkvShlRW1KT"
+                ]
+              }
+            }
+          },
+          "ig": {
+            "type": "object",
+            "description": "meta will contain ig, for message type 18 (instagram).",
+            "example": {
+              "ig": {
+                "page_id": "1234567890",
+                "page_name": "Instagram Page"
+              }
+            }
+          },
+          "fb": {
+            "type": "object",
+            "description": "meta will contain fb, for message type 11 (facebook).",
+            "example": {
+              "fb": {
+                "page_id": "1234567890",
+                "page_name": "Facebook Page"
+              }
+            }
+          }
+        }
+      },
+      "GetMessageResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Alternative identifier for the message",
+            "example": "msg_123456789"
+          },
+          "type": {
+            "type": "number",
+            "example": 1
+          },
+          "messageType": {
+            "type": "string",
+            "description": "Type of the message as a string",
+            "example": "SMS",
+            "enum": [
+              "TYPE_CALL",
+              "TYPE_SMS",
+              "TYPE_EMAIL",
+              "TYPE_SMS_REVIEW_REQUEST",
+              "TYPE_WEBCHAT",
+              "TYPE_SMS_NO_SHOW_REQUEST",
+              "TYPE_CAMPAIGN_SMS",
+              "TYPE_CAMPAIGN_CALL",
+              "TYPE_CAMPAIGN_EMAIL",
+              "TYPE_CAMPAIGN_VOICEMAIL",
+              "TYPE_FACEBOOK",
+              "TYPE_CAMPAIGN_FACEBOOK",
+              "TYPE_CAMPAIGN_MANUAL_CALL",
+              "TYPE_CAMPAIGN_MANUAL_SMS",
+              "TYPE_GMB",
+              "TYPE_CAMPAIGN_GMB",
+              "TYPE_REVIEW",
+              "TYPE_INSTAGRAM",
+              "TYPE_WHATSAPP",
+              "TYPE_CUSTOM_SMS",
+              "TYPE_CUSTOM_EMAIL",
+              "TYPE_CUSTOM_PROVIDER_SMS",
+              "TYPE_CUSTOM_PROVIDER_EMAIL",
+              "TYPE_IVR_CALL",
+              "TYPE_ACTIVITY_CONTACT",
+              "TYPE_ACTIVITY_INVOICE",
+              "TYPE_ACTIVITY_PAYMENT",
+              "TYPE_ACTIVITY_OPPORTUNITY",
+              "TYPE_LIVE_CHAT",
+              "TYPE_LIVE_CHAT_INFO_MESSAGE",
+              "TYPE_ACTIVITY_APPOINTMENT",
+              "TYPE_FACEBOOK_COMMENT",
+              "TYPE_INSTAGRAM_COMMENT",
+              "TYPE_CUSTOM_CALL",
+              "TYPE_INTERNAL_COMMENT",
+              "TYPE_ACTIVITY_EMPLOYEE_ACTION_LOG"
+            ]
+          },
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "contactId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "conversationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "dateAdded": {
+            "type": "string",
+            "example": "2024-03-27T18:13:49.000Z"
+          },
+          "body": {
+            "type": "string",
+            "example": "Hi there"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "connected",
+              "delivered",
+              "failed",
+              "opened",
+              "pending",
+              "read",
+              "scheduled",
+              "sent",
+              "undelivered",
+              "clicked",
+              "opt_out"
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "example": "text/plain"
+          },
+          "attachments": {
+            "description": "An array of attachment URLs. Attachments will be empty for Call and Voicemails, type 1 and 10. Please use get call recording API to fetch call recording and voicemails.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MessageMeta"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "workflow",
+              "bulk_actions",
+              "campaign",
+              "api",
+              "app"
+            ],
+            "description": "Message source"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User Id",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "conversationProviderId": {
+            "type": "string",
+            "description": "Conversation Provider Id",
+            "example": "ve9EPM428kjkvShlRW1KT"
+          },
+          "chatWidgetId": {
+            "type": "string",
+            "description": "Chat Widget Id",
+            "example": "67b0cc8cf14b19d85ace7s35"
+          },
+          "from": {
+            "type": "string",
+            "description": "Sender identifier (phone/name). Not returned for email types.",
+            "example": "+14155551234"
+          },
+          "to": {
+            "type": "string",
+            "description": "Recipient identifier (phone/name). Not returned for email types.",
+            "example": "+14155555678"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message if message delivery failed"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "messageType",
+          "locationId",
+          "contactId",
+          "conversationId",
+          "dateAdded",
+          "direction",
+          "contentType"
+        ]
+      },
+      "ExportMessagesResponseDto": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "description": "Array of messages",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetMessageResponseDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "description": "Cursor for fetching next page. Null if no more results.",
+            "example": "a748514c-f49e-4fa8-9954-b53afc78d81d"
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of messages matching the query",
+            "example": 1234
+          }
+        },
+        "required": [
+          "messages",
+          "total"
+        ]
+      },
+      "GetMessagesByConversationResponseDto": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "object",
+            "properties": {
+              "lastMessageId": {
+                "type": "string",
+                "description": "Id of the last message in the messages array",
+                "example": "p1mRSHeLDhAms5q0LMr4"
+              },
+              "nextPage": {
+                "type": "boolean",
+                "description": "Next page value true indicates only 20 message is in the response. Rest of the messages are in the next page. Please use the lastMessageId value in the query to get the next page messages",
+                "example": true
+              },
+              "messages": {
+                "description": "Array of messages",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GetMessageResponseDto"
+                }
+              }
+            },
+            "required": [
+              "lastMessageId",
+              "nextPage",
+              "messages"
+            ]
+          }
+        },
+        "required": [
+          "messages"
+        ]
+      },
+      "SendMessageBodyDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "SMS",
+              "Email",
+              "WhatsApp",
+              "IG",
+              "FB",
+              "Custom",
+              "Live_Chat",
+              "InternalComment"
+            ],
+            "description": "Type of message being sent",
+            "example": "Email"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "ID of the contact receiving the message",
+            "example": "abc123def456"
+          },
+          "appointmentId": {
+            "type": "string",
+            "description": "ID of the associated appointment",
+            "example": "appt123"
+          },
+          "attachments": {
+            "description": "Array of attachment URLs",
+            "example": [
+              "https://storage.com/file1.pdf",
+              "https://storage.com/file2.jpg"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "emailFrom": {
+            "type": "string",
+            "description": "Email address to send from",
+            "example": "sender@company.com"
+          },
+          "emailCc": {
+            "description": "Array of CC email addresses",
+            "example": [
+              "cc1@company.com",
+              "cc2@company.com"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "emailBcc": {
+            "description": "Array of BCC email addresses",
+            "example": [
+              "bcc1@company.com",
+              "bcc2@company.com"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "html": {
+            "type": "string",
+            "description": "HTML content of the message",
+            "example": "<p>Hello World</p>"
+          },
+          "message": {
+            "type": "string",
+            "description": "Text content of the message. For InternalComment type, use `@username<userId>actualUserId</userId>` format to mention team members. The mentioned user IDs must also be included in the mentions array.",
+            "example": "Hello, how can I help you today?"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject line for email messages",
+            "example": "Important Update"
+          },
+          "replyMessageId": {
+            "type": "string",
+            "description": "ID of message being replied to",
+            "example": "msg123"
+          },
+          "templateId": {
+            "type": "string",
+            "description": "ID of message template",
+            "example": "template123"
+          },
+          "threadId": {
+            "type": "string",
+            "description": "ID of message thread. For email messages, this is the message ID that contains multiple email messages in the thread",
+            "example": "thread123"
+          },
+          "scheduledTimestamp": {
+            "type": "number",
+            "description": "UTC Timestamp (in seconds) at which the message should be scheduled",
+            "example": 1669287863
+          },
+          "conversationProviderId": {
+            "type": "string",
+            "description": "ID of conversation provider",
+            "example": "provider123"
+          },
+          "emailTo": {
+            "type": "string",
+            "description": "Email address to send to, if different from contact's primary email. This should be a valid email address associated with the contact.",
+            "example": "recipient@company.com"
+          },
+          "emailReplyMode": {
+            "type": "string",
+            "enum": [
+              "reply",
+              "reply_all"
+            ],
+            "description": "Mode for email replies",
+            "example": "reply_all"
+          },
+          "fromNumber": {
+            "type": "string",
+            "description": "Phone number used as the sender number for outbound messages",
+            "example": "+1499499299"
+          },
+          "toNumber": {
+            "type": "string",
+            "description": "Recipient phone number for outbound messages",
+            "example": "+1439499299"
+          },
+          "status": {
+            "type": "string",
+            "description": "Message status",
+            "example": "delivered",
+            "enum": [
+              "delivered",
+              "failed",
+              "pending",
+              "read"
+            ]
+          },
+          "mentions": {
+            "description": "Array of user IDs mentioned in the message. Required for InternalComment type. User IDs correspond to team members tagged with `@username<userId>id</userId>` format in the message text.",
+            "example": [
+              "userId123",
+              "userId456"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "userId": {
+            "type": "string",
+            "description": "Use this field to specify the user who is making the internal comment when type is 'InternalComment'. If not provided, the comment will be attributed to the system or default user.",
+            "example": "user123"
+          }
+        },
+        "required": [
+          "type",
+          "contactId",
+          "status"
+        ]
+      },
+      "SendMessageResponseDto": {
+        "type": "object",
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "description": "Conversation ID.",
+            "example": "ABC12h2F6uBrIkfXYazb"
+          },
+          "emailMessageId": {
+            "type": "string",
+            "description": "This contains the email message id (only for Email type). Use this ID to send inbound replies to CRM to create a threaded email.",
+            "example": "rnGyqh2F6uBrIkfhFo9A"
+          },
+          "messageId": {
+            "type": "string",
+            "description": "This is the main Message ID",
+            "example": "t22c6DQcTDf3MjRhwf77"
+          },
+          "messageIds": {
+            "description": "When sending via the GMB channel, we will be returning list of `messageIds` instead of single `messageId`.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "type": "string",
+            "description": "Additional response message when sending a workflow message",
+            "example": "Message queued successfully."
+          }
+        },
+        "required": [
+          "conversationId",
+          "messageId"
+        ]
+      },
+      "CallDataDTO": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "Phone number of the receiver",
+            "example": "+15037081210"
+          },
+          "from": {
+            "type": "string",
+            "description": "Phone number of the dialer",
+            "example": "+15037081210"
+          },
+          "status": {
+            "type": "string",
+            "description": "Call status",
+            "example": "completed",
+            "enum": [
+              "pending",
+              "completed",
+              "answered",
+              "busy",
+              "no-answer",
+              "failed",
+              "canceled",
+              "voicemail"
+            ]
+          }
+        }
+      },
+      "ProcessMessageBodyDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Message Type",
+            "example": "SMS",
+            "enum": [
+              "SMS",
+              "Email",
+              "WhatsApp",
+              "GMB",
+              "IG",
+              "FB",
+              "Custom",
+              "WebChat",
+              "Live_Chat",
+              "Call"
+            ]
+          },
+          "attachments": {
+            "description": "Array of attachments",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Message Body"
+          },
+          "conversationId": {
+            "type": "string",
+            "description": "Conversation Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "conversationProviderId": {
+            "type": "string",
+            "description": "Conversation Provider Id",
+            "example": "61d6d1f9cdac7612faf80753"
+          },
+          "html": {
+            "type": "string",
+            "description": "HTML Body of Email"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of the Email"
+          },
+          "emailFrom": {
+            "type": "string",
+            "description": "Email address to send from. This field is associated with the contact record and cannot be dynamically changed.",
+            "example": "sender@company.com"
+          },
+          "emailTo": {
+            "type": "string",
+            "description": "Recipient email address. This field is associated with the contact record and cannot be dynamically changed."
+          },
+          "emailCc": {
+            "description": "List of email address to CC",
+            "example": [
+              "john1@doe.com",
+              "john2@doe.com"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "emailBcc": {
+            "description": "List of email address to BCC",
+            "example": [
+              "john1@doe.com",
+              "john2@doe.com"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "emailMessageId": {
+            "type": "string",
+            "description": "Send the email message id for which this email should be threaded. This is for replying to a specific email"
+          },
+          "altId": {
+            "type": "string",
+            "description": "external mail provider's message id",
+            "example": "61d6d1f9cdac7612faf80753"
+          },
+          "direction": {
+            "type": "object",
+            "description": "Message direction, if required can be set manually, default is outbound",
+            "default": "outbound",
+            "example": [
+              "outbound",
+              "inbound"
+            ]
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date of the inbound message"
+          },
+          "call": {
+            "description": "Phone call dialer and receiver information",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CallDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "conversationProviderId"
+        ]
+      },
+      "ProcessMessageResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "conversationId": {
+            "type": "string",
+            "description": "Conversation ID.",
+            "example": "ABC12h2F6uBrIkfXYazb"
+          },
+          "messageId": {
+            "type": "string",
+            "description": "This is the main Message ID",
+            "example": "t22c6DQcTDf3MjRhwf77"
+          },
+          "message": {
+            "type": "string"
+          },
+          "contactId": {
+            "type": "string"
+          },
+          "dateAdded": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "emailMessageId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "conversationId",
+          "messageId",
+          "message"
+        ]
+      },
+      "ProcessOutboundMessageBodyDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Message Type",
+            "example": "Call",
+            "enum": [
+              "Call"
+            ]
+          },
+          "attachments": {
+            "description": "Array of attachments",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conversationId": {
+            "type": "string",
+            "description": "Conversation Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "conversationProviderId": {
+            "type": "string",
+            "description": "Conversation Provider Id",
+            "example": "61d6d1f9cdac7612faf80753"
+          },
+          "altId": {
+            "type": "string",
+            "description": "external mail provider's message id",
+            "example": "61d6d1f9cdac7612faf80753"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date of the outbound message"
+          },
+          "call": {
+            "description": "Phone call dialer and receiver information",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CallDataDTO"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "conversationId",
+          "conversationProviderId"
+        ]
+      },
+      "UploadFilesDto": {
+        "type": "object",
+        "description": "One of conversationId, contactId, workflowId, or campaignId must be provided",
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "description": "Conversation Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "workflowId": {
+            "type": "string",
+            "description": "Workflow Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "locationId": {
+            "type": "string"
+          },
+          "attachmentUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "locationId",
+          "attachmentUrls"
+        ]
+      },
+      "UploadFilesResponseDto": {
+        "type": "object",
+        "properties": {
+          "uploadedFiles": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "uploadedFiles"
+        ]
+      },
+      "UploadFilesErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number",
+            "description": "HTTP Status code of the request",
+            "example": 413,
+            "enum": [
+              400,
+              404,
+              413,
+              415
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message of the request",
+            "example": "Failed to upload the files"
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error Code",
+            "example": "1"
+          },
+          "type": {
+            "type": "string",
+            "description": "Error Type",
+            "example": "saas"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error Message",
+            "example": "There was an error from the provider"
+          }
+        },
+        "required": [
+          "code",
+          "type",
+          "message"
+        ]
+      },
+      "UpdateMessageStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Message status",
+            "example": "read",
+            "enum": [
+              "delivered",
+              "failed",
+              "pending",
+              "read"
+            ]
+          },
+          "error": {
+            "description": "Error object from the conversation provider",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDto"
+              }
+            ]
+          },
+          "emailMessageId": {
+            "type": "string",
+            "description": "Email message Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "recipients": {
+            "description": "Email delivery status for additional email recipients.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "GetMessageTranscriptionResponseDto": {
+        "type": "object",
+        "properties": {
+          "mediaChannel": {
+            "type": "number",
+            "description": "Media channel describes the user interaction channel",
+            "example": "1"
+          },
+          "sentenceIndex": {
+            "type": "number",
+            "description": "Index of the sentence in the transcription",
+            "example": "1"
+          },
+          "startTime": {
+            "type": "number",
+            "description": "Start time of the sentence in milliseconds",
+            "example": "34"
+          },
+          "endTime": {
+            "type": "number",
+            "description": "End time of the sentence in milliseconds",
+            "example": "45"
+          },
+          "transcript": {
+            "type": "string",
+            "description": "Transcript of the sentence",
+            "example": "This call may be recorded for quality assurance purposes."
+          },
+          "confidence": {
+            "type": "number",
+            "description": "Confidence of the transcription",
+            "example": "0.5"
+          }
+        },
+        "required": [
+          "mediaChannel",
+          "sentenceIndex",
+          "startTime",
+          "endTime",
+          "transcript",
+          "confidence"
+        ]
+      },
+      "UserTypingBody": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "isTyping": {
+            "type": "string",
+            "description": "Typing status",
+            "example": true
+          },
+          "visitorId": {
+            "type": "string",
+            "description": "visitorId is the Unique ID assigned to each Live chat visitor. visitorId will be added soon in <a href=\"../contacts/get-contact\" target=\"_blank\">GET Contact API</a>",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "conversationId": {
+            "type": "string",
+            "description": "Conversation Id",
+            "example": "ve9EPM428h8vShlRW1KT"
+          }
+        },
+        "required": [
+          "locationId",
+          "isTyping",
+          "visitorId",
+          "conversationId"
+        ]
+      },
+      "CreateLiveChatMessageFeedbackResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ]
+      },
+      "AddMessageAttachmentsDto": {
+        "type": "object",
+        "properties": {
+          "attachments": {
+            "type": "array",
+            "description": "Array of attachment URLs to set on the message (replaces existing). Maximum 5 URLs.",
+            "example": [
+              "https://provider.com/recordings/call-123.mp3"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "attachments"
+        ]
+      },
+      "AddMessageAttachmentsResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the operation was successful.",
+            "example": true
+          },
+          "messageId": {
+            "type": "string",
+            "description": "The ID of the message that was updated.",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "attachments": {
+            "type": "array",
+            "description": "The updated list of attachment URLs on the message.",
+            "example": [
+              "https://provider.com/recordings/call-123.mp3"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "success",
+          "messageId",
+          "attachments"
+        ]
+      },
+      "EmailEventsDto": {
+        "type": "object",
+        "description": "Aggregate delivery event counters for the email message. Values are merged into existing stored counters (additive update, not replacement). A value of `0` is treated as a no-op and will not reset the stored counter. Only include fields you want to update. Provider-specific counters such as `permanent_fail`, `temporary_fail`, and `esp_isp_block` may be sent using those snake_case keys.",
+        "additionalProperties": {
+          "type": "integer",
+          "description": "Additional provider event counter (merged into stored values)."
+        },
+        "properties": {
+          "delivered": {
+            "type": "integer",
+            "description": "Number of successful deliveries — the recipient mail server accepted the message. Automatically inferred (set to 1) when `opened`, `clicked`, `complained`, `unsubscribed`, or `replied` events are reported.",
+            "example": 1
+          },
+          "opened": {
+            "type": "integer",
+            "description": "Number of unique open events (typically tracked via a tracking pixel). Automatically inferred (set to 1) when `clicked`, `complained`, `unsubscribed`, or `replied` events are reported, provided open tracking is enabled on the email.",
+            "example": 3
+          },
+          "clicked": {
+            "type": "integer",
+            "description": "Number of link click events within the email body. Triggers automatic inference of both `opened` and `delivered`.",
+            "example": 1
+          },
+          "replied": {
+            "type": "integer",
+            "description": "Number of reply events. Triggers automatic inference of both `opened` (if open tracking is enabled) and `delivered`.",
+            "example": 1
+          },
+          "failed": {
+            "type": "integer",
+            "description": "Total number of delivery failures (includes both permanent and temporary). For more granular failure tracking, use `permanent_fail` and `temporary_fail` instead.",
+            "example": 0
+          },
+          "accepted": {
+            "type": "integer",
+            "description": "Number of messages accepted by the receiving mail server for delivery. Automatically inferred (set to 1) when `delivered`, `permanent_fail`, or `temporary_fail` events are reported.",
+            "example": 1
+          },
+          "rejected": {
+            "type": "integer",
+            "description": "Number of messages rejected outright by the receiving mail server (before acceptance).",
+            "example": 0
+          },
+          "unsubscribed": {
+            "type": "integer",
+            "description": "Number of unsubscribe events triggered by the recipient. Triggers automatic inference of `opened` and `delivered`.",
+            "example": 0
+          },
+          "complained": {
+            "type": "integer",
+            "description": "Number of spam complaint events (e.g., recipient marked the email as spam). Triggers automatic inference of `opened` and `delivered`.",
+            "example": 0
+          },
+          "stored": {
+            "type": "integer",
+            "description": "Number of messages stored by the email service provider (ESP-specific event).",
+            "example": 0
+          }
+        }
+      },
+      "UpdateRecipientMessageStatusDto": {
+        "type": "object",
+        "description": "Delivery status for an individual recipient of a multi-recipient email. Each entry is keyed by the recipient's email address and tracks their specific delivery outcome independently from the aggregate event counters.",
+        "properties": {
+          "emailId": {
+            "type": "string",
+            "description": "The recipient's email address. This is used as the key to store and update the per-recipient status. Must match one of the original recipients of the email.",
+            "example": "john@doe.com"
+          },
+          "status": {
+            "type": "string",
+            "description": "The delivery status for this specific recipient. Common values for status updates: `delivered` (successfully delivered), `failed` (delivery failed — provide `failReason`), `opened` (recipient opened the email), `clicked` (recipient clicked a link).",
+            "enum": [
+              "pending",
+              "scheduled",
+              "sent",
+              "delivered",
+              "read",
+              "undelivered",
+              "connected",
+              "failed",
+              "opened",
+              "clicked"
+            ],
+            "example": "delivered"
+          },
+          "failReason": {
+            "type": "string",
+            "description": "Human-readable reason for the delivery failure. Only applicable when `status` is `failed`. Examples: \"Mailbox not found\", \"Quota exceeded\", \"Blocked by recipient server\".",
+            "example": "Mailbox not found"
+          }
+        },
+        "required": [
+          "emailId",
+          "status"
+        ]
+      },
+      "UpdateEmailMessageStatusDto": {
+        "type": "object",
+        "description": "Request body to update the delivery status of an email message. `status` is required. `events` and `recipients` are optional and may be included together with `status`.\n\n- Use `events` to report aggregate delivery metrics (delivered count, open count, etc.).\n- Use `recipients` to track per-recipient delivery outcomes for multi-recipient emails.\n- Use `status` to set the overall message status.\n\nMultiple calls are additive — event counters are merged, recipient statuses are upserted, and the message status is overwritten.",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "events": {
+            "description": "Aggregate delivery event counters. Counters are merged into existing values. The API automatically infers related events (e.g., reporting `clicked` will also set `opened` and `delivered` if not already present). See the endpoint description for the full inference rules.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EmailEventsDto"
+              }
+            ],
+            "example": {
+              "delivered": 1,
+              "opened": 1
+            }
+          },
+          "recipients": {
+            "type": "array",
+            "description": "Per-recipient delivery statuses. Each entry maps a recipient email address to a delivery status. Entries are upserted — if a recipient already has a status, it will be overwritten with the new value.",
+            "items": {
+              "$ref": "#/components/schemas/UpdateRecipientMessageStatusDto"
+            },
+            "example": [
+              {
+                "emailId": "john@example.com",
+                "status": "delivered"
+              }
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "The overall status of the email message. Required on every request. For emails with multiple recipients, consider using the `recipients` array for granular tracking and this field for the aggregate status.",
+            "enum": [
+              "pending",
+              "scheduled",
+              "sent",
+              "delivered",
+              "read",
+              "undelivered",
+              "connected",
+              "failed",
+              "opened",
+              "clicked"
+            ],
+            "example": "delivered"
+          }
+        }
+      },
+      "UpdateEmailMessageStatusResponseDto": {
+        "type": "object",
+        "description": "Response returned after successfully updating the email message status.",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the status update was persisted successfully.",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable result message.",
+            "example": "Updated email message successfully"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Conversations",
+    "tags": [
+      "Conversations",
+      "Search",
+      "Email",
+      "Messages",
+      "Providers"
+    ]
+  }
+}

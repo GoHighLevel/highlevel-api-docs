@@ -1,0 +1,6059 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/emails/locations/{locationId}/templates": {
+      "post": {
+        "operationId": "create-email-template",
+        "x-version-added": "v3",
+        "summary": "Create an email template",
+        "description": "Create a new email template",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTemplatePublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTemplatePublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-email-templates",
+        "x-version-added": "v3",
+        "summary": "List templates",
+        "description": "Get list of templates by location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of templates to return",
+            "schema": {
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of templates to skip",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search by template name",
+            "schema": {
+              "example": "newsletter",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "updatedAt",
+              "example": "updatedAt",
+              "enum": [
+                "updatedAt"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "example": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "archived",
+            "required": false,
+            "in": "query",
+            "description": "Return archived templates",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "folderId",
+            "required": false,
+            "in": "query",
+            "description": "Folder to list templates from. Use 'root' for top-level listing.",
+            "schema": {
+              "example": "root",
+              "type": "string"
+            }
+          },
+          {
+            "name": "include",
+            "required": false,
+            "in": "query",
+            "description": "Whether to include templates, folders, or both in the response. `templates` will return only templates, `folders` will return only folders, and `all` will return both.",
+            "schema": {
+              "default": "all",
+              "example": "all",
+              "enum": [
+                "all",
+                "templates",
+                "folders"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListTemplatesPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/templates/import": {
+      "post": {
+        "operationId": "import-email-template",
+        "x-version-added": "v3",
+        "summary": "Import an email template",
+        "description": "Import a template from a provider URL",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportTemplatePublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportTemplatePublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/templates/folders": {
+      "post": {
+        "operationId": "create-template-folder",
+        "x-version-added": "v3",
+        "summary": "Create a template folder",
+        "description": "Create a new template folder",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTemplateFolderPublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTemplateFolderPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/templates/{templateId}": {
+      "get": {
+        "operationId": "get-email-template",
+        "x-version-added": "v3",
+        "summary": "Get Email Template by ID",
+        "description": "Get a single email template by its ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "required": true,
+            "in": "path",
+            "description": "Template ID",
+            "schema": {
+              "example": "507f1f77bcf86cd799439011",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTemplatePublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.readonly"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-email-template",
+        "x-version-added": "v3",
+        "summary": "Delete a template",
+        "description": "Delete a template",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "required": true,
+            "in": "path",
+            "description": "Template ID",
+            "schema": {
+              "example": "zYy3YOUuHxgomU1uYJty",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTemplatePublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.write"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "update-email-template",
+        "x-version-added": "v3",
+        "summary": "Update an email template",
+        "description": "Update email template",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "required": true,
+            "in": "path",
+            "description": "Template ID",
+            "schema": {
+              "example": "zYy3YOUuHxgomU1uYJty",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTemplatePublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateTemplatePublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/stats/{source}/{sourceId}": {
+      "get": {
+        "operationId": "get-campaign-stats",
+        "x-version-added": "v3",
+        "summary": "Get Campaign Statistics",
+        "description": "Get statistics for email campaigns, workflows, or bulk actions",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "required": true,
+            "in": "path",
+            "description": "Source type: email-campaigns, workflow-campaigns, or bulk-actions",
+            "schema": {
+              "example": "email-campaigns",
+              "enum": [
+                "email-campaigns",
+                "workflow-campaigns",
+                "bulk-actions"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceId",
+            "required": true,
+            "in": "path",
+            "description": "Source ID of the email campaign, workflow campaign, or bulk action",
+            "schema": {
+              "example": "abc123",
+              "type": "string"
+            }
+          },
+          {
+            "name": "subSourceId",
+            "required": false,
+            "in": "query",
+            "description": "Workflow action ID. Only valid when source is `workflow-campaigns`",
+            "schema": {
+              "example": "step001",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCampaignStatsPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Statistics"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/stats.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/emails": {
+      "post": {
+        "operationId": "create-email-campaign",
+        "x-version-added": "v3",
+        "summary": "Create Email Campaign",
+        "description": "Create a new email campaign",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmailCampaignPublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEmailCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-email-campaigns",
+        "x-version-added": "v3",
+        "summary": "List Email Campaigns",
+        "description": "Get list of email campaigns for a location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of campaigns to return. Defaults to 10, minimum is 1, maximum is 20",
+            "schema": {
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of campaigns to skip for pagination. Defaults to 0, minimum is 0",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search text for campaign name",
+            "schema": {
+              "example": "newsletter",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by campaign status",
+            "schema": {
+              "example": "all",
+              "enum": [
+                "all",
+                "sent",
+                "failed",
+                "archived",
+                "draft",
+                "processing",
+                "scheduled",
+                "cancelled",
+                "paused"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListEmailCampaignsPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/emails/{campaignId}": {
+      "patch": {
+        "operationId": "update-email-campaign",
+        "x-version-added": "v3",
+        "summary": "Update Email Campaign",
+        "description": "Update an email campaign draft",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign ID",
+            "schema": {
+              "example": "67f15c2ae99226d5bcccb8f3",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmailCampaignPublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateEmailCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get-email-campaign",
+        "x-version-added": "v3",
+        "summary": "Get Email Campaign by ID",
+        "description": "Get a single email campaign by its ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign ID",
+            "schema": {
+              "example": "67f15c2ae99226d5bcccb8f3",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmailCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-campaign",
+        "x-version-added": "v3",
+        "summary": "Delete Campaign",
+        "description": "Delete a campaign",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign ID",
+            "schema": {
+              "example": "zYy3YOUuHxgomU1uYJty",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/workflows": {
+      "get": {
+        "operationId": "list-workflow-campaigns",
+        "x-version-added": "v3",
+        "summary": "List Workflow Campaigns",
+        "description": "Get list of workflow campaigns for a location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "k23k23jl23l32l",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of campaigns to return. Defaults to 10, minimum is 1, maximum is 20",
+            "schema": {
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of items to skip for pagination. Defaults to 0, minimum is 0",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search query to filter campaigns.",
+            "schema": {
+              "default": "",
+              "example": "workflow",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by campaign status",
+            "schema": {
+              "example": "published",
+              "enum": [
+                "published",
+                "draft"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListWorkflowCampaignsPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/workflows/{campaignId}": {
+      "get": {
+        "operationId": "get-workflow-campaign",
+        "x-version-added": "v3",
+        "summary": "Get Workflow Campaign by ID",
+        "description": "Get a single workflow campaign by its ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign ID",
+            "schema": {
+              "example": "693bd14ea6b50a8df0180e9a",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetWorkflowCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/bulk-actions": {
+      "get": {
+        "operationId": "list-bulk-action-campaigns",
+        "x-version-added": "v3",
+        "summary": "List Bulk Action Campaigns",
+        "description": "Get list of bulk action campaigns for a location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of campaigns to return. Defaults to 10, minimum is 1, maximum is 20",
+            "schema": {
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of campaigns to skip for pagination. Defaults to 0, minimum is 0",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search query to filter campaigns.",
+            "schema": {
+              "default": "",
+              "example": "action",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "description": "Filter by start date (ISO 8601 format)",
+            "schema": {
+              "example": "2024-01-01T00:00:00.000Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "description": "Filter by end date (ISO 8601 format)",
+            "schema": {
+              "example": "2024-12-31T23:59:59.999Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "example": "complete",
+              "enum": [
+                "processing",
+                "scheduled",
+                "paused",
+                "complete",
+                "cancelled"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListBulkActionCampaignsPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/bulk-actions/{campaignId}": {
+      "get": {
+        "operationId": "get-bulk-action-campaign",
+        "x-version-added": "v3",
+        "summary": "Get Bulk Action Campaign by ID",
+        "description": "Get a single bulk action campaign by its ID",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign ID",
+            "schema": {
+              "example": "OI72xYec4Mho6VBykTvj",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBulkActionCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/emails/locations/{locationId}/campaigns/emails/{campaignId}/schedule": {
+      "post": {
+        "operationId": "schedule-campaign",
+        "x-version-added": "v3",
+        "summary": "Schedule Campaign",
+        "description": "Schedule or start an email campaign. The campaign must be in draft, cancelled, or paused status.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign ID",
+            "schema": {
+              "example": "67f15c2ae99226d5bcccb8f3",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleCampaignPublicV2BodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleCampaignPublicV2ResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundDTO"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict - Campaign is already scheduled or being processed"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Email API v3",
+    "description": "Documentation for emails API\n\n## API Version v3\n\nAll APIs available via `/v3` route prefix with AIP-compliant responses.",
+    "version": "v3",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Emails",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Campaigns",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Templates",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Templates V2",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Statistics",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Statistics V2",
+      "description": "Documentation for emails API"
+    },
+    {
+      "name": "Campaigns V2",
+      "description": "Documentation for emails API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com",
+      "description": "Email API v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "ScheduleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Untitled new campaign"
+          },
+          "repeatAfter": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "childCount": {
+            "type": "number"
+          },
+          "campaignType": {
+            "type": "string"
+          },
+          "bulkActionVersion": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "sendDays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "migrated": {
+            "type": "boolean"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "hasTracking": {
+            "type": "boolean"
+          },
+          "isPlainText": {
+            "type": "boolean"
+          },
+          "hasUtmTracking": {
+            "type": "boolean"
+          },
+          "enableResendToUnopened": {
+            "type": "boolean"
+          },
+          "locationId": {
+            "type": "string"
+          },
+          "templateId": {
+            "type": "string"
+          },
+          "templateType": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "number"
+          },
+          "documentId": {
+            "type": "string"
+          },
+          "downloadUrl": {
+            "type": "string"
+          },
+          "templateDataDownloadUrl": {
+            "type": "string"
+          },
+          "child": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "repeatAfter",
+          "id",
+          "parentId",
+          "childCount",
+          "campaignType",
+          "bulkActionVersion",
+          "_id",
+          "status",
+          "sendDays",
+          "deleted",
+          "migrated",
+          "archived",
+          "hasTracking",
+          "isPlainText",
+          "hasUtmTracking",
+          "enableResendToUnopened",
+          "locationId",
+          "templateId",
+          "templateType",
+          "createdAt",
+          "updatedAt",
+          "__v",
+          "documentId",
+          "downloadUrl",
+          "templateDataDownloadUrl",
+          "child"
+        ]
+      },
+      "ScheduleFetchSuccessfulDTO": {
+        "type": "object",
+        "properties": {
+          "schedules": {
+            "description": "The list of campaigns",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleDto"
+            }
+          },
+          "total": {
+            "description": "The total number of campaigns",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace Id"
+          }
+        },
+        "required": [
+          "schedules",
+          "total",
+          "traceId"
+        ]
+      },
+      "InvalidLocationDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code for invalid location access",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message describing the location access failure",
+            "example": "The token does not have access to this location"
+          }
+        }
+      },
+      "NotFoundDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code for not found",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message describing the not found failure",
+            "example": "Not Found"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error type identifier",
+            "example": "The requested resource was not found"
+          }
+        }
+      },
+      "CreateBuilderDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "title": {
+            "type": "string",
+            "example": "template title"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "html",
+              "folder",
+              "import",
+              "builder",
+              "blank",
+              "ai_template",
+              "vibe-editor"
+            ]
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "zYy3YOUuHxgomU1uYJty"
+          },
+          "builderVersion": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "default": "2"
+          },
+          "name": {
+            "type": "string",
+            "example": "Template1"
+          },
+          "parentId": {
+            "type": "string",
+            "example": "zYy3YOUuHxgomU1uYJty"
+          },
+          "templateDataUrl": {
+            "type": "string",
+            "example": ""
+          },
+          "importProvider": {
+            "type": "string",
+            "enum": [
+              "mailchimp",
+              "active_campaign",
+              "kajabi",
+              "other",
+              "import_with_email_ai"
+            ]
+          },
+          "importURL": {
+            "type": "string",
+            "example": "https://tplshare.com/fhYJ3Mi"
+          },
+          "templateSource": {
+            "type": "string",
+            "example": "template_library"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "example": false
+          },
+          "subjectLine": {
+            "type": "string",
+            "example": "Email Subject"
+          },
+          "fromName": {
+            "type": "string",
+            "example": "Name of sender"
+          },
+          "fromEmail": {
+            "type": "string",
+            "example": "test@abc.com"
+          },
+          "previewText": {
+            "type": "string",
+            "example": "preview text"
+          }
+        },
+        "required": [
+          "locationId",
+          "type",
+          "importProvider"
+        ]
+      },
+      "CreateBuilderSuccesfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "redirect": {
+            "type": "string",
+            "example": "66e811229245fc098765590",
+            "description": "template id"
+          },
+          "traceId": {
+            "type": "string",
+            "example": "0c52e980-41f6-4be7-8c4b-e2c5a13dc3c2",
+            "description": "trace id"
+          }
+        },
+        "required": [
+          "redirect",
+          "traceId"
+        ]
+      },
+      "FetchBuilderSuccesfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "New Template",
+            "description": "template name"
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "updated by"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "example": "false",
+            "description": "plain text based template"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "example": "2024-11-12T12:34:36.070Z",
+            "description": "last updated"
+          },
+          "dateAdded": {
+            "type": "string",
+            "example": "2024-11-12T12:34:36.070Z",
+            "description": "date added"
+          },
+          "previewUrl": {
+            "type": "string",
+            "example": "https://example.com",
+            "description": "preview url"
+          },
+          "id": {
+            "type": "string",
+            "example": "67334b231f2fad724062f52b5",
+            "description": "id"
+          },
+          "version": {
+            "type": "string",
+            "example": "1",
+            "description": "version"
+          },
+          "templateType": {
+            "type": "string",
+            "example": "builder",
+            "description": "type"
+          }
+        }
+      },
+      "DeleteBuilderSuccesfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "string",
+            "example": "true",
+            "description": "ok"
+          },
+          "traceId": {
+            "type": "string",
+            "example": "0c52e980-41f6-4be7-8c4b-32332ss",
+            "description": "trace id"
+          }
+        }
+      },
+      "TemplateSettings": {
+        "type": "object",
+        "properties": {}
+      },
+      "IBuilderJsonMapper": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "description": "Array of VNode elements representing the email structure",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "description": "Object mapping element IDs to their attributes and styles"
+          },
+          "templateSettings": {
+            "description": "Template-level settings and configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TemplateSettings"
+              }
+            ]
+          }
+        },
+        "required": [
+          "elements",
+          "attrs",
+          "templateSettings"
+        ]
+      },
+      "SaveBuilderDataDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "templateId": {
+            "type": "string",
+            "example": "zYy3YOUuHxgomU1uYJty"
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "zYy3YOUuHxgomU1uYJty"
+          },
+          "dnd": {
+            "example": "{elements:[], attrs:{}, templateSettings:{}}",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IBuilderJsonMapper"
+              }
+            ]
+          },
+          "html": {
+            "type": "string",
+            "example": ""
+          },
+          "editorType": {
+            "type": "string",
+            "enum": [
+              "html",
+              "builder"
+            ]
+          },
+          "previewText": {
+            "type": "string",
+            "example": "zYy3YOUuHxgomU1uYJty"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "usedEmailAI": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether Email AI was used"
+          }
+        },
+        "required": [
+          "locationId",
+          "templateId",
+          "updatedBy",
+          "dnd",
+          "html",
+          "editorType"
+        ]
+      },
+      "BuilderUpdateSuccessfulDTO": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "string",
+            "example": "true",
+            "description": "ok"
+          },
+          "traceId": {
+            "type": "string",
+            "example": "0c52e980-41f6-4be7-8c4b-32332ss",
+            "description": "trace id"
+          },
+          "previewUrl": {
+            "type": "string",
+            "example": "https://example.com",
+            "description": "preview url"
+          },
+          "templateDownloadUrl": {
+            "type": "string",
+            "example": "https://example.com",
+            "description": "template data download url"
+          },
+          "versionId": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "description": "version id of the saved template"
+          }
+        }
+      },
+      "UpdateEmailTemplateDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID where the template belongs",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "User ID who is updating the template",
+            "example": "zYy3YOUuHxgomU1uYJty"
+          },
+          "editorContent": {
+            "description": "Editor content - can be HTML string, plain text string, or DND builder object depending on editorType. When editorType is \"html\" or \"text\", this should be a string. When editorType is \"builder\", this should be a DND object with elements, attrs, and templateSettings. Must be provided together with editorType.",
+            "oneOf": [
+              {
+                "type": "string",
+                "example": "<html><body>Hello World</body></html>"
+              },
+              {
+                "$ref": "#/components/schemas/IBuilderJsonMapper"
+              }
+            ]
+          },
+          "editorType": {
+            "type": "string",
+            "enum": [
+              "html",
+              "builder",
+              "text"
+            ],
+            "description": "Type of editor content: \"html\" for HTML content, \"text\" for plain text content, \"builder\" for drag-and-drop builder content. Must be provided together with editorContent.",
+            "example": "html"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text shown in email clients before opening",
+            "example": "Email preview text"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name displayed in email",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Newsletter Template"
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "Whether the template is archived",
+            "example": false
+          },
+          "fieldDefaults": {
+            "type": "object",
+            "description": "Field-level default values for custom variables in template fields (fromName, subjectLine, previewText)",
+            "example": {
+              "subjectLine": {
+                "contact.first_name:0": "Friend"
+              }
+            }
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "UpdateEmailTemplateResponseDto": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "description": "Indicates if the update was successful",
+            "example": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique template identifier",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "My Email Template"
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "Whether the template is archived",
+            "example": false
+          },
+          "builderVersion": {
+            "type": "string",
+            "description": "Builder version used for the template",
+            "example": "2"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name displayed in email",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text shown in email clients",
+            "example": "Check out our latest updates"
+          },
+          "previewUrl": {
+            "type": "string",
+            "description": "URL to preview the rendered template",
+            "example": "https://example.com/preview/template123"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of template editor used",
+            "enum": [
+              "html",
+              "builder"
+            ],
+            "example": "builder"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "Timestamp of last update",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when template was created",
+            "example": "2024-01-01T08:00:00Z"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether the template contains plain text content (true) or HTML content (false)",
+            "example": false
+          },
+          "fieldDefaults": {
+            "type": "object",
+            "description": "Field-level default values for custom variables in template fields",
+            "example": {
+              "subjectLine": {
+                "contact.first_name:0": "Friend"
+              }
+            }
+          }
+        },
+        "required": [
+          "ok",
+          "id",
+          "name",
+          "archived",
+          "builderVersion",
+          "fromName",
+          "fromEmail",
+          "subjectLine",
+          "previewText",
+          "previewUrl",
+          "type",
+          "lastUpdated",
+          "createdAt",
+          "isPlainText"
+        ]
+      },
+      "BuilderElementNodePublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Element ID",
+            "example": "mj-text-123"
+          },
+          "tagName": {
+            "type": "string",
+            "description": "Tag name",
+            "example": "mj-text"
+          },
+          "children": {
+            "description": "Child elements",
+            "example": [
+              {
+                "id": "mj-column-1",
+                "tagName": "mj-column"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuilderElementNodePublicV2Dto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "tagName"
+        ]
+      },
+      "BuilderEditorContentPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "description": "Builder elements",
+            "example": [
+              {
+                "id": "mj-body-1",
+                "tagName": "mj-body",
+                "children": []
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuilderElementNodePublicV2Dto"
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "description": "Builder attributes map keyed by element ID",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/BuilderNodeAttrsPublicV2Dto"
+            },
+            "example": {
+              "mj-text-123": {
+                "tagName": "mj-text",
+                "attributes": [
+                  {
+                    "name": "padding",
+                    "default": "10px"
+                  }
+                ]
+              }
+            }
+          },
+          "templateSettings": {
+            "type": "object",
+            "description": "Template-level settings map keyed by setting group",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/BuilderAttributePublicV2Dto"
+              }
+            },
+            "example": {
+              "mj-all": [
+                {
+                  "name": "font-family",
+                  "default": "Arial, sans-serif"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "BuilderAttributePublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Attribute name",
+            "example": "padding"
+          },
+          "default": {
+            "type": "object",
+            "description": "Attribute default value",
+            "example": "10px"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Attribute unit",
+            "example": "px"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "BuilderCustomFlagsPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "layoutId": {
+            "type": "object",
+            "description": "Layout ID",
+            "example": "hero-layout"
+          },
+          "theme": {
+            "type": "string",
+            "description": "Theme name",
+            "example": "clean"
+          },
+          "socialElementType": {
+            "type": "string",
+            "enum": [
+              "icon",
+              "icon-text",
+              "text"
+            ],
+            "description": "Social element rendering type"
+          }
+        }
+      },
+      "BuilderNodeAttrsPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "tagName": {
+            "type": "string",
+            "description": "Tag name",
+            "example": "mj-text"
+          },
+          "attributes": {
+            "description": "Element attributes",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuilderAttributePublicV2Dto"
+            }
+          },
+          "content": {
+            "type": "string",
+            "description": "Element content",
+            "example": "Hello world"
+          },
+          "customFlags": {
+            "description": "Custom flags",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BuilderCustomFlagsPublicV2Dto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "tagName",
+          "attributes"
+        ]
+      },
+      "CreateTemplatePublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Newsletter Template"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type for the new template. Use `html` for code-editor templates or `text` for plain-text templates.",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "editorContent": {
+            "type": "string",
+            "description": "Optional initial editor content. Provide HTML or plain-text string content.",
+            "example": "<html><body>Hello World</body></html>"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Email preview text"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        },
+        "required": [
+          "name",
+          "editorType"
+        ]
+      },
+      "CreateTemplatePublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Template ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Newsletter Template"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether template is plain text",
+            "example": false
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Email preview text"
+          },
+          "previewUrl": {
+            "type": "string",
+            "description": "Preview URL",
+            "example": "https://example.com/preview/template123"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "editorType",
+          "isPlainText"
+        ]
+      },
+      "ImportTemplatePublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "importProvider": {
+            "type": "string",
+            "description": "Import provider (URL-based providers only)",
+            "enum": [
+              "mailchimp",
+              "active_campaign"
+            ],
+            "example": "mailchimp"
+          },
+          "importUrl": {
+            "type": "string",
+            "description": "Public import URL",
+            "example": "https://templates.example.com/public/template-123"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Imported Template"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        },
+        "required": [
+          "importProvider",
+          "importUrl"
+        ]
+      },
+      "ImportTemplatePublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Template ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Newsletter Template"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether template is plain text",
+            "example": false
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Email preview text"
+          },
+          "previewUrl": {
+            "type": "string",
+            "description": "Preview URL",
+            "example": "https://example.com/preview/template123"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "editorType",
+          "isPlainText"
+        ]
+      },
+      "CreateTemplateFolderPublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Folder name",
+            "example": "Spring Campaigns"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "CreateTemplateFolderPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Folder ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "name": {
+            "type": "string",
+            "description": "Folder name",
+            "example": "Spring Campaigns"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "TemplateListItemPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Resource ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "name": {
+            "type": "string",
+            "description": "Resource name",
+            "example": "February Newsletter"
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type",
+            "enum": [
+              "template",
+              "folder"
+            ],
+            "example": "template"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether template is plain text",
+            "example": false
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "previewUrl": {
+            "type": "string",
+            "description": "Preview URL",
+            "example": "https://example.com/preview"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type for template resources",
+            "enum": [
+              "html",
+              "builder",
+              "text"
+            ],
+            "example": "builder"
+          },
+          "childCount": {
+            "type": "number",
+            "description": "Children count for folder resources",
+            "example": 3
+          },
+          "hasChildren": {
+            "type": "boolean",
+            "description": "Whether folder has child resources",
+            "example": true
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type"
+        ]
+      },
+      "ListTemplatesPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "List of template and folder resources",
+            "example": [
+              {
+                "id": "67f15c2ae99226d5bcccb8f3",
+                "name": "February Newsletter",
+                "type": "template"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateListItemPublicV2Dto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of templates and folders",
+            "example": 25
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ]
+      },
+      "GetTemplatePublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Template ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Newsletter Template"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type",
+            "enum": [
+              "html",
+              "builder",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether template is plain text",
+            "example": false
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Email preview text"
+          },
+          "editorContentUrl": {
+            "type": "string",
+            "description": "URL to fetch the rendered template content as HTML. Issue a GET against this URL to retrieve the body.",
+            "example": "https://storage.googleapis.com/email-templates/abc123.html"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the template is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "editorType",
+          "isPlainText",
+          "deleted"
+        ]
+      },
+      "DeleteTemplatePublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the template was deleted successfully",
+            "example": true
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "0c52e980-41f6-4be7-8c4b-32332ss"
+          }
+        },
+        "required": [
+          "deleted"
+        ]
+      },
+      "UpdateTemplatePublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "Newsletter Template"
+          },
+          "editorContent": {
+            "type": "string",
+            "description": "Editor content to update. Required only when updating template content, and must be provided together with editorType. Provide HTML or plain-text string content.",
+            "example": "<html><body>Hello World</body></html>"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Type of editor content. Required only when updating template content, and must be provided together with editorContent.",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Email preview text"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "Whether template is archived",
+            "example": false
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID. Pass `null` to move template to the root level.",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        }
+      },
+      "UpdateTemplatePublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Template ID",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name",
+            "example": "My Email Template"
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "Whether template is archived",
+            "example": false
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subjectLine": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Check out our latest updates"
+          },
+          "previewUrl": {
+            "type": "string",
+            "description": "Preview URL",
+            "example": "https://example.com/preview/template123"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Template type",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether template is plain text",
+            "example": false
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "archived",
+          "fromName",
+          "fromEmail",
+          "subjectLine",
+          "previewText",
+          "previewUrl"
+        ]
+      },
+      "EmailStatsNumbersDto": {
+        "type": "object",
+        "properties": {
+          "delivered": {
+            "type": "number",
+            "description": "Emails delivered",
+            "example": 1000
+          },
+          "opened": {
+            "type": "number",
+            "description": "Emails opened",
+            "example": 450
+          },
+          "clicked": {
+            "type": "number",
+            "description": "Links clicked",
+            "example": 120
+          },
+          "unsubscribed": {
+            "type": "number",
+            "description": "Unsubscribes",
+            "example": 5
+          },
+          "complained": {
+            "type": "number",
+            "description": "Spam complaints",
+            "example": 2
+          },
+          "permanentFail": {
+            "type": "number",
+            "description": "Hard bounces",
+            "example": 15
+          },
+          "temporaryFail": {
+            "type": "number",
+            "description": "Soft bounces",
+            "example": 3
+          },
+          "rejected": {
+            "type": "number",
+            "description": "Rejected emails",
+            "example": 10
+          },
+          "failed": {
+            "type": "number",
+            "description": "Failed emails",
+            "example": 5
+          },
+          "replied": {
+            "type": "number",
+            "description": "Replies received",
+            "example": 25
+          }
+        },
+        "required": [
+          "delivered",
+          "opened",
+          "clicked",
+          "unsubscribed",
+          "complained",
+          "permanentFail",
+          "temporaryFail",
+          "rejected",
+          "failed",
+          "replied"
+        ]
+      },
+      "GetCampaignStatsResponseDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "abc123"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source type",
+            "enum": [
+              "email-campaigns",
+              "workflow-campaigns",
+              "bulk-actions"
+            ],
+            "example": "email-campaigns"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID",
+            "example": "campaign123"
+          },
+          "subSourceId": {
+            "type": "string",
+            "description": "Workflow action ID",
+            "example": "step001"
+          },
+          "stats": {
+            "description": "Email performance metrics",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EmailStatsNumbersDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "locationId",
+          "source",
+          "sourceId",
+          "stats"
+        ]
+      },
+      "EmailStatsNumbersPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "sent": {
+            "type": "number",
+            "description": "Total emails sent (delivered + accepted + bounced)",
+            "example": 1020
+          },
+          "accepted": {
+            "type": "number",
+            "description": "Emails accepted by the mail server",
+            "example": 5
+          },
+          "delivered": {
+            "type": "number",
+            "description": "Emails delivered to inbox",
+            "example": 1000
+          },
+          "opened": {
+            "type": "number",
+            "description": "Emails opened",
+            "example": 450
+          },
+          "clicked": {
+            "type": "number",
+            "description": "Links clicked",
+            "example": 120
+          },
+          "unsubscribed": {
+            "type": "number",
+            "description": "Unsubscribes",
+            "example": 5
+          },
+          "complained": {
+            "type": "number",
+            "description": "Spam complaints",
+            "example": 2
+          },
+          "permanentFail": {
+            "type": "number",
+            "description": "Hard bounces",
+            "example": 15
+          },
+          "temporaryFail": {
+            "type": "number",
+            "description": "Soft bounces",
+            "example": 3
+          },
+          "rejected": {
+            "type": "number",
+            "description": "Rejected emails",
+            "example": 10
+          },
+          "failed": {
+            "type": "number",
+            "description": "Failed emails",
+            "example": 5
+          },
+          "replied": {
+            "type": "number",
+            "description": "Replies received",
+            "example": 25
+          },
+          "openRate": {
+            "type": "number",
+            "description": "Open rate as percentage of delivered",
+            "example": 45
+          },
+          "clickRate": {
+            "type": "number",
+            "description": "Click rate as percentage of delivered",
+            "example": 12
+          },
+          "unsubscribeRate": {
+            "type": "number",
+            "description": "Unsubscribe rate as percentage of delivered",
+            "example": 0.5
+          },
+          "complaintRate": {
+            "type": "number",
+            "description": "Complaint rate as percentage of delivered",
+            "example": 0.2
+          },
+          "bounceRate": {
+            "type": "number",
+            "description": "Bounce rate as percentage of sent",
+            "example": 1.76
+          },
+          "replyRate": {
+            "type": "number",
+            "description": "Reply rate as percentage of delivered",
+            "example": 2.5
+          }
+        },
+        "required": [
+          "sent",
+          "accepted",
+          "delivered",
+          "opened",
+          "clicked",
+          "unsubscribed",
+          "complained",
+          "permanentFail",
+          "temporaryFail",
+          "rejected",
+          "failed",
+          "replied",
+          "openRate",
+          "clickRate",
+          "unsubscribeRate",
+          "complaintRate",
+          "bounceRate",
+          "replyRate"
+        ]
+      },
+      "GetCampaignStatsPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location ID",
+            "example": "abc123"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source type",
+            "enum": [
+              "email-campaigns",
+              "workflow-campaigns",
+              "bulk-actions"
+            ],
+            "example": "email-campaigns"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID",
+            "example": "campaign123"
+          },
+          "subSourceId": {
+            "type": "string",
+            "description": "Workflow action ID",
+            "example": "step001"
+          },
+          "stats": {
+            "description": "Email performance metrics",
+            "example": {
+              "sent": 1020,
+              "accepted": 5,
+              "delivered": 1000,
+              "opened": 450,
+              "clicked": 120,
+              "unsubscribed": 5,
+              "complained": 2,
+              "permanentFail": 15,
+              "temporaryFail": 3,
+              "rejected": 10,
+              "failed": 5,
+              "replied": 25,
+              "openRate": 45,
+              "clickRate": 12,
+              "unsubscribeRate": 0.5,
+              "complaintRate": 0.2,
+              "bounceRate": 1.76,
+              "replyRate": 2.5
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EmailStatsNumbersPublicV2Dto"
+              }
+            ]
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "locationId",
+          "source",
+          "sourceId",
+          "stats"
+        ]
+      },
+      "WorkflowCampaignPublicDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "693bd14ea6b50a8df0180e9a"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "sorting workflow"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "published",
+            "enum": [
+              "published",
+              "draft"
+            ]
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID",
+            "example": "115b9030-907c-474c-90a5-2debd838a024"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-12-12T08:24:46.700Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated at timestamp",
+            "example": "2026-01-23T05:58:48.453Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "status",
+          "sourceId",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "GetWorkflowCampaignsPublicResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaigns": {
+            "description": "List of workflow campaigns",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowCampaignPublicDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of campaigns",
+            "example": 50
+          }
+        },
+        "required": [
+          "campaigns",
+          "total"
+        ]
+      },
+      "BulkActionCampaignEmailDetailsDto": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our platform"
+          },
+          "from": {
+            "type": "string",
+            "description": "Sender (name and email)",
+            "example": "John Doe <john@example.com>"
+          },
+          "name": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "templateId": {
+            "type": "string",
+            "description": "Email template ID",
+            "example": "6790aeb53c8d1288f555f92b"
+          }
+        }
+      },
+      "BulkActionCampaignDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "OI72xYec4Mho6VBykTvj"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Test Mail"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "complete",
+            "enum": [
+              "processing",
+              "scheduled",
+              "paused",
+              "complete",
+              "cancelled"
+            ]
+          },
+          "scheduleType": {
+            "type": "string",
+            "description": "Schedule type (NOW or SCHEDULED)",
+            "example": "NOW"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "User who created the campaign",
+            "example": "John Doe"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "completedAt": {
+            "type": "string",
+            "description": "Processing completion timestamp",
+            "example": "2025-07-24T11:55:48.000Z"
+          },
+          "emailMetadata": {
+            "description": "Email metadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BulkActionCampaignEmailDetailsDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "status",
+          "scheduleType",
+          "createdBy",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "GetBulkActionCampaignsResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaigns": {
+            "description": "List of bulk action campaigns",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BulkActionCampaignDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of bulk action campaigns",
+            "example": 25
+          }
+        },
+        "required": [
+          "campaigns",
+          "total"
+        ]
+      },
+      "CreateEmailCampaignPublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Untitled campaign name"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type for the campaign content. Use `html` for code-editor campaigns or `text` for plain-text campaigns.",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "templateId": {
+            "type": "string",
+            "description": "Existing template ID to create the campaign from. Omit this field to create a blank campaign.",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "editorContent": {
+            "type": "string",
+            "description": "Optional initial editor content to persist immediately after campaign creation. Provide HTML or plain-text string content.",
+            "example": "<html><body>Hello World</body></html>"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Timezone for the campaign",
+            "example": "Asia/Kolkata"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439099"
+          },
+          "userName": {
+            "type": "string",
+            "description": "Name of the user performing this action",
+            "example": "John Doe"
+          }
+        },
+        "required": [
+          "name",
+          "editorType",
+          "timeZone",
+          "userId"
+        ]
+      },
+      "EmailCampaignVariationPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "description": "Variation source ID for stats lookup",
+            "example": "9MhVcU7dTdLI7XOU1Vdt"
+          },
+          "isWinner": {
+            "type": "boolean",
+            "description": "Whether this is the winning variation",
+            "example": true
+          }
+        },
+        "required": [
+          "sourceId",
+          "isWinner"
+        ]
+      },
+      "CreateEmailCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "email-campaign"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "bulkRequest_abc123"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "February Newsletter"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "sent",
+            "enum": [
+              "all",
+              "sent",
+              "failed",
+              "archived",
+              "draft",
+              "processing",
+              "scheduled",
+              "cancelled",
+              "paused"
+            ]
+          },
+          "campaignType": {
+            "type": "string",
+            "description": "Campaign type",
+            "example": "bulk-email"
+          },
+          "campaignCategory": {
+            "type": "string",
+            "description": "Campaign category",
+            "example": "email-campaign"
+          },
+          "variations": {
+            "description": "AB test variation identifiers (available only for AB test campaigns)",
+            "example": [
+              {
+                "sourceId": "9MhVcU7dTdLI7XOU1Vdt",
+                "isWinner": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
+            }
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "EmailCampaignPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "email-campaign"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "bulkRequest_abc123"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "February Newsletter"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "sent",
+            "enum": [
+              "all",
+              "sent",
+              "failed",
+              "archived",
+              "draft",
+              "processing",
+              "scheduled",
+              "cancelled",
+              "paused"
+            ]
+          },
+          "campaignType": {
+            "type": "string",
+            "description": "Campaign type",
+            "example": "bulk-email"
+          },
+          "campaignCategory": {
+            "type": "string",
+            "description": "Campaign category",
+            "example": "email-campaign"
+          },
+          "variations": {
+            "description": "AB test variation identifiers (available only for AB test campaigns)",
+            "example": [
+              {
+                "sourceId": "9MhVcU7dTdLI7XOU1Vdt",
+                "isWinner": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
+            }
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          }
+        },
+        "required": [
+          "id",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListEmailCampaignsPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaigns": {
+            "description": "List of email campaigns",
+            "example": [
+              {
+                "id": "67f15c2ae99226d5bcccb8f3",
+                "name": "February Newsletter",
+                "status": "sent",
+                "deleted": false,
+                "createdAt": "2025-07-24T11:55:43.598Z",
+                "updatedAt": "2026-02-09T04:49:12.322Z"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailCampaignPublicV2Dto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of email campaigns",
+            "example": 25
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "campaigns",
+          "total"
+        ]
+      },
+      "UpdateEmailCampaignPublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Untitled campaign name"
+          },
+          "editorContent": {
+            "type": "string",
+            "description": "Editor content to update. Required only when updating campaign content, and must be provided together with editorType. Provide HTML or plain-text string content.",
+            "example": "<html><body>Hello World</body></html>"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type for campaign content. Required only when updating campaign content, and must be provided together with editorContent.",
+            "enum": [
+              "html",
+              "text"
+            ],
+            "example": "html"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        }
+      },
+      "UpdateEmailCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "email-campaign"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "bulkRequest_abc123"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "February Newsletter"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "sent",
+            "enum": [
+              "all",
+              "sent",
+              "failed",
+              "archived",
+              "draft",
+              "processing",
+              "scheduled",
+              "cancelled",
+              "paused"
+            ]
+          },
+          "campaignType": {
+            "type": "string",
+            "description": "Campaign type",
+            "example": "bulk-email"
+          },
+          "campaignCategory": {
+            "type": "string",
+            "description": "Campaign category",
+            "example": "email-campaign"
+          },
+          "variations": {
+            "description": "AB test variation identifiers (available only for AB test campaigns)",
+            "example": [
+              {
+                "sourceId": "9MhVcU7dTdLI7XOU1Vdt",
+                "isWinner": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
+            }
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "GetEmailCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "email-campaign"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "bulkRequest_abc123"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "February Newsletter"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "sent",
+            "enum": [
+              "all",
+              "sent",
+              "failed",
+              "archived",
+              "draft",
+              "processing",
+              "scheduled",
+              "cancelled",
+              "paused"
+            ]
+          },
+          "campaignType": {
+            "type": "string",
+            "description": "Campaign delivery type",
+            "example": "bulk-email"
+          },
+          "campaignCategory": {
+            "type": "string",
+            "description": "Campaign category",
+            "example": "normal"
+          },
+          "variations": {
+            "description": "AB test variation identifiers (available only for AB test campaigns)",
+            "example": [
+              {
+                "sourceId": "9MhVcU7dTdLI7XOU1Vdt",
+                "isWinner": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
+            }
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Original editor type the campaign was created with",
+            "enum": [
+              "html",
+              "builder",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether the campaign uses plain text",
+            "example": false
+          },
+          "editorContentUrl": {
+            "type": "string",
+            "description": "URL to fetch the rendered campaign content as HTML. Issue a GET against this URL to retrieve the body.",
+            "example": "https://storage.googleapis.com/email-templates/abc123.html"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "replyToAddress": {
+            "type": "string",
+            "description": "Reply-to email address",
+            "example": "reply@example.com"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Check out our latest updates"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "WorkflowCampaignPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "693bd14ea6b50a8df0180e9a"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "sorting workflow"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "published",
+            "enum": [
+              "published",
+              "draft"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "workflow"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "115b9030-907c-474c-90a5-2debd838a024"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-12-12T08:24:46.700Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated at timestamp",
+            "example": "2026-01-23T05:58:48.453Z"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListWorkflowCampaignsPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaigns": {
+            "description": "List of workflow campaigns",
+            "example": [
+              {
+                "id": "693bd14ea6b50a8df0180e9a",
+                "name": "sorting workflow",
+                "status": "published",
+                "createdAt": "2025-12-12T08:24:46.700Z",
+                "updatedAt": "2026-01-23T05:58:48.453Z"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowCampaignPublicV2Dto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of campaigns",
+            "example": 50
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "campaigns",
+          "total"
+        ]
+      },
+      "WorkflowCampaignSubSourcePublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Sub-source identifier (workflow step). Pass this value as the `subSourceId` query parameter on the campaign stats endpoint to retrieve stats scoped to this step.",
+            "example": "a3f1c0e2-6d4b-4f3a-9c1e-7b2d8f5a4c01"
+          },
+          "name": {
+            "type": "string",
+            "description": "Workflow step name",
+            "example": "Send welcome email"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Check out our latest updates"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type for this step",
+            "enum": [
+              "html",
+              "builder",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether this step uses plain text",
+            "example": false
+          },
+          "editorContentUrl": {
+            "type": "string",
+            "description": "URL to fetch the rendered step content as HTML. Issue a GET against this URL to retrieve the body.",
+            "example": "https://storage.googleapis.com/email-templates/abc123.html"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when this step was added to the workflow",
+            "example": "2025-12-12T08:24:46.700Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp when this step was last updated",
+            "example": "2026-01-23T05:58:48.453Z"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "GetWorkflowCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "693bd14ea6b50a8df0180e9a"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "sorting workflow"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "published",
+            "enum": [
+              "published",
+              "draft"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "workflow"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "115b9030-907c-474c-90a5-2debd838a024"
+          },
+          "subSources": {
+            "description": "Sub-sources (email-sending steps) within this workflow. Each entry's `id` can be passed as the `subSourceId` query parameter to the campaign stats endpoint to retrieve per-step stats.",
+            "example": [
+              {
+                "id": "a3f1c0e2-6d4b-4f3a-9c1e-7b2d8f5a4c01",
+                "name": "Send welcome email",
+                "subject": "Welcome to our newsletter",
+                "fromName": "John Doe",
+                "fromEmail": "john@example.com",
+                "previewText": "Check out our latest updates",
+                "editorType": "html",
+                "isPlainText": false,
+                "editorContentUrl": "https://storage.googleapis.com/email-templates/abc123.html",
+                "createdAt": "2025-12-12T08:24:46.700Z",
+                "updatedAt": "2026-01-23T05:58:48.453Z"
+              },
+              {
+                "id": "b7d9e4f1-2a0c-4f8e-bf2a-5e1d3c9b6a02",
+                "name": "Follow-up after 3 days",
+                "subject": "Quick follow-up",
+                "fromName": "John Doe",
+                "fromEmail": "john@example.com",
+                "editorType": "builder",
+                "isPlainText": false,
+                "createdAt": "2025-12-13T10:15:22.300Z",
+                "updatedAt": "2026-01-20T09:42:11.100Z"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowCampaignSubSourcePublicV2Dto"
+            }
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-12-12T08:24:46.700Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Updated at timestamp",
+            "example": "2026-01-23T05:58:48.453Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "BulkActionCampaignPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "OI72xYec4Mho6VBykTvj"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "email-marketing"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "115b9030-907c-474c-90a5-2debd838a024"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Test Mail"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "complete",
+            "enum": [
+              "processing",
+              "scheduled",
+              "paused",
+              "complete",
+              "cancelled"
+            ]
+          },
+          "scheduleType": {
+            "type": "string",
+            "description": "Schedule type (NOW, SCHEDULED, or DRIP)",
+            "example": "SCHEDULED",
+            "enum": [
+              "NOW",
+              "SCHEDULED",
+              "DRIP"
+            ]
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "completedAt": {
+            "type": "string",
+            "description": "Processing completion timestamp",
+            "example": "2025-07-24T11:55:48.000Z"
+          },
+          "emailMetadata": {
+            "description": "Email metadata",
+            "example": {
+              "subject": "Welcome to our platform",
+              "from": "John Doe <john@example.com>",
+              "templateId": "6790aeb53c8d1288f555f92b"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BulkActionCampaignEmailDetailsDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ListBulkActionCampaignsPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaigns": {
+            "description": "List of bulk action campaigns",
+            "example": [
+              {
+                "id": "OI72xYec4Mho6VBykTvj",
+                "name": "Test Mail",
+                "status": "complete",
+                "deleted": false,
+                "createdAt": "2025-07-24T11:55:43.598Z",
+                "updatedAt": "2026-02-09T04:49:12.322Z"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BulkActionCampaignPublicV2Dto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total count of bulk action campaigns",
+            "example": 25
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "campaigns",
+          "total"
+        ]
+      },
+      "GetBulkActionCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "OI72xYec4Mho6VBykTvj"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the campaign",
+            "example": "email-marketing"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID of the campaign",
+            "example": "115b9030-907c-474c-90a5-2debd838a024"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Test Mail"
+          },
+          "status": {
+            "type": "string",
+            "description": "Campaign status",
+            "example": "complete",
+            "enum": [
+              "processing",
+              "scheduled",
+              "paused",
+              "complete",
+              "cancelled"
+            ]
+          },
+          "scheduleType": {
+            "type": "string",
+            "description": "Schedule type (NOW, SCHEDULED, or DRIP)",
+            "example": "SCHEDULED",
+            "enum": [
+              "NOW",
+              "SCHEDULED",
+              "DRIP"
+            ]
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Welcome to our newsletter"
+          },
+          "replyToAddress": {
+            "type": "string",
+            "description": "Reply-to email address",
+            "example": "reply@example.com"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text",
+            "example": "Check out our latest updates"
+          },
+          "editorType": {
+            "type": "string",
+            "description": "Editor type for this campaign",
+            "enum": [
+              "html",
+              "builder",
+              "text"
+            ],
+            "example": "html"
+          },
+          "isPlainText": {
+            "type": "boolean",
+            "description": "Whether the campaign uses plain text",
+            "example": false
+          },
+          "editorContentUrl": {
+            "type": "string",
+            "description": "URL to fetch the rendered campaign content as HTML. Issue a GET against this URL to retrieve the body.",
+            "example": "https://storage.googleapis.com/email-templates/abc123.html"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at timestamp",
+            "example": "2025-07-24T11:55:43.598Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last updated timestamp",
+            "example": "2026-02-09T04:49:12.322Z"
+          },
+          "completedAt": {
+            "type": "string",
+            "description": "Processing completion timestamp",
+            "example": "2025-07-24T11:55:48.000Z"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "deleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ScheduleCampaignEmailMetaPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "description": "Email subject line",
+            "example": "Our February Newsletter"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender display name",
+            "example": "John Doe"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address",
+            "example": "john@example.com"
+          },
+          "replyToAddress": {
+            "type": "string",
+            "description": "Reply-to email address",
+            "example": "reply@example.com"
+          },
+          "previewText": {
+            "type": "string",
+            "description": "Preview text shown in inbox after subject",
+            "example": "Check out our latest news"
+          },
+          "attachments": {
+            "description": "Attachment download URLs",
+            "example": [
+              "https://example.com/file.pdf"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "subject",
+          "fromName",
+          "fromEmail"
+        ]
+      },
+      "ScheduleCampaignRecipientsPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Recipient selection type",
+            "enum": [
+              "contact",
+              "tag",
+              "segment"
+            ],
+            "example": "contact"
+          },
+          "contactIds": {
+            "description": "Contact IDs to send to. Required when type is contact.",
+            "example": [
+              "contactId1",
+              "contactId2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tagIds": {
+            "description": "Tag IDs to filter recipients by. Required when type is tag.",
+            "example": [
+              "tagId1",
+              "tagId2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "segment": {
+            "type": "string",
+            "description": "Segment type for pre-built segments. Required when type is segment.",
+            "enum": [
+              "engaged_last_7_days",
+              "engaged_last_30_days",
+              "engaged_last_60_days",
+              "engaged_last_5_campaigns",
+              "unengaged_last_5_campaigns"
+            ],
+            "example": "engaged_last_7_days"
+          },
+          "freezeList": {
+            "type": "boolean",
+            "description": "Freeze the contact list at schedule time — new matching contacts will not be added later",
+            "example": true,
+            "default": true
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ScheduleCampaignBatchConfigPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "batchSize": {
+            "type": "number",
+            "description": "Number of contacts to process per batch",
+            "example": 100
+          },
+          "interval": {
+            "type": "number",
+            "description": "Delay between batches",
+            "example": 2
+          },
+          "intervalUnit": {
+            "type": "string",
+            "description": "Unit for the interval",
+            "example": "hours",
+            "enum": [
+              "minutes",
+              "hours",
+              "days"
+            ]
+          },
+          "skipDays": {
+            "type": "array",
+            "description": "Days to skip sending",
+            "example": [
+              "Sat",
+              "Sun"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+              ]
+            }
+          },
+          "windowStart": {
+            "type": "string",
+            "description": "Earliest time to send batches",
+            "example": "09:00 AM"
+          },
+          "windowEnd": {
+            "type": "string",
+            "description": "Latest time to send batches",
+            "example": "05:00 PM"
+          }
+        },
+        "required": [
+          "batchSize",
+          "interval",
+          "intervalUnit"
+        ]
+      },
+      "ScheduleCampaignTrackingPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "clickTracking": {
+            "type": "boolean",
+            "description": "Enable click tracking on links",
+            "example": true
+          },
+          "utmTracking": {
+            "type": "boolean",
+            "description": "Enable UTM parameters on links",
+            "example": false
+          }
+        }
+      },
+      "ScheduleCampaignResendPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enable resend to contacts who did not open",
+            "example": false
+          },
+          "waitHours": {
+            "type": "number",
+            "description": "Hours to wait before resending. Required when enabled is true.",
+            "example": 12
+          },
+          "subject": {
+            "type": "string",
+            "description": "Override subject line for the resend email",
+            "example": "Did you miss this?"
+          }
+        }
+      },
+      "ScheduleCampaignScheduleConfigPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "sendAt": {
+            "type": "string",
+            "description": "Date/time to send. Required for scheduled, batch, and smart_send. Ignored for immediate.",
+            "example": "2026-04-01 09:00 AM"
+          },
+          "batch": {
+            "description": "Batch/drip configuration. Required when scheduleType is batch. Ignored otherwise.",
+            "example": {
+              "batchSize": 100,
+              "interval": 2,
+              "intervalUnit": "hours"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignBatchConfigPublicV2Dto"
+              }
+            ]
+          },
+          "tracking": {
+            "description": "Click and UTM tracking options",
+            "example": {
+              "clickTracking": true,
+              "utmTracking": false
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignTrackingPublicV2Dto"
+              }
+            ]
+          },
+          "resend": {
+            "description": "Auto-resend to contacts who did not open",
+            "example": {
+              "enabled": false
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignResendPublicV2Dto"
+              }
+            ]
+          },
+          "emailPreferenceId": {
+            "type": "string",
+            "description": "Email preference type ID for categorizing this campaign",
+            "example": "preference-type-id"
+          }
+        }
+      },
+      "ScheduleCampaignRssConfigPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "RSS schedule name",
+            "example": "Weekly Digest"
+          },
+          "rssFeedURL": {
+            "type": "string",
+            "description": "RSS feed URL",
+            "example": "https://example.com/rss"
+          },
+          "repeatAfter": {
+            "type": "string",
+            "description": "How often to check the feed",
+            "example": "every_day",
+            "enum": [
+              "every_day",
+              "every_week",
+              "every_month"
+            ]
+          },
+          "repeatAfterTime": {
+            "type": "string",
+            "description": "Time of day to execute",
+            "example": "09:00 AM"
+          },
+          "rssFeedLimit": {
+            "type": "number",
+            "description": "Max number of RSS items per email",
+            "example": 10
+          },
+          "startAtDay": {
+            "type": "string",
+            "description": "Day of week for weekly RSS",
+            "enum": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "example": "Monday"
+          },
+          "startAtMonthDay": {
+            "type": "string",
+            "description": "Day of month for monthly RSS",
+            "example": "15"
+          },
+          "firstExecutionDate": {
+            "type": "string",
+            "description": "Override first execution date/time",
+            "example": "2026-04-01 10:00:00"
+          }
+        },
+        "required": [
+          "name",
+          "rssFeedURL",
+          "repeatAfter",
+          "repeatAfterTime"
+        ]
+      },
+      "ScheduleCampaignABTestVariationPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "description": "Subject line for this variation",
+            "example": "Subject A"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Template/document ID for this variation",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        }
+      },
+      "ScheduleCampaignABTestConfigPublicV2Dto": {
+        "type": "object",
+        "properties": {
+          "testType": {
+            "type": "string",
+            "description": "What is being tested",
+            "enum": [
+              "emailContent",
+              "subjectLine"
+            ],
+            "example": "subjectLine"
+          },
+          "testDuration": {
+            "type": "number",
+            "description": "Seconds to run the test before picking a winner",
+            "example": 3600
+          },
+          "variationCount": {
+            "type": "number",
+            "description": "Number of variations",
+            "example": 2
+          },
+          "testSize": {
+            "type": "number",
+            "description": "Percentage of contacts in the test group (0-100)",
+            "example": 30
+          },
+          "winningCriteria": {
+            "type": "string",
+            "description": "How to pick the winner",
+            "enum": [
+              "openRate",
+              "clickRate"
+            ],
+            "example": "openRate"
+          },
+          "variations": {
+            "description": "A/B test variations",
+            "example": [
+              {
+                "subject": "Subject A"
+              },
+              {
+                "subject": "Subject B"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleCampaignABTestVariationPublicV2Dto"
+            }
+          }
+        },
+        "required": [
+          "testType",
+          "testDuration",
+          "variationCount",
+          "testSize",
+          "winningCriteria",
+          "variations"
+        ]
+      },
+      "ScheduleCampaignPublicV2BodyDto": {
+        "type": "object",
+        "properties": {
+          "scheduleType": {
+            "type": "string",
+            "description": "How to schedule the campaign",
+            "enum": [
+              "immediate",
+              "scheduled",
+              "batch",
+              "rss",
+              "smart_send"
+            ],
+            "example": "immediate"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "IANA timezone",
+            "example": "America/New_York"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439099"
+          },
+          "userName": {
+            "type": "string",
+            "description": "Name of the user performing this action",
+            "example": "John Doe"
+          },
+          "emailMeta": {
+            "description": "Email subject, sender, and content metadata",
+            "example": {
+              "subject": "Our February Newsletter",
+              "fromName": "John Doe",
+              "fromEmail": "john@example.com"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignEmailMetaPublicV2Dto"
+              }
+            ]
+          },
+          "recipients": {
+            "description": "Who receives the email. Must provide either contactIds or filter.",
+            "example": {
+              "type": "contact",
+              "contactIds": [
+                "contactId1",
+                "contactId2"
+              ]
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignRecipientsPublicV2Dto"
+              }
+            ]
+          },
+          "sendDays": {
+            "type": "array",
+            "description": "Days of the week to allow sending. Used for batch and RSS scheduleTypes.",
+            "example": [
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat",
+              "Sun"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+              ]
+            }
+          },
+          "scheduleConfig": {
+            "description": "Schedule configuration for immediate, scheduled, batch, and smart_send types. Required when scheduleType is not rss.",
+            "example": {
+              "sendAt": "2026-04-01 09:00 AM"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignScheduleConfigPublicV2Dto"
+              }
+            ]
+          },
+          "rssConfig": {
+            "description": "RSS feed configuration. Required when scheduleType is rss.",
+            "example": {
+              "name": "Weekly Digest",
+              "rssFeedURL": "https://example.com/rss",
+              "repeatAfter": "every_day",
+              "repeatAfterTime": "09:00 AM"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignRssConfigPublicV2Dto"
+              }
+            ]
+          },
+          "abTestConfig": {
+            "description": "A/B test configuration. Can be combined with any scheduleType except rss.",
+            "example": {
+              "testType": "subjectLine",
+              "testDuration": 3600,
+              "variationCount": 2,
+              "testSize": 30,
+              "winningCriteria": "openRate",
+              "variations": [
+                {
+                  "subject": "Subject A"
+                },
+                {
+                  "subject": "Subject B"
+                }
+              ]
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleCampaignABTestConfigPublicV2Dto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "scheduleType",
+          "timeZone",
+          "userId",
+          "emailMeta",
+          "recipients"
+        ]
+      },
+      "ScheduleCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign ID",
+            "example": "67f15c2ae99226d5bcccb8f3"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "Source ID for fetching campaign statistics",
+            "example": "B67vyPIAfq3Bnk3FVioE",
+            "nullable": true
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "019e4ef5-a65e-4198-8cf9-8e93dca9bda4"
+          }
+        },
+        "required": [
+          "campaignId",
+          "sourceId"
+        ]
+      },
+      "DeleteCampaignPublicV2ResponseDto": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the campaign was deleted successfully",
+            "example": true
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Trace ID of the request",
+            "example": "0c52e980-41f6-4be7-8c4b-32332ss"
+          }
+        },
+        "required": [
+          "deleted"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Email",
+    "tags": [
+      "Emails",
+      "Campaigns",
+      "Templates",
+      "Templates V2",
+      "Statistics",
+      "Statistics V2",
+      "Campaigns V2"
+    ]
+  }
+}

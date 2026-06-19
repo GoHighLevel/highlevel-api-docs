@@ -1,0 +1,1159 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/associations/relations": {
+      "post": {
+        "operationId": "create-relation",
+        "summary": "Create Relation for you associated entities.",
+        "description": "Create Relation.Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createRelationReqDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Relations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations/relation.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/associations/relations/{recordId}": {
+      "get": {
+        "operationId": "get-relations-by-record-id",
+        "summary": "Get all relations By record Id",
+        "description": "Get all relations by record Id",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "recordId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Your Sub Account's ID",
+            "schema": {
+              "example": "clF1LD04GTUKN3b3XuOj",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "10",
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "100",
+              "type": "number"
+            }
+          },
+          {
+            "name": "associationIds",
+            "required": false,
+            "in": "query",
+            "description": "Association Ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Relations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations/relation.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/associations/relations/{relationId}": {
+      "delete": {
+        "operationId": "delete-relation",
+        "summary": "Delete Relation",
+        "description": "Delete Relation",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Your Sub Account's ID",
+            "schema": {
+              "example": "clF1LD04GTUKN3b3XuOj",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Relations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations/relation.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/associations/key/{key_name}": {
+      "get": {
+        "operationId": "get-association-key-by-key-name",
+        "summary": "Get association key by key name",
+        "description": "Using this api you can get standard / user defined association by key",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "key_name",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/associations/objectKey/{objectKey}": {
+      "get": {
+        "operationId": "get-association-by-object-keys",
+        "summary": "Get association by object keys",
+        "description": "Get association by object keys like contacts, custom objects and opportunities. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "objectKey",
+            "required": false,
+            "in": "path",
+            "schema": {
+              "example": "custom_objects.car",
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/associations/{associationId}": {
+      "put": {
+        "operationId": "update-association",
+        "summary": "Update Association By Id",
+        "description": "Update Association , Allows you to update labels of an associations. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "associationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssociationReqDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-association",
+        "summary": "Delete Association",
+        "description": "Delete USER_DEFINED Association By Id, deleting an association will also all the relations for that association",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "associationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAssociationsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get-association-by-ID",
+        "summary": "Get association by ID",
+        "description": "Using this api you can get SYSTEM_DEFINED / USER_DEFINED association by id ",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "associationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/associations/": {
+      "post": {
+        "operationId": "create-association",
+        "summary": "Create Association",
+        "description": "Allow you to create contact - contact , contact - custom objects associations, will add more in the future.Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-293776/cd0f4122abc04d3",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAssociationReqDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "find-associations",
+        "summary": "Get all associations for a sub-account / location",
+        "description": "Get all Associations",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "string",
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "10",
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "100",
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPostSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Associations"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "associations.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Associations API",
+    "description": "Documentation for Associations API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Associations",
+      "description": "Documentation for Associations API"
+    },
+    {
+      "name": "Relations",
+      "description": "Documentation for Associations API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "createRelationReqDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "example": "clF1LD04GTUKN3b3XuOj",
+            "description": "Your Sub Account's ID"
+          },
+          "associationId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "Association's Id"
+          },
+          "firstRecordId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "First Record's Id. For instance, if you have an association between a contact and a custom object, and you specify the contact as the first object while creating the association, then your firstRecordId would be the contactId "
+          },
+          "secondRecordId": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT",
+            "description": "Second Record's Id.For instance, if you have an association between a contact and a custom object, and you specify the custom object as the second entity while creating the association, then your secondRecordId would be the customObject record Id"
+          }
+        },
+        "required": [
+          "locationId",
+          "associationId",
+          "firstRecordId",
+          "secondRecordId"
+        ]
+      },
+      "GetPostSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "example": "string"
+          },
+          "id": {
+            "type": "string",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "key": {
+            "type": "string",
+            "example": "student",
+            "description": "First Objects Association Label (custom_objects.children)"
+          },
+          "firstObjectLabel": {
+            "type": "object",
+            "example": "student",
+            "description": "First Objects Association Label (custom_objects.children)"
+          },
+          "firstObjectKey": {
+            "type": "object",
+            "example": "custom_objects.children",
+            "description": "First Objects Key"
+          },
+          "secondObjectLabel": {
+            "type": "object",
+            "example": "Teacher",
+            "description": "Second Object Association Label (contact)"
+          },
+          "secondObjectKey": {
+            "type": "object",
+            "example": "contact",
+            "description": "Second Objects Key"
+          },
+          "associationType": {
+            "type": "object",
+            "example": "USER_DEFINED",
+            "description": "Association Type can be USER_DEFINED or SYSTEM_DEFINED"
+          }
+        },
+        "required": [
+          "locationId",
+          "id",
+          "key",
+          "firstObjectLabel",
+          "firstObjectKey",
+          "secondObjectLabel",
+          "secondObjectKey",
+          "associationType"
+        ]
+      },
+      "createAssociationReqDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "example": "string"
+          },
+          "key": {
+            "type": "string",
+            "example": "student_teacher",
+            "description": "Association's Unique key"
+          },
+          "firstObjectLabel": {
+            "type": "object",
+            "example": "student",
+            "description": "First Objects Association Label (custom_objects.children)"
+          },
+          "firstObjectKey": {
+            "type": "object",
+            "example": "custom_objects.children",
+            "description": "First Objects Key"
+          },
+          "secondObjectLabel": {
+            "type": "object",
+            "example": "Teacher",
+            "description": "Second Object Association Label (contact)"
+          },
+          "secondObjectKey": {
+            "type": "object",
+            "example": "contact",
+            "description": "Second Objects Key"
+          }
+        },
+        "required": [
+          "locationId",
+          "key",
+          "firstObjectLabel",
+          "firstObjectKey",
+          "secondObjectLabel",
+          "secondObjectKey"
+        ]
+      },
+      "UpdateAssociationReqDto": {
+        "type": "object",
+        "properties": {
+          "firstObjectLabel": {
+            "type": "object",
+            "example": "student"
+          },
+          "secondObjectLabel": {
+            "type": "object",
+            "example": "tutor"
+          }
+        },
+        "required": [
+          "firstObjectLabel",
+          "secondObjectLabel"
+        ]
+      },
+      "DeleteAssociationsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean",
+            "example": true,
+            "description": "Deletion status"
+          },
+          "id": {
+            "type": "string",
+            "example": "6d6f6e676f5f6576656e7473",
+            "description": "Association Id"
+          },
+          "message": {
+            "type": "string",
+            "example": "Association deleted successfully"
+          }
+        },
+        "required": [
+          "deleted",
+          "id",
+          "message"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Associations",
+    "tags": [
+      "Associations",
+      "Relations"
+    ]
+  }
+}

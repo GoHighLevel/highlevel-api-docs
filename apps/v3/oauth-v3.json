@@ -1,0 +1,973 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/oauth/token": {
+      "post": {
+        "operationId": "get-access-token",
+        "x-version-added": "v3",
+        "summary": "Get Access Token",
+        "description": "Use Access Tokens to access CRM resources on behalf of an authenticated location/company.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAccessTokenBodyDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAccessTokenBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccessTokenSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                },
+                "examples": {
+                  "invalidParameter": {
+                    "summary": "Thrown when any parameter (grantType, clientId, clientSecret, refreshToken, etc.) has an invalid value.",
+                    "value": {
+                      "statusCode": 400,
+                      "message": "Invalid parameter: grantType"
+                    }
+                  },
+                  "missingParameter": {
+                    "summary": "Thrown when a required parameter (grantType, clientId, clientSecret, refreshToken, etc.) is missing from the request.",
+                    "value": {
+                      "statusCode": 400,
+                      "message": "Missing parameter: clientId"
+                    }
+                  },
+                  "invalidRefreshToken": {
+                    "summary": "Thrown when the supplied refresh token is invalid, expired, or has already been used.",
+                    "value": {
+                      "statusCode": 400,
+                      "message": "Invalid grant: refresh token is invalid"
+                    }
+                  },
+                  "locationNotActive": {
+                    "summary": "Thrown when the location is not active (Due to SaaS subscription incomplete, paused, canceled, etc. Agency manually paused location. Agency becomes inactive.). Once the location becomes active again, the same refresh token can be used to get a new access token, provided the app is still installed on the location.",
+                    "value": {
+                      "statusCode": 400,
+                      "message": "Location is not active"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "OAuth 2.0"
+        ]
+      }
+    },
+    "/oauth/location-token": {
+      "post": {
+        "operationId": "get-location-access-token",
+        "x-version-added": "v3",
+        "summary": "Get Location Access Token from Agency Token",
+        "description": "This API allows you to generate locationAccessToken from AgencyAccessToken",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLocationAccessCodeBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLocationAccessTokenV3SuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "OAuth 2.0"
+        ],
+        "security": [
+          {
+            "Agency-Access-Only": [
+              "oauth.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/oauth/installed-locations": {
+      "get": {
+        "operationId": "get-installed-location",
+        "x-version-added": "v3",
+        "summary": "Get Location where app is installed",
+        "description": "This API allows you fetch location where app is installed upon",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Max items per page (1-100). Replaces legacy `limit` parameter per AIP-158.",
+            "schema": {
+              "default": 20,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageToken",
+            "required": false,
+            "in": "query",
+            "description": "Opaque token returned in a previous response to fetch the next page. Replaces legacy `skip` parameter per AIP-158.",
+            "schema": {
+              "example": "eyJza2lwIjoyMH0",
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Parameter to search for the installed location by name",
+            "schema": {
+              "example": "location name",
+              "type": "string"
+            }
+          },
+          {
+            "name": "isInstalled",
+            "required": false,
+            "in": "query",
+            "description": "Filters out location which are installed for specified app under the specified company",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "restrictToUserLocations",
+            "required": false,
+            "in": "query",
+            "description": "When true, restricts the list to locations the current user has access to (for restricted agency admins and account admins). When false or omitted, no user-based filter is applied for installed list; for backward compatibility, install list (isInstalled=false) is still filtered by user when this param is omitted.",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "description": "Parameter to search by the companyId",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "appId",
+            "required": true,
+            "in": "query",
+            "description": "Parameter to search by the appId",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "versionId",
+            "required": false,
+            "in": "query",
+            "description": "VersionId of the app",
+            "schema": {
+              "example": "tDtDnQdgm2LXpyiqYvZ6",
+              "type": "string"
+            }
+          },
+          {
+            "name": "onTrial",
+            "required": false,
+            "in": "query",
+            "description": "Filters out locations which are installed for specified app in trial mode",
+            "schema": {
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "planId",
+            "required": false,
+            "in": "query",
+            "description": "Filters out location which are installed for specified app under the specified planId",
+            "schema": {
+              "example": true,
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "description": "locationId",
+            "schema": {
+              "example": "1245",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInstalledLocationsV3SuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid argument (AIP error envelope)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AipErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "App not found (AIP error envelope)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AipErrorResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "OAuth 2.0"
+        ],
+        "security": [
+          {
+            "Agency-Access-Only": [
+              "oauth.readonly"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "OAuth 2.0 v3",
+    "description": "Documentation for OAuth 2.0 API\n\n## API Version v3\n\nAll APIs available via `/v3` route prefix with AIP-compliant responses.",
+    "version": "v3",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "OAuth 2.0",
+      "description": "Documentation for OAuth 2.0 API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com",
+      "description": "OAuth 2.0 v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "GetAccessTokenBodyDto": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "description": "The ID provided by CRM for your integration",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "clientSecret": {
+            "type": "string",
+            "description": "The client secret provided by CRM for your integration",
+            "example": "ab12dc0ae1234a7898f9ff06d4f69gh"
+          },
+          "grantType": {
+            "type": "string",
+            "description": "The OAuth2 grant type — authorization_code, refresh_token, or client_credentials",
+            "enum": [
+              "authorization_code",
+              "refresh_token",
+              "client_credentials"
+            ],
+            "example": "authorization_code"
+          },
+          "code": {
+            "type": "string",
+            "description": "The authorization code received from the authorization endpoint (required for authorization_code grant)",
+            "example": "ab12dc0ae1234a7898f9ff06d4f69gh"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "The refresh token used to obtain a new access token (required for refresh_token grant)",
+            "example": "xy34dc0ae1234a4858f9ff06d4f66ba"
+          },
+          "userType": {
+            "type": "string",
+            "description": "The type of token to be requested",
+            "example": "Location",
+            "enum": [
+              "Company",
+              "Location"
+            ]
+          },
+          "redirectUri": {
+            "type": "string",
+            "description": "The redirect URI for your application",
+            "example": "https://myapp.com/oauth/callback/crm"
+          }
+        },
+        "required": [
+          "clientId",
+          "clientSecret",
+          "grantType"
+        ]
+      },
+      "GetAccessTokenSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "ab12dc0ae1234a7898f9ff06d4f69gh",
+            "description": "The OAuth2 access token"
+          },
+          "tokenType": {
+            "type": "string",
+            "example": "Bearer",
+            "description": "The token type (always Bearer)"
+          },
+          "expiresIn": {
+            "type": "number",
+            "example": 86399,
+            "description": "Time in seconds until the access token expires"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "xy34dc0ae1234a4858f9ff06d4f66ba",
+            "description": "The OAuth2 refresh token used to obtain a new access token"
+          },
+          "scope": {
+            "type": "string",
+            "example": "conversations/message.readonly conversations/message.write",
+            "description": "Space-separated list of scopes the access token has access to"
+          },
+          "userType": {
+            "type": "string",
+            "example": "Location",
+            "description": "The user type associated with the token (Location or Company)"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID - Present only for Sub-Account Access Token",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "companyId": {
+            "type": "string",
+            "description": "Company ID",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "approvedLocations": {
+            "description": "Approved locations to generate location access token",
+            "example": [
+              "l1C08ntBrFjLS0elLIYU"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "userId": {
+            "type": "string",
+            "description": "USER ID - Represent user id of person who performed installation",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "planId": {
+            "type": "string",
+            "description": "Plan Id of the subscribed plan in paid apps.",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "isBulkInstallation": {
+            "type": "boolean",
+            "description": "Indicates whether the installation was performed as a bulk installation",
+            "example": false
+          },
+          "installToFutureLocations": {
+            "type": "boolean",
+            "description": "Boolean to control if user wants app to be automatically installed to future locations (only for company tokens)",
+            "example": true
+          },
+          "approveAllLocations": {
+            "type": "boolean",
+            "description": "Boolean indicating if user approved all locations during bulk installation (only for company tokens)",
+            "example": true
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "GetLocationAccessCodeBodyDto": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "description": "Company Id of location you want to request token for",
+            "example": "tDtDnQdgm2LXpyiqYvZ6"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "The location ID for which you want to obtain accessToken",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          }
+        },
+        "required": [
+          "companyId",
+          "locationId"
+        ]
+      },
+      "GetLocationAccessTokenSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "example": "ab12dc0ae1234a7898f9ff06d4f69gh",
+            "description": "Location access token which can be used to authenticate & authorize API under following scope"
+          },
+          "token_type": {
+            "type": "string",
+            "example": "Bearer",
+            "description": "The token type (always Bearer)"
+          },
+          "expires_in": {
+            "type": "number",
+            "example": 86399,
+            "description": "Time in seconds remaining for token to expire"
+          },
+          "scope": {
+            "type": "string",
+            "example": "conversations/message.readonly conversations/message.write",
+            "description": "Scopes the following accessToken have access to"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID - Present only for Sub-Account Access Token",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "planId": {
+            "type": "string",
+            "description": "Plan Id of the subscribed plan in paid apps.",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "userId": {
+            "type": "string",
+            "description": "USER ID - Represent user id of person who performed installation",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "appId": {
+            "type": "string",
+            "description": "App ID of the installed application",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "versionId": {
+            "type": "string",
+            "description": "Version ID of the installed app version",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "refresh_token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30",
+            "description": "The OAuth2 refresh token used to obtain a new access token for this specific location"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "GetLocationAccessTokenV3SuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "ab12dc0ae1234a7898f9ff06d4f69gh",
+            "description": "Location access token which can be used to authenticate & authorize API under following scope"
+          },
+          "tokenType": {
+            "type": "string",
+            "example": "Bearer",
+            "description": "The token type (always Bearer)"
+          },
+          "expiresIn": {
+            "type": "number",
+            "example": 86399,
+            "description": "Time in seconds remaining for token to expire"
+          },
+          "scope": {
+            "type": "string",
+            "example": "conversations/message.readonly conversations/message.write",
+            "description": "Scopes the following accessToken have access to"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location ID - Present only for Sub-Account Access Token",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "planId": {
+            "type": "string",
+            "description": "Plan Id of the subscribed plan in paid apps.",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "userId": {
+            "type": "string",
+            "description": "USER ID - Represent user id of person who performed installation",
+            "example": "l1C08ntBrFjLS0elLIYU"
+          },
+          "appId": {
+            "type": "string",
+            "description": "App ID of the installed application",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "versionId": {
+            "type": "string",
+            "description": "Version ID of the installed app version",
+            "example": "6578278e879ad2646715ba9c"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "The OAuth2 refresh token used to obtain a new access token for this specific location.",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "InstalledLocationSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "0IHuJvc2ofPAAA8GzTRi",
+            "description": "Location ID"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Deo",
+            "description": "Name of the location"
+          },
+          "address": {
+            "type": "string",
+            "example": "47 W 13th St, New York, NY 10011, USA",
+            "description": "Address linked to location"
+          },
+          "isInstalled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Check if the requested app is installed for following location"
+          },
+          "versionId": {
+            "type": "string",
+            "example": "6578278e879ad2646715ba9c",
+            "description": "Version ID of the installed app version for this location"
+          },
+          "installedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-15T10:30:00.000Z",
+            "description": "Timestamp when the app was installed on this location"
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "address"
+        ]
+      },
+      "GetInstalledLocationsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "locations": {
+            "description": "List of locations with their installation status for the requested app",
+            "example": [
+              {
+                "_id": "0IHuJvc2ofPAAA8GzTRi",
+                "name": "John Deo",
+                "address": "47 W 13th St, New York, NY 10011, USA",
+                "isInstalled": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstalledLocationSchema"
+            }
+          },
+          "count": {
+            "type": "number",
+            "example": 1231,
+            "description": "Total location count under the company"
+          },
+          "installToFutureLocations": {
+            "type": "boolean",
+            "description": "Boolean to control if user wants app to be automatically installed to future locations",
+            "example": true
+          }
+        }
+      },
+      "V3PaginationMetaDto": {
+        "type": "object",
+        "properties": {
+          "totalRecords": {
+            "type": "number",
+            "example": 1231,
+            "description": "Total number of records matching the query across all pages"
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "example": true,
+            "description": "True when a next page is available"
+          },
+          "hasPrevPage": {
+            "type": "boolean",
+            "example": false,
+            "description": "True when a previous page is available"
+          },
+          "nextPageToken": {
+            "type": "string",
+            "example": "eyJvZmZzZXQiOjIwfQ",
+            "description": "Opaque token to fetch the next page"
+          },
+          "prevPageToken": {
+            "type": "string",
+            "example": "eyJvZmZzZXQiOjB9",
+            "description": "Opaque token to fetch the previous page"
+          },
+          "currentPageSize": {
+            "type": "number",
+            "example": 20,
+            "description": "Number of items returned in the current page"
+          },
+          "estimatedTotalRecords": {
+            "type": "number",
+            "example": 1231,
+            "description": "Estimated total records; present when exact total is unknown"
+          }
+        },
+        "required": [
+          "hasNextPage",
+          "hasPrevPage",
+          "currentPageSize"
+        ]
+      },
+      "V3InstalledLocationsListMetadataDto": {
+        "type": "object",
+        "properties": {
+          "filterApplied": {
+            "type": "object",
+            "additionalProperties": true,
+            "example": {
+              "companyId": "tDtDnQdgm2LXpyiqYvZ6",
+              "isInstalled": true
+            },
+            "description": "Filters that were applied to the query"
+          },
+          "sortApplied": {
+            "type": "object",
+            "additionalProperties": true,
+            "example": {
+              "installedAt": "desc"
+            },
+            "description": "Sort order that was applied to the query"
+          }
+        }
+      },
+      "GetInstalledLocationsV3SuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "List of locations with their installation status for the requested app",
+            "example": [
+              {
+                "_id": "0IHuJvc2ofPAAA8GzTRi",
+                "name": "John Deo",
+                "address": "47 W 13th St, New York, NY 10011, USA",
+                "isInstalled": true
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstalledLocationSchema"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata (AIP-158)",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V3PaginationMetaDto"
+              }
+            ]
+          },
+          "metadata": {
+            "description": "Query metadata (filters and sort applied)",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V3InstalledLocationsListMetadataDto"
+              }
+            ]
+          },
+          "installToFutureLocations": {
+            "type": "boolean",
+            "description": "Boolean to control if user wants app to be automatically installed to future locations",
+            "example": true
+          }
+        },
+        "required": [
+          "items",
+          "pagination"
+        ]
+      },
+      "AipErrorBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "RESOURCE_NOT_FOUND",
+            "description": "Machine-readable error code (see AipErrorCode enum in @platform-core/aip-framework)"
+          },
+          "message": {
+            "type": "string",
+            "example": "The requested App 'abc' was not found.",
+            "description": "Human-readable error message"
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": true,
+            "example": {
+              "resource": "App",
+              "identifier": "abc"
+            },
+            "description": "Additional error context (field name, identifier, etc.)"
+          },
+          "resolution": {
+            "type": "string",
+            "example": "Verify the App exists and you have permission to access it.",
+            "description": "Suggested resolution for the caller"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "AipErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "description": "AIP-compliant error envelope",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AipErrorBodyDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "OAuth 2.0",
+    "tags": [
+      "OAuth 2.0"
+    ]
+  }
+}

@@ -1,0 +1,577 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/snapshots/": {
+      "get": {
+        "operationId": "get-custom-snapshots",
+        "summary": "Get Snapshots",
+        "description": "Get a list of all own and imported Snapshots",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "example": "5D112kQsiKESj6rash",
+            "description": "Company Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSnapshotsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Snapshots"
+        ],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/snapshots/share/link": {
+      "post": {
+        "operationId": "create-snapshot-share-link",
+        "summary": "Create Snapshot Share Link",
+        "description": "Create a share link for snapshot",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnapshotShareLinkRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSnapshotShareLinkSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Snapshots"
+        ],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/snapshots/snapshot-status/{snapshotId}": {
+      "get": {
+        "operationId": "get-snapshot-push",
+        "summary": "Get Snapshot Push between Dates",
+        "description": "Get list of sub-accounts snapshot pushed in time period",
+        "parameters": [
+          {
+            "name": "snapshotId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "39It2BFz7EkNaNBALPif"
+            }
+          },
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "5D112kQsiKESj6rash"
+            }
+          },
+          {
+            "name": "from",
+            "required": true,
+            "description": "Only accepts ISO 8601 format",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "2022-10-10T12:00:00Z or 2022-10-10"
+            }
+          },
+          {
+            "name": "to",
+            "required": true,
+            "description": "Only accepts ISO 8601 format",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "2023-12-18T11:59:59Z or 2023-12-18"
+            }
+          },
+          {
+            "name": "lastDoc",
+            "required": true,
+            "description": "Id for last document till what you want to skip",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "VUJO4Sw2TrDNZ5lx4wZg"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "description": "Limit of documents to return. Default is 20",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "10"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSnapshotPushStatusSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Snapshots"
+        ],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    },
+    "/snapshots/snapshot-status/{snapshotId}/location/{locationId}": {
+      "get": {
+        "operationId": "get-latest-snapshot-push",
+        "summary": "Get Last Snapshot Push",
+        "description": "Get Latest Snapshot Push Status for a location id",
+        "parameters": [
+          {
+            "name": "companyId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "5D112kQsiKESj6rash"
+            }
+          },
+          {
+            "name": "snapshotId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "39It2BFz7EkNaNBALPif"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "IIRGHCgxSINdPT79M75P"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLatestSnapshotPushStatusSuccessfulResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Snapshots"
+        ],
+        "security": [
+          {
+            "Agency-Access": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Snapshots API",
+    "description": "Documentation for Snapshots API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Snapshots",
+      "description": "Documentation for Snapshots API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Location (OR) Personal Integration Token from Location.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Location (OR) Personal Integration Token from Location.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Personal Integration Token from Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "SnapshotsSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1eM2UgkfaECOYyUdCo9Pa",
+            "description": "Snapshot Id."
+          },
+          "name": {
+            "type": "string",
+            "example": "Martial Arts Snapshot",
+            "description": "Name of the snapshot"
+          },
+          "type": {
+            "type": "string",
+            "example": "own",
+            "description": "Type of snapshot - own or imported."
+          }
+        }
+      },
+      "GetSnapshotsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "snapshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SnapshotsSchema"
+            }
+          }
+        }
+      },
+      "CreateSnapshotShareLinkRequestDTO": {
+        "type": "object",
+        "properties": {
+          "snapshot_id": {
+            "type": "string",
+            "example": "1eM2UgkfaECOYyUdCo9Pa",
+            "description": "id for snapshot to be shared"
+          },
+          "share_type": {
+            "type": "string",
+            "example": "permanent_link",
+            "description": "Type of share link to generate",
+            "enum": [
+              "link",
+              "permanent_link",
+              "agency_link",
+              "location_link"
+            ]
+          },
+          "relationship_number": {
+            "type": "string",
+            "example": "0-128-926,1-208-926,2-008-926",
+            "description": "Comma separated Relationship number of Agencies to create agency restricted share link"
+          },
+          "share_location_id": {
+            "type": "string",
+            "example": "l1C08ntBrFjLS0elLIYU, U1C08ntBrFjLS0elKIYP",
+            "description": "Comma separated Sub-Account ids to create sub-account restricted share link"
+          }
+        },
+        "required": [
+          "snapshot_id",
+          "share_type"
+        ]
+      },
+      "CreateSnapshotShareLinkSuccessfulResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1eM2UgkfaECOYyUdCo9Pa",
+            "description": "id for shared snapshot"
+          },
+          "shareLink": {
+            "type": "string",
+            "example": "https://affiliates.gohighlevel.com/?share=1eM2UgkfaECOYyUdCo9Pa",
+            "description": "Share Link for snapshot"
+          }
+        }
+      },
+      "SnapshotStatusSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1eM2UgkfaECOYyUdCo9Pa",
+            "description": "Document id"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "BrKClvyvdxhJ9Mxz2pzQ",
+            "description": "Sub-account id"
+          },
+          "status": {
+            "type": "string",
+            "example": "processing",
+            "description": "Status of snapshot push"
+          },
+          "dateAdded": {
+            "format": "date-time",
+            "type": "string",
+            "example": "10/28/2022, 6:24:54 PM",
+            "description": "Timestamp of when snapshot processing starts for sub-account "
+          }
+        }
+      },
+      "GetSnapshotPushStatusSuccessfulResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SnapshotStatusSchema"
+            }
+          }
+        }
+      },
+      "SnapshotStatusSchemaWithAssets": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1eM2UgkfaECOYyUdCo9Pa",
+            "description": "Document id"
+          },
+          "locationId": {
+            "type": "string",
+            "example": "BrKClvyvdxhJ9Mxz2pzQ",
+            "description": "Sub-account id"
+          },
+          "status": {
+            "type": "string",
+            "example": "processing",
+            "description": "Status of snapshot push"
+          },
+          "completed": {
+            "example": "['forms', 'surveys', 'funnels', 'workflows']",
+            "description": "List of completed assets",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pending": {
+            "example": "['custom_fields','custom_values','tags']",
+            "description": "List of pending assets",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "GetLatestSnapshotPushStatusSuccessfulResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SnapshotStatusSchemaWithAssets"
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Snapshots",
+    "tags": [
+      "Snapshots"
+    ]
+  }
+}

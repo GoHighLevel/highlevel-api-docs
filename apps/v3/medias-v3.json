@@ -1,0 +1,898 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/medias/files": {
+      "get": {
+        "operationId": "fetch-media-content",
+        "summary": "Get List of Files/ Folders",
+        "description": "Fetches list of files and folders from the media storage",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of files to skip in listing",
+            "example": "5",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of files to show in the listing",
+            "example": "10",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": true,
+            "in": "query",
+            "description": "Field to sorting the file listing by",
+            "example": "createdAt",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": true,
+            "in": "query",
+            "description": "Direction in which file needs to be sorted",
+            "example": "asc",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": true,
+            "in": "query",
+            "description": "Type",
+            "example": "file",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Query text",
+            "example": "Test file",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "AltType",
+            "example": "location",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "location"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "in": "query",
+            "description": "location Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "description": "parent id or folder id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fetchAll",
+            "required": false,
+            "description": "Fetch all files or folders",
+            "example": "false",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFilesResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "medias.readonly"
+            ]
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/upload-file": {
+      "post": {
+        "operationId": "upload-media-content",
+        "summary": "Upload File into Media Storage",
+        "description": "If hosted is set to true then fileUrl is required. Else file is required. If adding a file, maximum allowed is 25 MB. For video files, the maximum allowed size is 500 MB.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "hosted": {
+                    "type": "boolean"
+                  },
+                  "fileUrl": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "parentId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFileResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "medias.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/{id}": {
+      "delete": {
+        "operationId": "delete-media-content",
+        "summary": "Delete File or Folder",
+        "description": "Deletes specific file or folder from the media storage",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "altType",
+            "required": true,
+            "in": "query",
+            "description": "AltType",
+            "example": "location",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "location"
+              ]
+            }
+          },
+          {
+            "name": "altId",
+            "required": true,
+            "description": "location Id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "medias.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      },
+      "post": {
+        "operationId": "update-media-object",
+        "summary": "Update File/ Folder",
+        "description": "Updates a single file or folder by ID",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the file or folder to update",
+            "schema": {
+              "type": "string"
+            },
+            "example": "686f9817f0d3165be9fbcef6"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "updated": true,
+                    "traceId": "33a641a2-c4a6-4123-aa82-c5b84f1a14ee"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/folder": {
+      "post": {
+        "operationId": "create-media-folder",
+        "summary": "Create Folder",
+        "description": "Creates a new folder in the media storage",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFolderParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the newly created folder object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FolderDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/update-files": {
+      "put": {
+        "operationId": "bulk-update-media-objects",
+        "summary": "Bulk Update Files/ Folders",
+        "description": "Updates metadata or status of multiple files and folders",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMediaObjects"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "updated": true,
+                      "id": "686f9817f0d3165be9fbcef6"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    },
+    "/medias/delete-files": {
+      "put": {
+        "operationId": "bulk-delete-media-objects",
+        "summary": "Bulk Delete / Trash Files or Folders",
+        "description": "Soft-deletes or trashes multiple files and folders in a single request",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteMediaObjectsBodyParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "deleted": true,
+                      "id": "686f630df0d3166d68fbcec2"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": []
+          }
+        ],
+        "tags": [
+          "Medias"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Media Storage API",
+    "description": "Documentation for Files API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Medias",
+      "description": "Documentation for Files API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "GetFilesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "description": "Array of File Objects",
+            "example": {
+              "altId": "locationId",
+              "altType": "location",
+              "name": "file name",
+              "parentId": "parent folder id",
+              "url": "file url",
+              "path": "file path"
+            },
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "files"
+        ]
+      },
+      "UploadFileResponseDTO": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "ID of the uploaded file",
+            "example": "file.pdf"
+          },
+          "url": {
+            "type": "string",
+            "description": "Google Cloud Storage URL of the uploaded file",
+            "example": "https://storage.googleapis.com/bucket-name/path/to/file.pdf"
+          }
+        },
+        "required": [
+          "fileId",
+          "url"
+        ]
+      },
+      "FolderDTO": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location identifier that owns this folder",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the folder",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the folder",
+            "example": "New Folder"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder (null for root folders)",
+            "example": "64af50c42d567a3b4f5989e0"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the object (always 'folder' for folders)",
+            "example": "folder"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether the folder has been deleted",
+            "example": false
+          },
+          "pendingUpload": {
+            "type": "boolean",
+            "description": "Whether there are pending uploads to this folder",
+            "example": false
+          },
+          "category": {
+            "type": "string",
+            "description": "Primary category of content stored in the folder",
+            "example": "image"
+          },
+          "subCategory": {
+            "type": "string",
+            "description": "Sub-category of content stored in the folder",
+            "example": "logo"
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "Whether the folder is private and not publicly accessible",
+            "example": false
+          },
+          "relocatedFolder": {
+            "type": "boolean",
+            "description": "Whether the folder has been moved from its original location",
+            "example": false
+          },
+          "migrationCompleted": {
+            "type": "boolean",
+            "description": "Whether the data migration process has been completed for this folder",
+            "example": true
+          },
+          "appFolder": {
+            "type": "boolean",
+            "description": "Whether this is a system-generated application folder",
+            "example": false
+          },
+          "isEssential": {
+            "type": "boolean",
+            "description": "Whether the folder is essential and should not be deleted",
+            "example": false
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the folder"
+          },
+          "lastUpdatedBy": {
+            "type": "string",
+            "description": "ID of the user who last updated the folder",
+            "example": "user-uuid-123"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name",
+          "type"
+        ]
+      },
+      "CreateFolderParams": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity (location only)",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the folder to be created",
+            "example": "New Folder"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent folder (optional)",
+            "example": "64af50c42d567a3b4f5989e0"
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "name"
+        ]
+      },
+      "UpdateObject": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name for the file or folder",
+            "example": "Updated File Name.pdf"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the file or folder",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location identifier that owns the file or folder",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          }
+        },
+        "required": [
+          "name",
+          "altType",
+          "altId"
+        ]
+      },
+      "UpdateMediaObjects": {
+        "type": "object",
+        "properties": {
+          "altId": {
+            "type": "string",
+            "description": "Location identifier",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the files",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "filesToBeUpdated": {
+            "type": "array",
+            "description": "Array of file objects to be updated",
+            "items": {
+              "$ref": "#/components/schemas/UpdateMediaObject"
+            },
+            "example": [
+              {
+                "id": "686f9817f0d3165be9fbcef6",
+                "name": "Updated File Name.pdf"
+              }
+            ]
+          }
+        },
+        "required": [
+          "altId",
+          "altType",
+          "filesToBeUpdated"
+        ]
+      },
+      "DeleteMediaObjectItem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier of the file or folder to be deleted",
+            "example": "686f630df0d3166d68fbcec2"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "UpdateMediaObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the file or folder to be updated",
+            "example": "686f9817f0d3165be9fbcef6"
+          },
+          "name": {
+            "type": "string",
+            "description": "New name for the file or folder",
+            "example": "Updated File Name.pdf"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "DeleteMediaObjectsBodyParams": {
+        "type": "object",
+        "properties": {
+          "filesToBeDeleted": {
+            "type": "array",
+            "description": "Array of file objects to be deleted or trashed",
+            "items": {
+              "$ref": "#/components/schemas/DeleteMediaObjectItem"
+            },
+            "example": [
+              {
+                "_id": "686f630df0d3166d68fbcec2"
+              }
+            ]
+          },
+          "altType": {
+            "type": "string",
+            "description": "Type of entity that owns the files",
+            "enum": [
+              "location"
+            ],
+            "example": "location"
+          },
+          "altId": {
+            "type": "string",
+            "description": "Location identifier",
+            "example": "sx6wyHhbFdRXh302LLNR"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status to set for the files (deleted or trashed)",
+            "enum": [
+              "deleted",
+              "trashed"
+            ],
+            "example": "deleted"
+          }
+        },
+        "required": [
+          "filesToBeDeleted",
+          "altType",
+          "altId",
+          "status"
+        ]
+      },
+      "MoveOrDeleteObjectParams": {
+        "type": "object",
+        "properties": {
+          "altType": {
+            "type": "string"
+          },
+          "altId": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "altType",
+          "altId",
+          "_id"
+        ]
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Media Storage",
+    "tags": [
+      "Medias"
+    ]
+  }
+}

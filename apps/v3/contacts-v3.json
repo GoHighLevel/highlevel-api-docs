@@ -1,0 +1,5481 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/contacts/search": {
+      "post": {
+        "operationId": "search-contacts-advanced",
+        "summary": "Search Contacts",
+        "description": "Search contacts based on combinations of advanced filters. Documentation Link - https://doc.clickup.com/8631005/d/h/87cpx-158396/6e629989abe7fad",
+        "externalDocs": {
+          "url": "https://doc.clickup.com/8631005/d/h/87cpx-158396/6e629989abe7fad",
+          "description": "Click here for more information"
+        },
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchBodyV2DTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/search/duplicate": {
+      "get": {
+        "operationId": "get-duplicate-contact",
+        "summary": "Get Duplicate Contact",
+        "description": "Get Duplicate Contact.<br/><br/>If `Allow Duplicate Contact` is disabled under Settings, the global unique identifier will be used for searching the contact. If the setting is enabled, first priority for search is `email` and the second priority will be `phone`.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "number",
+            "required": false,
+            "in": "query",
+            "description": "Phone Number — URL-encoded. E.g. +1423164516 → %2B1423164516",
+            "schema": {
+              "type": "string",
+              "example": "%2B1423164516"
+            }
+          },
+          {
+            "name": "email",
+            "required": false,
+            "in": "query",
+            "description": "Email — URL-encoded. E.g. test+abc@gmail.com → test%2Babc%40gmail.com",
+            "schema": {
+              "type": "string",
+              "example": "test%2Babc%40gmail.com"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/tasks": {
+      "get": {
+        "operationId": "get-all-tasks",
+        "summary": "Get all Tasks",
+        "description": "Get all Tasks",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TasksListSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-task",
+        "summary": "Create Task",
+        "description": "Create Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskByIsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/tasks/{taskId}": {
+      "get": {
+        "operationId": "get-task",
+        "summary": "Get Task",
+        "description": "Get Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "description": "Task Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskByIsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-task",
+        "summary": "Update Task",
+        "description": "Update Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "description": "Task Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskByIsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-task",
+        "summary": "Delete Task",
+        "description": "Delete Task",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "description": "Task Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTaskSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/tasks/{taskId}/completed": {
+      "put": {
+        "operationId": "update-task-completed",
+        "summary": "Update Task Completed",
+        "description": "Update Task Completed",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "description": "Task Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskStatusParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskByIsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tasks"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/appointments": {
+      "get": {
+        "operationId": "get-appointments-for-contact",
+        "summary": "Get Appointments for Contact",
+        "description": "Get Appointments for Contact",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEventsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Appointments"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/tags": {
+      "post": {
+        "operationId": "add-tags",
+        "summary": "Add Tags",
+        "description": "Add Tags",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAddTagSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove-tags",
+        "summary": "Remove Tags",
+        "description": "Remove Tags",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeleteTagSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/notes": {
+      "get": {
+        "operationId": "get-all-notes",
+        "summary": "Get All Notes",
+        "description": "Get All Notes",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetNotesListSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-note",
+        "summary": "Create Note",
+        "description": "Create Note",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotesDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCreateUpdateNoteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/notes/{id}": {
+      "get": {
+        "operationId": "get-note",
+        "summary": "Get Note",
+        "description": "Get Note",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Note Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCreateUpdateNoteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-note",
+        "summary": "Update Note",
+        "description": "Update Note",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Note Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNoteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCreateUpdateNoteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-note",
+        "summary": "Delete Note",
+        "description": "Delete Note",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Note Id",
+            "schema": {
+              "type": "string",
+              "example": "ocQHyuzHvysMo5N5VsXc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteNoteSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/bulk/tags/update/{type}": {
+      "post": {
+        "operationId": "create-association",
+        "summary": "Update Contacts Tags",
+        "description": "Allows you to update tags to multiple contacts at once, you can add or remove tags from the contacts",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTagsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateTagsResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Bulk"
+        ]
+      }
+    },
+    "/contacts/bulk/business": {
+      "post": {
+        "operationId": "add-remove-contact-from-business",
+        "summary": "Add/Remove Contacts From Business",
+        "description": "Add/Remove Contacts From Business . Passing a `null` businessId will remove the businessId from the contacts",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactsBusinessUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsBulkUpateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Bulk"
+        ]
+      }
+    },
+    "/contacts/{contactId}": {
+      "delete": {
+        "operationId": "delete-contact",
+        "summary": "Delete Contact",
+        "description": "Delete Contact",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteContactsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get-contact",
+        "x-version-added": "v3",
+        "summary": "Get Contact",
+        "description": "Retrieves a contact by its unique identifier.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the contact",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsByIdSuccessfulResponseDtoV3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update-contact",
+        "x-version-added": "v3",
+        "summary": "Update Contact",
+        "description": "Update a contact using contactId",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the contact",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContactDtoV3"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateContactsSuccessfulResponseDtoV3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/upsert": {
+      "post": {
+        "operationId": "upsert-contact",
+        "x-version-added": "v3",
+        "summary": "Upsert Contact",
+        "description": "The Upsert API will adhere to the configuration defined under the \"Allow Duplicate Contact\" setting at the Location level. If the setting is configured to check both Email and Phone, the API will attempt to identify an existing contact based on the priority sequence specified in the setting, and will create or update the contact accordingly.<br/><br/>If two separate contacts already exist—one with the same email and another with the same phone—and an upsert request includes both the email and phone, the API will update the contact that matches the first field in the configured sequence, and ignore the second field to prevent duplication.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertContactDtoV3"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpsertContactsSuccessfulResponseDtoV3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/business/{businessId}": {
+      "get": {
+        "operationId": "get-contacts-by-businessId",
+        "summary": "Get Contacts By BusinessId",
+        "description": "Get Contacts By BusinessId",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "businessId",
+            "required": true,
+            "in": "path",
+            "description": "Business Id",
+            "schema": {
+              "type": "string",
+              "example": "641c094001436dbc2081e642"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of records per page (up to 100, default 25)",
+            "schema": {
+              "type": "string",
+              "example": "10"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "description": "Location Id",
+            "schema": {
+              "type": "string",
+              "example": "5DP4iH6HLkQsiKESj6rh"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "Number of records to skip",
+            "schema": {
+              "type": "string",
+              "example": "10"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Search query (name, email, phone)",
+            "schema": {
+              "type": "string",
+              "example": "John"
+            }
+          },
+          {
+            "name": "startAfter",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination (comma-separated name,id pair)",
+            "oneOf": [
+              {
+                "type": "string",
+                "example": "eleanor sakai,xurJiljRhcxpwRYXbxUU"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "eleanor sakai",
+                  "xurJiljRhcxpwRYXbxUU"
+                ]
+              }
+            ],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsSearchSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.readonly"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/followers": {
+      "post": {
+        "operationId": "add-followers-contact",
+        "summary": "Add Followers",
+        "description": "Add Followers",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowersDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAddFollowersSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Followers"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove-followers-contact",
+        "summary": "Remove Followers",
+        "description": "Remove Followers",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowersDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteFollowersSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Followers"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/campaigns/{campaignId}": {
+      "post": {
+        "operationId": "add-contact-to-campaign",
+        "summary": "Add Contact to Campaign",
+        "description": "Add contact to Campaign",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign Id",
+            "schema": {
+              "type": "string",
+              "example": "Y5AMhDEE4L6EuVmmDTKZ"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddContactToCampaignDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeleteCantactsCampaignsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove-contact-from-campaign",
+        "summary": "Remove Contact From Campaign",
+        "description": "Remove Contact From Campaign",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "description": "Campaign Id",
+            "schema": {
+              "type": "string",
+              "example": "Y5AMhDEE4L6EuVmmDTKZ"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeleteCantactsCampaignsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/campaigns/remove-all": {
+      "delete": {
+        "operationId": "remove-contact-from-every-campaign",
+        "x-version-added": "v3",
+        "summary": "Remove Contact From Every Campaign",
+        "description": "Removes the contact from every campaign it is enrolled in.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeleteCantactsCampaignsSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/{contactId}/workflow/{workflowId}": {
+      "post": {
+        "operationId": "add-contact-to-workflow",
+        "summary": "Add Contact to Workflow",
+        "description": "Add Contact to Workflow",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "workflowId",
+            "required": true,
+            "in": "path",
+            "description": "Workflow Id",
+            "schema": {
+              "type": "string",
+              "example": "f5a2ab74-4c1c-4ede-9c43-2ef1e01e0b38"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWorkflowDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsWorkflowSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Workflow"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete-contact-from-workflow",
+        "summary": "Delete Contact from Workflow",
+        "description": "Delete Contact from Workflow",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact Id",
+            "schema": {
+              "type": "string",
+              "example": "ve9EPM428h8vShlRW1KT"
+            }
+          },
+          {
+            "name": "workflowId",
+            "required": true,
+            "in": "path",
+            "description": "Workflow Id",
+            "schema": {
+              "type": "string",
+              "example": "f5a2ab74-4c1c-4ede-9c43-2ef1e01e0b38"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWorkflowDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsWorkflowSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Workflow"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    },
+    "/contacts/": {
+      "post": {
+        "operationId": "create-contact",
+        "x-version-added": "v3",
+        "summary": "Create Contact",
+        "description": "Create a new contact",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContactDtoV3"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContactsSuccessfulResponseDtoV3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Contacts API v3",
+    "description": "Documentation for Contacts API\n\n## API Version v3\n\nAll APIs available via `/v3` route prefix with AIP-compliant responses.",
+    "version": "v3",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Contacts",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Tasks",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Appointments",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Tags",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Notes",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Campaigns",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Workflow",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Bulk",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Search",
+      "description": "Documentation for Contacts API"
+    },
+    {
+      "name": "Followers",
+      "description": "Documentation for Contacts API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://services.leadconnectorhq.com",
+      "description": "Contacts API v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account (OR) Private Integration Token of Sub-Account.",
+        "type": "http"
+      },
+      "Location-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Sub-Account.",
+        "type": "http"
+      },
+      "Agency-Access": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency (OR) Private Integration Token of Agency.",
+        "type": "http"
+      },
+      "Agency-Access-Only": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Use the Access Token generated with user type as Agency.",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "SearchBodyV2DTO": {
+        "type": "object",
+        "properties": {}
+      },
+      "TaskSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the task",
+            "example": "lJpzYrWdpkC2hX6t2yue"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the task",
+            "example": "test"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body or description of the task",
+            "example": "testing"
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "User Id to whom the task is assigned",
+            "example": "tesTUcmRxWrjqzJS8EjkxNKting"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "Due date of the task (ISO 8601 format)",
+            "example": "2021-07-08T02:30:00.000Z"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Whether the task is completed",
+            "example": true
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id associated with the task",
+            "example": "lJpzYrWdpkC2hX6t2yue"
+          }
+        }
+      },
+      "TasksListSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "description": "List of tasks",
+            "example": [
+              {
+                "id": "lJpzYrWdpkC2hX6t2yue",
+                "title": "test",
+                "body": "testing",
+                "assignedTo": "tesTUcmRxWrjqzJS8EjkxNK",
+                "dueDate": "2021-07-08T02:30:00.000Z",
+                "completed": true,
+                "contactId": "lJpzYrWdpkC2hX6t2yue"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskSchema"
+            }
+          }
+        }
+      },
+      "TaskByIsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "description": "Task details",
+            "example": {
+              "id": "lJpzYrWdpkC2hX6t2yue",
+              "title": "test",
+              "body": "testing",
+              "assignedTo": "tesTUcmRxWrjqzJS8EjkxNK",
+              "dueDate": "2021-07-08T02:30:00.000Z",
+              "completed": true,
+              "contactId": "lJpzYrWdpkC2hX6t2yue"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TaskSchema"
+              }
+            ]
+          }
+        }
+      },
+      "CreateTaskParams": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the task",
+            "example": "First Task"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body or description of the task",
+            "example": "loram ipsum"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "Due date of the task (ISO 8601 format)",
+            "example": "2020-10-25T11:00:00Z"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Whether the task is completed",
+            "example": true
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "User Id to whom the task is assigned",
+            "example": "hxHGVRb1YJUscrCB8eXK"
+          }
+        },
+        "required": [
+          "title",
+          "dueDate",
+          "completed"
+        ]
+      },
+      "UpdateTaskBody": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the task",
+            "example": "First Task"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body or description of the task",
+            "example": "loram ipsum"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "Due date of the task (ISO 8601 format)",
+            "example": "2020-10-25T11:00:00Z"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Whether the task is completed",
+            "example": true
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "User Id to whom the task is assigned",
+            "example": "hxHGVRb1YJUscrCB8eXK"
+          }
+        }
+      },
+      "UpdateTaskStatusParams": {
+        "type": "object",
+        "properties": {
+          "completed": {
+            "type": "boolean",
+            "description": "Whether the task is completed",
+            "example": true
+          }
+        },
+        "required": [
+          "completed"
+        ]
+      },
+      "DeleteTaskSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Whether the task was successfully deleted",
+            "example": true
+          },
+          "succeded": {
+            "type": "boolean",
+            "description": "Legacy misspelling of `succeeded`. Deprecated; use `succeeded`.",
+            "example": true,
+            "deprecated": true
+          }
+        }
+      },
+      "GetEventSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the appointment",
+            "example": "YS3jaqqeehkR2Is80miy"
+          },
+          "calendarId": {
+            "type": "string",
+            "description": "Calendar Id associated with the appointment",
+            "example": "YlWd2wuCAZQzh2cH1fVZ"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the appointment",
+            "example": "booked"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the appointment",
+            "example": "Test"
+          },
+          "assignedUserId": {
+            "type": "string",
+            "description": "User Id assigned to the appointment",
+            "example": "YlWd2wuCAZQzh2cH1fVZ"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes for the appointment",
+            "example": "test"
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Start time of the appointment",
+            "example": "2021-07-16 11:00:00"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "End time of the appointment",
+            "example": "2021-07-16 11:30:00"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address for the appointment",
+            "example": "Address"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id of the appointment",
+            "example": "YlWd2wuCAZQzh2cH1fVZ"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id associated with the appointment",
+            "example": "YlWd2wuCAZQzh2cH1fVZ"
+          },
+          "groupId": {
+            "type": "string",
+            "description": "Group Id of the appointment",
+            "example": "YlWd2wuCAZQzh2cH1fVZ"
+          },
+          "appointmentStatus": {
+            "type": "string",
+            "description": "Appointment status",
+            "example": "booked"
+          },
+          "users": {
+            "description": "List of user Ids assigned to the appointment",
+            "example": [
+              "YlWd2wuCAZQzh2cH1fVZ",
+              "YlWd2wuCAZQzh2cH1fVZ"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date the appointment was created",
+            "example": "2021-07-16 11:00:00"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date the appointment was last updated",
+            "example": "2021-07-16 11:30:00"
+          },
+          "assignedResources": {
+            "description": "List of resource Ids assigned to the appointment",
+            "example": [
+              "YlWd2wuCAZQzh2cH1fVZ",
+              "YlWd2wuCAZQzh2cH1fVZ"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "GetEventsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "description": "List of appointments",
+            "example": [
+              {
+                "id": "YS3jaqqeehkR2Is80miy",
+                "calendarId": "YlWd2wuCAZQzh2cH1fVZ",
+                "status": "booked",
+                "title": "Test",
+                "assignedUserId": "YlWd2wuCAZQzh2cH1fVZ",
+                "notes": "test",
+                "startTime": "2021-07-16 11:00:00",
+                "endTime": "2021-07-16 11:30:00"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetEventSchema"
+            }
+          }
+        }
+      },
+      "TagsDTO": {
+        "type": "object",
+        "properties": {
+          "tags": {
+            "description": "List of tags to add or remove",
+            "example": [
+              "minim",
+              "velit magna"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "tags"
+        ]
+      },
+      "CreateAddTagSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "tags": {
+            "description": "Current tags on the contact after the operation",
+            "example": [
+              "minim",
+              "velit magna"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateDeleteTagSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "tags": {
+            "description": "Current tags on the contact after the operation",
+            "example": [
+              "minim",
+              "velit magna"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "GetNoteSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the note",
+            "example": "HGPcayliwcdoUFzvbTok"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body content of the note",
+            "example": "lorem ipsum"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User Id of the note author",
+            "example": "TUcmRxWrjqzJS8EjkxNK"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date the note was added (ISO 8601 format)",
+            "example": "2021-07-08T12:02:11.285Z"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact Id associated with the note",
+            "example": "TUcmRxWrjqzJS8EjkxNK"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the note",
+            "example": "Follow-up summary"
+          },
+          "color": {
+            "type": "string",
+            "description": "Hex color code for the note",
+            "example": "#FFAA00"
+          },
+          "pinned": {
+            "type": "boolean",
+            "description": "Whether the note is pinned",
+            "example": false
+          }
+        }
+      },
+      "GetNotesListSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "notes": {
+            "description": "List of notes",
+            "example": [
+              {
+                "id": "HGPcayliwcdoUFzvbTok",
+                "body": "lorem ipsum",
+                "userId": "TUcmRxWrjqzJS8EjkxNK",
+                "dateAdded": "2021-07-08T12:02:11.285Z",
+                "contactId": "TUcmRxWrjqzJS8EjkxNK"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetNoteSchema"
+            }
+          }
+        }
+      },
+      "NotesDTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User Id of the note author",
+            "example": "GCs5KuzPqTls7vWclkEV"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body content of the note",
+            "example": "lorem ipsum"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the note",
+            "example": "Follow-up summary"
+          },
+          "color": {
+            "type": "string",
+            "description": "Hex color code for the note",
+            "example": "#FFAA00"
+          },
+          "pinned": {
+            "type": "boolean",
+            "description": "Whether the note is pinned",
+            "example": false
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "GetCreateUpdateNoteSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "description": "Note details",
+            "example": {
+              "id": "HGPcayliwcdoUFzvbTok",
+              "body": "lorem ipsum",
+              "userId": "TUcmRxWrjqzJS8EjkxNK",
+              "dateAdded": "2021-07-08T12:02:11.285Z",
+              "contactId": "TUcmRxWrjqzJS8EjkxNK"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetNoteSchema"
+              }
+            ]
+          }
+        }
+      },
+      "UpdateNoteDTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User Id of the note author",
+            "example": "GCs5KuzPqTls7vWclkEV"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body content of the note",
+            "example": "lorem ipsum"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the note",
+            "example": "Follow-up summary"
+          },
+          "color": {
+            "type": "string",
+            "description": "Hex color code for the note",
+            "example": "#FFAA00"
+          },
+          "pinned": {
+            "type": "boolean",
+            "description": "Whether the note is pinned",
+            "example": false
+          }
+        }
+      },
+      "DeleteNoteSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Whether the note was successfully deleted",
+            "example": true
+          },
+          "succeded": {
+            "type": "boolean",
+            "description": "Legacy misspelling of `succeeded`. Deprecated; use `succeeded`.",
+            "example": true,
+            "deprecated": true
+          }
+        }
+      },
+      "UpdateTagsDTO": {
+        "type": "object",
+        "properties": {
+          "contacts": {
+            "description": "list of contact ids to be processed",
+            "example": [
+              "qFSqySFkVvNzOSqgGqFi",
+              "abcdef",
+              "qFSqySFkVvNzOSqgGqFi",
+              "3ualbhnV7j3n3a9r2moD"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "description": "list of tags to be added or removed",
+            "example": [
+              "tag-1",
+              "tag-2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "description": "location id from where the bulk request is executed",
+            "example": "asdrwHvLUxlfw5SqKVCN"
+          },
+          "removeAllTags": {
+            "type": "boolean",
+            "description": "Option to implement remove all tags. if true, all tags will be removed from the contacts. Can only be used with remove type.",
+            "example": "false"
+          }
+        },
+        "required": [
+          "contacts",
+          "tags",
+          "locationId"
+        ]
+      },
+      "UpdateTagsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful",
+            "example": true
+          },
+          "succeded": {
+            "type": "boolean",
+            "description": "Legacy misspelling of `succeeded`. Deprecated; use `succeeded`.",
+            "example": true,
+            "deprecated": true
+          },
+          "errorCount": {
+            "type": "number",
+            "description": "Number of errors encountered during the operation",
+            "example": 0
+          },
+          "responses": {
+            "description": "Responses for each contact processed",
+            "example": [
+              {
+                "contactId": "qFSqySFkVvNzOSqgGqFi",
+                "message": "Tags updated",
+                "type": "success",
+                "oldTags": [
+                  "tag-1",
+                  "tag-2"
+                ],
+                "tagsAdded": [],
+                "tagsRemoved": []
+              },
+              {
+                "contactId": "abcdef",
+                "message": "contact id is not a valid firebase id",
+                "type": "error"
+              },
+              {
+                "contactId": "qFSqySFkVvNzOSqgGqFi",
+                "message": "contact is deleted",
+                "type": "error"
+              },
+              {
+                "contactId": "3ualbhnV7j3n3a9r2moD",
+                "message": "contact does not belong to location",
+                "type": "error"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "succeeded",
+          "succeded",
+          "errorCount",
+          "responses"
+        ]
+      },
+      "ContactsBusinessUpdate": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "Location Id",
+            "example": "PX8m5VwxEbcpFlzYEPVG"
+          },
+          "ids": {
+            "description": "List of contact Ids to update (maximum 50)",
+            "example": [
+              "IDqvFHGColiyK6jiatuz",
+              "pOC0uJ97VYOKH2m3fkMD"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          "businessId": {
+            "type": "string",
+            "description": "Business Id to assign to contacts. Pass null to remove business association.",
+            "example": "63b7ec34ea409a9a8bd2a4ff",
+            "nullable": true
+          }
+        },
+        "required": [
+          "locationId",
+          "ids",
+          "businessId"
+        ]
+      },
+      "ContactsBulkUpateResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the bulk update was successful",
+            "example": true
+          },
+          "ids": {
+            "description": "List of contact Ids that were updated",
+            "example": [
+              "pOC0uJ97VYOKH2m3fkMD"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "success",
+          "ids"
+        ]
+      },
+      "DeleteContactsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Whether the delete operation succeeded",
+            "example": true
+          },
+          "succeded": {
+            "type": "boolean",
+            "description": "Legacy misspelling of `succeeded`. Deprecated; use `succeeded`.",
+            "example": true,
+            "deprecated": true
+          }
+        }
+      },
+      "customFieldsInputArraySchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "description": "Array value for the custom field (preferred).",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "field_value": {
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "customFieldsInputObjectSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "object",
+            "description": "Object value for the custom field (preferred).",
+            "example": {}
+          },
+          "field_value": {
+            "type": "object",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": {}
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "customFieldsInputStringSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6dvNaf7VhkQ9snc5vnjJ",
+            "description": "Pass either `id` or `key` of custom field"
+          },
+          "key": {
+            "type": "string",
+            "example": "my_custom_field",
+            "description": "Pass either `id` or `key` of custom field"
+          },
+          "fieldValue": {
+            "type": "string",
+            "example": "9039160788",
+            "description": "Value for the custom field (preferred)."
+          },
+          "field_value": {
+            "type": "string",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": "9039160788"
+          }
+        }
+      },
+      "TextField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "string",
+            "description": "Text value for the custom field (preferred).",
+            "example": "My Text"
+          },
+          "field_value": {
+            "type": "string",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": "My Text"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "LargeTextField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "string",
+            "description": "Large text value for the custom field (preferred).",
+            "example": "My Text"
+          },
+          "field_value": {
+            "type": "string",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": "My Text"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "SingleSelectField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "string",
+            "description": "Selected option value for the custom field (preferred).",
+            "example": "My Selected Option"
+          },
+          "field_value": {
+            "type": "string",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": "My Selected Option"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "RadioField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "string",
+            "description": "Selected radio option value for the custom field (preferred).",
+            "example": "My Selected Option"
+          },
+          "field_value": {
+            "type": "string",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": "My Selected Option"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "NumericField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "object",
+            "description": "Numeric value for the custom field (preferred).",
+            "example": 100
+          },
+          "field_value": {
+            "type": "object",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": 100
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "MonetoryField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "object",
+            "description": "Monetary value for the custom field (preferred).",
+            "example": 100.5
+          },
+          "field_value": {
+            "type": "object",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": 100.5
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CheckboxField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "description": "Array of selected checkbox values for the custom field (preferred).",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "field_value": {
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "MultiSelectField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "description": "Array of selected values for the custom field (preferred).",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "field_value": {
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "FileField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "6dvNaf7VhkQ9snc5vnjJ"
+          },
+          "key": {
+            "type": "string",
+            "description": "Pass either `id` or `key` of custom field",
+            "example": "my_custom_field"
+          },
+          "fieldValue": {
+            "type": "object",
+            "description": "File upload value — a map of UUID to file metadata and download URL (preferred).",
+            "example": {
+              "f31175d4-2b06-4fc6-b7bc-74cd814c68cb": {
+                "meta": {
+                  "fieldname": "1HeGizb13P0odwgOgKSs",
+                  "originalname": "IMG_20231215_164412935.jpg",
+                  "encoding": "7bit",
+                  "mimetype": "image/jpeg",
+                  "size": 1786611,
+                  "uuid": "f31175d4-2b06-4fc6-b7bc-74cd814c68cb"
+                },
+                "url": "https://services.leadconnectorhq.com/documents/download/w2M9qTZ0ZJz8rGt02jdJ",
+                "documentId": "w2M9qTZ0ZJz8rGt02jdJ"
+              }
+            }
+          },
+          "field_value": {
+            "type": "object",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead.",
+            "example": {
+              "f31175d4-2b06-4fc6-b7bc-74cd814c68cb": {
+                "meta": {
+                  "fieldname": "1HeGizb13P0odwgOgKSs",
+                  "originalname": "IMG_20231215_164412935.jpg",
+                  "encoding": "7bit",
+                  "mimetype": "image/jpeg",
+                  "size": 1786611,
+                  "uuid": "f31175d4-2b06-4fc6-b7bc-74cd814c68cb"
+                },
+                "url": "https://services.leadconnectorhq.com/documents/download/w2M9qTZ0ZJz8rGt02jdJ",
+                "documentId": "w2M9qTZ0ZJz8rGt02jdJ"
+              }
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CustomFieldSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the custom field",
+            "example": "MgobCB14YMVKuE4Ka8p1"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value of the custom field",
+            "example": "name"
+          }
+        }
+      },
+      "AttributionSource": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Attribution source type",
+            "example": "Trigger Link"
+          },
+          "campaign": {
+            "type": "string",
+            "description": "Campaign name",
+            "example": "Summer Sale 2024",
+            "nullable": true
+          },
+          "utmSource": {
+            "type": "string",
+            "description": "UTM source parameter",
+            "example": "google",
+            "nullable": true
+          },
+          "utmMedium": {
+            "type": "string",
+            "description": "UTM medium parameter",
+            "example": "cpc",
+            "nullable": true
+          },
+          "utmContent": {
+            "type": "string",
+            "description": "UTM content parameter",
+            "example": "ad_variation_1",
+            "nullable": true
+          },
+          "referrer": {
+            "type": "string",
+            "description": "Referrer URL",
+            "example": "https://www.google.com",
+            "nullable": true
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign Id",
+            "example": "641c094001436dbc2081e642",
+            "nullable": true
+          },
+          "fbclid": {
+            "type": "string",
+            "description": "Facebook click Id",
+            "example": "fb.1.1674748390986.1171287961",
+            "nullable": true
+          },
+          "gclid": {
+            "type": "string",
+            "description": "Google click Id",
+            "example": "CjOKCQjwnNyUBhCZARISAI9AYIFtNnIcWcYGIOQINz_ZoFI5SSLRRugSoPZoiEu27IZBY£1-MAIWmEaAo2VEALW_WCB",
+            "nullable": true
+          },
+          "msclikid": {
+            "type": "string",
+            "description": "Microsoft click Id",
+            "example": "MS!AzEREREDJKSJD",
+            "nullable": true
+          },
+          "dclid": {
+            "type": "string",
+            "description": "DoubleClick click Id",
+            "example": "EAIaIQobChMIw",
+            "nullable": true
+          },
+          "fbc": {
+            "type": "string",
+            "description": "Facebook browser Id",
+            "example": "fb.1.1674748390986.1171287961",
+            "nullable": true
+          },
+          "fbp": {
+            "type": "string",
+            "description": "Facebook pixel Id",
+            "example": "fb. 1.1674748390986.1171287961",
+            "nullable": true
+          },
+          "fbEventId": {
+            "type": "string",
+            "description": "Facebook event Id",
+            "example": "Mozilla/5.0",
+            "nullable": true
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "Browser user agent string",
+            "example": "Mozilla/5.0",
+            "nullable": true
+          },
+          "ip": {
+            "type": "string",
+            "description": "IP address of the visitor",
+            "example": "58.111.106.198",
+            "nullable": true
+          },
+          "medium": {
+            "type": "string",
+            "description": "Attribution medium (e.g. survey, funnel)",
+            "example": "survey",
+            "nullable": true
+          },
+          "mediumId": {
+            "type": "string",
+            "description": "Id of the attribution medium",
+            "example": "FglfHAn30PRwsZVyQlKp",
+            "nullable": true
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "DndSettingSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Do Not Disturb status for this channel",
+            "enum": [
+              "active",
+              "inactive",
+              "permanent"
+            ],
+            "example": "active"
+          },
+          "message": {
+            "type": "string",
+            "description": "Custom message associated with the DND setting",
+            "example": "Do not contact via this channel"
+          },
+          "code": {
+            "type": "string",
+            "description": "DND code or reason",
+            "example": "OPTED_OUT"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "DndSettingsSchemaV3": {
+        "type": "object",
+        "properties": {
+          "call": {
+            "description": "DND settings for phone calls",
+            "example": {
+              "status": "active",
+              "message": "Do not call",
+              "code": "all"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingSchema"
+              }
+            ]
+          },
+          "email": {
+            "description": "DND settings for email",
+            "example": {
+              "status": "active",
+              "message": "Do not email",
+              "code": "all"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingSchema"
+              }
+            ]
+          },
+          "sms": {
+            "description": "DND settings for SMS",
+            "example": {
+              "status": "active",
+              "message": "Do not SMS",
+              "code": "all"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingSchema"
+              }
+            ]
+          },
+          "whatsApp": {
+            "description": "DND settings for WhatsApp",
+            "example": {
+              "status": "active",
+              "message": "Do not WhatsApp",
+              "code": "all"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingSchema"
+              }
+            ]
+          },
+          "gmb": {
+            "description": "DND settings for Google My Business",
+            "example": {
+              "status": "active",
+              "message": "Do not contact via GMB",
+              "code": "all"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingSchema"
+              }
+            ]
+          },
+          "fb": {
+            "description": "DND settings for Facebook",
+            "example": {
+              "status": "active",
+              "message": "Do not contact via FB",
+              "code": "all"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingSchema"
+              }
+            ]
+          }
+        }
+      },
+      "GetContactByIdSchemaV3": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the contact",
+            "example": "seD4PfOuKoVMLkEZqohJ"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the contact",
+            "example": "rubika deo"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id the contact belongs to",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact",
+            "example": "rubika"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact",
+            "example": "Deo"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact",
+            "example": "rubika@deos.com"
+          },
+          "emailLowerCase": {
+            "type": "string",
+            "description": "Lowercase version of the contact email",
+            "example": "rubika@deos.com"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone of the contact",
+            "example": "Asia/Calcutta"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name of the contact",
+            "example": "DGS VolMAX"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact",
+            "example": "+18832327657"
+          },
+          "dnd": {
+            "type": "boolean",
+            "description": "Whether Do Not Disturb is enabled for the contact",
+            "example": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Contact type classification",
+            "example": "lead"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source from which the contact was created",
+            "example": "public api"
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "User Id the contact is assigned to",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "address1": {
+            "type": "string",
+            "description": "Street address of the contact",
+            "example": "3535 1st St N"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the contact",
+            "example": "Birmingham"
+          },
+          "state": {
+            "type": "string",
+            "description": "State of the contact",
+            "example": "AL"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country of the contact",
+            "example": "US"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal code of the contact",
+            "example": "35061"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL of the contact",
+            "example": "https://www.tesla.com"
+          },
+          "tags": {
+            "description": "List of tags associated with the contact",
+            "example": [
+              "nisi sint commodo amet",
+              "consequat"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Date of birth of the contact (YYYY-MM-DD)",
+            "example": "1990-09-25"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date and time the contact was added (ISO 8601)",
+            "example": "2021-07-02T05:18:26.704Z"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "description": "Date and time the contact was last updated (ISO 8601)",
+            "example": "2021-07-02T05:18:26.704Z"
+          },
+          "attachments": {
+            "type": "string",
+            "description": "List of attachment URLs associated with the contact",
+            "example": []
+          },
+          "ssn": {
+            "type": "string",
+            "description": "Social Security Number (if applicable)",
+            "example": "123-45-6789"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "Search keyword associated with the contact",
+            "example": "test"
+          },
+          "firstNameLowerCase": {
+            "type": "string",
+            "description": "Lowercase version of the contact first name",
+            "example": "rubika"
+          },
+          "fullNameLowerCase": {
+            "type": "string",
+            "description": "Lowercase version of the contact full name",
+            "example": "rubika deo"
+          },
+          "lastNameLowerCase": {
+            "type": "string",
+            "description": "Lowercase version of the contact last name",
+            "example": "deo"
+          },
+          "lastActivity": {
+            "type": "string",
+            "description": "Date and time of last activity on this contact (ISO 8601)",
+            "example": "2021-07-16T11:39:30.564Z"
+          },
+          "customFields": {
+            "description": "List of custom field values for the contact",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "value": "My Text"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomFieldSchema"
+            }
+          },
+          "businessId": {
+            "type": "string",
+            "description": "Business Id the contact is associated with",
+            "example": "641c094001436dbc2081e642"
+          },
+          "attributionSource": {
+            "description": "First-touch attribution source details for the contact",
+            "example": {
+              "url": "Trigger Link",
+              "campaign": "Summer Sale"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AttributionSource"
+              }
+            ]
+          },
+          "lastAttributionSource": {
+            "description": "Last-touch attribution source details for the contact",
+            "example": {
+              "url": "Organic Search",
+              "campaign": "Brand Awareness"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AttributionSource"
+              }
+            ]
+          },
+          "visitorId": {
+            "type": "string",
+            "description": "visitorId is the Unique ID assigned to each Live chat visitor.",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "dndSettings": {
+            "description": "Per-channel DND settings for the contact",
+            "example": {
+              "call": {
+                "status": "active",
+                "message": "Do not call"
+              },
+              "email": {
+                "status": "inactive"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingsSchemaV3"
+              }
+            ]
+          }
+        }
+      },
+      "ContactsByIdSuccessfulResponseDtoV3": {
+        "type": "object",
+        "properties": {
+          "contact": {
+            "description": "Contact details",
+            "example": {
+              "id": "seD4PfOuKoVMLkEZqohJ",
+              "name": "rubika deo",
+              "firstName": "rubika",
+              "lastName": "Deo",
+              "email": "rubika@deos.com",
+              "phone": "+18832327657",
+              "locationId": "ve9EPM428h8vShlRW1KT"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetContactByIdSchemaV3"
+              }
+            ]
+          }
+        }
+      },
+      "InboundDndSettingSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Inbound DND status for this channel",
+            "enum": [
+              "active",
+              "inactive"
+            ],
+            "example": "active"
+          },
+          "message": {
+            "type": "string",
+            "description": "Custom message associated with the inbound DND setting",
+            "example": "Please do not contact me via this channel"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "InboundDndSettingsSchema": {
+        "type": "object",
+        "properties": {
+          "all": {
+            "description": "Inbound DND settings applied to all channels",
+            "example": {
+              "status": "active",
+              "message": "Do not contact me"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InboundDndSettingSchema"
+              }
+            ]
+          }
+        }
+      },
+      "CreateContactDtoV3": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact",
+            "example": "Rosan",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact",
+            "example": "Deo",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the contact",
+            "example": "Rosan Deo",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact",
+            "example": "rosan@deos.com",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id the contact should be created under",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender of the contact",
+            "example": "male"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact",
+            "example": "+1 888-888-8888",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "description": "Street address of the contact",
+            "example": "3535 1st St N",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the contact",
+            "example": "Dolomite",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "State of the contact",
+            "example": "AL",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal code of the contact",
+            "example": "35061"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL of the contact",
+            "example": "https://www.tesla.com",
+            "nullable": true
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone of the contact",
+            "example": "America/Chihuahua",
+            "nullable": true
+          },
+          "dnd": {
+            "type": "boolean",
+            "description": "Whether Do Not Disturb is enabled for the contact",
+            "example": true
+          },
+          "inboundDndSettings": {
+            "description": "Inbound DND settings per channel for the contact",
+            "example": {
+              "all": {
+                "status": "active",
+                "message": "Do not contact me"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InboundDndSettingsSchema"
+              }
+            ]
+          },
+          "tags": {
+            "description": "List of tags to assign to the contact",
+            "example": [
+              "nisi sint commodo amet",
+              "consequat"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customFields": {
+            "type": "array",
+            "description": "List of custom field values to assign to the contact",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "key": "my_custom_field",
+                "fieldValue": "My Text"
+              }
+            ],
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TextField"
+                },
+                {
+                  "$ref": "#/components/schemas/LargeTextField"
+                },
+                {
+                  "$ref": "#/components/schemas/SingleSelectField"
+                },
+                {
+                  "$ref": "#/components/schemas/RadioField"
+                },
+                {
+                  "$ref": "#/components/schemas/NumericField"
+                },
+                {
+                  "$ref": "#/components/schemas/MonetoryField"
+                },
+                {
+                  "$ref": "#/components/schemas/CheckboxField"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiSelectField"
+                },
+                {
+                  "$ref": "#/components/schemas/FileField"
+                }
+              ]
+            }
+          },
+          "source": {
+            "type": "string",
+            "description": "Source from which the contact was created",
+            "example": "public api"
+          },
+          "dateOfBirth": {
+            "type": "object",
+            "description": "The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY",
+            "example": "1990-09-25",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the contact (ISO 3166-1 alpha-2)",
+            "example": "US"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name of the contact",
+            "example": "DGS VolMAX",
+            "nullable": true
+          },
+          "assignedTo": {
+            "type": "string",
+            "example": "y0BeYjuRIlDwsDcOHOJo",
+            "description": "User's Id"
+          },
+          "dndSettings": {
+            "description": "Per-channel DND settings for the contact",
+            "example": {
+              "call": {
+                "status": "active",
+                "message": "Do not call"
+              },
+              "email": {
+                "status": "inactive"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingsSchemaV3"
+              }
+            ]
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "CreateContactsSuccessfulResponseDtoV3": {
+        "type": "object",
+        "properties": {
+          "contact": {
+            "description": "Contact details",
+            "example": {
+              "id": "seD4PfOuKoVMLkEZqohJ",
+              "name": "rubika deo",
+              "firstName": "rubika",
+              "lastName": "Deo",
+              "email": "rubika@deos.com",
+              "phone": "+18832327657",
+              "locationId": "ve9EPM428h8vShlRW1KT"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetContactByIdSchemaV3"
+              }
+            ]
+          }
+        }
+      },
+      "UpdateContactDtoV3": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact",
+            "example": "rosan",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact",
+            "example": "Deo",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the contact",
+            "example": "rosan Deo",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact",
+            "example": "rosan@deos.com",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact",
+            "example": "+1 888-888-8888",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "description": "Street address of the contact",
+            "example": "3535 1st St N",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the contact",
+            "example": "Dolomite",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "State of the contact",
+            "example": "AL",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal code of the contact",
+            "example": "35061"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL of the contact",
+            "example": "https://www.tesla.com",
+            "nullable": true
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone of the contact",
+            "example": "America/Chihuahua",
+            "nullable": true
+          },
+          "dnd": {
+            "type": "boolean",
+            "description": "Whether Do Not Disturb is enabled for the contact",
+            "example": true
+          },
+          "inboundDndSettings": {
+            "description": "Inbound DND settings per channel for the contact",
+            "example": {
+              "all": {
+                "status": "active",
+                "message": "Do not contact me"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InboundDndSettingsSchema"
+              }
+            ]
+          },
+          "tags": {
+            "example": [
+              "nisi sint commodo amet",
+              "consequat"
+            ],
+            "description": "This field will overwrite all current tags associated with the contact. To update a tags, it is recommended to use the Add Tag or Remove Tag API instead.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customFields": {
+            "type": "array",
+            "description": "List of custom field values to assign to the contact",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "key": "my_custom_field",
+                "fieldValue": "My Text"
+              }
+            ],
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TextField"
+                },
+                {
+                  "$ref": "#/components/schemas/LargeTextField"
+                },
+                {
+                  "$ref": "#/components/schemas/SingleSelectField"
+                },
+                {
+                  "$ref": "#/components/schemas/RadioField"
+                },
+                {
+                  "$ref": "#/components/schemas/NumericField"
+                },
+                {
+                  "$ref": "#/components/schemas/MonetoryField"
+                },
+                {
+                  "$ref": "#/components/schemas/CheckboxField"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiSelectField"
+                },
+                {
+                  "$ref": "#/components/schemas/FileField"
+                }
+              ]
+            }
+          },
+          "source": {
+            "type": "string",
+            "description": "Source from which the contact was updated",
+            "example": "public api",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "object",
+            "description": "The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY",
+            "example": "1990-09-25",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the contact (ISO 3166-1 alpha-2), Refer country list from documentaion, documentation has list of all countries",
+            "example": "US"
+          },
+          "assignedTo": {
+            "type": "string",
+            "example": "y0BeYjuRIlDwsDcOHOJo",
+            "description": "User's Id",
+            "nullable": true
+          },
+          "dndSettings": {
+            "description": "Per-channel DND settings for the contact",
+            "example": {
+              "call": {
+                "status": "active",
+                "message": "Do not call"
+              },
+              "email": {
+                "status": "inactive"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingsSchemaV3"
+              }
+            ]
+          }
+        }
+      },
+      "UpdateContactsSuccessfulResponseDtoV3": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Whether the update operation succeeded",
+            "example": true
+          },
+          "contact": {
+            "description": "Contact details",
+            "example": {
+              "id": "seD4PfOuKoVMLkEZqohJ",
+              "name": "rubika deo",
+              "email": "rubika@deos.com",
+              "locationId": "ve9EPM428h8vShlRW1KT"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetContactByIdSchemaV3"
+              }
+            ]
+          }
+        }
+      },
+      "UpsertContactDtoV3": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact",
+            "example": "Rosan",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact",
+            "example": "Deo",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the contact",
+            "example": "Rosan Deo",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact",
+            "example": "rosan@deos.com",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id the contact should be created under",
+            "example": "ve9EPM428h8vShlRW1KT"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender of the contact",
+            "example": "male"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact",
+            "example": "+1 888-888-8888",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "description": "Street address of the contact",
+            "example": "3535 1st St N",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the contact",
+            "example": "Dolomite",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "State of the contact",
+            "example": "AL",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal code of the contact",
+            "example": "35061"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL of the contact",
+            "example": "https://www.tesla.com",
+            "nullable": true
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone of the contact",
+            "example": "America/Chihuahua",
+            "nullable": true
+          },
+          "dnd": {
+            "type": "boolean",
+            "description": "Whether Do Not Disturb is enabled for the contact",
+            "example": true
+          },
+          "inboundDndSettings": {
+            "description": "Inbound DND settings per channel for the contact",
+            "example": {
+              "all": {
+                "status": "active",
+                "message": "Do not contact me"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InboundDndSettingsSchema"
+              }
+            ]
+          },
+          "tags": {
+            "description": "This field will overwrite all current tags associated with the contact. To update a tags, it is recommended to use the Add Tag or Remove Tag API instead.",
+            "example": [
+              "nisi sint commodo amet",
+              "consequat"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customFields": {
+            "type": "array",
+            "description": "List of custom field values to assign to the contact",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "key": "my_custom_field",
+                "fieldValue": "My Text"
+              }
+            ],
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TextField"
+                },
+                {
+                  "$ref": "#/components/schemas/LargeTextField"
+                },
+                {
+                  "$ref": "#/components/schemas/SingleSelectField"
+                },
+                {
+                  "$ref": "#/components/schemas/RadioField"
+                },
+                {
+                  "$ref": "#/components/schemas/NumericField"
+                },
+                {
+                  "$ref": "#/components/schemas/MonetoryField"
+                },
+                {
+                  "$ref": "#/components/schemas/CheckboxField"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiSelectField"
+                },
+                {
+                  "$ref": "#/components/schemas/FileField"
+                }
+              ]
+            }
+          },
+          "source": {
+            "type": "string",
+            "description": "Source from which the contact was created",
+            "example": "public api"
+          },
+          "dateOfBirth": {
+            "type": "object",
+            "description": "The birth date of the contact. Supported formats: YYYY/MM/DD, MM/DD/YYYY, YYYY-MM-DD, MM-DD-YYYY, YYYY.MM.DD, MM.DD.YYYY, YYYY_MM_DD, MM_DD_YYYY",
+            "example": "1990-09-25",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the contact (ISO 3166-1 alpha-2)",
+            "example": "US"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name of the contact",
+            "example": "DGS VolMAX",
+            "nullable": true
+          },
+          "assignedTo": {
+            "type": "string",
+            "example": "y0BeYjuRIlDwsDcOHOJo",
+            "description": "User's Id"
+          },
+          "createNewIfDuplicateAllowed": {
+            "type": "boolean",
+            "description": "Controls whether to create a new contact or update an existing duplicate. **Scenario 1:** If this value is `true` and the location allows duplicate contacts, a new contact will be created immediately without checking for duplicates. **Scenario 2:** If this value is `true` but the location does not allow duplicate contacts, this field is ignored and the normal upsert behavior applies: the API will search for an existing duplicate contact, update it if found, or create a new contact if not found. **Scenario 3:** If this value is `false` or not provided, the normal upsert behavior applies regardless of the location's duplicate contact setting.",
+            "example": false,
+            "default": false
+          },
+          "dndSettings": {
+            "description": "Per-channel DND settings for the contact",
+            "example": {
+              "call": {
+                "status": "active",
+                "message": "Do not call"
+              },
+              "email": {
+                "status": "inactive"
+              }
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DndSettingsSchemaV3"
+              }
+            ]
+          }
+        },
+        "required": [
+          "locationId"
+        ]
+      },
+      "UpsertContactsSuccessfulResponseDtoV3": {
+        "type": "object",
+        "properties": {
+          "new": {
+            "type": "boolean",
+            "description": "Whether a new contact was created (true) or an existing one was updated (false)",
+            "example": true
+          },
+          "contact": {
+            "description": "Contact details",
+            "example": {
+              "id": "seD4PfOuKoVMLkEZqohJ",
+              "name": "rubika deo",
+              "email": "rubika@deos.com",
+              "locationId": "ve9EPM428h8vShlRW1KT"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetContactByIdSchemaV3"
+              }
+            ]
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Unique trace identifier for this operation",
+            "example": "abc123trace"
+          }
+        }
+      },
+      "ContactsSearchSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the contact",
+            "example": "ocQHyuzHvysMo5N5VsXc"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location Id the contact belongs to",
+            "example": "C2QujeCh8ZnC7al2InWR"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact",
+            "example": "JohnDeo@gmail.com"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone of the contact",
+            "example": "Asia/Calcutta"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country of the contact",
+            "example": "DE"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source from which the contact was created",
+            "example": "xyz form"
+          },
+          "dateAdded": {
+            "type": "string",
+            "description": "Date and time the contact was added (ISO 8601)",
+            "example": "2020-10-29T09:31:30.255Z"
+          },
+          "customFields": {
+            "description": "List of custom field values for the contact",
+            "example": [
+              {
+                "id": "6dvNaf7VhkQ9snc5vnjJ",
+                "value": "My Text"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomFieldSchema"
+            }
+          },
+          "tags": {
+            "description": "List of tags associated with the contact",
+            "example": [
+              "nisi sint commodo amet",
+              "consequat"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "businessId": {
+            "type": "string",
+            "description": "Business Id the contact is associated with",
+            "example": "641c094001436dbc2081e642"
+          },
+          "attributions": {
+            "description": "List of attribution sources for the contact",
+            "example": [
+              {
+                "url": "Trigger Link",
+                "campaign": "Summer Sale"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributionSource"
+            }
+          },
+          "followers": {
+            "description": "List of user Ids following this contact",
+            "example": [
+              "641c094001436dbc2081e642"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ContactsMetaSchema": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 50
+          },
+          "nextPageUrl": {
+            "type": "string",
+            "example": "http://localhost:5058/contacts/?locationId=ve9EPM428h8vShlRW1KT&startAfter=1631087949919&startAfterId=yd0jdjOavGk2o6Nh5Ndb"
+          },
+          "startAfterId": {
+            "type": "string",
+            "example": "yd0jdjOavGk2o6Nh5Ndb"
+          },
+          "startAfter": {
+            "type": "number",
+            "example": 1631087949919
+          },
+          "currentPage": {
+            "type": "number",
+            "example": 2
+          },
+          "nextPage": {
+            "type": "number",
+            "example": 3
+          },
+          "prevPage": {
+            "type": "number",
+            "example": 1,
+            "nullable": true
+          }
+        }
+      },
+      "ContactsSearchSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "contacts": {
+            "description": "List of contacts associated with the business",
+            "example": [
+              {
+                "id": "ocQHyuzHvysMo5N5VsXc",
+                "locationId": "C2QujeCh8ZnC7al2InWR",
+                "email": "JohnDeo@gmail.com",
+                "country": "DE",
+                "source": "xyz form",
+                "dateAdded": "2020-10-29T09:31:30.255Z"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContactsSearchSchema"
+            }
+          },
+          "count": {
+            "type": "number",
+            "description": "Total number of contacts matching the query",
+            "example": 10
+          }
+        }
+      },
+      "FollowersDTO": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "description": "List of user Ids to follow or unfollow the contact",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302Lunr"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "followers"
+        ]
+      },
+      "CreateAddFollowersSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "description": "Current followers after the operation",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302LLss"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followersAdded": {
+            "description": "Followers that were added",
+            "example": [
+              "Mx6wyHhbFdRXh302Luer",
+              "Ka6wyHhbFdRXh302LLsAm"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeleteFollowersSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "description": "Current followers after the operation",
+            "example": [
+              "sx6wyHhbFdRXh302Lunr",
+              "sx6wyHhbFdRXh302LLss"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followersRemoved": {
+            "description": "Followers that were removed",
+            "example": [
+              "Mx6wyHhbFdRXh302Luer",
+              "Ka6wyHhbFdRXh302LLsAm"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AddContactToCampaignDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateDeleteCantactsCampaignsSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Whether the campaign operation was successful",
+            "example": true
+          },
+          "succeded": {
+            "type": "boolean",
+            "description": "Legacy misspelling of `succeeded`. Deprecated; use `succeeded`.",
+            "example": true,
+            "deprecated": true
+          }
+        }
+      },
+      "CreateWorkflowDto": {
+        "type": "object",
+        "properties": {
+          "eventStartTime": {
+            "type": "string",
+            "description": "Start time of the workflow event (ISO 8601 format)",
+            "example": "2021-06-23T03:30:00+01:00"
+          }
+        }
+      },
+      "ContactsWorkflowSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": "Whether the workflow operation was successful",
+            "example": true
+          },
+          "succeded": {
+            "type": "boolean",
+            "description": "Legacy misspelling of `succeeded`. Deprecated; use `succeeded`.",
+            "example": true,
+            "deprecated": true
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": {
+    "name": "Contacts",
+    "tags": [
+      "Contacts",
+      "Tasks",
+      "Appointments",
+      "Tags",
+      "Notes",
+      "Campaigns",
+      "Workflow",
+      "Bulk",
+      "Search",
+      "Followers"
+    ]
+  }
+}
