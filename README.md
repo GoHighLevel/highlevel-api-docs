@@ -12,6 +12,8 @@ This repository contains the source documentation for the [GoHighLevel API V2](h
 ## 🤝 Contributing
 We welcome contributions from developers and partners who use our API!
 
+**Please read our [Contributing guidelines](.github/CONTRIBUTING.md)** before opening a pull request.
+
 If you’ve found something outdated, unclear, or missing:
 - 🧠 Feel free to open [issues](https://github.com/GoHighLevel/api-v2-docs/issues) for discussion or clarification.
 - 📌 We review suggestions and may choose to incorporate them into the official documentation.
