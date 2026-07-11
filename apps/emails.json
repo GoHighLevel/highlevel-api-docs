@@ -231,6 +231,90 @@
         "tags": [
           "Campaigns"
         ]
+      },
+      "post": {
+        "operationId": "create-email-campaign",
+        "summary": "Create or Schedule an Email Campaign",
+        "description": "Creates a new email campaign as a draft or schedules it to send at a specific date and time. Supports `draft`, `send_now`, and `schedule_later` campaign types. The HTML content can be provided directly or referenced via a template built with `POST /emails/builder`.",
+        "parameters": [
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2021-07-28"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScheduleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Campaign created or scheduled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateScheduleSuccessfulResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Location-Access": [
+              "emails/schedule.write"
+            ]
+          }
+        ],
+        "tags": [
+          "Email Marketing"
+        ]
       }
     },
     "/emails/builder": {
@@ -1176,6 +1260,194 @@
             "type": "string",
             "example": "https://example.com",
             "description": "template data download url"
+          }
+        }
+      },
+      "CreateScheduleDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "description": "The GHL location (sub-account) ID",
+            "example": "8Nua7uN3cDjUVlpiK9D0"
+          },
+          "name": {
+            "type": "string",
+            "description": "Internal name for the campaign",
+            "example": "My Email Campaign"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line shown in the recipient's inbox",
+            "example": "We'd love to connect with you"
+          },
+          "from": {
+            "type": "string",
+            "description": "Sender email address (must be a verified sending domain)",
+            "example": "info@yourdomain.com"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender display name",
+            "example": "Your Company"
+          },
+          "html": {
+            "type": "string",
+            "description": "Full HTML content of the email body. Either `html` or `templateId` must be provided."
+          },
+          "templateId": {
+            "type": "string",
+            "description": "ID of an existing Email Builder template (from `POST /emails/builder`). Used instead of `html` when referencing a saved template.",
+            "example": "6a526c938708da5288f5c149"
+          },
+          "campaignType": {
+            "type": "string",
+            "description": "Determines when or how the campaign is sent.",
+            "enum": [
+              "draft",
+              "send_now",
+              "schedule_later"
+            ],
+            "example": "schedule_later"
+          },
+          "status": {
+            "type": "string",
+            "description": "Initial campaign status. Use `draft` to save without sending.",
+            "enum": [
+              "draft",
+              "scheduled",
+              "active"
+            ],
+            "example": "scheduled"
+          },
+          "dateScheduled": {
+            "type": "number",
+            "description": "Unix timestamp in **milliseconds** (UTC) for when the campaign should be sent. Required when `campaignType` is `schedule_later`.",
+            "example": 1752487200000
+          },
+          "sendDays": {
+            "type": "array",
+            "description": "Days of the week on which sending is allowed (for throttled or drip campaigns).",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+              ]
+            },
+            "example": [
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri"
+            ]
+          },
+          "hasTracking": {
+            "type": "boolean",
+            "description": "Enable open and click tracking",
+            "example": true
+          },
+          "hasUtmTracking": {
+            "type": "boolean",
+            "description": "Append UTM parameters to all links in the email",
+            "example": true
+          },
+          "enableResendToUnopened": {
+            "type": "boolean",
+            "description": "Automatically resend the campaign to contacts who did not open the first send",
+            "example": false
+          },
+          "resendInfo": {
+            "type": "object",
+            "description": "Configuration for the resend-to-unopened flow. Required when `enableResendToUnopened` is true.",
+            "properties": {
+              "resendSubject": {
+                "type": "string",
+                "description": "Alternative subject line for the resend",
+                "example": "Did you see this?"
+              },
+              "resendDuration": {
+                "type": "object",
+                "description": "How long to wait before resending",
+                "properties": {
+                  "hours": {
+                    "type": "number",
+                    "example": 24
+                  },
+                  "days": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "minutes": {
+                    "type": "number",
+                    "example": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "locationId",
+          "name",
+          "subject",
+          "campaignType"
+        ]
+      },
+      "CreateScheduleSuccessfulResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique campaign ID",
+            "example": "6a3021409784277ce6f523e5"
+          },
+          "name": {
+            "type": "string",
+            "example": "My Email Campaign"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "scheduled",
+              "active"
+            ],
+            "example": "scheduled"
+          },
+          "campaignType": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "send_now",
+              "schedule_later"
+            ],
+            "example": "schedule_later"
+          },
+          "locationId": {
+            "type": "string"
+          },
+          "dateScheduled": {
+            "type": "number",
+            "description": "Scheduled send time as Unix ms timestamp",
+            "example": 1752487200000
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
