@@ -1824,6 +1824,17 @@
             "type": "string",
             "example": "my_custom_field"
           },
+          "fieldValue": {
+            "example": [
+              "test",
+              "test2"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Value for the custom field (preferred)."
+          },
           "field_value": {
             "example": [
               "test",
@@ -1832,7 +1843,9 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead."
           }
         },
         "required": [
@@ -1850,9 +1863,16 @@
             "type": "string",
             "example": "my_custom_field"
           },
+          "fieldValue": {
+            "type": "object",
+            "example": {},
+            "description": "Value for the custom field (preferred)."
+          },
           "field_value": {
             "type": "object",
-            "example": {}
+            "example": {},
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead."
           }
         },
         "required": [
@@ -1872,9 +1892,16 @@
             "example": "my_custom_field",
             "description": "Pass either `id` or `key` of custom field"
           },
+          "fieldValue": {
+            "type": "string",
+            "example": "9039160788",
+            "description": "Value for the custom field (preferred)."
+          },
           "field_value": {
             "type": "string",
-            "example": "9039160788"
+            "example": "9039160788",
+            "deprecated": true,
+            "description": "Deprecated. Use `fieldValue` instead."
           }
         }
       },
