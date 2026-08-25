@@ -489,6 +489,16 @@
               ]
             },
             "example": "v3"
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID (also known as Sub-Account ID) for the business location.",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6470,18 +6480,17 @@
             "example": "true"
           },
           "postType": {
-            "type": "object",
+            "type": "string",
             "description": "Post Type must be one of the following values: - post, story, reel",
+            "enum": [
+              "post",
+              "story",
+              "reel",
+              "short"
+            ],
             "example": "post"
           }
-        },
-        "required": [
-          "skip",
-          "limit",
-          "fromDate",
-          "toDate",
-          "includeUsers"
-        ]
+        }
       },
       "PostMediaSchema": {
         "type": "object",
