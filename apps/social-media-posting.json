@@ -773,6 +773,16 @@
                 "2021-07-28"
               ]
             }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID (also known as Sub-Account ID) for the business location.",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -4778,22 +4788,24 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "type must be one of the following values: recent, all, scheduled, draft, failed, in_review, published, in_progress and deleted",
-            "example": "Filter type",
+            "description": "type must be one of the following values: recent, all, scheduled, draft, failed, in_review, published, in_progress, pending and deleted",
+            "example": "all",
             "default": "all"
           },
           "accounts": {
             "type": "string",
-            "description": "List of account Ids seperated by comma as a string",
+            "description": "List of account Ids separated by comma as a string",
             "example": "660a83fc29deacac50033e2b_omaDY3RbWtTP511e808O_17841465964543589, 38bF83fc29deacac50033e2b_omaDY3RbWtr3P11e808O_17841465964543998"
           },
           "skip": {
             "type": "string",
-            "example": "1",
+            "description": "Number of records to skip for pagination",
+            "example": "0",
             "default": "0"
           },
           "limit": {
             "type": "string",
+            "description": "Maximum number of records to return",
             "example": "10",
             "default": "10"
           },
@@ -4813,18 +4825,17 @@
             "example": "true"
           },
           "postType": {
-            "type": "object",
+            "type": "string",
             "description": "Post Type must be one of the following values: - post, story, reel",
+            "enum": [
+              "post",
+              "story",
+              "reel",
+              "short"
+            ],
             "example": "post"
           }
-        },
-        "required": [
-          "skip",
-          "limit",
-          "fromDate",
-          "toDate",
-          "includeUsers"
-        ]
+        }
       },
       "PostMediaSchema": {
         "type": "object",
