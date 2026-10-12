@@ -1393,7 +1393,7 @@
     },
     "/contacts/bulk/tags/update/{type}": {
       "post": {
-        "operationId": "create-association",
+        "operationId": "update-contacts-tags",
         "summary": "Update Contacts Tags",
         "description": "Allows you to update tags to multiple contacts at once, you can add or remove tags from the contacts",
         "parameters": [
