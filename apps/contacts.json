@@ -1408,6 +1408,20 @@
                 "2021-07-28"
               ]
             }
+          },
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "description": "Whether to add the tags to or remove them from the contacts",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "add",
+                "remove"
+              ],
+              "example": "add"
+            }
           }
         ],
         "requestBody": {
@@ -3337,7 +3351,7 @@
         "type": "object",
         "properties": {
           "contacts": {
-            "description": "list of contact ids to be processed",
+            "description": "list of contact ids to be processed. Minimum 1, maximum 500 per request.",
             "example": [
               "qFSqySFkVvNzOSqgGqFi",
               "abcdef",
@@ -3347,10 +3361,12 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "minItems": 1,
+            "maxItems": 500
           },
           "tags": {
-            "description": "list of tags to be added or removed",
+            "description": "list of tags to be added or removed. Minimum 1, maximum 50 per request. Can be empty only when removeAllTags is true.",
             "example": [
               "tag-1",
               "tag-2"
@@ -3358,7 +3374,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "maxItems": 50
           },
           "locationId": {
             "type": "string",
