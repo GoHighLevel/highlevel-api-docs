@@ -1425,6 +1425,20 @@
               ],
               "example": "v3"
             }
+          },
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "description": "Whether to add the tags to or remove them from the contacts",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "add",
+                "remove"
+              ],
+              "example": "add"
+            }
           }
         ],
         "requestBody": {
@@ -1471,6 +1485,13 @@
         },
         "tags": [
           "Bulk"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
         ]
       }
     },
@@ -1528,6 +1549,13 @@
         },
         "tags": [
           "Bulk"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
         ]
       }
     },
@@ -3414,7 +3442,7 @@
         "type": "object",
         "properties": {
           "contacts": {
-            "description": "list of contact ids to be processed",
+            "description": "list of contact ids to be processed. Minimum 1, maximum 500 per request.",
             "example": [
               "qFSqySFkVvNzOSqgGqFi",
               "abcdef",
@@ -3424,10 +3452,12 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "minItems": 1,
+            "maxItems": 500
           },
           "tags": {
-            "description": "list of tags to be added or removed",
+            "description": "list of tags to be added or removed. Minimum 1, maximum 50 per request. Can be empty only when removeAllTags is true.",
             "example": [
               "tag-1",
               "tag-2"
@@ -3435,7 +3465,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "maxItems": 50
           },
           "locationId": {
             "type": "string",
@@ -3445,7 +3476,7 @@
           "removeAllTags": {
             "type": "boolean",
             "description": "Option to implement remove all tags. if true, all tags will be removed from the contacts. Can only be used with remove type.",
-            "example": "false"
+            "example": false
           }
         },
         "required": [
