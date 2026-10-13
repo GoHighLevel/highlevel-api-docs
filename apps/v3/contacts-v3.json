@@ -1485,6 +1485,13 @@
         },
         "tags": [
           "Bulk"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
         ]
       }
     },
@@ -1542,6 +1549,13 @@
         },
         "tags": [
           "Bulk"
+        ],
+        "security": [
+          {
+            "bearer": [
+              "contacts.write"
+            ]
+          }
         ]
       }
     },
@@ -3462,7 +3476,7 @@
           "removeAllTags": {
             "type": "boolean",
             "description": "Option to implement remove all tags. if true, all tags will be removed from the contacts. Can only be used with remove type.",
-            "example": "false"
+            "example": false
           }
         },
         "required": [
