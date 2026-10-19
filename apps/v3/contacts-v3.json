@@ -4368,8 +4368,9 @@
           },
           "attachments": {
             "type": "string",
-            "description": "List of attachment URLs associated with the contact",
-            "example": []
+            "description": "Deprecated: leftover field, not populated. Contact files are stored as documents on the contact, not here, so this is empty or absent (older records may still carry stale values).",
+            "example": [],
+            "deprecated": true
           },
           "ssn": {
             "type": "string",

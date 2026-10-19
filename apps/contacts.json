@@ -3739,7 +3739,9 @@
             "example": "2021-07-02T05:18:26.704Z"
           },
           "attachments": {
-            "type": "string"
+            "type": "string",
+            "description": "Deprecated: leftover field, not populated. Contact files are stored as documents on the contact, not here, so this is empty or absent (older records may still carry stale values).",
+            "deprecated": true
           },
           "ssn": {
             "type": "string"

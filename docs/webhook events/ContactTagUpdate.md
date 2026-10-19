@@ -72,9 +72,6 @@ Called whenever a contact's tag field is updated
     "website": {
       "type": "string"
     },
-    "attachments": {
-      "type": "array"
-    },
     "assignedTo": {
       "type": "string"
     },
@@ -120,7 +117,6 @@ Called whenever a contact's tag field is updated
   "postalCode": "452001",
   "tags": ["id magna sed Lorem", "Duis dolor commodo aliqua"],
   "website": "https://www.google.com/",
-  "attachments": [],
   "assignedTo": "nmFmQEsNgz6AVpgLVUJ0",
   "customFields": [
     {

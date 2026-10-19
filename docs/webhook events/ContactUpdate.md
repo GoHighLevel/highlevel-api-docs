@@ -6,6 +6,8 @@ tags: [Webhook Events]
 
 Called whenever the specific fields in contact is updated
 
+> Files are not part of this payload. Files added from the contact's files or documents are not sent, and adding one does not fire `ContactUpdate`. Files uploaded through a form's file-upload custom field can appear under `customFields`.
+
 #### Schema
 
 ```json json_schema
@@ -72,9 +74,6 @@ Called whenever the specific fields in contact is updated
     "website": {
       "type": "string"
     },
-    "attachments": {
-      "type": "array"
-    },
     "assignedTo": {
       "type": "string"
     },
@@ -120,7 +119,6 @@ Called whenever the specific fields in contact is updated
   "postalCode": "452001",
   "tags": ["id magna sed Lorem", "Duis dolor commodo aliqua"],
   "website": "https://www.google.com/",
-  "attachments": [],
   "assignedTo": "nmFmQEsNgz6AVpgLVUJ0",
   "customFields": [
     {
