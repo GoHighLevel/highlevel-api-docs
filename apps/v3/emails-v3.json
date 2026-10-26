@@ -220,7 +220,7 @@
             "name": "include",
             "required": false,
             "in": "query",
-            "description": "Whether to include templates, folders, or both in the response. `templates` will return only templates, `folders` will return only folders, and `all` will return both.",
+            "description": "Whether to include templates, folders, or both in the response. `templates` will return only templates, `folders` will return only folders, and `all` will return both. Deprecated for listing folders: use `GET /emails/locations/{locationId}/templates/folders`, which pages and counts folders correctly.",
             "schema": {
               "default": "all",
               "example": "all",
@@ -545,6 +545,146 @@
           {
             "Location-Access": [
               "emails/templates.write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "list-email-template-folders",
+        "x-version-added": "v3",
+        "summary": "List template folders",
+        "description": "Get the template folders directly under a parent folder (top level by default)",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "parentFolderId",
+            "required": false,
+            "in": "query",
+            "description": "Folder whose direct child folders are listed. Use 'root' for top-level folders.",
+            "schema": {
+              "default": "root",
+              "example": "root",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Filter folders by name",
+            "schema": {
+              "example": "newsletter",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of folders to return",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of folders to skip",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "archived",
+            "required": false,
+            "in": "query",
+            "description": "Return only archived folders when true; archived folders are excluded otherwise",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListEmailFoldersPublicResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Templates"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/templates.readonly"
             ]
           }
         ]
@@ -1041,6 +1181,251 @@
         ]
       }
     },
+    "/emails/locations/{locationId}/campaigns/folders": {
+      "get": {
+        "operationId": "list-email-campaign-folders",
+        "x-version-added": "v3",
+        "summary": "List Email Campaign Folders",
+        "description": "Get the email campaign folders directly under a parent folder (top level by default)",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "parentFolderId",
+            "required": false,
+            "in": "query",
+            "description": "Folder whose direct child folders are listed. Use 'root' for top-level folders.",
+            "schema": {
+              "default": "root",
+              "example": "root",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Filter folders by name",
+            "schema": {
+              "example": "newsletter",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of folders to return",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Number of folders to skip",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "archived",
+            "required": false,
+            "in": "query",
+            "description": "Return only archived folders when true; archived folders are excluded otherwise",
+            "schema": {
+              "default": false,
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListEmailFoldersPublicResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.readonly"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create-email-campaign-folder",
+        "x-version-added": "v3",
+        "summary": "Create Email Campaign Folder",
+        "description": "Create an email campaign folder, at the top level or inside a parent folder",
+        "parameters": [
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Location ID",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "description": "API Version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v3"
+              ],
+              "example": "v3"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmailFolderPublicBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailFolderPublicDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parent folder",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/BadRequestDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnauthorizedDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The token does not have access to this location",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidLocationDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../common/common-schemas.json#/components/schemas/UnprocessableDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Campaigns"
+        ],
+        "security": [
+          {
+            "Location-Access": [
+              "emails/campaigns.write"
+            ]
+          }
+        ]
+      }
+    },
     "/emails/locations/{locationId}/campaigns/emails": {
       "post": {
         "operationId": "create-email-campaign",
@@ -1224,6 +1609,16 @@
                 "cancelled",
                 "paused"
               ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "folderId",
+            "required": false,
+            "in": "query",
+            "description": "Only campaigns inside this campaign folder. Use 'root' for campaigns outside any folder; omit to list campaigns across all folders.",
+            "schema": {
+              "example": "root",
               "type": "string"
             }
           },
@@ -3540,6 +3935,11 @@
             "description": "Folder name",
             "example": "Spring Campaigns"
           },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent template folder ID; omit to create a top-level folder",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
           "userId": {
             "type": "string",
             "description": "ID of the user performing this action",
@@ -3942,6 +4342,114 @@
           "subjectLine",
           "previewText",
           "previewUrl"
+        ]
+      },
+      "EmailFolderPublicDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Folder ID",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "name": {
+            "type": "string",
+            "description": "Folder name",
+            "example": "Newsletters"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID; null for a top-level folder",
+            "nullable": true,
+            "example": null
+          },
+          "childCount": {
+            "type": "number",
+            "description": "Number of direct children (items and folders) in the folder",
+            "example": 3
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "Whether the folder is archived",
+            "example": false
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "parentFolderId",
+          "childCount",
+          "archived"
+        ]
+      },
+      "EmailFoldersPagePublicDto": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Page size applied to this response",
+            "example": 10
+          },
+          "offset": {
+            "type": "number",
+            "description": "Number of folders skipped before this page",
+            "example": 0
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of folders matching the query",
+            "example": 4
+          },
+          "hasMore": {
+            "type": "boolean",
+            "description": "Whether more folders exist after this page",
+            "example": false
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "total",
+          "hasMore"
+        ]
+      },
+      "ListEmailFoldersPublicResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Folders on this page",
+            "example": [
+              {
+                "id": "67f15c2ae99226d5bcccb8f0",
+                "name": "Newsletters",
+                "parentFolderId": null,
+                "childCount": 3,
+                "archived": false
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailFolderPublicDto"
+            }
+          },
+          "page": {
+            "description": "Paging details for this response",
+            "example": {
+              "limit": 10,
+              "offset": 0,
+              "total": 4,
+              "hasMore": false
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EmailFoldersPagePublicDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data",
+          "page"
         ]
       },
       "EmailStatsNumbersDto": {
@@ -4570,6 +5078,12 @@
               "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
             }
           },
+          "parentFolderId": {
+            "type": "string",
+            "description": "ID of the campaign folder holding the campaign; null when it is outside any folder",
+            "nullable": true,
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
           "deleted": {
             "type": "boolean",
             "description": "Whether the campaign is deleted",
@@ -4659,6 +5173,12 @@
             "items": {
               "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
             }
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "ID of the campaign folder holding the campaign; null when it is outside any folder",
+            "nullable": true,
+            "example": "67f15c2ae99226d5bcccb8f0"
           },
           "deleted": {
             "type": "boolean",
@@ -4809,6 +5329,12 @@
             "items": {
               "$ref": "#/components/schemas/EmailCampaignVariationPublicV2Dto"
             }
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "ID of the campaign folder holding the campaign; null when it is outside any folder",
+            "nullable": true,
+            "example": "67f15c2ae99226d5bcccb8f0"
           },
           "deleted": {
             "type": "boolean",
@@ -6040,6 +6566,29 @@
         },
         "required": [
           "deleted"
+        ]
+      },
+      "CreateEmailFolderPublicBodyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Folder name",
+            "example": "Q4 Promotions"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Parent folder ID; omit to create a top-level folder",
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user performing this action",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        },
+        "required": [
+          "name"
         ]
       }
     }
