@@ -658,7 +658,7 @@
             }
           },
           "403": {
-            "description": "The token does not have access to this location",
+            "description": "The token does not have access to this sub-account",
             "content": {
               "application/json": {
                 "schema": {
@@ -1291,7 +1291,7 @@
             }
           },
           "403": {
-            "description": "The token does not have access to this location",
+            "description": "The token does not have access to this sub-account",
             "content": {
               "application/json": {
                 "schema": {
@@ -1394,7 +1394,7 @@
             }
           },
           "403": {
-            "description": "The token does not have access to this location",
+            "description": "The token does not have access to this sub-account",
             "content": {
               "application/json": {
                 "schema": {
