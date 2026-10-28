@@ -5107,6 +5107,7 @@
         },
         "required": [
           "id",
+          "parentFolderId",
           "deleted",
           "createdAt",
           "updatedAt"
@@ -5198,6 +5199,7 @@
         },
         "required": [
           "id",
+          "parentFolderId",
           "deleted",
           "createdAt",
           "updatedAt"
@@ -5359,6 +5361,7 @@
         },
         "required": [
           "id",
+          "parentFolderId",
           "deleted",
           "createdAt",
           "updatedAt"
