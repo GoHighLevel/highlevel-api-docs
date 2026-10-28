@@ -571,6 +571,7 @@
             "in": "query",
             "description": "Folder whose direct child folders are listed. Use 'root' for top-level folders.",
             "schema": {
+              "maxLength": 64,
               "default": "root",
               "example": "root",
               "type": "string"
@@ -582,6 +583,7 @@
             "in": "query",
             "description": "Filter folders by name",
             "schema": {
+              "maxLength": 100,
               "example": "newsletter",
               "type": "string"
             }
@@ -1204,6 +1206,7 @@
             "in": "query",
             "description": "Folder whose direct child folders are listed. Use 'root' for top-level folders.",
             "schema": {
+              "maxLength": 64,
               "default": "root",
               "example": "root",
               "type": "string"
@@ -1215,6 +1218,7 @@
             "in": "query",
             "description": "Filter folders by name",
             "schema": {
+              "maxLength": 100,
               "example": "newsletter",
               "type": "string"
             }
@@ -3938,7 +3942,8 @@
           "parentFolderId": {
             "type": "string",
             "description": "Parent template folder ID; omit to create a top-level folder",
-            "example": "67f15c2ae99226d5bcccb8f0"
+            "example": "67f15c2ae99226d5bcccb8f0",
+            "maxLength": 64
           },
           "userId": {
             "type": "string",
@@ -6577,12 +6582,14 @@
           "name": {
             "type": "string",
             "description": "Folder name",
-            "example": "Q4 Promotions"
+            "example": "Q4 Promotions",
+            "maxLength": 255
           },
           "parentFolderId": {
             "type": "string",
             "description": "Parent folder ID; omit to create a top-level folder",
-            "example": "67f15c2ae99226d5bcccb8f0"
+            "example": "67f15c2ae99226d5bcccb8f0",
+            "maxLength": 64
           },
           "userId": {
             "type": "string",
