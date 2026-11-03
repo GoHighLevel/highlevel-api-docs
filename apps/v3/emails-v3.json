@@ -678,6 +678,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "description": "Too many requests - Rate limit exceeded"
           }
         },
         "tags": [
@@ -1313,6 +1316,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "description": "Too many requests - Rate limit exceeded"
           }
         },
         "tags": [
@@ -1416,6 +1422,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "description": "Too many requests - Rate limit exceeded"
           }
         },
         "tags": [
