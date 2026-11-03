@@ -5479,6 +5479,12 @@
             "description": "Preview text",
             "example": "Check out our latest updates"
           },
+          "parentFolderId": {
+            "type": "string",
+            "description": "ID of the campaign folder holding the campaign; null when it is outside any folder",
+            "nullable": true,
+            "example": "67f15c2ae99226d5bcccb8f0"
+          },
           "deleted": {
             "type": "boolean",
             "description": "Whether the campaign is deleted",
@@ -5502,6 +5508,7 @@
         },
         "required": [
           "id",
+          "parentFolderId",
           "deleted",
           "createdAt",
           "updatedAt"
