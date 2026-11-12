@@ -88,6 +88,31 @@ async function getUserData() {
 }
 ```
 
+#### `REQUEST_USER_DATA_RESPONSE` Message Fields
+
+| Field   | Type   | Description                                                                                                                                                                           |
+| ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| message | string | Always `'REQUEST_USER_DATA_RESPONSE'`                                                                                                                                                 |
+| payload | string | Encrypted user data. Decrypt it on your backend with your Shared Secret key (see below)                                                                                               |
+| locale  | string | The active HighLevel UI language of the user, as a BCP 47 style code with hyphens (e.g. `'en-US'`, `'pt-BR'`, `'fr'`). Empty string (`''`) when the locale is unavailable or invalid |
+
+#### Matching the HighLevel UI Language
+
+Custom pages load in a cross-origin iframe, so they cannot read HighLevel's language setting directly. Use the `locale` field to render your page in the same language as the user's HighLevel UI:
+
+```javascript
+const messageHandler = ({ data }) => {
+  if (data.message === 'REQUEST_USER_DATA_RESPONSE') {
+    // Fall back to your app's default language when locale is empty
+    const language = data.locale || 'en-US'
+    document.documentElement.lang = language
+    // e.g. i18n.changeLanguage(language)
+  }
+}
+```
+
+> **Note:** `locale` is not part of the encrypted `payload`, so treat it as a display preference only. Do not use it for authorization or other security decisions.
+
 ## Backend Implementation
 
 Regardless of which frontend method you use, the backend decryption process remains the same:
