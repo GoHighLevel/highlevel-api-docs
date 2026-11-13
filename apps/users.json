@@ -375,6 +375,16 @@
                 "2021-07-28"
               ]
             }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -460,6 +470,16 @@
               "enum": [
                 "2021-07-28"
               ]
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
             }
           }
         ],

@@ -381,6 +381,16 @@
               ],
               "example": "v3"
             }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -468,6 +478,16 @@
                 "v3"
               ],
               "example": "v3"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User Id",
+            "schema": {
+              "example": "ve9EPM428h8vShlRW1KT",
+              "type": "string"
             }
           }
         ],
