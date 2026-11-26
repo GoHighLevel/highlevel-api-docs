@@ -128,7 +128,10 @@
             "description": "Limit of conversations - Default is 20",
             "schema": {
               "example": 20,
-              "type": "number"
+              "type": "number",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 100
             }
           },
           {
@@ -1017,7 +1020,7 @@
             "description": "Number of messages to return per page",
             "schema": {
               "minimum": 10,
-              "maximum": 500,
+              "maximum": 1000,
               "default": 100,
               "type": "number"
             }
@@ -1740,7 +1743,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Uploaded the file successfully",
             "content": {
               "application/json": {
@@ -4331,6 +4334,14 @@
             "description": "Contact Id",
             "example": "ve9EPM428h8vShlRW1KT"
           },
+          "fileAttachment": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "The file(s) to upload, as multipart file parts. Send either files or attachmentUrls. The location is taken from the contact or conversation when locationId is not given."
+          },
           "locationId": {
             "type": "string"
           },
@@ -4350,13 +4361,7 @@
             "description": "Flag to indicate group SMS upload flow. When true, only 1 file upload is allowed per request.",
             "example": "true"
           }
-        },
-        "required": [
-          "conversationId",
-          "contactId",
-          "locationId",
-          "attachmentUrls"
-        ]
+        }
       },
       "UploadFilesResponseDto": {
         "type": "object",
